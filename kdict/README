@@ -1,0 +1,47 @@
+Kdict - The KDE Dictionary Client
+Copyright (C) 2000-2001 Christian Gebauer <gebauer@kde.org>
+copyright (c) 1998 by Matthias Hoelzer <hoelzer@kde.org>
+
+maintained by Christian Gebauer <gebauer@kde.org>
+
+Homepage: http://www.rhrk.uni-kl.de/~gebauerc/kdict/
+
+See LICENSE for the license of this programm.
+
+**************************************************************************
+
+Kdict is a graphical client for the DICT Protocol.
+It enables you to search through dictionary-like databases
+for a word or phrase, then displays suitable definitions.
+
+Kdict trys to ease basic as well as advanced queries. A separate list
+offers a convenient way to deal with the enormous number of matching
+words that a advanced query can return.
+
+The remainder of Kdict's user interface resembles a web browser:
+For instance, you can jump to the definition of a synonym by
+simply clicking on the highlighted word. The back/forward functionality
+is also implemented, enabling you to quickly go back to the result of
+previous queries.
+
+Kdict is able to  process the content of the X clipboard, so it's easy 
+to combine Kdict with your web browser or text editor.
+
+Kdict is now a real client, no additional software is needed.
+
+If your machine is behind a firewall, has no permanent internet
+connection or the server of dict.org is too slow for you, you can
+set up your own local server, all you need is available at
+http://www.dict.org.
+The advantages of a local server are optimal performance and
+the ability to install additional databases of your choice.
+The handbook contains a small tutorial for installation
+and links to databases. 
+
+**************************************************************************
+
+For installing Kdict you need: 
+
+- KDE 3.x
+- POSIX Threads
+

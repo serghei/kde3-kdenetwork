@@ -1,0 +1,158 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>ConfigPower</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>ConfigPower</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>318</width>
+            <height>186</height>
+        </rect>
+    </property>
+    <grid>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <property name="margin">
+            <number>0</number>
+        </property>
+        <widget class="QLabel" row="0" column="0">
+            <property name="name">
+                <cstring>lb_sleepTimeout</cstring>
+            </property>
+            <property name="text">
+                <string>Sleep timeout:</string>
+            </property>
+	    <property name="toolTip">
+                <string>Sets how long the card will be offline before looking for new packages again.</string>
+            </property>
+        </widget>
+        <widget class="KIntNumInput" row="0" column="1">
+            <property name="name">
+                <cstring>sb_sleepTimeout</cstring>
+            </property>
+            <property name="enabled">
+                <bool>true</bool>
+            </property>
+            <property name="sizePolicy">
+                <sizepolicy>
+                    <hsizetype>1</hsizetype>
+                    <vsizetype>0</vsizetype>
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                </sizepolicy>
+            </property>
+            <property name="minValue">
+                <number>0</number>
+            </property>
+            <property name="maxValue">
+                <number>60</number>
+            </property>
+            <property name="suffix">
+                <string> sec</string>
+            </property>
+        </widget>
+        <widget class="QLabel" row="1" column="0">
+            <property name="name">
+                <cstring>lb_wakeupPeriod</cstring>
+            </property>
+            <property name="text">
+                <string>Wakeup period:</string>
+            </property>
+	    <property name="toolTip">
+                <string>Sets how long the card will be online and looking for new packages before it falls asleep.</string>
+            </property>
+        </widget>
+        <widget class="QButtonGroup" row="2" column="0" rowspan="1" colspan="2">
+            <property name="name">
+                <cstring>bg_packets</cstring>
+            </property>
+            <property name="title">
+                <string>Receive Packets</string>
+            </property>
+	    <property name="toolTip">
+                <string>Sets which sort of packets to listen to.</string>
+            </property>
+            <vbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QRadioButton">
+                    <property name="name">
+                        <cstring>bg_allPackets</cstring>
+                    </property>
+                    <property name="text">
+                        <string>All</string>
+                    </property>
+	            <property name="toolTip">
+        	        <string>Listen to all packet types.</string>
+            	    </property>
+                </widget>
+                <widget class="QRadioButton">
+                    <property name="name">
+                        <cstring>rb_unicastOnly</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Unicast only</string>
+                    </property>
+	            <property name="toolTip">
+        	        <string>Listen to Unicast packets only.</string>
+            	    </property>
+                </widget>
+                <widget class="QRadioButton">
+                    <property name="name">
+                        <cstring>rb_multicastOnly</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Multicast/Broadcast only</string>
+                    </property>
+		    <property name="toolTip">
+                        <string>Listen to Multicast and Broadcast packets only.</string>
+                    </property>
+                </widget>
+            </vbox>
+        </widget>
+        <widget class="KIntNumInput" row="1" column="1">
+            <property name="name">
+                <cstring>sb_wakeupPeriod</cstring>
+            </property>
+            <property name="sizePolicy">
+                <sizepolicy>
+                    <hsizetype>1</hsizetype>
+                    <vsizetype>0</vsizetype>
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                </sizepolicy>
+            </property>
+            <property name="minValue">
+                <number>0</number>
+            </property>
+            <property name="maxValue">
+                <number>60</number>
+            </property>
+            <property name="suffix">
+                <string> sec</string>
+            </property>
+        </widget>
+    </grid>
+</widget>
+<customwidgets>
+</customwidgets>
+<includes>
+    <include location="local" impldecl="in declaration">wificonfig.h</include>
+    <include location="local" impldecl="in implementation">configpower.ui.h</include>
+</includes>
+<slots>
+    <slot>load( const IfConfig &amp; ifconfig )</slot>
+    <slot>save( IfConfig &amp; ifconfig )</slot>
+</slots>
+<layoutdefaults spacing="6" margin="11"/>
+<layoutfunctions spacing="KDialog::spacingHint" margin="KDialog::marginHint"/>
+<includehints>
+    <includehint>knuminput.h</includehint>
+    <includehint>knuminput.h</includehint>
+</includehints>
+</UI>

@@ -1,0 +1,540 @@
+<!DOCTYPE UI><UI version="3.2" stdsetdef="1">
+<class>PageGeneralBase</class>
+<widget class="QFrame">
+    <property name="name">
+        <cstring>PageGeneralBase</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>443</width>
+            <height>489</height>
+        </rect>
+    </property>
+    <property name="minimumSize">
+        <size>
+            <width>425</width>
+            <height>0</height>
+        </size>
+    </property>
+    <property name="caption">
+        <string>General</string>
+    </property>
+    <property name="frameShape">
+        <enum>NoFrame</enum>
+    </property>
+    <property name="frameShadow">
+        <enum>Plain</enum>
+    </property>
+    <vbox>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <property name="margin">
+            <number>0</number>
+        </property>
+        <widget class="QGroupBox">
+            <property name="name">
+                <cstring>miscGB</cstring>
+            </property>
+            <property name="frameShape">
+                <enum>GroupBoxPanel</enum>
+            </property>
+            <property name="frameShadow">
+                <enum>Sunken</enum>
+            </property>
+            <property name="title">
+                <string>Global Options</string>
+            </property>
+            <grid>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QLayoutWidget" row="5" column="1">
+                    <property name="name">
+                        <cstring>Layout11</cstring>
+                    </property>
+                    <hbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <property name="margin">
+                            <number>0</number>
+                        </property>
+                        <property name="spacing">
+                            <number>6</number>
+                        </property>
+                        <widget class="QLabel">
+                            <property name="name">
+                                <cstring>historyItemsLabel</cstring>
+                            </property>
+                            <property name="maximumSize">
+                                <size>
+                                    <width>120</width>
+                                    <height>32767</height>
+                                </size>
+                            </property>
+                            <property name="text">
+                                <string>Histor&amp;y length:</string>
+                            </property>
+                            <property name="buddy" stdset="0">
+                                <cstring>historySB</cstring>
+                            </property>
+                        </widget>
+                        <widget class="QSpinBox">
+                            <property name="name">
+                                <cstring>historySB</cstring>
+                            </property>
+                            <property name="sizePolicy">
+                                <sizepolicy>
+                                    <hsizetype>1</hsizetype>
+                                    <vsizetype>0</vsizetype>
+                                    <horstretch>0</horstretch>
+                                    <verstretch>0</verstretch>
+                                </sizepolicy>
+                            </property>
+                            <property name="suffix">
+                                <string> lines</string>
+                            </property>
+                            <property name="specialValueText">
+                                <string>unlimited</string>
+                            </property>
+                            <property name="maxValue">
+                                <number>1000</number>
+                            </property>
+                            <property name="toolTip" stdset="0">
+                                <string>Stores up to this many lines of chat from each window as history</string>
+                            </property>
+                            <property name="whatsThis" stdset="0">
+                                <string>Stores up to this many lines of chat from each window, allowing you to scroll upwards and see what has already been said.</string>
+                            </property>
+                        </widget>
+                    </hbox>
+                </widget>
+                <widget class="QCheckBox" row="2" column="1">
+                    <property name="name">
+                        <cstring>publicAway</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&amp;Announce away messages</string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>See the messages when a user selects the away option</string>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>If this is checked, you will see the messages when a user selects the away option. By default this option is not checked.</string>
+                    </property>
+                </widget>
+                <widget class="QCheckBox" row="1" column="0">
+                    <property name="name">
+                        <cstring>autoCreateWindowCB</cstring>
+                    </property>
+                    <property name="text">
+                        <string>A&amp;uto create window</string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Will auto create a window for each user who sends a /msg to you</string>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>If selected, KSirc  will automatically create a new window for each user who sends a /msg command to you. If not selected, any text sent to you with /msg is displayed in the current window and you can use /query username to create a window to chat to that user.</string>
+                    </property>
+                </widget>
+                <widget class="QCheckBox" row="2" column="0">
+                    <property name="name">
+                        <cstring>autoCreateWindowForNoticeCB</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Auto create &amp;on notice</string>
+                    </property>
+                </widget>
+                <widget class="QCheckBox" row="1" column="1">
+                    <property name="name">
+                        <cstring>autoRejoinCB</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Auto-re&amp;join</string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Rejoin channels automatically if you are disconnected.</string>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>If selected, it allows you to  rejoin channels automatically if you are disconnected.</string>
+                    </property>
+                </widget>
+                <widget class="QCheckBox" row="4" column="1">
+                    <property name="name">
+                        <cstring>dockPopupsCB</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Dock &amp;passive popups</string>
+                    </property>
+                </widget>
+                <widget class="QCheckBox" row="4" column="0">
+                    <property name="name">
+                        <cstring>displayTopicCB</cstring>
+                    </property>
+                    <property name="text">
+                        <string>D&amp;isplay topic in caption</string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Display the topic of the current channel in the window caption</string>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>Displays the topic of the current channel in the window caption. If not selected, the topic is only displayed inside the window.</string>
+                    </property>
+                </widget>
+                <widget class="QCheckBox" row="0" column="1">
+                    <property name="name">
+                        <cstring>colorPickerPopupCB</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Color pi&amp;cker popup</string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Allow you to get the color pickup dialog with Ctrl K</string>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>If selected, a popup window from which to select the color of your text is presented when you press Ctrl K.  If not, you have to type the color codes manually.</string>
+                    </property>
+                </widget>
+                <widget class="QCheckBox" row="5" column="0">
+                    <property name="name">
+                        <cstring>oneLineEditCB</cstring>
+                    </property>
+                    <property name="text">
+                        <string>One line te&amp;xt entry box</string>
+                    </property>
+                </widget>
+                <widget class="QCheckBox" row="3" column="1">
+                    <property name="name">
+                        <cstring>useColourNickListCB</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Us&amp;e color nick list</string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Use the colors set in the Colors tab of the Configure KSirc dialog for coloring the nicknames</string>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>If selected, it will use the colors set in the Colors tab of the Configure KSirc dialog for coloring the nicknames.</string>
+                    </property>
+                </widget>
+                <spacer row="2" column="2">
+                    <property name="name">
+                        <cstring>spacer4</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>16</width>
+                            <height>21</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget class="QCheckBox" row="3" column="0">
+                    <property name="name">
+                        <cstring>nickCompletionCB</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&amp;Nick completion</string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Switch nickname completion on</string>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>If selected, switches nickname completion on. Nickname completion works as follows: Type the first letters of a user's nickname, press the Tab key, the text you typed will be completed to match the username, including changes in capitalization if necessary.</string>
+                    </property>
+                </widget>
+                <widget class="QCheckBox" row="0" column="0">
+                    <property name="name">
+                        <cstring>dockedOnlyCB</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&amp;Dock in system tray</string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Put the KSirc icon in the system tray</string>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>This allows KSirc to be docked in the system tray. By default this is not enabled. When KSirc is docked in the system tray, you are able to access several options by clicking on the KSirc icon. When you close KSirc window, the icon stays in the systray until you quit KSirc.</string>
+                    </property>
+                </widget>
+                <widget class="QCheckBox" row="6" column="0">
+                    <property name="name">
+                        <cstring>autoSaveHistoryCB</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Auto save history</string>
+                    </property>
+                </widget>
+            </grid>
+        </widget>
+        <widget class="QGroupBox">
+            <property name="name">
+                <cstring>groupBox4</cstring>
+            </property>
+            <property name="title">
+                <string>Per Channel Options</string>
+            </property>
+            <grid>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QCheckBox" row="1" column="0">
+                    <property name="name">
+                        <cstring>timeStampCB</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&amp;Time stamp</string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Add the time and date on the left of each message</string>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>Prepends each thing said in the channel with the time it was said, in the form [HH:MM:SS].</string>
+                    </property>
+                </widget>
+                <widget class="QCheckBox" row="0" column="0" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>applyGloballyCB</cstring>
+                    </property>
+                    <property name="text">
+                        <string>O&amp;verride existing channel options</string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>The settings in this tab will be applied and each channel settings will be ignored</string>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>If this is selected, the settings in this tab will override each channel's options so these settings will be applied in each channel, independently of your channel settings in the Channel menu. This setting will only work until next time you open the configuration dialog and it will be reset unchecked then; this is because you probably do not want to override the existing channels options all the time.</string>
+                    </property>
+                </widget>
+                <widget class="QCheckBox" row="1" column="1">
+                    <property name="name">
+                        <cstring>showTopicCB</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Sho&amp;w topic</string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Displays the channel topic on top</string>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>Displays the channel topic on top of each channel window.</string>
+                    </property>
+                </widget>
+                <widget class="QCheckBox" row="2" column="0">
+                    <property name="name">
+                        <cstring>beepCB</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&amp;Beep on change</string>
+                    </property>
+                </widget>
+                <widget class="QCheckBox" row="3" column="0">
+                    <property name="name">
+                        <cstring>joinPartCB</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Hide part/join messages</string>
+                    </property>
+                </widget>
+                <widget class="QCheckBox" row="2" column="1">
+                    <property name="name">
+                        <cstring>enLoggingCB</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Enable lo&amp;gging</string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string></string>
+                    </property>
+                </widget>
+                <widget class="QLayoutWidget" row="4" column="0" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>layout2</cstring>
+                    </property>
+                    <hbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <widget class="QLabel">
+                            <property name="name">
+                                <cstring>encodingsL</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Default en&amp;coding:</string>
+                            </property>
+                            <property name="buddy" stdset="0">
+                                <cstring>encodingsCB</cstring>
+                            </property>
+                        </widget>
+                        <widget class="QComboBox">
+                            <property name="name">
+                                <cstring>encodingsCB</cstring>
+                            </property>
+                        </widget>
+                    </hbox>
+                </widget>
+            </grid>
+        </widget>
+        <spacer>
+            <property name="name">
+                <cstring>spacer2</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Vertical</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>31</width>
+                    <height>71</height>
+                </size>
+            </property>
+        </spacer>
+    </vbox>
+</widget>
+<connections>
+    <connection>
+        <sender>autoCreateWindowCB</sender>
+        <signal>clicked()</signal>
+        <receiver>PageGeneralBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>nickCompletionCB</sender>
+        <signal>clicked()</signal>
+        <receiver>PageGeneralBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>displayTopicCB</sender>
+        <signal>clicked()</signal>
+        <receiver>PageGeneralBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>beepCB</sender>
+        <signal>clicked()</signal>
+        <receiver>PageGeneralBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>colorPickerPopupCB</sender>
+        <signal>clicked()</signal>
+        <receiver>PageGeneralBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>autoRejoinCB</sender>
+        <signal>clicked()</signal>
+        <receiver>PageGeneralBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>historySB</sender>
+        <signal>valueChanged(int)</signal>
+        <receiver>PageGeneralBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>publicAway</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>PageGeneralBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>showTopicCB</sender>
+        <signal>clicked()</signal>
+        <receiver>PageGeneralBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>enLoggingCB</sender>
+        <signal>clicked()</signal>
+        <receiver>PageGeneralBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>timeStampCB</sender>
+        <signal>clicked()</signal>
+        <receiver>PageGeneralBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>applyGloballyCB</sender>
+        <signal>clicked()</signal>
+        <receiver>PageGeneralBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>oneLineEditCB</sender>
+        <signal>clicked()</signal>
+        <receiver>PageGeneralBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>useColourNickListCB</sender>
+        <signal>clicked()</signal>
+        <receiver>PageGeneralBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>autoCreateWindowForNoticeCB</sender>
+        <signal>clicked()</signal>
+        <receiver>PageGeneralBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>dockedOnlyCB</sender>
+        <signal>clicked()</signal>
+        <receiver>PageGeneralBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>dockPopupsCB</sender>
+        <signal>clicked()</signal>
+        <receiver>PageGeneralBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>encodingsCB</sender>
+        <signal>activated(int)</signal>
+        <receiver>PageGeneralBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>joinPartCB</sender>
+        <signal>clicked()</signal>
+        <receiver>PageGeneralBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+</connections>
+<tabstops>
+    <tabstop>autoCreateWindowCB</tabstop>
+    <tabstop>nickCompletionCB</tabstop>
+    <tabstop>displayTopicCB</tabstop>
+    <tabstop>colorPickerPopupCB</tabstop>
+    <tabstop>autoRejoinCB</tabstop>
+    <tabstop>publicAway</tabstop>
+    <tabstop>historySB</tabstop>
+    <tabstop>timeStampCB</tabstop>
+    <tabstop>beepCB</tabstop>
+    <tabstop>showTopicCB</tabstop>
+    <tabstop>enLoggingCB</tabstop>
+</tabstops>
+<slots>
+    <slot access="protected">setPreviewPixmap(bool)</slot>
+    <slot access="protected">showWallpaperPixmap(const QString &amp;)</slot>
+    <slot>changed()</slot>
+</slots>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

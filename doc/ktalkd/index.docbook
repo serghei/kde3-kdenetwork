@@ -1,0 +1,608 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
+  <!ENTITY kappname "&ktalkd;">
+  <!ENTITY % addindex "IGNORE"> 
+  <!ENTITY % English "INCLUDE" > <!-- change language only here -->   
+]>
+
+<book lang="&language;">
+
+<bookinfo>
+<title>The &ktalkd; Handbook</title>
+<authorgroup>
+<author>
+<firstname>David</firstname>
+<surname>Faure</surname>
+<affiliation>
+<address><email>faure@kde.org</email></address>
+</affiliation>
+</author>
+
+<!-- TRANS:ROLES_OF_TRANSLATORS -->
+</authorgroup>
+
+<legalnotice>
+&FDLNotice;
+</legalnotice>
+
+<copyright>
+<year>2001</year>
+<holder>David Faure</holder>
+</copyright>
+
+<date>2001-05-02</date>
+<releaseinfo>1.05.02</releaseinfo>
+
+<abstract>
+<para>
+&ktalkd; is an enhanced <command>talk</command> daemon - a program
+to handle incoming <command>talk</command> requests, announce them and
+allow you to respond to it using a talk client. 
+</para> 
+
+</abstract>
+<keywordset>
+<keyword>KTALKD</keyword>
+<keyword>talk</keyword>
+<keyword>talkd</keyword>
+<keyword>otalk</keyword>
+<keyword>ntalk</keyword>
+<keyword>ktalkdlg</keyword>
+<keyword>kcmktalkd</keyword>
+</keywordset>
+</bookinfo>
+
+<chapter id="introduction">
+<title>Introduction</title>
+
+<para>
+&ktalkd; is an enhanced <command>talk</command> daemon - a program to
+handle incoming <command>talk</command> requests, announce them and
+allow you to respond to it using a <command>talk</command> client.
+</para>
+
+<important>
+<para>
+Note that &ktalkd; is designed to run on a single-user workstation, and
+shouldn't be run on a multi-user machine: since it reads users'
+configuration files, users can get the <command>talk</command> daemon to
+run any command, which is particularly dangerous. Do not use &ktalkd; if
+you create accounts on your machine, to people you don't fully trust.
+</para>
+</important>
+
+<para>
+In this document, if somebody wants to talk to you, you are designated
+as the <quote>callee</quote>.
+</para>
+
+<para>&ktalkd; has the following features :</para>
+
+<variablelist>
+<varlistentry>
+<term>Answering machine</term>
+<listitem>
+<para>
+If the callee isn't logged on, or doesn't answer after
+the second announcement, an answering machine is launched, takes the
+message, and mails it to the callee.
+</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>Sound</term>
+<listitem>
+<para>
+If desired, a sound is played with the announcement.
+</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+X Announce
+</term>
+<listitem>
+<para>
+If compiled with &kde; installed, &ktalkd; will use
+<command>ktalkdlg</command>, a &kde; dialog, for announcement.  If
+&ktalk; is running, it will be asked to make the announcement
+itself. (New since 0.8.8).
+</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>Multiple displays announcement</term>
+<listitem>
+<para>
+If you are logged remotely (&eg; with an
+<userinput><command>export</command>
+<envar>DISPLAY</envar>=<replaceable>...</replaceable></userinput>
+command), the X announcement will be made on this display too. Answer on
+the one you want!  If you're also logged in a text terminal, and if
+you're <emphasis>not</emphasis> using xterms (internal restriction),
+then you'll see a text announcement too, in case you're using the text
+terminal at the time of the announcement.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Forwarding   <emphasis>(New since 0.8.0)</emphasis></term>
+<listitem>
+<para>
+You can set up a forward to another user even to another host
+if you're away. There are 3 different forwarding methods. See section
+<link linkend="usage">Usage</link>.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Configuration</term>
+<listitem>
+<para>
+If &ktalkd; is compiled for &kde;, it reads config from &kde; config
+files, the sitewide
+(<filename>$<envar>KDEDIR</envar>/share/config/ktalkdrc</filename>) and
+the user one, in its home folder. The sitewide one has to be manually
+edited by the administrator, but there is now a configuration dialog for
+the user one. It's called <command>kcmktalkd</command> and can be found
+in the &kcontrol; after installing &ktalkd;.  On non-&kde; systems,
+&ktalkd; will read <filename>/etc/talkd.conf</filename>.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Internationalization</term>
+<listitem>
+<para>
+Under &kde;, the announcement will be in your language provided that you
+set it in the &kde; menus and that someone translated
+<command>ktalkdlg</command> to your language. The same goes for the
+configuration dialog, <command>kcmktalkd</command>.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Support for <command>otalk</command> and <command>ntalk</command>
+<emphasis>(New since 0.8.1)</emphasis></term>
+<listitem>
+<para>
+&ktalkd; now supports both protocols, even when forwarding. &ktalk;
+supports both protocols as well.
+</para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+<para>I hope you will enjoy this talk daemon,</para>
+
+<para>David Faure <email>faure@kde.org</email></para>
+
+</chapter>
+
+<chapter id="usage">
+<title>Usage</title>
+
+<para>
+To use &ktalkd;, you need a <command>talk</command> client. The
+text-based <command>talk</command> is available on most &UNIX; systems. Try <userinput><command>talk</command> <replaceable>your&lowbar;username</replaceable></userinput> to see what happens when you
+receive a <command>talk</command> request.
+</para>
+
+<para>
+You can also try the answering machine the same way: initiate a
+<command>talk</command> to yourself, ignore the announcement twice, and
+you'll see the answering machine.
+</para>
+
+<para>
+There is a <command>talk</command> client with a graphical interface for
+&kde;, &ktalk;. It's not yet shipped with &kde; packages, but you can
+find it on ftp://ftp.kde.org. It should be in <ulink
+url="ftp://ftp.kde.org/pub/kde/stable/latest/apps/network">ftp://ftp.kde.org/pub/kde/stable/latest/apps/network</ulink>
+</para>
+
+<para>
+The announcement dialog box is trivial: <guibutton>respond</guibutton>
+or <guibutton>ignore</guibutton>.
+</para>
+
+<para>
+The configuration dialog should be rather straight forward, except for
+setting up a forward to another user (or even to another host).
+</para>
+
+<sect1 id="choosing-a-forwarding-method">
+<title>Choosing a Forwarding Method</title>
+
+<para>
+None is perfect, they all have pros (+) and cons (-).
+</para>
+
+<variablelist>
+<varlistentry>
+<term><acronym>FWA</acronym> - Forward announcement only.</term>
+<listitem>
+<para>
+Direct connection.  Not recommended.
+</para>
+<itemizedlist>
+<listitem>
+<para>
+(+) You know who the caller is, but
+</para>
+</listitem>
+<listitem>
+<para>
+(-) Caller will have to respond to an announcement from you. Annoying.
+</para>
+</listitem>
+<listitem>
+<para>
+(-) Don't use if you have an answering machine on your
+<quote>away</quote> location. (The answering machine can't popup an
+announcement, it would be confusing!)
+</para>
+</listitem>
+</itemizedlist>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><acronym>FWR</acronym> - Forward all requests, changing info when
+necessary</term>
+<listitem>
+<para>
+Direct connection.
+</para>
+<itemizedlist>
+<listitem>
+<para>
+(+) Caller won't know that you're away, but
+</para>
+</listitem>
+<listitem>
+<para>
+(-) You won't really know who the caller is - only his username, (so you
+might see <computeroutput>talk from
+Wintalk@my&lowbar;host</computeroutput>)
+</para>
+</listitem>
+</itemizedlist>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><acronym>FWT</acronym> - Forward all requests and take the
+ talk.</term>
+<listitem>
+<para>No direct connection.</para>
+
+<itemizedlist>
+<listitem>
+<para>
+(+) Same as above, but also works if you and caller can't be in
+direct contact one with the other (&eg; firewall).
+</para>
+</listitem>
+<listitem>
+<para>
+(+) You'll be told who's really talking to you when you accept the talk
+</para>
+</listitem>
+<listitem>
+<para>
+(-) But as in <acronym>FWR</acronym>, you won't know his machine name in
+the announcement
+</para>
+</listitem>
+</itemizedlist>
+</listitem>
+</varlistentry>
+</variablelist>
+
+<para>
+In short, use <acronym>FWT</acronym> it you want to use it behind a
+firewall (and if &ktalkd; can access both networks), and
+<acronym>FWR</acronym> otherwise.
+</para>
+
+</sect1>
+</chapter>
+
+<chapter id="questions-and-answers">
+<title>Questions and Answers</title>
+
+<qandaset>
+<qandaentry>
+<question>
+<para>
+Why doesn't <systemitem class="username">root</systemitem> receive &kde;
+announcements?
+</para>
+</question>
+
+<answer>
+<para>
+Because this would be security hole, with the current user
+detection. You can bypass the limitation by adding two lines in
+<command>xdm</command> config files (which are the same as &kdm; ones).
+</para>
+
+<note>
+<para>
+The S.u.S.E &Linux; distribution includes those lines by default.
+</para>
+</note>
+
+<para>
+Those config files are normally in a folder such as <filename
+class="directory">/etc/X11/xdm</filename>, or <filename
+class="directory">/usr/X11R6/lib/X11/xdm</filename> on other
+systems. The following supposes that they are in <filename
+class="directory">/etc/X11/xdm</filename>, so you might have to
+translate them for another folder.</para>
+
+<para>Here is what you have to do:</para>
+
+<procedure>
+<step>
+<para>Edit the file <filename>Xstartup</filename>, or create it, (in the
+<command>xdm</command> config folder) so that it reads:
+</para> 
+<screen>#!/bin/sh
+/etc/X11/xdm/GiveConsole
+sessreg -a -l $DISPLAY -x /etc/X11/xdm/Xservers $USER</screen>
+</step>
+<step>
+<para>and the file <filename>Xreset</filename> so that it reads:
+</para>
+<screen>#!/bin/sh
+/etc/X11/xdm/TakeConsole
+sessreg -d -l $DISPLAY $USER</screen>
+</step>
+<step>
+<para>
+Make sure that <filename>xdm-config</filename> make reference to those
+two files:
+</para>
+<screen>DisplayManager._0.startup:      /etc/X11/xdm/Xstartup
+DisplayManager._0.reset:        /etc/X11/xdm/Xreset </screen>
+</step>
+</procedure>
+
+<para>
+This will make &kdm; (or <command>xdm</command>) log
+the user into utmp, which is the right thing to do. It's not up to
+&konsole;, nor <command>xterm</command>, to log the user, but to
+<command>xdm</command> and &kdm;, in my
+opinion. However, this will not log the user as an X user when using
+<command>startx</command>... Any hint about that ?
+</para>
+</answer>
+</qandaentry>
+
+<qandaentry>
+<question>
+<para>
+Why don't I, as a normal user, receive &kde; announcements?
+</para>
+</question>
+
+<answer>
+<para>
+If you're running a &Linux; system (with <filename
+class="directory">/proc</filename> enabled), this behavior is a
+bug. Please send me a description of it so that I correct it.
+</para>
+
+<para>
+If you're running &Linux; 2.0.35, this is a known bug in the kernel,
+which doesn't let <systemitem class="username">root</systemitem> read
+<filename class="directory">/proc</filename>. The solution is the same
+as in the previous question, provided that you run
+&kdm; or <command>xdm</command> to log into X. Or
+upgrade!
+</para>
+
+<para>
+Otherwise, this is normal.  &ktalkd; can't find the user, as &kde;
+doesn't log him into utmp and the &Linux; based (<filename
+class="directory">/proc</filename>) detection is disabled. The solution
+is the same as in the previous question, provided that you run
+<acronym>kdm</acronym> or <acronym>xdm</acronym> to log into X. Another
+solution is to make sure you always have an
+<application>xterm</application> running.
+</para>
+</answer>
+</qandaentry>
+
+<qandaentry>
+<question>
+<para>
+How do I get debug output from &ktalkd;?
+</para>
+</question>
+
+<answer>
+<para>
+As it is a daemon, there is no debug output on standard output. To get 
+debugging output (for instance before submitting me a bug report!),
+update the lines in <filename>inetd.conf</filename> which launches
+&ktalkd; and &kotalkd; to be:
+</para>
+ 
+<screen>talk   dgram   udp     wait    root    /usr/sbin/tcpd  /opt/kde/bin/ktalkd -d
+ntalk  dgram   udp     wait    root    /usr/sbin/tcpd  /opt/kde/bin/ktalkd -d</screen>
+
+<para>Notice the <option>-d</option> option.
+</para>
+
+<para>
+Then edit <filename>/etc/syslog.conf</filename> to add the following
+line:
+</para>
+
+<screen>*.*         /var/log/all_messages</screen>
+
+<para>To make it work, you then have to restart <command>inetd</command>
+and <command>syslogd</command>:</para>
+
+<screen><prompt>%</prompt> <userinput><command>killall</command> <option>-HUP inetd</option></userinput>
+<prompt>%</prompt> <userinput><command>killall</command> <option>-HUP syslogd</option></userinput></screen>
+
+<para>Finally, run a <command>talk</command> session and see the result
+in <filename>/var/log/all&lowbar;messages</filename> </para>
+
+<para>When submitting a bug report, never forget to include the
+debugging output, but also &ktalkd;'s version number and the
+<command>./configure</command> output. Thanks.</para>
+
+</answer>
+</qandaentry>
+</qandaset>
+
+</chapter>
+
+<chapter id="copyright-and-license">
+<title>Copyright and Licenses</title>
+
+<para>
+&ktalkd; is maintained and improved by David Faure,
+<email>faure@kde.org</email>
+</para>
+
+<para>
+The original program was written by Robert Cimrman,
+<email>cimrman3@students.zcu.cz</email>
+</para>
+
+<!-- TRANS:CREDIT_FOR_TRANSLATORS -->
+
+&underFDL;
+&underGPL;
+
+</chapter>
+
+<appendix id="installation">
+<title>Installation</title>
+
+<sect1 id="how-to-obtain-ktalkd">
+<title>How to obtain &ktalkd;</title>
+
+<para>
+&ktalkd; is now a core application of the &kde; project <ulink
+url="http://www.kde.org">http://www.kde.org</ulink>, part of the
+kdenetwork package.
+</para>
+
+<para>
+You can always download the latest &ktalkd; from the main &FTP; site of
+the &kde; project, <ulink
+url="ftp://ftp.kde.org/pub/kde">ftp://ftp.kde.org/pub/kde</ulink> and
+from its mirrors. It's usually found in <ulink
+url="ftp://ftp.kde.org/pub/kde/stable/latest/apps/network">ftp://ftp.kde.org/pub/kde/stable/latest/apps/network</ulink>
+</para>
+</sect1>
+
+<sect1 id="requirements">
+<title>Requirements</title>
+
+<para>
+In order to successfully compile &ktalkd;, you need the latest versions
+of the &kde; libraries as well as the &Qt; C++ library. All required
+libraries as well as ktalkd itself can be found on <ulink
+url="ftp://ftp.kde.org/pub/kde/">ftp://ftp.kde.org/pub/kde/</ulink>.
+</para>
+</sect1>
+
+<sect1 id="compilation-and-installation">
+<title>Compilation and Installation</title>
+
+<para>
+In order to compile and install &ktalkd; on your system, type the
+following in the base folder of the &ktalkd; distribution:
+</para>
+
+<screen><prompt>%</prompt> <userinput><command>./configure</command></userinput>
+<prompt>%</prompt> <userinput><command>make</command></userinput> 
+<prompt>%</prompt> <userinput><command>make</command> <option>install</option></userinput></screen>
+
+<para>As &ktalkd; is a daemon, <userinput><command>make</command>
+<option>install</option></userinput> will require <systemitem
+class="username">root</systemitem> privileges.</para>
+
+<para>
+Don't forget to update <filename>/etc/inetd.conf</filename>.  For
+example, on a &Linux; system, if &kde; is in <filename
+class="directory">/opt/kde</filename>, change the lines concerning
+<command>talk</command> and <command>ntalk</command> to:
+</para>
+
+<screen>talk   dgram   udp     wait    root    /usr/sbin/tcpd  /opt/kde/bin/ktalkd
+ntalk  dgram   udp     wait    root    /usr/sbin/tcpd  /opt/kde/bin/ktalkd</screen>
+
+<para>A script is provided, to make the necessary change automatically. 
+Update your <filename>inetd.conf</filename> file just by running</para>
+
+<screen><prompt>%</prompt> <userinput><command>./post-install.sh</command></userinput></screen>
+
+<para>
+Anyway, you'll have to <emphasis>restart inetd</emphasis> after this.
+On most &Linux; systems, do:
+</para>
+
+<screen><prompt>%</prompt> <userinput><command>killall</command> <option>-HUP inetd</option></userinput></screen>
+
+<para>
+On newer systems, using <command>xinetd</command>, there is no more
+<filename>/etc/inetd.conf</filename>, and you should edit or create
+<filename>/etc/xinetd.d/talk</filename> instead, with those lines:
+</para>
+
+<screen>service talk
+{
+	socket_type = dgram
+	wait = yes
+	user = root
+	server = /usr/bin/ktalkd
+}
+
+service ntalk
+{
+	socket_type = dgram
+	wait = yes
+	user = root
+	server = /usr/bin/ktalkd
+}</screen>
+
+<para>
+then restart <command>xinetd</command>.
+</para>
+
+<para>
+Please inform me of any modification you had to undertake in order to
+get &ktalkd; to compile or work on your platform.
+</para>
+</sect1>
+
+</appendix>
+
+</book>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=0:sw=2:tw=78:noet
+-->
+
+

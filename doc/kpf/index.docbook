@@ -1,0 +1,410 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
+  <!ENTITY kappname "&kpf;">
+  <!ENTITY package "kdenetwork">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % English "INCLUDE" > <!-- change language only here -->
+]>
+
+<book lang="&language;">
+
+  <bookinfo>
+
+    <title>The &kpf; Handbook</title>
+
+    <authorgroup>
+
+      <author>
+        <firstname>Rik</firstname>
+        <surname>Hemsley</surname>
+        <affiliation>
+          <address>&Rik.Hemsley.mail;</address>
+        </affiliation>
+      </author>
+
+      <!-- TRANS:ROLES_OF_TRANSLATORS -->
+
+    </authorgroup>
+
+    <copyright>
+      <year>2002</year>
+      <holder>&Rik.Hemsley;</holder>
+    </copyright>
+
+    <legalnotice>&FDLNotice;</legalnotice>
+
+    <date>2003-09-30</date>
+    <releaseinfo>1.0.1</releaseinfo>
+
+    <abstract>
+      <para>
+        &kpf; allows you to share files over a network.
+      </para>
+    </abstract>
+
+    <keywordset>
+      <keyword>KDE</keyword>
+      <keyword>public</keyword>
+      <keyword>fileserver</keyword>
+      <keyword>HTTP</keyword>
+    </keywordset>
+
+  </bookinfo>
+
+  <chapter id="introduction">
+
+    <title>Introduction</title>
+
+    <para>
+      &kpf; provides simple file sharing using &HTTP; (the Hyper Text
+      Transfer Protocol,) which is the same protocol used by web sites to
+      provide data to your web browser. &kpf; is strictly a public
+      fileserver, which means that there are no access restrictions to shared
+      files. Whatever you select for sharing is available to anyone.
+    </para>
+
+    <para>
+      &kpf; is designed to be used for sharing files with friends, not to
+      act like a fully-fledged web server such as
+      <application>Apache</application>. &kpf; was primarily conceived
+      as an easy way to share files with others while chatting on
+      <acronym>IRC</acronym> (Internet Relay Chat, or <quote>chat
+      rooms</quote>.)  
+    </para>
+
+    <para>
+      Typical usage: &kpf; is set up to serve files from the <filename
+      class="directory">public_html</filename> folder in your home
+      folder. You wish to make a file available to some people with
+      whom you are chatting online. Rather than send them each an
+      email with the file attached (some may not even be interested,)
+      you copy the file into your <filename
+      class="directory">public_html</filename> folder and announce
+      to those listening that your file is available at
+      http://www.mymachine.net:8001/thefile
+    </para>
+
+  </chapter>
+
+  <chapter id="using-kpf">
+
+    <title>Using &kpf;</title>
+
+    <sect1 id="kpf-basics">
+
+      <title>&kpf; basics</title>
+
+      <para>
+        &kpf; runs as an applet inside &kicker;. This means that it
+        takes up little space on your screen and its status is always
+        visible. To start the &kpf; applet,
+        <mousebutton>right</mousebutton> click on &kicker; and choose
+        <guimenu>Add Applet to Panel...</guimenu> to open the <guilabel>Add 
+        Applet</guilabel> dialog. Select <guilabel>Public File Server</guilabel> and
+	click the <guibutton>Add to Panel</guibutton> button.
+      </para>
+
+      <para>
+        &kpf; employs the concept of shared folders. You may choose
+        one or more folders to make public, and all files in that folder
+        (and any subfolders) will be shared.
+      </para>
+
+      <para>
+        Please be extremely careful about which folders you
+        share. Remember that all files in the folder and its
+        subfolders, including <quote>hidden</quote> files
+        (<quote>dotfiles</quote> to the techies) will be made
+        available to the world, so be careful not to share sensitive
+        information, such as passwords, cryptographic keys, your
+        addressbook, documents private to your organization, &etc;.
+      </para>
+
+      <para>
+        Once &kpf; is running, you will see a square applet with a
+        thin sunken bevel and an icon depicting an <guiicon>hot air
+        balloon</guiicon>. The balloon is visible when no folders are being
+        shared.
+      </para>
+
+      <para>
+        To share a folder, <mousebutton>right</mousebutton> click
+        on the balloon icon and a popup menu will appear, containing
+        only one item, <guimenuitem>New
+        Server...</guimenuitem>. Selecting this entry will cause a
+        <quote>wizard</quote> to appear, which will ask you a few
+        simple questions. Completing the questions will set up a
+        folder for sharing.
+      </para>
+
+      <para>
+        There is an alternative to using the applet directly when you
+        want to share a folder. &kpf; is integrated with &konqueror;.
+      </para>
+
+      <para>
+        With &konqueror; open and displaying a folder,
+        <mousebutton>right</mousebutton> click on the background and
+        bring up the <quote>Properties</quote> dialog.  On install,
+        &kpf; added a <guilabel>Sharing</guilabel> tab to this
+        dialog. You will be offered the option of starting &kpf; if it
+        is not running. Choosing <guibutton>Ok</guibutton> will send a
+        signal to the &kpf; applet, asking it to add a new share.
+      </para>
+
+    </sect1>
+
+  </chapter>
+
+  <chapter id="share-config">
+
+    <title>Share configuration</title>
+
+    <sect1 id="listen-port">
+
+      <title>Listen port</title>
+
+      <para>
+        For each folder that is shared by &kpf;, a new network
+        <quote>port</quote> is        opened. A <quote>port</quote> is simply a number used to uniquely identify a
+        network service. When someone uses a program (&eg; a web browser)
+        to connect to a machine, it is directed to the service by specifying
+        the address of the machine and the <quote>port</quote> on which the service is
+        running.
+      </para>
+
+      <para>
+        The <quote>port</quote> concept allows one machine to run more
+        than one network service. Services you might use every day
+        include &HTTP; (the web,) usually connected to by port 80,
+        &SMTP; (mail sending,) usually on port 25,
+        and POP3 (mail receiving,) usually on port 110.
+      </para>
+
+      <para>
+        Usually, when you connect to a network service, you do not need
+        to specify which <quote>port</quote> you want to connect
+        to. This is because the ports are standardized, so anyone
+        connecting to port 80 on a network machine expects to find an
+        &HTTP; (web) server. 
+      </para>
+
+      <para>
+        &kpf; is not a <quote>standard</quote> service, so 8001 was
+        chosen for the default port.
+      </para>
+
+      <para>
+        The second folder you share will offer to listen on port 8002,
+        with the number being incremented each time you start a new share.
+      </para>
+
+      <para>
+        Within certain boundaries, you are free to choose whichever port
+        number you wish, for a share.
+      </para>
+
+      <para>
+        It is usual for port numbers below 1000 to be reserved for
+        <quote>system</quote> services, &ie; those under the control
+        of the machine's administrator, therefore you may find that
+        attempting to use anything below 1000 will simply not work.
+      </para>
+
+      <para>
+        &kpf; tries to warn you when it cannot <quote>listen</quote>
+        on a port. It does this by displaying a <guiicon>broken
+        connection</guiicon> icon over the top-left corner of the
+        graph.  &kpf; attempts to stop you assigning more than one
+        share to the same port, but it will not attempt to stop you
+        setting a share to listen on a port which is already occupied
+        by another service, for example your <quote>real</quote> web
+        server.
+      </para>
+
+      <para>
+        If you see the <guiicon>broken connection</guiicon> icon,
+        <mousebutton>right</mousebutton> click on the bandwidth graph
+        and choose <guimenuitem>Configure...</guimenuitem> Now try
+        changing the listen port and pressing
+        <guibutton>Ok</guibutton>. Assuming that this time you picked
+        a free port, you should see that the <guiicon>broken
+        connection</guiicon> icon disappears, and you should now be
+        able to connect to the share.
+      </para>
+
+    </sect1>
+
+    <sect1 id="bandwidth-limit">
+
+      <title>Bandwidth limit</title>
+
+      <para>
+        The term <quote>bandwidth</quote> refers to the amount of data
+        that may be transmitted over a connection during a period of
+        time. Techies may be overheard referring to how
+        <quote>fat</quote> their <quote>pipe</quote> is. The analogy
+        is apt.
+      </para>
+
+      <para>
+        &kpf; allows you to set a limit on how much bandwidth will be
+        used by a particular share. This is useful when you want to
+        avoid your network connection being saturated by people
+        downloading from your shares. If you are on a modem, for
+        example, you only have a few kilobytes per second to
+        yourself. Limiting the bandwidth used by your &kpf; shares
+        will allow you to keep a portion of the bandwidth for your own
+        use.
+      </para>
+
+      <para>
+        As just mentioned, &kpf; measures bandwidth in kilobytes per
+        second, or kB/s for short. A typical modem transfers about 5kB/s on
+        average, so limiting the total use of all &kpf; shares to a value
+        less than this may be wise, depending on how you are using &kpf;.
+      </para>
+
+    </sect1>
+
+    <sect1 id="follow-symlinks">
+
+      <title>Follow symbolic links</title>
+
+      <para>
+        A symbolic link is a special file which is a reference to another
+        file (or folder) in your filesystem. By following the link,
+        you reach the file or folder referred to - the link is generally
+        transparent.
+      </para>
+
+      <para>
+        By default, a &kpf; share does not allow the following of
+        symbolic links. This means that, for example, if you have a
+        share pointing to <filename
+        class="directory">/your/home/folder/public_html</filename>
+        and you create a link inside <filename
+        class="directory">public_html</filename>, pointing to
+        <filename class="directory">/tmp</filename>, then anyone
+        requesting <filename class="directory">/tmp</filename> will
+        see the contents of your <filename>/tmp</filename> folder.
+      </para>
+
+      <para>
+        In general, it's a bad idea to allow the following of symbolic
+        links in this way. The main reason this is allowed is so that
+        you may have symbolic links inside the shared folder, which
+        point to another place inside the shared folder. This can
+        be useful if you're serving up an entire
+        <quote>website</quote> - which as mentioned previously, is not
+        the intended use of &kpf;.
+      </para>
+
+      <para>
+        Just be careful not to link to anywhere on your file system that
+        might hold sensitive information (or have a symbolic link in it
+        somewhere that points to sensitive information!)
+      </para>
+
+    </sect1>
+
+  </chapter>
+
+  <chapter id="faq">
+
+    <title>Questions and Answers</title>
+
+    <qandaset id="faq-questions">
+
+      <qandaentry>
+
+        <question>
+          <para>Why does &kpf; not include any security mechanisms?</para>
+        </question>
+
+        <answer>
+
+          <para>
+            In truth, &kpf; does include various measures designed to help
+            prevent the user accidentally providing access to sensitive
+            information. There is no password protection and no encryption.
+            This is by design, as will be explained.
+          </para>
+
+          <para>
+            The more security measures that are added to a service, the
+            safer people feel when using it. Sadly, to ensure real security,
+            the user needs to have a good understanding of the issues involved.
+            For example, providing password protection is no use if the user
+            does not know how to pick a good password. Therefore the decision
+            was made to provide zero security, in the hope that the user will
+            find it easier to understand what this means than to spend months
+            or years learning about the complexities of network security.
+          </para>
+
+          <para>
+            The concept is simple. If you specify that a folder is
+            shared, it's shared to the world. If you don't want to make
+            it available to the world, don't share it.
+          </para>
+
+        </answer>
+
+      </qandaentry>
+
+    </qandaset>
+
+  </chapter>
+
+  <chapter id="credits">
+
+    <title>Credits and License</title>
+
+    <para>
+      &kpf;
+    </para>
+
+    <para>
+      Program copyright 2002 &Rik.Hemsley; &Rik.Hemsley.mail;
+    </para>
+
+    <para>
+      Documentation copyright 2002 by &Rik.Hemsley; &Rik.Hemsley.mail;
+    </para>
+
+<!-- TRANS:CREDIT_FOR_TRANSLATORS -->
+    &underFDL;
+
+    <para>
+      &kpf; is released under the MIT license.
+    </para>
+
+  </chapter>
+
+  <appendix id="installation">
+
+    <title>Installation</title>
+
+    <sect1 id="getting-kpf">
+
+      <title>How to obtain &kpf;</title>
+
+      &install.intro.documentation;
+
+    </sect1>
+
+  </appendix>
+
+  &documentation.index; 
+
+</book>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes: nil
+sgml-general-insert-case: lower
+End:
+-->
+
+<!-- vim:tabstop=2:shiftwidth=2:expandtab -->

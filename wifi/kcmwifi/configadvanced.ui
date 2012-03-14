@@ -1,0 +1,145 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>Form1</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>Form1</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>600</width>
+            <height>480</height>
+        </rect>
+    </property>
+    <widget class="KComboBox">
+        <property name="name">
+            <cstring>cmb_channel</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>120</x>
+                <y>23</y>
+                <width>99</width>
+                <height>24</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>lbl_channel</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>9</x>
+                <y>33</y>
+                <width>70</width>
+                <height>17</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Channel:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>lbl_txPower</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>6</x>
+                <y>60</y>
+                <width>107</width>
+                <height>17</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Transmit power:</string>
+        </property>
+    </widget>
+    <widget class="KComboBox">
+        <property name="name">
+            <cstring>cmb_txPower</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>121</x>
+                <y>58</y>
+                <width>99</width>
+                <height>24</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QCheckBox">
+        <property name="name">
+            <cstring>cb_forceAP</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>9</x>
+                <y>91</y>
+                <width>268</width>
+                <height>22</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Force registration to an access point</string>
+        </property>
+    </widget>
+    <spacer>
+        <property name="name">
+            <cstring>spacer1</cstring>
+        </property>
+        <property name="orientation">
+            <enum>Horizontal</enum>
+        </property>
+        <property name="sizeType">
+            <enum>Expanding</enum>
+        </property>
+        <property name="sizeHint">
+            <size>
+                <width>40</width>
+                <height>20</height>
+            </size>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>120</y>
+                <width>40</width>
+                <height>20</height>
+            </rect>
+        </property>
+    </spacer>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>lbl_apMAC</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>64</x>
+                <y>124</y>
+                <width>89</width>
+                <height>17</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>MAC address:</string>
+        </property>
+    </widget>
+    <widget class="KLineEdit">
+        <property name="name">
+            <cstring>kLineEdit1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>193</x>
+                <y>128</y>
+                <width>140</width>
+                <height>24</height>
+            </rect>
+        </property>
+    </widget>
+</widget>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

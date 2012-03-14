@@ -1,0 +1,73 @@
+## ktalkd specific checks
+## David Faure <faure@kde.org>
+
+AC_DEFUN([AC_FIND_USER_METHOD],
+[ 
+AC_MSG_CHECKING(ktalkd find_user method)
+if test -n "`echo $target_os | grep linux`" ; then
+    if test -d /proc; then
+       AC_DEFINE(PROC_FIND_USER, 1, [/proc exists])
+
+## Sufficient if all xdm and kdm would call sessreg to log the user into utmp
+       AC_DEFINE(UTMP_AND_PROC_FIND_USER, 1, [kdm/xmd log user])
+
+## Waiting for this, here is complement, looking for DISPLAY set in any process
+## in /proc that the user owns
+       AC_DEFINE(ALL_PROCESSES_AND_PROC_FIND_USER, 1, [whatever])
+
+       AC_MSG_RESULT(using /proc.)
+    else
+       AC_MSG_RESULT(/proc not found, using utmp.)
+    fi
+else
+    AC_MSG_RESULT(not a linux system, using utmp.)
+fi
+
+])
+
+AC_FIND_USER_METHOD
+
+# Define a symbol, to know that we're compiling WITH kde.
+# (Separate distributions of ktalkd can compile without KDE)
+AM_CONDITIONAL(KDE_INSTALLED, test "$have_kde" = "yes")
+
+dnl Check for utmp file
+AC_CHECK_UTMP_FILE([], [DO_NOT_COMPILE="$DO_NOT_COMPILE ktalkd"])
+
+AC_LANG_C
+dnl Checks for libraries. 
+AC_CHECK_LIB(bsd, bsd_ioctl, [LIBBSD="-lbsd"]) dnl for Linux with libc5
+AC_SUBST(LIBBSD)
+
+AC_CHECK_HEADERS(sgtty.h bsd/sgtty.h sys/select.h)
+
+AC_HEADER_TIME
+
+dnl check for this stupid scandir constness problem
+AC_LANG_CPLUSPLUS
+save_CXXFLAGS="$CXXFLAGS"
+dnl for some reason CXXFLAGS contains $(KDE_CXXFLAGS) at this point. Argl.
+CXXFLAGS="-Wall -W"
+if test "$GCC" = "yes"; then
+CXXFLAGS="$CXXFLAGS -pedantic-errors"
+fi
+AC_MSG_CHECKING(whether the third argument of scandir needs const)
+AC_CACHE_VAL(ac_cv_scandir_const,
+[
+AC_TRY_COMPILE([
+#include <dirent.h>
+int select_process(const struct dirent *) { return 0; }
+],
+[
+  struct dirent **namelist;
+  (void) scandir("/proc", &namelist, select_process, 0 /*no sort*/);
+],
+ac_cv_scandir_const=yes,
+ac_cv_scandir_const=no)
+])
+AC_MSG_RESULT($ac_cv_scandir_const)
+
+if eval "test \"`echo $ac_cv_scandir_const`\" = yes"; then
+  AC_DEFINE(SCANDIR_NEEDS_CONST, 1, [Define if third argument of scandir needs const])
+fi
+CXXFLAGS="$save_CXXFLAGS"

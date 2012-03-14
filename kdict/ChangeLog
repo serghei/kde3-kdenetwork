@@ -1,0 +1,79 @@
+0.5.3
+  + recognize http and ftp urls in cross references
+  + convert characters that are incompatible with html
+    like <,>,& into &amp, etc.
+
+0.5.2
+  + Kdict is now part of the offical kdenetwork package
+  + support for IPv6 and socks-proxies
+  + up-to-date docbook-handbook
+  + code cleanup
+
+0.5
+  + dcop interface
+  + panel applet
+  + bugfixes: session management, small problems
+    with the toolbar editor
+
+0.4.1
+  + fixed CSS-issues with KDE 2.0.x
+  + fixed saving of results as html file
+
+0.4
+  + ported to KDE2
+  + full unicode support
+  + improved portability, should work in non-linux environments now
+  + the german gui-translation is missing in this release,
+    I will add it later on
+  + documentation is not yet converted to docbook
+
+0.3.1
+  + essential bugfix for older, libc5-based linux systems
+    (Thanks to Osvaldo Fornaro for testing)
+  + mini-howto for installing a local DICT-server 
+
+0.3
+  + integrated implementation of the DICT-protocol,
+    dict(1) is no longer needed.
+  + match mode: At first all matches for a query are
+    displayed in a separate list, the user can then
+    choose the most interesting definitions.
+  + database sets: The user can create individual
+    compilations of the available databases and use
+    them in the same way as a single database.
+  + nicer/more configurable html-layout
+  + find dialog for locating text in the definitions
+  + the user can paste text into Kdict with the middle
+    mouse button. Kdict starts a new query with the pasted text
+    (analogue to Netscape).
+  + command to show detailed database information is
+    implemented ("show info")
+  + speed improvements:
+    * faster html-generation
+    * results are stored in a local cache, so they
+      are displayed instantly when the users wants to
+      browse back.
+    * Kdict holds the connection to the server
+      for a configurable amount of time.
+  + various gui improvements:
+    * improved statusbar
+    * unified preferences dialog
+    * all toolbars are now removable and remember
+      their position.
+    * new toolbar icons
+  + ...
+
+0.2
+  fixed some bugs (and introduced new ones ;-)
+  added various features:
+   + saving/printing of the queryresult
+   + query history
+   + improved html output
+   + improved command line interface
+   + html help
+   + Preferences dialogbox for fonts, colors, etc.
+   + Synonyms get displayed and handled like hyperlinks
+   + Automatically lookup of a word in the X clipboard
+   + ...
+
+0.1  Initial release

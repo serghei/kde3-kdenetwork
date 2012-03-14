@@ -1,0 +1,19 @@
+<!DOCTYPE kpartgui>
+<kpartgui name="kwifimanager">
+<MenuBar>
+  <Menu name="file"><text>&amp;File</text>
+    <Action name="disable_radio"/>
+    <Action name="connection_statistics"/>
+  </Menu>
+  <Menu name="config"><text>&amp;Settings</text>
+    <Action name="use_alt_calculation"/>
+    <Action name="acoustic_scanning"/>
+    <Action name="show_stats_noise"/>
+    <Separator/>
+    <Action name="stay_in_systray_on_close"/>
+    <Action name="show_strength_number_in_tray"/>
+    <Separator/>
+    <Action name="configuration_editor"/>
+  </Menu>
+</MenuBar>
+</kpartgui>

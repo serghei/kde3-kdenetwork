@@ -1,0 +1,26 @@
+# KDE Config File
+# http://www.luna.nl/in/helpdesk/index.html
+ExDNSDisabled=0
+AutoName=0
+ScriptArguments=
+AccountingEnabled=1
+Phonenumber=
+IPAddr=0.0.0.0
+Domain=
+Name=Luna
+AutoDNS=1
+VolumeAccountingEnabled=1
+pppdArguments=
+BeforeDisconnect=
+Password=%PASSWORD%
+Command=
+ScriptCommands=
+Authentication=4
+DNS=217.77.129.12,212.204.207.221
+SubnetMask=0.0.0.0
+AccountingFile=/Netherlands/BelBasis_Regio.rst
+DefaultRoute=1
+Username=%USERNAME%
+Gateway=0.0.0.0
+StorePassword=1
+DisconnectCommand=

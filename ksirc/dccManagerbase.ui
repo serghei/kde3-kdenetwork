@@ -1,0 +1,202 @@
+<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<class>dccManagerbase</class>
+<widget class="QFrame">
+    <property name="name">
+        <cstring>dccManagerbase</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>717</width>
+            <height>318</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>DCC Manager</string>
+    </property>
+    <property name="frameShape">
+        <enum>NoFrame</enum>
+    </property>
+    <property name="frameShadow">
+        <enum>Plain</enum>
+    </property>
+    <vbox>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <widget class="KListView">
+            <column>
+                <property name="text">
+                    <string>Who</string>
+                </property>
+                <property name="clickable">
+                    <bool>true</bool>
+                </property>
+                <property name="resizable">
+                    <bool>true</bool>
+                </property>
+            </column>
+            <column>
+                <property name="text">
+                    <string>File</string>
+                </property>
+                <property name="clickable">
+                    <bool>true</bool>
+                </property>
+                <property name="resizable">
+                    <bool>true</bool>
+                </property>
+            </column>
+            <column>
+                <property name="text">
+                    <string>Status</string>
+                </property>
+                <property name="clickable">
+                    <bool>true</bool>
+                </property>
+                <property name="resizable">
+                    <bool>true</bool>
+                </property>
+            </column>
+            <column>
+                <property name="text">
+                    <string>Size</string>
+                </property>
+                <property name="clickable">
+                    <bool>true</bool>
+                </property>
+                <property name="resizable">
+                    <bool>true</bool>
+                </property>
+            </column>
+            <column>
+                <property name="text">
+                    <string>KB/s</string>
+                </property>
+                <property name="clickable">
+                    <bool>true</bool>
+                </property>
+                <property name="resizable">
+                    <bool>true</bool>
+                </property>
+            </column>
+            <column>
+                <property name="text">
+                    <string>Progress</string>
+                </property>
+                <property name="clickable">
+                    <bool>true</bool>
+                </property>
+                <property name="resizable">
+                    <bool>true</bool>
+                </property>
+            </column>
+            <property name="name">
+                <cstring>klvBox</cstring>
+            </property>
+            <property name="resizeMode">
+                <enum>AllColumns</enum>
+            </property>
+        </widget>
+        <widget class="QLayoutWidget">
+            <property name="name">
+                <cstring>layout2</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="KPushButton">
+                    <property name="name">
+                        <cstring>kpbNew</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&amp;New...</string>
+                    </property>
+                </widget>
+                <widget class="KPushButton">
+                    <property name="name">
+                        <cstring>kpbConnect</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&amp;Connect</string>
+                    </property>
+                </widget>
+                <widget class="KPushButton">
+                    <property name="name">
+                        <cstring>kpbResume</cstring>
+                    </property>
+                    <property name="text">
+                        <string>R&amp;esume</string>
+                    </property>
+                </widget>
+                <widget class="KPushButton">
+                    <property name="name">
+                        <cstring>kpbRename</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&amp;Rename</string>
+                    </property>
+                </widget>
+                <widget class="KPushButton">
+                    <property name="name">
+                        <cstring>kpbAbort</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&amp;Disconnect</string>
+                    </property>
+                </widget>
+            </hbox>
+        </widget>
+    </vbox>
+</widget>
+<connections>
+    <connection>
+        <sender>kpbRename</sender>
+        <signal>clicked()</signal>
+        <receiver>dccManagerbase</receiver>
+        <slot>kpbRename_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>kpbConnect</sender>
+        <signal>clicked()</signal>
+        <receiver>dccManagerbase</receiver>
+        <slot>kpbConnect_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>kpbResume</sender>
+        <signal>clicked()</signal>
+        <receiver>dccManagerbase</receiver>
+        <slot>kpbResume_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>kpbAbort</sender>
+        <signal>clicked()</signal>
+        <receiver>dccManagerbase</receiver>
+        <slot>kpbAbort_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>kpbNew</sender>
+        <signal>clicked()</signal>
+        <receiver>dccManagerbase</receiver>
+        <slot>kpbNew_clicked()</slot>
+    </connection>
+</connections>
+<slots>
+    <slot>kpbResume_clicked()</slot>
+    <slot>kpbConnect_clicked()</slot>
+    <slot>kpbRename_clicked()</slot>
+    <slot>kpbAbort_clicked()</slot>
+    <slot>kpbNew_clicked()</slot>
+</slots>
+<layoutdefaults spacing="6" margin="11"/>
+<includehints>
+    <includehint>klistview.h</includehint>
+    <includehint>kpushbutton.h</includehint>
+    <includehint>kpushbutton.h</includehint>
+    <includehint>kpushbutton.h</includehint>
+    <includehint>kpushbutton.h</includehint>
+    <includehint>kpushbutton.h</includehint>
+</includehints>
+</UI>

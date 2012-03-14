@@ -1,0 +1,13 @@
+# Updates from version 0.1 to version 0.2
+Id=KNewsTicker-0.2
+File=knewstickerrc,knewstickerappletrc
+Script=knt-0.1-0.2.pl,perl
+# Update for KDE 3.0, Kicker applets use a different naming scheme
+Id=KNewsTicker-0.2-Rename-KDE3
+File=knewstickerappletrc,knewsticker_appletrc
+AllGroups
+# Update for KDE 3.1, seems like they changed the nameing scheme *AGAIN*
+Id=KNewsTicker-0.2-Rename-KDE3.1
+File=knewsticker_appletrc,knewsticker_panelappletrc
+AllGroups
+# End of file

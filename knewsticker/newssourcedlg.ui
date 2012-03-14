@@ -1,0 +1,408 @@
+<!DOCTYPE UI><UI version="3.0" stdsetdef="1">
+<class>NewsSourceDlg</class>
+<comment>The dialog to be used to edit another news source.</comment>
+<author>Frerich Raabe &lt;raabe@kde.org&gt;</author>
+<widget class="QDialog">
+    <property name="name">
+        <cstring>NewsSourceDlg</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>438</width>
+            <height>201</height>
+        </rect>
+    </property>
+    <property name="sizePolicy">
+        <sizepolicy>
+            <hsizetype>5</hsizetype>
+            <vsizetype>4</vsizetype>
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+        </sizepolicy>
+    </property>
+    <property name="caption">
+        <string>Add News Source</string>
+    </property>
+    <property name="icon">
+        <pixmap>image0</pixmap>
+    </property>
+    <property name="layoutMargin" stdset="0">
+    </property>
+    <property name="layoutSpacing" stdset="0">
+    </property>
+    <grid>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <property name="margin">
+            <number>4</number>
+        </property>
+        <property name="spacing">
+            <number>4</number>
+        </property>
+        <widget class="QGroupBox" row="0" column="0" rowspan="1" colspan="4">
+            <property name="name">
+                <cstring>gbNewsSourceProperties</cstring>
+            </property>
+            <property name="title">
+                <string>News Source Properties</string>
+            </property>
+            <property name="layoutMargin" stdset="0">
+            </property>
+            <property name="layoutSpacing" stdset="0">
+            </property>
+            <grid>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <property name="margin">
+                    <number>11</number>
+                </property>
+                <property name="spacing">
+                    <number>6</number>
+                </property>
+                <widget class="QLabel" row="0" column="0">
+                    <property name="name">
+                        <cstring>lName</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&amp;Name:</string>
+                    </property>
+                    <property name="buddy" stdset="0">
+                        <cstring>leName</cstring>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Name of the news source</string>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>Here you can enter the name of the news source.&lt;br&gt;Note that you can also use the button at the bottom right labeled &lt;i&gt;Suggest&lt;/i&gt; to let KNewsTicker fill this field automatically, after you have entered a source file below.</string>
+                    </property>
+                </widget>
+                <widget class="KLineEdit" row="0" column="1" rowspan="1" colspan="5">
+                    <property name="name">
+                        <cstring>leName</cstring>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Name of the news source</string>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>Here you can enter the name of the news source.&lt;br&gt;Note that you can also use the button at the bottom right labeled &lt;i&gt;Suggest&lt;/i&gt; to let KNewsTicker fill this field automatically, after you have entered a source file below.</string>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="1" column="0">
+                    <property name="name">
+                        <cstring>lSourceFile</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Source &amp;file:</string>
+                    </property>
+                    <property name="buddy" stdset="0">
+                        <cstring>urlSourceFile</cstring>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>The source file for this news source</string>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>Enter the path to the source file for the news source you want to add here. If you specified a source file here, you can use the button at the bottom right labeled &lt;i&gt;Suggest&lt;/i&gt; to let KNewsTicker fill in the remaining values automatically.</string>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="4" column="0">
+                    <property name="name">
+                        <cstring>lIcon</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&amp;Icon:</string>
+                    </property>
+                    <property name="buddy" stdset="0">
+                        <cstring>leIcon</cstring>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Path to the icon for this news source</string>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>Here you can specify the path to an icon to be used for this news source. Icons make it easier to distinguish between multiple news sources as the headlines scroll by.&lt;br&gt;Note that you can also use the button at the bottom right labeled &lt;i&gt;Suggest&lt;/i&gt; to let KNewsTicker fill this field automatically, after you have entered a source file above.</string>
+                    </property>
+                </widget>
+                <widget class="KLineEdit" row="4" column="1" rowspan="1" colspan="4">
+                    <property name="name">
+                        <cstring>leIcon</cstring>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Path to the icon for this news source</string>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>Here you can specify the path to an icon to be used for this news source. Icons make it easier to distinguish between multiple news sources as the headlines scroll by.&lt;br&gt;Note that you can also use the button at the bottom right labeled &lt;i&gt;Suggest&lt;/i&gt; to let KNewsTicker fill this field automatically, after you have entered a source file above.</string>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="4" column="5">
+                    <property name="name">
+                        <cstring>pixmapIcon</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>0</hsizetype>
+                            <vsizetype>0</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="pixmap">
+                        <pixmap>image1</pixmap>
+                    </property>
+                    <property name="scaledContents">
+                        <bool>true</bool>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Icon to be used for this news source</string>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>This is what the currently configured icon for this news source looks like. To change this icon, use the input field at the left.</string>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="3" column="0">
+                    <property name="name">
+                        <cstring>lCategory</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Ca&amp;tegory:</string>
+                    </property>
+                    <property name="buddy" stdset="0">
+                        <cstring>comboCategory</cstring>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Into which category does this news source belong?</string>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>Here you can specify into which category this news source belongs. Arranging the news sources into categories makes it much easier to maintain large lists of news sources.&lt;br&gt;Note that you can also use the button at the bottom right labeled &lt;i&gt;Suggest&lt;/i&gt; to let KNewsTicker fill this field automatically, after you have entered a source file above.</string>
+                    </property>
+                </widget>
+                <widget class="KComboBox" row="3" column="1">
+                    <property name="name">
+                        <cstring>comboCategory</cstring>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Into which category does this news source belong?</string>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>Here you can specify into which category this news source belongs. Arranging the news sources into categories makes it much easier to maintain large lists of news sources.&lt;br&gt;Note that you can also use the button at the bottom right labeled &lt;i&gt;Suggest&lt;/i&gt; to let KNewsTicker fill this field automatically, after you have entered a source file above.</string>
+                    </property>
+                </widget>
+                <spacer row="3" column="2">
+                    <property name="name">
+                        <cstring>Spacer5</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                </spacer>
+                <widget class="QLabel" row="3" column="3">
+                    <property name="name">
+                        <cstring>lMaxArticles</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&amp;Max. articles:</string>
+                    </property>
+                    <property name="buddy" stdset="0">
+                        <cstring>sbMaxArticles</cstring>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Maximum number of articles</string>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>This option lets you define how many articles KNewsTicker should cache for this news source. This value will never be exceeded.&lt;br&gt;Note that you can also use the button at the bottom right labeled &lt;i&gt;Suggest&lt;/i&gt; to let KNewsTicker fill this field automatically, after you have entered a source file above.</string>
+                    </property>
+                </widget>
+                <widget class="KIntSpinBox" row="3" column="4" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>sbMaxArticles</cstring>
+                    </property>
+                    <property name="maxValue">
+                        <number>1000</number>
+                    </property>
+                    <property name="value">
+                        <number>10</number>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Maximum number of articles</string>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>This option lets you define how many articles KNewsTicker should cache for this news source. This value will never be exceeded.&lt;br&gt;Note that you can also use the button at the bottom right labeled &lt;i&gt;Suggest&lt;/i&gt; to let KNewsTicker fill this field automatically, after you have entered a source file above.</string>
+                    </property>
+                </widget>
+                <widget class="QCheckBox" row="2" column="1" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>cbProgram</cstring>
+                    </property>
+                    <property name="text">
+                        <string>The file is a &amp;program</string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Is the specified source file a program?</string>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>Check this box to tell KNewsTicker that the file you specified in the above input field labeled &lt;i&gt;Source file&lt;/i&gt; is a program and not a RDF or RSS file. KNewsTicker will then process the output (as received on &lt;i&gt;stdout&lt;/i&gt;) of that program.</string>
+                    </property>
+                </widget>
+                <widget class="KURLRequester" row="1" column="1" rowspan="1" colspan="5">
+                    <property name="name">
+                        <cstring>urlSourceFile</cstring>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>The source file for this news source</string>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>Enter the path to the source file for the news source you want to add here. If you specified a source file here, you can use the button at the bottom right labeled &lt;i&gt;Suggest&lt;/i&gt; to let KNewsTicker fill in the remaining values automatically.</string>
+                    </property>
+                </widget>
+            </grid>
+        </widget>
+        <widget class="QPushButton" row="1" column="3">
+            <property name="name">
+                <cstring>bCancel</cstring>
+            </property>
+            <property name="text">
+                <string>&amp;Cancel</string>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>Cancel this configuration</string>
+            </property>
+            <property name="whatsThis" stdset="0">
+                <string>Press this button to close this dialog, discarding all entered information.</string>
+            </property>
+        </widget>
+        <widget class="QPushButton" row="1" column="2">
+            <property name="name">
+                <cstring>bSuggest</cstring>
+            </property>
+            <property name="enabled">
+                <bool>false</bool>
+            </property>
+            <property name="text">
+                <string>&amp;Suggest</string>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>Suggest suitable values</string>
+            </property>
+            <property name="whatsThis" stdset="0">
+                <string>Press this button to make KNewsTicker guess more or less reasonable values for some of the news properties (such as the name, icon or maximum number of articles).&lt;br&gt;Note that you have to supply a source file in order to use this function.</string>
+            </property>
+        </widget>
+        <widget class="QPushButton" row="1" column="1">
+            <property name="name">
+                <cstring>bOk</cstring>
+            </property>
+            <property name="text">
+                <string>&amp;OK</string>
+            </property>
+            <property name="default">
+                <bool>true</bool>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>Acknowledge these values</string>
+            </property>
+            <property name="whatsThis" stdset="0">
+                <string>Press this button to apply the values of this dialog and return to the previous configuration dialog.</string>
+            </property>
+        </widget>
+        <spacer row="1" column="0">
+            <property name="name">
+                <cstring>spacerButtons</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Horizontal</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+        </spacer>
+    </grid>
+</widget>
+<images>
+    <image name="image0">
+        <data format="XPM.GZ" length="2045">789c55d45b53db381407f0773e4586f3c6ec9cc6777b76f6a177480b85425be8ce3ec8924c4248805cb87467bffb4ae7fc6d688433f3437f1dc992e3577ba3f3e3c3d1deab9df5c66c667664a76635da73dbc5e2e9ef7ffefa7767372947e1af6e46e9ee1f3bbb279b911d1ddd2c7d04670134964f34ddc039bc14d7c1b5e44fa2933ab1899aa2d3713a4e24cfefe13c557f1637c18dd4bb82ad9a1fa2b324b55922fd703656732e6eb23ad3bc872deca2f324b3b9e6e7ea7c0c4fe01c7e2d3639d6c307bd7323fe155da443bfacb73005f6876d74990efe24366551ca789ac38d9a8f61079be82a2b1dd67fa6ae922a13bf13b75551b5e2b770a3260f3bf4c7c3a43aab0aecffd3603d9f37b0aba53e91ba4ed42ce75d87fa38af1676b8ff525d17b5ce770137f00fd8c1e7d14d5ebb26179faa9b04fe0217f0bed8065bf111dcc01f60077f8c3679e38c8e7f549b04eec4613cce7b0d3b78a63649293f0692e7a7cddbb4d5f18dd8198ff5add46da9e743dcbb75d27f0f7b352da26dd138e4efd506e74bb3c17a9e977081f3b1b0d1fda40dece195ba2d71bf696facbf80bd2dc45bb54dd5a476a1beceb756b7a9ee2fddc1dea86f7ba3fe77b53556ef7f1aed0adbefd757b54b9dce2ff59c1ffa0fd5ae74fafe59c21e4ea27d3978d1db97e26bb54fd5a4f6d6e87ed054ed52ac5f9e87ae7406e7d3c2fdfed4ea3083ba828dce4ff27bedbade3c5677a957dfc2fdfdfcecdde97abfc106be84c3475fc67d6362c32ddbe7ffc4a61976ece5eaf892a73ce32bd8f5199ef3352f78c9377ccb77bce2356fd8f236b47b7e40c687c463684f61fc15ffe2d7d2def05b7ec7ef9171a1c6237fe08fbccf073c79717de2cf439d433e0aed4bc84cc2bc4b5cc74127439daf21b11fda6918bb08ebd676c6dff860a8f33df49ef20f3e973acf99b3703f13d4d92271f1a2ce4f1e73c229eb3b2ce722f45e70195a5f27262aaeb941c6136b82087542820cd7d492edeb90a3f8f12113eba046487474f95bc6cbaec53a7d8d8ea634d30c5dd19ce67c2cdfb14e3524ae69a19970a6192de345377c40b774472b5ad386b674ff9c79f1744c38fbbdd1c3ee7f7feefc0f291dd297</data>
+    </image>
+    <image name="image1">
+        <data format="XPM.GZ" length="620">789c7dcfcd6a84301007f0bb4f11f426256bd4b886a58fd0d263a1f43093c48fdd55a1dd1e4ae9bbd749a2220b8d82f9fd33c99843ca5e5f9e587a883e6f70eb35d31d7cb0d47c0dc3f7dbfbe34f148b8ad17b64227e8862ce347b9e464b739ce749e606113c8b5a02315958e5c4c6b3cc2ab7da0796c782683d655623d1044a5512a740a534511373550b2d899740e9d9110bb1f04a2c8512da10cf4499cf2739b6c40a008c2b1e56ba0b8ec41ad1dacadd7d1e09d08334e521036d10d158c4356b5a4380ced2d767fdd9ef828b5db344bb3ade5cb73a0e6ed39c6d759c239d0e83d97af801e3847c9fc130edfe6fedb9cf96debbbd18a25d0f7e9f01dc6549fbef79bfa7e80f2829874e</data>
+    </image>
+</images>
+<connections>
+    <connection>
+        <sender>bSuggest</sender>
+        <signal>clicked()</signal>
+        <receiver>NewsSourceDlg</receiver>
+        <slot>slotSuggestClicked()</slot>
+    </connection>
+    <connection>
+        <sender>bCancel</sender>
+        <signal>clicked()</signal>
+        <receiver>NewsSourceDlg</receiver>
+        <slot>slotCancelClicked()</slot>
+    </connection>
+    <connection>
+        <sender>leName</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>NewsSourceDlg</receiver>
+        <slot>slotModified()</slot>
+    </connection>
+    <connection>
+        <sender>comboCategory</sender>
+        <signal>highlighted(const QString&amp;)</signal>
+        <receiver>NewsSourceDlg</receiver>
+        <slot>slotModified()</slot>
+    </connection>
+    <connection>
+        <sender>sbMaxArticles</sender>
+        <signal>valueChanged(int)</signal>
+        <receiver>NewsSourceDlg</receiver>
+        <slot>slotModified()</slot>
+    </connection>
+    <connection>
+        <sender>leIcon</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>NewsSourceDlg</receiver>
+        <slot>slotModified()</slot>
+    </connection>
+    <connection>
+        <sender>bOk</sender>
+        <signal>clicked()</signal>
+        <receiver>NewsSourceDlg</receiver>
+        <slot>slotOkClicked()</slot>
+    </connection>
+    <connection>
+        <sender>urlSourceFile</sender>
+        <signal>textChanged(const QString &amp;)</signal>
+        <receiver>NewsSourceDlg</receiver>
+        <slot>slotSourceFileChanged()</slot>
+    </connection>
+</connections>
+<tabstops>
+    <tabstop>leName</tabstop>
+    <tabstop>urlSourceFile</tabstop>
+    <tabstop>cbProgram</tabstop>
+    <tabstop>comboCategory</tabstop>
+    <tabstop>sbMaxArticles</tabstop>
+    <tabstop>leIcon</tabstop>
+    <tabstop>bOk</tabstop>
+    <tabstop>bSuggest</tabstop>
+    <tabstop>bCancel</tabstop>
+</tabstops>
+<includes>
+    <include location="global" impldecl="in declaration">kurlrequester.h</include>
+    <include location="global" impldecl="in declaration">kcombobox.h</include>
+    <include location="global" impldecl="in declaration">klineedit.h</include>
+    <include location="global" impldecl="in declaration">knuminput.h</include>
+</includes>
+<slots>
+    <slot access="protected">slotOkClicked()</slot>
+    <slot access="protected">slotCancelClicked()</slot>
+    <slot access="protected">slotModified()</slot>
+    <slot access="protected">slotSourceFileChanged()</slot>
+    <slot access="protected">slotSuggestClicked()</slot>
+</slots>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

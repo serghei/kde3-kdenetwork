@@ -1,0 +1,549 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
+  <!ENTITY kwifimanager "<application>KWiFiManager</application>">
+  <!ENTITY LAN "<acronym>LAN</acronym>">
+  <!ENTITY kappname "&kwifimanager;">
+  <!ENTITY package "kdenetwork">
+  <!ENTITY % English "INCLUDE"> <!-- change language only here -->
+  <!ENTITY % addindex "IGNORE">
+]>
+<book lang="&language;">
+  <bookinfo>
+    <title>The &kwifimanager; Handbook</title>
+    <authorgroup>
+      <author>
+        <firstname>Stefan</firstname>
+        <surname>Winter</surname>
+        <affiliation>
+          <address>
+            <email>swinter@kde.org</email>
+          </address>
+        </affiliation>
+      </author>
+      <!-- TRANS:ROLES_OF_TRANSLATORS -->
+    </authorgroup>
+    <legalnotice>&FDLNotice;</legalnotice>
+    <copyright>
+      <year>2002-05</year>
+      <holder>Stefan Winter</holder>
+    </copyright>
+    <date>2005--05-11</date>
+    <releaseinfo>3.5.0</releaseinfo>
+    <abstract>
+      <para>The &kwifimanager; suite can be used to configure and monitor wireless &LAN;
+        cards. It consists of a stand-alone application and a module for the &kde; Control
+        Center.</para>
+    </abstract>
+    <keywordset>
+      <keyword>KDE</keyword>
+      <keyword>wireless</keyword>
+      <keyword>Wi-Fi</keyword>
+      <keyword>wlan</keyword>
+      <keyword>WEP</keyword>
+      <keyword>wlan-ng</keyword>
+    </keywordset>
+  </bookinfo>
+  <chapter id="introduction">
+    <title>Introduction</title>
+    <para> The &kwifimanager; suite is a set of tools which allows you to manage your wireless
+      &LAN; Network Interface card (PC-Card, PCI or miniPCI) under the K Desktop Environment. It
+      provides information about your current connection and lets you set up up to ten independent
+      configurations and use up to four configrations that are pre-configured by distribution-specific
+      scripts. If you are in a place where none of your preconfigured networks is available,
+      you can also dynamically switch to an available network with almost no configuration effort.
+      &kwifimanager; supports every wireless &LAN; card that uses the wireless extensions
+      interface. This includes virtually all wireless &LAN; cards that are operational at all
+      under the &Linux; operating system.</para>
+  </chapter>
+  <chapter id="using">
+    <title>Using the &kwifimanager; suite</title>
+    <sect1 id="kwifimanager-application">
+      <title>The &kwifimanager; application</title>
+      <para> Purpose of the main &kwifimanager; application is to show the currently active
+        network configuration and to display connection quality and access points.</para>
+      <para>The main application is launched by either typing<userinput>kwifimanager</userinput> at
+        the command prompt of a console window or via the K Menu, where it is located by default in
+          the<guisubmenu>Applications</guisubmenu> group. If &kwifimanager; is already running
+        but minimised to the system tray then it can be restored by clicking once on the <link
+          linkend="systrayicon">system tray icon</link>. If there is more than one wireless &LAN;
+          card in your system, just open more than one instance of &kwifimanager;: every instance
+          will show information about a different card automatically.
+          The &GUI; elements of the application
+        are explained in the following subsections.</para>
+      <sect2 id="kwifimanager-main">
+        <title>Main window</title>
+        <para> The &kwifimanager; main window consists of five parts:</para>
+        <sect3 id="signalquality">
+          <title>Signal quality display</title>
+          <para> Here you can see the quality and type of the active connection. The uppermost icon
+            displays the general state of the wireless network via a set of pictograms:<itemizedlist>
+              <listitem>
+                <para> a wireless &LAN; card with a question tag means that no card was detected
+                  or its state could not be determined</para>
+              </listitem>
+              <listitem>
+                <para> a single laptop means that a wireless &LAN; card is inserted and in
+                  Infrastructure mode, but there is no radio signal from access-points. The card is
+                  out of range and can not communicate to the infrastructure network.</para>
+              </listitem>
+              <listitem>
+                <para> a laptop that is connected to an access point means that a connection to an
+                  access point is established.</para>
+              </listitem>
+              <listitem>
+                <para> two laptops mean that your system is in Ad-Hoc mode without access points. It
+                  may or may not have established a Peer-to-Peer connection.</para>
+              </listitem>
+            </itemizedlist>
+          </para>
+          <para> Below these pictograms is a small quality meter. It displays, in a cellular-like
+            manner, the quality level of the current connection. This information is only available
+            in Infrastructure mode. In Ad-Hoc mode, the level is always 0.</para>
+          <para> This graphical information is supplemented by an integer value below the icon. It
+            shows the signal quality, and is computed in one of two ways: <itemizedlist>
+              <listitem>
+                <para>a directly reported value from the card if the card supports
+                  <quote>Quality</quote> reporting</para>
+              </listitem>
+              <listitem>
+                <para>
+                  <literal>(signal strength in dBm) - (noise level in dBm)</literal> for cards that
+                  do not support that.</para>
+              </listitem>
+            </itemizedlist> You can manually change the method used by turning
+            <guimenu>File</guimenu>, <guimenuitem>Use alternate strength calculation</guimenuitem>
+            on or off. Turning the option on means to use the second method. If your card is out of
+            range, the value is 0; if no card is inserted or your card is in Ad-Hoc mode it will
+            show N/A.</para>
+        </sect3>
+        <sect3 id="speed">
+          <title>Connection speed</title>
+          <para> An indicator for the current connection speed is shown at the right-hand side of
+            the main window above the configuration info. If the speed settings are set to AUTO, the
+            value will change once in a while as the card adjusts the connection speed according to
+            the signal quality. The scale of the bar graph will automatically adjust to up to 108
+            MBit/s when the current connection speed exceeds 11 MBit/s.</para>
+        </sect3>
+        <sect3 id="current-config">
+          <title>Current configuration</title>
+          <para>Here you can find information about your card configuration. It displays the
+            following information:</para>
+          <itemizedlist>
+            <listitem>
+              <para> the network with which the card is connected to / tries to connect to
+                  (<guilabel>Searching for network:</guilabel> or <guilabel>Connected to
+                network:</guilabel>)</para>
+            </listitem>
+            <listitem>
+              <para> the <acronym>MAC</acronym> address of the access point to which the card is
+                connected.</para>
+              <para> If the card is in Infrastructure mode but out of range, an appropriate warning
+                  (<computeroutput>- no access point -</computeroutput>) is displayed to indicate
+                that no connection is established.</para>
+              <para> In Ad-Hoc mode, the field shows an address that is associated with one of the
+                cards in the Ad-Hoc network. It displays a MAC address that has a non-global scope:
+                its second bit is set to 1, which often results in a prefix of <quote>02:</quote>
+                instead of <quote>00:</quote>. Many people think this is an error, but in fact it is
+                done on purpose to show that the cell you are connected to is not an actual physical
+                device, but rather an imaginary access point without a real physical address.</para>
+              <informalexample>
+                <para> Your card is the first card that enters Ad-Hoc mode with a given SSID. Then all other cards
+                  entering Ad-Hoc mode with the same SSID will see your MAC-address, slightly modified: instead
+                    of<computeroutput>00:xx:yy:zz:aa:bb</computeroutput> it will
+                    show<computeroutput>02:xx:yy:zz:aa:bb</computeroutput>. This behavior is
+                  intentional.</para>
+              </informalexample>
+            </listitem>
+            <listitem>
+              <para> on most cards (those that have the capability to report it), the frequency on
+                which the card is transmitting data and the corresponding channel number is
+                displayed.</para>
+            </listitem>
+            <listitem>
+              <para> your local IP (version 4) address, if available. If no address could be
+                retrieved from the networking subsystem, the word <guilabel>unavailable</guilabel>
+                is displayed.</para>
+            </listitem>
+            <listitem>
+              <para> encryption status (only if you have started &kwifimanager; as<systemitem
+                  class="username">root</systemitem>). The display will only show
+                <guilabel>off</guilabel> or <guilabel>active</guilabel>, but never the real key.
+                This is intentional in order to not reveal the <acronym>WEP</acronym> key to people
+                passing by the users screen.</para>
+            </listitem>
+          </itemizedlist>
+        </sect3>
+        <sect3 id="ap-info">
+          <title>Access Point information (bottom area)</title>
+          <para> The last line of the main window shows information about your AccessPoint. This
+            requires that your system administrator provided a list of MAC addresses with a
+            corresponding information. An example for such a list can be found
+                in<filename>$<envar>KDEDIR</envar>/share/apps/kwifimanager/locations/DE_BW_Karlsruhe_University.loc</filename>
+          </para>
+          <para>If you want to set up a new list, simply create a file in the same format and copy
+            it into the folder <filename class="directory"
+              >$<envar>KDEDIR</envar>/share/apps/kwifimanager/locations/</filename>
+          </para>
+          <para>It will be automatically parsed at the next start of &kwifimanager;. If you have
+            a list and want to have it included in future releases of &kwifimanager;, simply
+            send it to the author or current maintainer.</para>
+        </sect3>
+        <sect3 id="scanning">
+          <title>Information about available networks</title>
+          <para> The lower-left area of the main window contains a button named <guibutton>Scan for
+              networks...</guibutton>. If you click on this button, &kwifimanager; will attempt
+            to retrieve a list of all networks that are in range of your card. The outcome of this
+            scan depends on two factors: <itemizedlist>
+              <listitem>
+                <para>the overall ability of your card and driver to perform network scans</para>
+              </listitem>
+              <listitem>
+                <para>if you have root permissions or not</para>
+              </listitem>
+            </itemizedlist> If your card or driver arent able to scan the network, your scanning
+            results will always be empty. If you are not the root user, the list may be incomplete
+            or outdated. </para>
+          <para> In order to receive a reliable, current list of access points you will need to
+            start the scan with root privileges, for example by using the &kdesu; utility to
+            start &kwifimanager;</para>
+          <para> If at least one network was found, you are presented with a table showing details
+            of the network. It has four columns that inform you about <itemizedlist>
+              <listitem>
+                <para>the network name (or the string <guilabel>(hidden cell)</guilabel> if the name
+                  is not disclosed by the access point during the scan)</para>
+              </listitem>
+              <listitem>
+                <para>the type (whether is a <guilabel>Managed</guilabel> or an
+                  <guilabel>Ad-Hoc</guilabel> network)</para>
+              </listitem>
+              <listitem>
+                <para>the signal strength of the network</para>
+              </listitem>
+              <listitem>
+                <para>and whether or not <acronym>WEP</acronym> encryption is used</para>
+              </listitem>
+            </itemizedlist> In case of an active <acronym>WEP</acronym> encryption, you can click on
+            that column and enter the network key. &kwifimanager; will automatically try to
+            guess if the key is a hexadecimal number or a string. </para>
+          <para> If the network information for the highlighted network is complete (&ie; all
+            columns contain meaningful information), you can use the button <guibutton>Switch to
+              network</guibutton> to enter the selected network. If &kwifimanager; has no root
+            privileges, you will be prompted with a password prompt to enter the root password in
+            order to change the network. </para>
+          <para> Clicking on <guibutton>Close</guibutton> dismisses the network information screen
+            without changes to the existing settings. </para>
+        </sect3>
+      </sect2>
+      <sect2 id="statistics">
+        <title>Statistics Viewer</title>
+        <para> Optionally, by selecting <guimenuitem>Connection statistics</guimenuitem> in the
+            <guimenu>File</guimenu> menu, a separate window can be shown which displays the signal
+          level and noise level graphs of the last 240 seconds. The signal level is displayed in
+          blue and the noise level in red. The difference (SIGNAL minus NOISE) is the connection
+          quality which is displayed in the main window.</para>
+        <para>Some cards do not report meaningful noise information. If this is the case for your
+          card and you get annoyed by the irrelevant red line, you can disable showing the noise
+          level in the statistics window by unselecting <menuchoice>
+            <guimenu> Config </guimenu>
+            <guimenuitem> Show noise level in statistics </guimenuitem>
+          </menuchoice> in the &kwifimanager; main window.</para>
+      </sect2>
+      <sect2 id="config-edit">
+        <title>Configuration Editor</title>
+        <para> By selecting<menuchoice>
+            <guimenu>Config</guimenu>
+            <guimenuitem>Configuration Editor</guimenuitem>
+          </menuchoice> you are taken to the <link linkend="control-center">control center
+          module</link> of &kwifimanager;. In case you are not the <systemitem class="username"
+            >root</systemitem> user, a window will pop up requesting the <systemitem
+            class="username">root</systemitem> password. This is because the configuration module
+          allows you to change network connectivity und uses <userinput>ifconfig</userinput> to make
+          changes, which requires root privileges.</para>
+      </sect2>
+      <sect2 id="misc">
+        <title>Miscellaneous</title>
+        <para>There are some minor additional features worth of being mentioned.</para>
+        <sect3 id="acoustic-scanning">
+          <title>Acoustic Scanning</title>
+          <para>First, there is a feature named <guilabel>Acoustic Scanning</guilabel>. If this
+            option is enabled, the connection quality is converted into an acoustic signal. A higher
+            signal quality leads to a higher frequency of the <quote>beep</quote> output and to a
+            more rapid beeping. If you've ever seen the Star Trek(tm) series you will see some
+            parallels to their <quote>tricorders</quote>
+          </para>
+        </sect3>
+        <sect3 id="logging">
+          <title>Network logging</title>
+          <para>A second feature is network logging. It just means that &kwifimanager; will log
+            the name of the network you are connecting to every time your network changes. 
+            This option is most useful when searching for the special network name
+              <quote>any</quote>. In this mode, the card will log into any network it finds. The
+            logfile's position is <filename class="directory"
+            >$<envar>HOME</envar>/.kde/share/apps/kwifimanager/wireless-log</filename>
+          </para>
+        </sect3>
+        <sect3>
+          <title>Disabling the wireless network</title>
+          <para>You can completely disable the card by selecting the option <guimenu>File</guimenu>
+            <guimenuitem>Disable radio</guimenuitem>. Using this option will turn off the cards
+            transmitter which effectively turns it off and saves a little bit of energy. This will
+            only work for your card if it accepts changes to its
+            <computeroutput>txpower</computeroutput> property.</para>
+        </sect3>
+      </sect2>
+    </sect1>
+    <sect1 id="systrayicon">
+      <title>The system tray icon</title>
+      <para>When &kwifimanager; is launched, it installs a small icon in the system tray. The icon contains
+      parts of the information of the main window, namely the bar graph and optionally the signal strength
+        number.  If you hover over the icon with the mouse for a few seconds, a tooltip will appear that 
+        contains the currently connected network name. Whether or not the strength number shall be 
+        shown can be configured via <guimenu>Config</guimenu>,
+      <guimenuitem>Show Strength Number in System Tray</guimenuitem>.</para>
+      <para>If you have configured &kwifimanager; to stay in the system tray when clicking on the 
+        <guibutton>X</guibutton> button, the icon will stay in the tray persistently unless you really exit
+      the application by clicking on <guimenu>File</guimenu>, <guimenuitem>Quit</guimenuitem>.</para>
+      <para>You can always hide the main application to the system tray by clicking on the tray icon. Similarly,
+      to restore the main application from the tray, just click on it once.</para>
+    </sect1>
+    <sect1 id="control-center">
+      <title>The Control Center module</title>
+      <para>The configuration module in the &kcontrolcenter; is perhaps the most useful part of
+        the &kwifimanager; suite. Here you can actually change the basic settings of your
+        wireless &LAN; card. The module can manage up to ten independent configurations for the
+        card. If you dont need that many configurations, you can reduce the number of configs
+        shown at any time by changing the <guilabel>Number of Configurations</guilabel> entry.
+        If you have configured your wireless settings with a distribution-specific tool, chances are good
+        that the &kcontrolcenter; module will automatically detect this and also read in and show that
+        configuration. In any case these configurations will be read-only, because it is the distribution's
+        job to handle updating these settings and the module should not interfere with their internal magic.
+        Up to five additional preset configurations can be shown in addition to the ten
+        that are self-definable. These configurations will have the name <guilabel>Vendor x</guilabel>
+        to distinguish them from the others.
+        The &kcontrolcenter; can even automatically set your card up whenever you start the module.
+        Since establishing (or bringing down) a network connection is a security sensitive operation,
+        any changes to the configuration can only be done by <systemitem class="username">root</systemitem>.</para>
+      <sect2 id="configuration-tab">
+        <title>The Configuration Tabs</title>
+        <para>The configurations are split up in three parts: <itemizedlist>
+          <listitem>
+            <para>general configuration settings (like the network name)</para>
+          </listitem>
+          <listitem>
+            <para>encryption settings</para>
+          </listitem>
+          <listitem>
+            <para>power saving settings</para>
+          </listitem>
+          </itemizedlist>
+          These parts are explained in the following sections.
+        </para>
+        <sect3 id="config_general">
+          <title>General settings</title>
+        <para>The upper part of the control center module consists of one to ten tabs labelled
+            <guilabel>Config 1</guilabel> through <guilabel>Config 10</guilabel>. Each of these tabs
+          can hold a configuration for your WLAN card. In addition (as explained above) up to five vendor-specific
+          configurations may be visible, labelled <guilabel>Vendor 1</guilabel> through <guilabel>Vendor 5</guilabel>.</para>
+        <para>The most important settings are always visible, the cryptography and power management
+          options are only shown when activated. The perhaps most important element in each
+          configuration tab is the field<guilabel>Network name</guilabel>. Here you can specify
+          which network you would like to log into. You can either specify the name of your network
+          directly, or you can try a scan on all available networks by setting the network name to
+            <userinput>any</userinput>.</para>
+        <para>In addition to the network name, you have to specify the type of network to log into.
+          That's the purpose of the button group<guilabel>Operation mode</guilabel>. The
+            option<guilabel>Managed</guilabel> means that the network consists of designated
+          base stations, so-called <quote>access points</quote> or sometimes <quote>residential
+          gateways</quote>. This is the most common operation mode for company networks. The second
+            option,<guilabel>Ad-hoc</guilabel> means that your network is just a direct
+          connection between computers, without access points. The three other options 
+          (<guilabel>Repeater</guilabel>, <guilabel>Master</guilabel> and <guilabel>Secondary</guilabel>)
+        are only very seldomly used. If you want to use them, please be aware that these settings are simply
+        passed to the iwconfig program and have not been tested extensively. In case something doesnt
+        work as expected, you are welcome to send a bug report.</para>
+        <para>You can optionally set the connection speed for your connection. The setting
+            <guilabel>auto</guilabel> should do for most uses, since the card will determine the
+          appropriate speed itself. However, if you find that the speed changes every few seconds,
+          for example when you have a weak connection, you can set the speed manually.</para>
+        <para>Below these configuration items you will find a field named<guilabel>Execute script on
+          connect:</guilabel>. Here you can enter the name of a script to execute after setting up
+          the network connection. It will be
+          executed whenever you hit the <guilabel>Activate configuration</guilabel> button and,
+          optionally, automatically when you start the Control Center module. The script will have
+          <systemitem class="username">root</systemitem> rights. This may lead to problems
+          if you want to start an X application in the script and the X server belongs to someone
+          else than root. You can make such scripts work correctly if you execute the X application
+          via<userinput>
+            <command>kdesu</command>
+            <option>-u</option>
+            <replaceable>USERNAME</replaceable>
+            <option>-c</option>
+            <replaceable>COMMAND</replaceable>
+          </userinput>. Or, you can instruct your X server to also allow connections coming from
+        root. You can do this with the <command>xhost</command> program.</para>
+        </sect3>
+        <sect3 id="config_crypto">
+          <title>Cryptography settings</title>
+        <para>The checkbox <guilabel>Use encryption</guilabel> determines whether or not encryption
+          shall be activated. If it is checked, a button labelled <guibutton>Configure...</guibutton> becomes
+          available which allows you to configure the details of encryption. 
+          After pushing the button, you are presented the following settings in a new dialog: </para>
+        <variablelist>
+          <varlistentry>
+            <term>
+              <guilabel>Key to use:</guilabel>
+            </term>
+            <listitem>
+              <para>You can define up to four secret keys for each configuration; in this field you
+                can set which one you want to use to send encrypted packets. The card can always
+              receive packets that are encrypted with <emphasis>any</emphasis> of the keys.</para>
+              <tip><para>You can achieve asymetrical encryption (different keys for sending and receiving)
+                if you configure your access point to send packets with a different key than the card. Just make
+              sure that the partner station has the required key in any one of its key slots.</para></tip>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              <guilabel>Crypto mode:</guilabel>
+            </term>
+            <listitem>
+              <para>When encryption is activated, there are two ways to deal with incoming
+                non-encrypted packets: discard or allow. When you set your card for <guilabel>Open</guilabel>,
+                the card will also listen to non-encrypted packets.
+                  <guilabel>Restricted</guilabel> will only allow encrypted network packets,
+                any other packets are discarded.</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              <guilabel>Crypto keys:</guilabel>
+            </term>
+            <listitem>
+              <para>This box lets you specify the secret keys to use for cryptography. To protect 
+                your passwords, only asterisks will be shown when you enter a password. The &kcontrolcenter;
+              module will automatically try to guess whether you want to set an encryption string
+              or a hexadecimal number by checking the input length: string keys are usually 5 or 13
+              characters long (for 64- or 128-Bit key lengths) whereas hex values are 10 or 26 characters
+                long (please do not put a <quote>0x</quote> in front of hex keys).</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+        <para>Be aware that the built-in cryptography support (named WEP for Wired Equivalent
+          Privacy) is not very safe at all. See <xref linkend="wep"/> for details.</para>
+        </sect3>
+        <sect3 id="config_power">
+          <title>Power saving settings</title>
+        <para>The last configuration element that remains to be described is the power management.
+          When checking the box <guilabel>Enable Power Management</guilabel> a button for the
+          configuration of the setting will become active. After clicking this button, a new dialog will open
+          and you will be presented
+          some options that can help you save energy. The first two input fields named
+            <guilabel>Sleep timeout</guilabel> and <guilabel>Wakeup period</guilabel>
+          describe the periodicity of network online times for your wireless &LAN; card. The card will
+          turn the radio antenna off for the time period (in seconds) specified in
+            <guilabel>Sleep timeout</guilabel>. Afterwards it will be active for <guilabel>Wakeup
+              period</guilabel> and will in that time establish the network connection and send/receive
+          packets that queued up during the sleep time. If no network
+          connection is found, it will go to sleep again immediately and the cycle begins again. The box named
+            <guilabel>Receive packets</guilabel> below lets you specify which packets the card
+          should listen to when awaken. You can either select <guilabel>Unicast only</guilabel>
+          (which will only let your card listen to packets sent specifically to your card),
+            <guilabel>Multi/Broadcast only</guilabel> (will only listen to packets sent to multiple
+          machines and discard packets directed to your card) or <guilabel>Both</guilabel>. Most
+          people should select the default value <guilabel>Both</guilabel>.</para>
+        </sect3>
+      </sect2>
+      <sect2 id="auto-configuration">
+        <title>Auto-configuration on &kcontrolcenter; Module startup</title>
+        <para> If you wish, you can make &kwifimanager; initialize your wireless &LAN; card
+          whenever you start the &kcontrolcenter; module. To do so, check the box <guilabel>Load
+            preset configuration on startup</guilabel> and select the configuration you want to use
+          in the listbox below. If you want to set the card to
+          these settings at once, push the button <guilabel>Activate
+        configuration</guilabel>.</para>
+      </sect2>
+      <sect2 id="autodetect">
+        <title>Autodetecting your device</title>
+        <para>&kwifimanager; needs to know the interface name of your wireless &LAN; card to
+          apply any settings. You can either enter the information (&eg;
+          <userinput>eth1</userinput> or<userinput>wlan0</userinput>) manually in the input field
+          on the right-hand side of<guilabel>Settings apply to interface:</guilabel>, or let &kwifimanager;
+          auto-detect the interface. To do so, push the button<guibutton>Autodetect
+          interface</guibutton>. This will perform a scan on all interfaces listed in <filename
+            class="directory">/proc/net/dev</filename> to find your card. The result of the scan
+          will show up in the input field beside the button. If the field remains empty, no card was
+          found. Please note that &kwifimanager; uses the wireless extensions to detect cards.
+          If you use a card controlled by the wlan-ng package, &kwifimanager; only shows correct
+          results if your driver has a compatibility layer for the wireless extensions
+        built-in. In the case that there are multiple wireless LAN cards present on the system,
+        scanning stops after the first card found. So, if you want to apply the settings to a different
+        card than the one that was detected during the scan, you need to enter its interface name
+        by hand.</para>
+      </sect2>
+    </sect1>
+  </chapter>
+  <chapter id="credits">
+    <title>License and contributors</title>
+    <para>Documentation copyright &copy; Stefan
+        Winter<email>mail@stefan-winter.de</email>.</para> &underFDL; &underGPL;
+    <!-- TRANS:CREDIT_FOR_TRANSLATORS -->
+  </chapter>
+  <appendix id="further-information">
+    <title>Further Information</title>
+    <para>This appendix contains some extra information of items concerning wireless &LAN; that
+      are not directly related to &kwifimanager;.</para>
+    <sect1 id="macaddress">
+      <title>Notes on the MAC address display in Ad-hoc mode</title>
+      <para>At first glance, the MAC address in the field <guilabel>Access Point</guilabel> seems to
+        be wrong in Ad-hoc mode because it changes the first two digits of the MAC address
+          to<computeroutput>02</computeroutput>. But actually, this is a hardcoded feature in
+        wireless &LAN; cards.</para>
+      <para>Usually a card is connected to a <quote>real</quote> access point. Then the correct MAC
+        address is shown. If you change to Ad-hoc (or <quote>Peer-to-peer</quote>) mode, one of the
+        computers must act as a server for the other computers. The first computer that enters a
+        network will set itself as server. So, all other computers connecting to the same Ad-hoc
+        network will see that first computer as network server. But since this computer is not a
+          <quote>real</quote> server (that is, it is not a permanently available access point),
+        clients should be aware that the network they are connecting to is not a permanent one. IEEE
+        standards for MAC addresses have a place reserved for such (rare) occasions: MAC addresses that are
+        not globally valid have a bit set to one that shows that these addresses are 
+        <quote>locally administered</quote>. This bit is the second bit in transmit order, and the seventh
+      bit in logical order and will hence raise the number of the MAC's first digit block from 00 to 02.</para>
+      <para>You can compare this sort of address to the non-global IP addresses like<quote>192.168.*.*.</quote>
+      </para>
+      <para>So, the implementors of wireless networking agreed to give these<quote>virtual</quote>
+        network servers a MAC address that is within the <quote>locally administered</quote> scope.
+        To keep this virtual MAC address unique, they used a little trick: they only changed the
+        first segment of the MAC address of the wireless &LAN; card, and since the remaining
+        segments are still unique in the world, they have a unique address to use as network
+        server.</para>
+    </sect1>
+    <sect1 id="wep">
+      <title>Security considerations on <acronym>WEP</acronym> cryptography</title>
+      <para>
+        <acronym>WEP</acronym> cryptography is not very secure at all. A paper from
+        cryptography analysts called the encryption algorithm <quote>kindergarten
+        cryptography</quote>. Actually, software exists that exploits a huge security hole in the
+        encryption standard. This software listens to the encrypted network traffic, analyzes it,
+        and after only a few hours it reveals the password to enter the network in clear text. The
+        more traffic on the network, the easier it is to find out the password because some packets are
+        particularly weak because they carry a bad so-called initialisation vector (IV). Recent access
+      points try to avoid these bad IVs, so it is getting harder to exploit the hole.</para>
+      <para>If you are truly concerned about your security, do<emphasis>not</emphasis> use plain
+          <acronym>WEP</acronym>. If you are just setting up a two-computer home network, well, then
+        I guess<acronym>WEP</acronym> should do.</para>
+      <para>There are many alternatives to <acronym>WEP</acronym> encryption. Its successors WPA and
+        WPA2 are better designed and do a better job protecting your traffic, for example by dynamically changing
+        the keys after a while.
+        If you dont want to rely on the basic safety of the network link you could use
+          <acronym>SSH</acronym> to communicate over the network. <acronym>SSH</acronym> is a
+        program suite that encrypts data with its own algorithm, which is very secure. Another
+        option is to use <acronym>PPTP</acronym>, the Point-to-Point-Tunneling protocol. However,
+        even <acronym>PPTP</acronym> seems to be a bit leaky concerning encryption security. And
+        finally, you could set up an IPSec tunnel (VPN connection) for your encrypted connections. As of yet, this
+        encryption seems to be very safe and flexible.</para>
+    </sect1>
+  </appendix>
+  <appendix id="compile">
+    <title>Compilation and Installation</title> &install.intro.documentation;
+    &install.compile.documentation;</appendix> &documentation.index;</book>

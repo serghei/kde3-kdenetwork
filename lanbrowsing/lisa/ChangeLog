@@ -1,0 +1,8 @@
+0.1.3
+-security fixes: fixed LOGNAME vulnerabilty and another possible buffer overflow
+
+Version 0.1.2
+-various fixes and improvements...
+
+Version 0.1
+-initial version

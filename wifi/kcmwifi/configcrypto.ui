@@ -1,0 +1,365 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>ConfigCrypto</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>ConfigCrypto</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>360</width>
+            <height>236</height>
+        </rect>
+    </property>
+    <grid>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <property name="margin">
+            <number>0</number>
+        </property>
+        <widget class="QGroupBox" row="2" column="0" rowspan="1" colspan="3">
+            <property name="name">
+                <cstring>gb_keys</cstring>
+            </property>
+            <property name="sizePolicy">
+                <sizepolicy>
+                    <hsizetype>5</hsizetype>
+                    <vsizetype>5</vsizetype>
+                    <horstretch>0</horstretch>
+                    <verstretch>1</verstretch>
+                </sizepolicy>
+            </property>
+            <property name="title">
+                <string>Crypto Keys</string>
+            </property>
+            <grid>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QLabel" row="0" column="0">
+                    <property name="name">
+                        <cstring>lb_key1</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Key 1:</string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>The first encryption key. 5 or 13 characters are ASCII keys, 10 or 26 characters are hexadecimal keys.</string>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="2" column="0">
+                    <property name="name">
+                        <cstring>lb_key3</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Key 3:</string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>The third encryption key. 5 or 13 characters are ASCII keys, 10 or 26 characters are hexadecimal keys.</string>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="1" column="0">
+                    <property name="name">
+                        <cstring>lb_key2</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Key 2:</string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>The second encryption key. 5 or 13 characters are ASCII keys, 10 or 26 characters are hexadecimal keys.</string>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="3" column="0">
+                    <property name="name">
+                        <cstring>lb_key4</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Key 4:</string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>The fourth encryption key. 5 or 13 characters are ASCII keys, 10 or 26 characters are hexadecimal keys.</string>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="0" column="2">
+                    <property name="name">
+                        <cstring>format_1</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>7</hsizetype>
+                            <vsizetype>5</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="text">
+                        <string>&lt;font color="#ff0000"&gt;unrecognized&lt;/font&gt;</string>
+                    </property>
+                    <property name="textFormat">
+                        <enum>RichText</enum>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="1" column="2">
+                    <property name="name">
+                        <cstring>format_2</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>7</hsizetype>
+                            <vsizetype>5</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="text">
+                        <string>&lt;font color="#ff0000"&gt;unrecognised&lt;/font&gt;</string>
+                    </property>
+                    <property name="textFormat">
+                        <enum>RichText</enum>
+                    </property>
+                </widget>
+                <widget class="KLineEdit" row="0" column="1">
+                    <property name="name">
+                        <cstring>le_key1</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>0</hsizetype>
+                            <vsizetype>0</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                </widget>
+                <widget class="KLineEdit" row="1" column="1">
+                    <property name="name">
+                        <cstring>le_key2</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>0</hsizetype>
+                            <vsizetype>0</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="2" column="2">
+                    <property name="name">
+                        <cstring>format_3</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>7</hsizetype>
+                            <vsizetype>5</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="text">
+                        <string>&lt;font color="#ff0000"&gt;unrecognised&lt;/font&gt;</string>
+                    </property>
+                    <property name="textFormat">
+                        <enum>RichText</enum>
+                    </property>
+                </widget>
+                <widget class="KLineEdit" row="2" column="1">
+                    <property name="name">
+                        <cstring>le_key3</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>0</hsizetype>
+                            <vsizetype>0</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="3" column="2">
+                    <property name="name">
+                        <cstring>format_4</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>7</hsizetype>
+                            <vsizetype>5</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="text">
+                        <string>&lt;font color="#ff0000"&gt;unrecognised&lt;/font&gt;</string>
+                    </property>
+                    <property name="textFormat">
+                        <enum>RichText</enum>
+                    </property>
+                </widget>
+                <widget class="KLineEdit" row="3" column="1">
+                    <property name="name">
+                        <cstring>le_key4</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>0</hsizetype>
+                            <vsizetype>0</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                </widget>
+            </grid>
+        </widget>
+        <widget class="QButtonGroup" row="1" column="0" rowspan="1" colspan="3">
+            <property name="name">
+                <cstring>bg_cryptoMode</cstring>
+            </property>
+            <property name="title">
+                <string>Crypto Mode</string>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>Sets which types of packets the card will accept.</string>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QRadioButton">
+                    <property name="name">
+                        <cstring>rb_openMode</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Ope&amp;n</string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Makes the card accept encrypted and unencrypted packets.</string>
+                    </property>
+                </widget>
+                <widget class="QRadioButton">
+                    <property name="name">
+                        <cstring>rb_restrictMode</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Restricted</string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Makes the card only accept encrypted packets.</string>
+                    </property>
+                </widget>
+            </hbox>
+        </widget>
+        <spacer row="0" column="2">
+            <property name="name">
+                <cstring>spacer3</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Horizontal</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>80</width>
+                    <height>20</height>
+                </size>
+            </property>
+        </spacer>
+        <widget class="QLabel" row="0" column="0">
+            <property name="name">
+                <cstring>lb_useKey</cstring>
+            </property>
+            <property name="text">
+                <string>Key to use:</string>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>Sets which of the four keys is to be used for transmitting packets.</string>
+            </property>
+        </widget>
+        <widget class="QComboBox" row="0" column="1">
+            <item>
+                <property name="text">
+                    <string>Key 1</string>
+                </property>
+            </item>
+            <item>
+                <property name="text">
+                    <string>Key 2</string>
+                </property>
+            </item>
+            <item>
+                <property name="text">
+                    <string>Key 3</string>
+                </property>
+            </item>
+            <item>
+                <property name="text">
+                    <string>Key 4</string>
+                </property>
+            </item>
+            <property name="name">
+                <cstring>cmb_activeKey</cstring>
+            </property>
+        </widget>
+    </grid>
+</widget>
+<connections>
+    <connection>
+        <sender>le_key1</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>ConfigCrypto</receiver>
+        <slot>slotUpdateKey1Status(const QString&amp;)</slot>
+    </connection>
+    <connection>
+        <sender>le_key2</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>ConfigCrypto</receiver>
+        <slot>slotUpdateKey2Status(const QString&amp;)</slot>
+    </connection>
+    <connection>
+        <sender>le_key3</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>ConfigCrypto</receiver>
+        <slot>slotUpdateKey3Status(const QString&amp;)</slot>
+    </connection>
+    <connection>
+        <sender>le_key4</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>ConfigCrypto</receiver>
+        <slot>slotUpdateKey4Status(const QString&amp;)</slot>
+    </connection>
+</connections>
+<tabstops>
+    <tabstop>cmb_activeKey</tabstop>
+    <tabstop>rb_openMode</tabstop>
+    <tabstop>rb_restrictMode</tabstop>
+    <tabstop>le_key1</tabstop>
+    <tabstop>le_key2</tabstop>
+    <tabstop>le_key3</tabstop>
+    <tabstop>le_key4</tabstop>
+</tabstops>
+<includes>
+    <include location="local" impldecl="in declaration">wificonfig.h</include>
+    <include location="local" impldecl="in implementation">configcrypto.ui.h</include>
+</includes>
+<slots>
+    <slot>slotUpdateKey1Status( const QString &amp; key )</slot>
+    <slot>slotUpdateKey2Status( const QString &amp; key )</slot>
+    <slot>slotUpdateKey3Status( const QString &amp; key )</slot>
+    <slot>slotUpdateKey4Status( const QString &amp; key )</slot>
+</slots>
+<functions>
+    <function specifier="non virtual">load( const IfConfig &amp; ifconfig )</function>
+    <function specifier="non virtual">save( IfConfig &amp; ifconfig )</function>
+</functions>
+<layoutdefaults spacing="6" margin="11"/>
+<layoutfunctions spacing="KDialog::spacingHint" margin="KDialog::marginHint"/>
+<includehints>
+    <includehint>klineedit.h</includehint>
+    <includehint>klineedit.h</includehint>
+    <includehint>klineedit.h</includehint>
+    <includehint>klineedit.h</includehint>
+</includehints>
+</UI>

@@ -1,0 +1,69 @@
+if test -z "$LIB_SLP"; then
+   echo ""
+   echo "You're missing OpenSLP, or the OpenSLP devel package."
+   echo "Browsing in krfb and krdc will not be possible."
+   echo "If you want browsing support in krfb, you should consider"
+   echo "installing it. "
+   echo "Have a look at http://www.openslp.org/ or find a binary"
+   echo "package for your platform."
+   echo ""
+   all_tests=bad
+fi
+
+if test "$have_ssl" != yes; then
+  echo ""
+  echo "You're missing openSSL, or your version is too old (before 0.9.5a)."
+  echo "krdc will not be compiled. If you want to use krdc, you should consider"
+  echo "installing or upgrading it."
+  echo "Have a look at http://www.openssl.org, or find a binary package for"
+  echo "your platform."
+  echo ""
+  all_tests=bad
+fi
+
+if test -z "$COMPILE_GADU"; then
+  echo ""
+  echo "You're missing libgadu or the libgadu development package."
+  echo "Kopete's Gadu-Gadu plugin will not be compiled."
+  echo "If you want Gadu-Gadu, a Polish messaging protocol, support in Kopete"
+  echo "you can download it from http://dev.null.pl/ekg/ or find a binary"
+  echo "package for your platform."
+  echo "You can find more information in ./kopete/protocols/gadu/README.gadu ."
+  echo ""
+  all_tests=bad
+fi
+
+if test "X$have_libidn" = Xno; then
+  echo ""
+  echo "You're missing libidn or the libidn development package"
+  echo "Kopete's Jabber plugin will not be compiled."
+  echo "If you want Jabber support in Kopete, You can download libidn from"
+  echo "http://www.gnu.org/software/libidn or find a binary package"
+  echo "for your platform."
+  all_tests=bad
+fi
+
+
+if test "x$with_xmms" = xcheck && test -z "$XMMS_LIBS"; then
+  echo ""
+  echo "You're missing the XMMS libraries, or the libxmms development package."
+  echo "Without libxmms Kopete's NowListening plugin won't be able to talk to"
+  echo "the XMMS music player. If you want Kopete's NowListening plugin to"
+  echo "support XMMS, have a look at http://www.xmms.org/ or find a"
+  echo "binary package for your system."
+  echo ""
+  all_tests=bad
+fi
+
+if test "x$with_wifi" = xcheck && test "$kde_libiw_installed" = "no"; then
+  echo ""
+  echo "You're missing the wireless tools libraries, or the wireless tools"
+  echo "header files. Without these, KWiFiManager and the kwireless applet"
+  echo "will not be compiled. You are unable to monitor wireless LAN"
+  echo "connections without these. If you want wireless LAN support enabled," 
+  echo "have a look at "
+  echo "http://www.hpl.hp.com/personal/Jean_Tourrilhes/Linux/Tools.html"
+  echo "or find a binary package for your system."
+  echo ""
+  all_tests=bad
+fi

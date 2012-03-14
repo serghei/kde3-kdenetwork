@@ -1,0 +1,1275 @@
+<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<class>PageIRCColorsBase</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>PageIRCColorsBase</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>429</width>
+            <height>552</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>IRC Colors</string>
+    </property>
+    <vbox>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <property name="margin">
+            <number>0</number>
+        </property>
+        <widget class="QLabel">
+            <property name="name">
+                <cstring>textLabel5</cstring>
+            </property>
+            <property name="text">
+                <string>&lt;p&gt;This selection allows you to control what the colors displayed inline in the channel look like. These colors are used for both mIRC style colors in channels and colorful nicks. The sample box beside the button gives you an example of what it will look like in the channel. The checkbox controls if the color is used for the colorful nick features. Checked means use it.&lt;/p&gt;</string>
+            </property>
+        </widget>
+        <widget class="QTabWidget">
+            <property name="name">
+                <cstring>tabWidget</cstring>
+            </property>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>dark</cstring>
+                </property>
+                <attribute name="title">
+                    <string>Dark Colors</string>
+                </attribute>
+                <vbox>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <widget class="QGroupBox">
+                        <property name="name">
+                            <cstring>groupBox16</cstring>
+                        </property>
+                        <property name="title">
+                            <string>Dark Colors</string>
+                        </property>
+                        <grid>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <widget class="QLabel" row="1" column="0">
+                                <property name="name">
+                                    <cstring>genericTextLabel_2</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Black:</string>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>genericTextCBtn</cstring>
+                                </property>
+                            </widget>
+                            <widget class="KColorButton" row="1" column="1">
+                                <property name="name">
+                                    <cstring>CBtn_1</cstring>
+                                </property>
+                                <property name="maximumSize">
+                                    <size>
+                                        <width>60</width>
+                                        <height>32767</height>
+                                    </size>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="1" column="2">
+                                <property name="name">
+                                    <cstring>TL_1</cstring>
+                                </property>
+                                <property name="sizePolicy">
+                                    <sizepolicy>
+                                        <hsizetype>5</hsizetype>
+                                        <vsizetype>5</vsizetype>
+                                        <horstretch>0</horstretch>
+                                        <verstretch>0</verstretch>
+                                    </sizepolicy>
+                                </property>
+                                <property name="frameShape">
+                                    <enum>LineEditPanel</enum>
+                                </property>
+                                <property name="frameShadow">
+                                    <enum>Sunken</enum>
+                                </property>
+                                <property name="text">
+                                    <string>&lt;p align="center"&gt;Black&lt;/p&gt;</string>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>genericTextCBtn</cstring>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="0" column="0">
+                                <property name="name">
+                                    <cstring>genericTextLabel</cstring>
+                                </property>
+                                <property name="sizePolicy">
+                                    <sizepolicy>
+                                        <hsizetype>5</hsizetype>
+                                        <vsizetype>5</vsizetype>
+                                        <horstretch>0</horstretch>
+                                        <verstretch>0</verstretch>
+                                    </sizepolicy>
+                                </property>
+                                <property name="text">
+                                    <string>White:</string>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>genericTextCBtn</cstring>
+                                </property>
+                            </widget>
+                            <widget class="KColorButton" row="0" column="1">
+                                <property name="name">
+                                    <cstring>CBtn_0</cstring>
+                                </property>
+                                <property name="sizePolicy">
+                                    <sizepolicy>
+                                        <hsizetype>5</hsizetype>
+                                        <vsizetype>7</vsizetype>
+                                        <horstretch>0</horstretch>
+                                        <verstretch>0</verstretch>
+                                    </sizepolicy>
+                                </property>
+                                <property name="maximumSize">
+                                    <size>
+                                        <width>60</width>
+                                        <height>32767</height>
+                                    </size>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="0" column="2">
+                                <property name="name">
+                                    <cstring>TL_0</cstring>
+                                </property>
+                                <property name="sizePolicy">
+                                    <sizepolicy>
+                                        <hsizetype>3</hsizetype>
+                                        <vsizetype>3</vsizetype>
+                                        <horstretch>0</horstretch>
+                                        <verstretch>0</verstretch>
+                                    </sizepolicy>
+                                </property>
+                                <property name="frameShape">
+                                    <enum>LineEditPanel</enum>
+                                </property>
+                                <property name="frameShadow">
+                                    <enum>Sunken</enum>
+                                </property>
+                                <property name="text">
+                                    <string>&lt;p align="center"&gt;White&lt;/p&gt;</string>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>genericTextCBtn</cstring>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="2" column="0">
+                                <property name="name">
+                                    <cstring>genericTextLabel_3</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Dark blue:</string>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>genericTextCBtn</cstring>
+                                </property>
+                            </widget>
+                            <widget class="KColorButton" row="2" column="1">
+                                <property name="name">
+                                    <cstring>CBtn_2</cstring>
+                                </property>
+                                <property name="maximumSize">
+                                    <size>
+                                        <width>60</width>
+                                        <height>32767</height>
+                                    </size>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="2" column="2">
+                                <property name="name">
+                                    <cstring>TL_2</cstring>
+                                </property>
+                                <property name="sizePolicy">
+                                    <sizepolicy>
+                                        <hsizetype>5</hsizetype>
+                                        <vsizetype>5</vsizetype>
+                                        <horstretch>0</horstretch>
+                                        <verstretch>0</verstretch>
+                                    </sizepolicy>
+                                </property>
+                                <property name="frameShape">
+                                    <enum>LineEditPanel</enum>
+                                </property>
+                                <property name="frameShadow">
+                                    <enum>Sunken</enum>
+                                </property>
+                                <property name="text">
+                                    <string>&lt;p align="center"&gt;Dark Blue&lt;/p&gt;</string>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>genericTextCBtn</cstring>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="4" column="0">
+                                <property name="name">
+                                    <cstring>genericTextLabel_5</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Red:</string>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>genericTextCBtn</cstring>
+                                </property>
+                            </widget>
+                            <widget class="KColorButton" row="4" column="1">
+                                <property name="name">
+                                    <cstring>CBtn_4</cstring>
+                                </property>
+                                <property name="maximumSize">
+                                    <size>
+                                        <width>60</width>
+                                        <height>32767</height>
+                                    </size>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="4" column="2">
+                                <property name="name">
+                                    <cstring>TL_4</cstring>
+                                </property>
+                                <property name="frameShape">
+                                    <enum>LineEditPanel</enum>
+                                </property>
+                                <property name="frameShadow">
+                                    <enum>Sunken</enum>
+                                </property>
+                                <property name="text">
+                                    <string>&lt;p align="center"&gt;Red&lt;/p&gt;</string>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>genericTextCBtn</cstring>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="3" column="0">
+                                <property name="name">
+                                    <cstring>genericTextLabel_4</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Dark green:</string>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>genericTextCBtn</cstring>
+                                </property>
+                            </widget>
+                            <widget class="KColorButton" row="3" column="1">
+                                <property name="name">
+                                    <cstring>CBtn_3</cstring>
+                                </property>
+                                <property name="maximumSize">
+                                    <size>
+                                        <width>60</width>
+                                        <height>32767</height>
+                                    </size>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="3" column="2">
+                                <property name="name">
+                                    <cstring>TL_3</cstring>
+                                </property>
+                                <property name="frameShape">
+                                    <enum>LineEditPanel</enum>
+                                </property>
+                                <property name="frameShadow">
+                                    <enum>Sunken</enum>
+                                </property>
+                                <property name="text">
+                                    <string>&lt;p align="center"&gt;Dark Green&lt;/p&gt;</string>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>genericTextCBtn</cstring>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="5" column="0">
+                                <property name="name">
+                                    <cstring>genericTextLabel_6</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Brown:</string>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>genericTextCBtn</cstring>
+                                </property>
+                            </widget>
+                            <widget class="KColorButton" row="5" column="1">
+                                <property name="name">
+                                    <cstring>CBtn_5</cstring>
+                                </property>
+                                <property name="maximumSize">
+                                    <size>
+                                        <width>60</width>
+                                        <height>32767</height>
+                                    </size>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="5" column="2">
+                                <property name="name">
+                                    <cstring>TL_5</cstring>
+                                </property>
+                                <property name="frameShape">
+                                    <enum>LineEditPanel</enum>
+                                </property>
+                                <property name="frameShadow">
+                                    <enum>Sunken</enum>
+                                </property>
+                                <property name="text">
+                                    <string>&lt;p align="center"&gt;Brown&lt;/p&gt;</string>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>genericTextCBtn</cstring>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="6" column="0">
+                                <property name="name">
+                                    <cstring>genericTextLabel_7</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Magenta:</string>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>genericTextCBtn</cstring>
+                                </property>
+                            </widget>
+                            <widget class="KColorButton" row="6" column="1">
+                                <property name="name">
+                                    <cstring>CBtn_6</cstring>
+                                </property>
+                                <property name="maximumSize">
+                                    <size>
+                                        <width>60</width>
+                                        <height>32767</height>
+                                    </size>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="6" column="2">
+                                <property name="name">
+                                    <cstring>TL_6</cstring>
+                                </property>
+                                <property name="frameShape">
+                                    <enum>LineEditPanel</enum>
+                                </property>
+                                <property name="frameShadow">
+                                    <enum>Sunken</enum>
+                                </property>
+                                <property name="text">
+                                    <string>&lt;p align="center"&gt;Magenta&lt;/p&gt;</string>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>genericTextCBtn</cstring>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="7" column="0">
+                                <property name="name">
+                                    <cstring>genericTextLabel_8</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Orange:</string>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>genericTextCBtn</cstring>
+                                </property>
+                            </widget>
+                            <widget class="KColorButton" row="7" column="1">
+                                <property name="name">
+                                    <cstring>CBtn_7</cstring>
+                                </property>
+                                <property name="maximumSize">
+                                    <size>
+                                        <width>60</width>
+                                        <height>32767</height>
+                                    </size>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="7" column="2">
+                                <property name="name">
+                                    <cstring>TL_7</cstring>
+                                </property>
+                                <property name="frameShape">
+                                    <enum>LineEditPanel</enum>
+                                </property>
+                                <property name="frameShadow">
+                                    <enum>Sunken</enum>
+                                </property>
+                                <property name="text">
+                                    <string>&lt;p align="center"&gt;Orange&lt;p&gt;</string>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>genericTextCBtn</cstring>
+                                </property>
+                            </widget>
+                            <widget class="QCheckBox" row="0" column="3">
+                                <property name="name">
+                                    <cstring>CBox_0</cstring>
+                                </property>
+                                <property name="sizePolicy">
+                                    <sizepolicy>
+                                        <hsizetype>5</hsizetype>
+                                        <vsizetype>5</vsizetype>
+                                        <horstretch>0</horstretch>
+                                        <verstretch>0</verstretch>
+                                    </sizepolicy>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                            </widget>
+                            <widget class="QCheckBox" row="1" column="3">
+                                <property name="name">
+                                    <cstring>CBox_1</cstring>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                            </widget>
+                            <widget class="QCheckBox" row="2" column="3">
+                                <property name="name">
+                                    <cstring>CBox_2</cstring>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                            </widget>
+                            <widget class="QCheckBox" row="3" column="3">
+                                <property name="name">
+                                    <cstring>CBox_3</cstring>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                            </widget>
+                            <widget class="QCheckBox" row="4" column="3">
+                                <property name="name">
+                                    <cstring>CBox_4</cstring>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                            </widget>
+                            <widget class="QCheckBox" row="5" column="3">
+                                <property name="name">
+                                    <cstring>CBox_5</cstring>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                            </widget>
+                            <widget class="QCheckBox" row="6" column="3">
+                                <property name="name">
+                                    <cstring>CBox_6</cstring>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                            </widget>
+                            <widget class="QCheckBox" row="7" column="3">
+                                <property name="name">
+                                    <cstring>CBox_7</cstring>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                            </widget>
+                        </grid>
+                    </widget>
+                    <spacer>
+                        <property name="name">
+                            <cstring>spacer10</cstring>
+                        </property>
+                        <property name="orientation">
+                            <enum>Vertical</enum>
+                        </property>
+                        <property name="sizeType">
+                            <enum>Expanding</enum>
+                        </property>
+                        <property name="sizeHint">
+                            <size>
+                                <width>31</width>
+                                <height>41</height>
+                            </size>
+                        </property>
+                    </spacer>
+                </vbox>
+            </widget>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>light</cstring>
+                </property>
+                <attribute name="title">
+                    <string>Light Colors</string>
+                </attribute>
+                <vbox>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <widget class="QGroupBox">
+                        <property name="name">
+                            <cstring>ircColorsGB</cstring>
+                        </property>
+                        <property name="frameShape">
+                            <enum>GroupBoxPanel</enum>
+                        </property>
+                        <property name="frameShadow">
+                            <enum>Sunken</enum>
+                        </property>
+                        <property name="title">
+                            <string>IRC Channel Colors</string>
+                        </property>
+                        <grid>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <property name="margin">
+                                <number>11</number>
+                            </property>
+                            <property name="spacing">
+                                <number>6</number>
+                            </property>
+                            <widget class="QLabel" row="2" column="0">
+                                <property name="name">
+                                    <cstring>genericTextLabel_11</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Dark cyan:</string>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>genericTextCBtn</cstring>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="3" column="0">
+                                <property name="name">
+                                    <cstring>genericTextLabel_12</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Cyan:</string>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>genericTextCBtn</cstring>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="4" column="0">
+                                <property name="name">
+                                    <cstring>genericTextLabel_13</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Blue:</string>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>genericTextCBtn</cstring>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="5" column="0">
+                                <property name="name">
+                                    <cstring>genericTextLabel_14</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Purple:</string>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>genericTextCBtn</cstring>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="6" column="0">
+                                <property name="name">
+                                    <cstring>genericTextLabel_15</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Gray:</string>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>genericTextCBtn</cstring>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="7" column="0">
+                                <property name="name">
+                                    <cstring>genericTextLabel_16</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Light gray:</string>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>genericTextCBtn</cstring>
+                                </property>
+                            </widget>
+                            <widget class="KColorButton" row="0" column="1">
+                                <property name="name">
+                                    <cstring>CBtn_8</cstring>
+                                </property>
+                                <property name="maximumSize">
+                                    <size>
+                                        <width>60</width>
+                                        <height>32767</height>
+                                    </size>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                            </widget>
+                            <widget class="KColorButton" row="1" column="1">
+                                <property name="name">
+                                    <cstring>CBtn_9</cstring>
+                                </property>
+                                <property name="maximumSize">
+                                    <size>
+                                        <width>60</width>
+                                        <height>32767</height>
+                                    </size>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                            </widget>
+                            <widget class="KColorButton" row="2" column="1">
+                                <property name="name">
+                                    <cstring>CBtn_10</cstring>
+                                </property>
+                                <property name="maximumSize">
+                                    <size>
+                                        <width>60</width>
+                                        <height>32767</height>
+                                    </size>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                            </widget>
+                            <widget class="KColorButton" row="3" column="1">
+                                <property name="name">
+                                    <cstring>CBtn_11</cstring>
+                                </property>
+                                <property name="maximumSize">
+                                    <size>
+                                        <width>60</width>
+                                        <height>32767</height>
+                                    </size>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                            </widget>
+                            <widget class="KColorButton" row="4" column="1">
+                                <property name="name">
+                                    <cstring>CBtn_12</cstring>
+                                </property>
+                                <property name="maximumSize">
+                                    <size>
+                                        <width>60</width>
+                                        <height>32767</height>
+                                    </size>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                            </widget>
+                            <widget class="KColorButton" row="5" column="1">
+                                <property name="name">
+                                    <cstring>CBtn_13</cstring>
+                                </property>
+                                <property name="maximumSize">
+                                    <size>
+                                        <width>60</width>
+                                        <height>32767</height>
+                                    </size>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                            </widget>
+                            <widget class="KColorButton" row="6" column="1">
+                                <property name="name">
+                                    <cstring>CBtn_14</cstring>
+                                </property>
+                                <property name="maximumSize">
+                                    <size>
+                                        <width>60</width>
+                                        <height>32767</height>
+                                    </size>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                            </widget>
+                            <widget class="KColorButton" row="7" column="1">
+                                <property name="name">
+                                    <cstring>CBtn_15</cstring>
+                                </property>
+                                <property name="maximumSize">
+                                    <size>
+                                        <width>60</width>
+                                        <height>32767</height>
+                                    </size>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="1" column="0">
+                                <property name="name">
+                                    <cstring>genericTextLabel_10</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Green:</string>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>genericTextCBtn</cstring>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="0" column="2">
+                                <property name="name">
+                                    <cstring>TL_8</cstring>
+                                </property>
+                                <property name="sizePolicy">
+                                    <sizepolicy>
+                                        <hsizetype>3</hsizetype>
+                                        <vsizetype>5</vsizetype>
+                                        <horstretch>0</horstretch>
+                                        <verstretch>0</verstretch>
+                                    </sizepolicy>
+                                </property>
+                                <property name="frameShape">
+                                    <enum>LineEditPanel</enum>
+                                </property>
+                                <property name="frameShadow">
+                                    <enum>Sunken</enum>
+                                </property>
+                                <property name="text">
+                                    <string>&lt;p align="center"&gt;Yellow&lt;/p&gt;</string>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>genericTextCBtn</cstring>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="1" column="2">
+                                <property name="name">
+                                    <cstring>TL_9</cstring>
+                                </property>
+                                <property name="frameShape">
+                                    <enum>LineEditPanel</enum>
+                                </property>
+                                <property name="frameShadow">
+                                    <enum>Sunken</enum>
+                                </property>
+                                <property name="text">
+                                    <string>&lt;p align="center"&gt;Green&lt;/p&gt;</string>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>genericTextCBtn</cstring>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="3" column="2">
+                                <property name="name">
+                                    <cstring>TL_11</cstring>
+                                </property>
+                                <property name="frameShape">
+                                    <enum>LineEditPanel</enum>
+                                </property>
+                                <property name="frameShadow">
+                                    <enum>Sunken</enum>
+                                </property>
+                                <property name="text">
+                                    <string>&lt;p align="center"&gt;Cyan&lt;/p&gt;</string>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>genericTextCBtn</cstring>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="2" column="2">
+                                <property name="name">
+                                    <cstring>TL_10</cstring>
+                                </property>
+                                <property name="frameShape">
+                                    <enum>LineEditPanel</enum>
+                                </property>
+                                <property name="frameShadow">
+                                    <enum>Sunken</enum>
+                                </property>
+                                <property name="text">
+                                    <string>&lt;p align="center"&gt;Dark Cyan&lt;/p&gt;</string>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>genericTextCBtn</cstring>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="4" column="2">
+                                <property name="name">
+                                    <cstring>TL_12</cstring>
+                                </property>
+                                <property name="frameShape">
+                                    <enum>LineEditPanel</enum>
+                                </property>
+                                <property name="frameShadow">
+                                    <enum>Sunken</enum>
+                                </property>
+                                <property name="text">
+                                    <string>&lt;p align="center"&gt;Blue&lt;/p&gt;</string>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>genericTextCBtn</cstring>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="5" column="2">
+                                <property name="name">
+                                    <cstring>TL_13</cstring>
+                                </property>
+                                <property name="frameShape">
+                                    <enum>LineEditPanel</enum>
+                                </property>
+                                <property name="frameShadow">
+                                    <enum>Sunken</enum>
+                                </property>
+                                <property name="text">
+                                    <string>&lt;p align="center"&gt;Purple&lt;/p&gt;</string>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>genericTextCBtn</cstring>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="6" column="2">
+                                <property name="name">
+                                    <cstring>TL_14</cstring>
+                                </property>
+                                <property name="frameShape">
+                                    <enum>LineEditPanel</enum>
+                                </property>
+                                <property name="frameShadow">
+                                    <enum>Sunken</enum>
+                                </property>
+                                <property name="text">
+                                    <string>&lt;p align="center"&gt;Gray&lt;/p&gt;</string>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>genericTextCBtn</cstring>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="7" column="2">
+                                <property name="name">
+                                    <cstring>TL_15</cstring>
+                                </property>
+                                <property name="frameShape">
+                                    <enum>LineEditPanel</enum>
+                                </property>
+                                <property name="frameShadow">
+                                    <enum>Sunken</enum>
+                                </property>
+                                <property name="text">
+                                    <string>&lt;p align="center"&gt;Light Gray&lt;/p&gt;</string>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>genericTextCBtn</cstring>
+                                </property>
+                            </widget>
+                            <widget class="QCheckBox" row="0" column="3">
+                                <property name="name">
+                                    <cstring>CBox_8</cstring>
+                                </property>
+                                <property name="sizePolicy">
+                                    <sizepolicy>
+                                        <hsizetype>1</hsizetype>
+                                        <vsizetype>0</vsizetype>
+                                        <horstretch>0</horstretch>
+                                        <verstretch>0</verstretch>
+                                    </sizepolicy>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                            </widget>
+                            <widget class="QCheckBox" row="1" column="3">
+                                <property name="name">
+                                    <cstring>CBox_9</cstring>
+                                </property>
+                                <property name="sizePolicy">
+                                    <sizepolicy>
+                                        <hsizetype>1</hsizetype>
+                                        <vsizetype>0</vsizetype>
+                                        <horstretch>0</horstretch>
+                                        <verstretch>0</verstretch>
+                                    </sizepolicy>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                            </widget>
+                            <widget class="QCheckBox" row="2" column="3">
+                                <property name="name">
+                                    <cstring>CBox_10</cstring>
+                                </property>
+                                <property name="sizePolicy">
+                                    <sizepolicy>
+                                        <hsizetype>1</hsizetype>
+                                        <vsizetype>0</vsizetype>
+                                        <horstretch>0</horstretch>
+                                        <verstretch>0</verstretch>
+                                    </sizepolicy>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                            </widget>
+                            <widget class="QCheckBox" row="3" column="3">
+                                <property name="name">
+                                    <cstring>CBox_11</cstring>
+                                </property>
+                                <property name="sizePolicy">
+                                    <sizepolicy>
+                                        <hsizetype>1</hsizetype>
+                                        <vsizetype>0</vsizetype>
+                                        <horstretch>0</horstretch>
+                                        <verstretch>0</verstretch>
+                                    </sizepolicy>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                            </widget>
+                            <widget class="QCheckBox" row="4" column="3">
+                                <property name="name">
+                                    <cstring>CBox_12</cstring>
+                                </property>
+                                <property name="sizePolicy">
+                                    <sizepolicy>
+                                        <hsizetype>1</hsizetype>
+                                        <vsizetype>0</vsizetype>
+                                        <horstretch>0</horstretch>
+                                        <verstretch>0</verstretch>
+                                    </sizepolicy>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                            </widget>
+                            <widget class="QCheckBox" row="5" column="3">
+                                <property name="name">
+                                    <cstring>CBox_13</cstring>
+                                </property>
+                                <property name="sizePolicy">
+                                    <sizepolicy>
+                                        <hsizetype>1</hsizetype>
+                                        <vsizetype>0</vsizetype>
+                                        <horstretch>0</horstretch>
+                                        <verstretch>0</verstretch>
+                                    </sizepolicy>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                            </widget>
+                            <widget class="QCheckBox" row="6" column="3">
+                                <property name="name">
+                                    <cstring>CBox_14</cstring>
+                                </property>
+                                <property name="sizePolicy">
+                                    <sizepolicy>
+                                        <hsizetype>1</hsizetype>
+                                        <vsizetype>0</vsizetype>
+                                        <horstretch>0</horstretch>
+                                        <verstretch>0</verstretch>
+                                    </sizepolicy>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                            </widget>
+                            <widget class="QCheckBox" row="7" column="3">
+                                <property name="name">
+                                    <cstring>CBox_15</cstring>
+                                </property>
+                                <property name="sizePolicy">
+                                    <sizepolicy>
+                                        <hsizetype>1</hsizetype>
+                                        <vsizetype>0</vsizetype>
+                                        <horstretch>0</horstretch>
+                                        <verstretch>0</verstretch>
+                                    </sizepolicy>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="0" column="0">
+                                <property name="name">
+                                    <cstring>genericTextLabel_9</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Yellow:</string>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>genericTextCBtn</cstring>
+                                </property>
+                            </widget>
+                        </grid>
+                    </widget>
+                    <spacer>
+                        <property name="name">
+                            <cstring>spacer14</cstring>
+                        </property>
+                        <property name="orientation">
+                            <enum>Vertical</enum>
+                        </property>
+                        <property name="sizeType">
+                            <enum>Expanding</enum>
+                        </property>
+                        <property name="sizeHint">
+                            <size>
+                                <width>21</width>
+                                <height>121</height>
+                            </size>
+                        </property>
+                    </spacer>
+                </vbox>
+            </widget>
+        </widget>
+    </vbox>
+</widget>
+<connections>
+    <connection>
+        <sender>CBtn_8</sender>
+        <signal>changed(const QColor&amp;)</signal>
+        <receiver>PageIRCColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>CBtn_9</sender>
+        <signal>changed(const QColor&amp;)</signal>
+        <receiver>PageIRCColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>CBtn_10</sender>
+        <signal>changed(const QColor&amp;)</signal>
+        <receiver>PageIRCColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>CBtn_11</sender>
+        <signal>changed(const QColor&amp;)</signal>
+        <receiver>PageIRCColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>CBtn_12</sender>
+        <signal>changed(const QColor&amp;)</signal>
+        <receiver>PageIRCColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>CBtn_13</sender>
+        <signal>changed(const QColor&amp;)</signal>
+        <receiver>PageIRCColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>CBtn_14</sender>
+        <signal>changed(const QColor&amp;)</signal>
+        <receiver>PageIRCColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>CBtn_15</sender>
+        <signal>changed(const QColor&amp;)</signal>
+        <receiver>PageIRCColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>CBtn_0</sender>
+        <signal>changed(const QColor&amp;)</signal>
+        <receiver>PageIRCColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>CBtn_1</sender>
+        <signal>changed(const QColor&amp;)</signal>
+        <receiver>PageIRCColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>CBtn_2</sender>
+        <signal>changed(const QColor&amp;)</signal>
+        <receiver>PageIRCColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>CBtn_3</sender>
+        <signal>changed(const QColor&amp;)</signal>
+        <receiver>PageIRCColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>CBtn_4</sender>
+        <signal>changed(const QColor&amp;)</signal>
+        <receiver>PageIRCColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>CBtn_5</sender>
+        <signal>changed(const QColor&amp;)</signal>
+        <receiver>PageIRCColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>CBtn_6</sender>
+        <signal>changed(const QColor&amp;)</signal>
+        <receiver>PageIRCColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>CBtn_7</sender>
+        <signal>changed(const QColor&amp;)</signal>
+        <receiver>PageIRCColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>CBox_0</sender>
+        <signal>stateChanged(int)</signal>
+        <receiver>PageIRCColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>CBox_1</sender>
+        <signal>stateChanged(int)</signal>
+        <receiver>PageIRCColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>CBox_2</sender>
+        <signal>stateChanged(int)</signal>
+        <receiver>PageIRCColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>CBox_3</sender>
+        <signal>stateChanged(int)</signal>
+        <receiver>PageIRCColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>CBox_4</sender>
+        <signal>stateChanged(int)</signal>
+        <receiver>PageIRCColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>CBox_5</sender>
+        <signal>stateChanged(int)</signal>
+        <receiver>PageIRCColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>CBox_6</sender>
+        <signal>stateChanged(int)</signal>
+        <receiver>PageIRCColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>CBox_7</sender>
+        <signal>stateChanged(int)</signal>
+        <receiver>PageIRCColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>CBox_8</sender>
+        <signal>stateChanged(int)</signal>
+        <receiver>PageIRCColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>CBox_9</sender>
+        <signal>stateChanged(int)</signal>
+        <receiver>PageIRCColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>CBox_10</sender>
+        <signal>stateChanged(int)</signal>
+        <receiver>PageIRCColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>CBox_11</sender>
+        <signal>stateChanged(int)</signal>
+        <receiver>PageIRCColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>CBox_12</sender>
+        <signal>stateChanged(int)</signal>
+        <receiver>PageIRCColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>CBox_13</sender>
+        <signal>stateChanged(int)</signal>
+        <receiver>PageIRCColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>CBox_14</sender>
+        <signal>stateChanged(int)</signal>
+        <receiver>PageIRCColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>CBox_15</sender>
+        <signal>stateChanged(int)</signal>
+        <receiver>PageIRCColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+</connections>
+<slots>
+    <slot>chanaged()</slot>
+    <slot>changed()</slot>
+</slots>
+<layoutdefaults spacing="6" margin="11"/>
+<includehints>
+    <includehint>kcolorbutton.h</includehint>
+    <includehint>kcolorbutton.h</includehint>
+    <includehint>kcolorbutton.h</includehint>
+    <includehint>kcolorbutton.h</includehint>
+    <includehint>kcolorbutton.h</includehint>
+    <includehint>kcolorbutton.h</includehint>
+    <includehint>kcolorbutton.h</includehint>
+    <includehint>kcolorbutton.h</includehint>
+    <includehint>kcolorbutton.h</includehint>
+    <includehint>kcolorbutton.h</includehint>
+    <includehint>kcolorbutton.h</includehint>
+    <includehint>kcolorbutton.h</includehint>
+    <includehint>kcolorbutton.h</includehint>
+    <includehint>kcolorbutton.h</includehint>
+    <includehint>kcolorbutton.h</includehint>
+    <includehint>kcolorbutton.h</includehint>
+</includehints>
+</UI>

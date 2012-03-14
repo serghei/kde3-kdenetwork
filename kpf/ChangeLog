@@ -1,0 +1,45 @@
+1.0.1 (post KDE 3.0)
+  * Fixed Content-Range (thanks Harald H.-J. Bongartz).
+  * Better HTML generation (directory listings) (thanks Ryan Cumming)
+  * Killed a bug that crashed kicker at startup when part of the kicker
+    process.
+  * Removed connection limiting, it was basically useless.
+
+1.0 (released with KDE 3.0)
+  * No important changes.
+  
+0.5 (initial check in to KDE CVS)
+  * Comprehensive design and class documentation.
+  * Ported to KDE 3 and Qt 3.
+  * Try to avoid running when user has root priviledges.
+  * Security audit.
+
+0.4.3: (unreleased)
+  * GUI fixes.
+  * Ensure user can't create a server with the same port as an existing.
+
+0.4.2: (released as development version)
+  * GUI fixes.
+
+0.4.1: (unreleased)
+  * Limit number of transactions possible on one connection.
+  * Integration with konqueror's 'preferences' dialog.
+
+0.4: (released as stable version)
+  * Ensure user can't create a server with the same name as an existing.
+  * GMT handled properly.
+  * Drag and drop to add new server.
+  * Persistent connections.
+
+0.3: (unreleased)
+  * Multiple servers.
+  * If-(Un)Modified-Since.
+  * Timeout.
+  * It's an applet.
+  
+0.2: (unreleased)
+  * Resuming.
+  * Simultaneous connection limit.
+
+0.1: (unreleased)
+  * Initial implementation.

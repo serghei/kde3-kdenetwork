@@ -1,0 +1,109 @@
+Applet creation:
+
+kicker creates an Applet object via the extern "C" `init' function in
+Applet.cpp
+
+Structure:
+
+The main classes:
+
+ActiveMonitor
+
+  Shows a list of ActiveMonitorItem objects.
+
+ActiveMonitorItem
+
+  Shows details of a request belonging to a Server object.
+
+Applet
+
+  Contains a set of AppletItem.
+
+AppletItem
+
+  Contains a BandwidthGraph and additionally provides a popup menu.
+  
+BandwidthGraph
+
+  Shows a graph of the bandwidth usage of a Server object.
+
+Server
+
+  Serves requests on a connection from a remote client.
+  May serve more than one request per connection (this is HTTP persistence.)
+  Creates Request object on incoming request.
+  Creates Response object when incoming request is fully received.
+  Sends Request and Response objects out via signals, so that they
+  may be used by ActiveMonitorItem objects.
+
+WebServer
+
+  Listens for incoming requests.
+  Creates and manages Server objects.
+
+WebServerManager
+
+  Singleton.
+  Creates and manages WebServer objects.
+
+Startup:
+
+1.  Applet creates WebServerManager singleton (requests pointer to instance.)
+2.  WebServerManager reads config and creates WebServers.
+3.  Applet is informed via signal as each WebServer is created, and creates
+    AppletItem for each.
+4.  AppletItem creates BandwidthGraph.
+5.  BandwidthGraph connects itself to the new WebServer.
+6.  Repeated until all saved WebServers have been created.
+7.  Return to event loop.
+
+Creation of server by user:
+
+1.  Via Konqueror properties dialog plugin, context menu on AppletItem, or
+    context menu on `bare' Applet, user is asked to configure server.
+    From the Konqueror plugin, a simple configuration interface is used.
+    From the context menu on the AppletItem or Applet, a ServerWizard is
+    created.
+2.  If a WebServer is created (user accepts) then the Applet is informed
+    and the procedure continues as in Startup, step 4.
+
+Run cycle:
+
+1.  Connection received by a WebServer.
+2.  WebServer checks connection limit, if OK creates Server.
+3.  Server creates Request object from data supplied by client.
+4.  Server emits request(), passing Request object.
+5.  WebServer emits request(), passing Request object.
+6.  ActiveMonitor creates ActiveMonitorItem using Request object data.
+7.  Server generates appropriate Response object.
+8.  Server emits response(), passing Response object.
+9.  WebServer emits response(), passing Response object.
+10. ActiveMonitor passes Response to relevant ActiveMonitorItem, which updates.
+11. Server passes data to client.
+12. Server emits finished().
+13. WebServer emits finished().
+14. ActiveMonitor informs relevant ActiveMonitorItem that Server is finished.
+15. WebServer deletes Server.
+16. (after delay) ActiveMonitorItem is removed by ActiveMonitor.
+
+Bandwidth limiting:
+
+Limiting really applies to outgoing traffic only. If `too much' incoming
+traffic is received by a Server object, it simply drops the connection.
+
+A WebServer object is responsible for bandwidth management.
+
+A Server object may not send data until it is told to by its parent (WebServer)
+object. A Server object sends a readyToWrite(this) signal when it has data to
+send.
+
+A WebServer object will call Server::write(number of bytes) when it wishes
+to allow a Server to send data.
+
+Connection limiting:
+
+A WebServer object is responsible for connection limiting. When there are
+`too many' Server objects, it will simply queue up incoming connections
+until its backlog is too long, at which point it will simply ignore further
+incoming connections.
+

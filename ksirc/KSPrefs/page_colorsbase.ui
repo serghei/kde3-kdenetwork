@@ -1,0 +1,1063 @@
+<!DOCTYPE UI><UI version="3.2" stdsetdef="1">
+<class>PageColorsBase</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>PageColorsBase</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>617</width>
+            <height>545</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>Colors</string>
+    </property>
+    <vbox>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <property name="margin">
+            <number>0</number>
+        </property>
+        <widget class="QTabWidget">
+            <property name="name">
+                <cstring>tabWidget2</cstring>
+            </property>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>tab</cstring>
+                </property>
+                <attribute name="title">
+                    <string>&amp;Scheme</string>
+                </attribute>
+                <vbox>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <widget class="QGroupBox">
+                        <property name="name">
+                            <cstring>chatColorsGB</cstring>
+                        </property>
+                        <property name="title">
+                            <string>Chat Colors</string>
+                        </property>
+                        <grid>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <property name="margin">
+                                <number>11</number>
+                            </property>
+                            <property name="spacing">
+                                <number>6</number>
+                            </property>
+                            <widget class="QLabel" row="2" column="0">
+                                <property name="name">
+                                    <cstring>chanMsgLabel</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>C&amp;hannel messages:</string>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>chanMsgCBtn</cstring>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="0" column="0">
+                                <property name="name">
+                                    <cstring>genericTextLabel</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>&amp;Generic text:</string>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>genericTextCBtn</cstring>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="0" column="2">
+                                <property name="name">
+                                    <cstring>errorLabel</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>&amp;Errors:</string>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>errorCBtn</cstring>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="1" column="0">
+                                <property name="name">
+                                    <cstring>infoLabel</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>&amp;Info:</string>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>infoCBtn</cstring>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="1" column="2">
+                                <property name="name">
+                                    <cstring>backgrndLabel</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>&amp;Background:</string>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>backCBtn</cstring>
+                                </property>
+                            </widget>
+                            <widget class="KColorButton" row="0" column="1">
+                                <property name="name">
+                                    <cstring>genericTextCBtn</cstring>
+                                </property>
+                                <property name="maximumSize">
+                                    <size>
+                                        <width>60</width>
+                                        <height>32767</height>
+                                    </size>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="2" column="2">
+                                <property name="name">
+                                    <cstring>backgrndLabel_2</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>&amp;Links:</string>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>backCBtn</cstring>
+                                </property>
+                            </widget>
+                            <spacer row="1" column="4">
+                                <property name="name">
+                                    <cstring>Spacer2</cstring>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Horizontal</enum>
+                                </property>
+                                <property name="sizeType">
+                                    <enum>Expanding</enum>
+                                </property>
+                                <property name="sizeHint">
+                                    <size>
+                                        <width>20</width>
+                                        <height>20</height>
+                                    </size>
+                                </property>
+                            </spacer>
+                            <widget class="KColorButton" row="2" column="3">
+                                <property name="name">
+                                    <cstring>linkCBtn</cstring>
+                                </property>
+                                <property name="maximumSize">
+                                    <size>
+                                        <width>60</width>
+                                        <height>32767</height>
+                                    </size>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                            </widget>
+                            <widget class="KColorButton" row="1" column="3">
+                                <property name="name">
+                                    <cstring>backCBtn</cstring>
+                                </property>
+                                <property name="maximumSize">
+                                    <size>
+                                        <width>60</width>
+                                        <height>32767</height>
+                                    </size>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                            </widget>
+                            <widget class="KColorButton" row="0" column="3">
+                                <property name="name">
+                                    <cstring>errorCBtn</cstring>
+                                </property>
+                                <property name="maximumSize">
+                                    <size>
+                                        <width>60</width>
+                                        <height>32767</height>
+                                    </size>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="3" column="0">
+                                <property name="name">
+                                    <cstring>backgrndLabel_2_2</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Selection backgr&amp;ound:</string>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>backCBtn</cstring>
+                                </property>
+                            </widget>
+                            <widget class="KColorButton" row="1" column="1">
+                                <property name="name">
+                                    <cstring>infoCBtn</cstring>
+                                </property>
+                                <property name="maximumSize">
+                                    <size>
+                                        <width>60</width>
+                                        <height>32767</height>
+                                    </size>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                            </widget>
+                            <widget class="KColorButton" row="2" column="1">
+                                <property name="name">
+                                    <cstring>chanMsgCBtn</cstring>
+                                </property>
+                                <property name="maximumSize">
+                                    <size>
+                                        <width>60</width>
+                                        <height>32767</height>
+                                    </size>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                            </widget>
+                            <widget class="KColorButton" row="3" column="1">
+                                <property name="name">
+                                    <cstring>selBackCBtn</cstring>
+                                </property>
+                                <property name="maximumSize">
+                                    <size>
+                                        <width>60</width>
+                                        <height>32767</height>
+                                    </size>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                            </widget>
+                            <widget class="KColorButton" row="3" column="3">
+                                <property name="name">
+                                    <cstring>selForeCBtn</cstring>
+                                </property>
+                                <property name="maximumSize">
+                                    <size>
+                                        <width>60</width>
+                                        <height>32767</height>
+                                    </size>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="3" column="2">
+                                <property name="name">
+                                    <cstring>backgrndLabel_2_2_2</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Sele&amp;ction foreground:</string>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>backCBtn</cstring>
+                                </property>
+                            </widget>
+                            <widget class="QCheckBox" row="4" column="0" rowspan="1" colspan="5">
+                                <property name="name">
+                                    <cstring>nickFGColorCB</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>&amp;Use background color for links</string>
+                                </property>
+                            </widget>
+                        </grid>
+                    </widget>
+                    <widget class="QGroupBox">
+                        <property name="name">
+                            <cstring>groupBox11</cstring>
+                        </property>
+                        <property name="title">
+                            <string>Sample Color Themes</string>
+                        </property>
+                        <grid>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <widget class="QLineEdit" row="0" column="0" rowspan="1" colspan="2">
+                                <property name="name">
+                                    <cstring>themeLE</cstring>
+                                </property>
+                            </widget>
+                            <widget class="QListBox" row="1" column="0" rowspan="4" colspan="1">
+                                <property name="name">
+                                    <cstring>themeLB</cstring>
+                                </property>
+                            </widget>
+                            <widget class="QPushButton" row="1" column="1">
+                                <property name="name">
+                                    <cstring>themeNewPB</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>&amp;New</string>
+                                </property>
+                            </widget>
+                            <widget class="QPushButton" row="2" column="1">
+                                <property name="name">
+                                    <cstring>themeAddPB</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>&amp;Add</string>
+                                </property>
+                            </widget>
+                            <widget class="QPushButton" row="3" column="1">
+                                <property name="name">
+                                    <cstring>themeDelPB</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>&amp;Delete</string>
+                                </property>
+                            </widget>
+                            <spacer row="4" column="1">
+                                <property name="name">
+                                    <cstring>spacer5</cstring>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Vertical</enum>
+                                </property>
+                                <property name="sizeType">
+                                    <enum>Expanding</enum>
+                                </property>
+                                <property name="sizeHint">
+                                    <size>
+                                        <width>21</width>
+                                        <height>40</height>
+                                    </size>
+                                </property>
+                            </spacer>
+                        </grid>
+                    </widget>
+                </vbox>
+            </widget>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>tab</cstring>
+                </property>
+                <attribute name="title">
+                    <string>&amp;Highlighting</string>
+                </attribute>
+                <vbox>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <widget class="QGroupBox">
+                        <property name="name">
+                            <cstring>groupBox5</cstring>
+                        </property>
+                        <property name="title">
+                            <string>Your Nick</string>
+                        </property>
+                        <hbox>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <widget class="QLabel">
+                                <property name="name">
+                                    <cstring>nickMatchLabel_2_2</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Color: </string>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>ownNickCBtn</cstring>
+                                </property>
+                            </widget>
+                            <widget class="KColorButton">
+                                <property name="name">
+                                    <cstring>ownNickCBtn</cstring>
+                                </property>
+                                <property name="maximumSize">
+                                    <size>
+                                        <width>60</width>
+                                        <height>32767</height>
+                                    </size>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                            </widget>
+                            <widget class="QCheckBox">
+                                <property name="name">
+                                    <cstring>ownNickBoldCB</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Bold</string>
+                                </property>
+                            </widget>
+                            <widget class="QCheckBox">
+                                <property name="name">
+                                    <cstring>ownNickRevCB</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Reverse</string>
+                                </property>
+                            </widget>
+                            <widget class="QCheckBox">
+                                <property name="name">
+                                    <cstring>ownNickUlCB</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Underline</string>
+                                </property>
+                            </widget>
+                            <spacer>
+                                <property name="name">
+                                    <cstring>spacer10_2</cstring>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Horizontal</enum>
+                                </property>
+                                <property name="sizeType">
+                                    <enum>Expanding</enum>
+                                </property>
+                                <property name="sizeHint">
+                                    <size>
+                                        <width>202</width>
+                                        <height>20</height>
+                                    </size>
+                                </property>
+                            </spacer>
+                        </hbox>
+                    </widget>
+                    <widget class="QButtonGroup">
+                        <property name="name">
+                            <cstring>buttonGroup1</cstring>
+                        </property>
+                        <property name="title">
+                            <string>Other Nicks</string>
+                        </property>
+                        <property name="exclusive">
+                            <bool>true</bool>
+                        </property>
+                        <grid>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <widget class="QRadioButton" row="0" column="0" rowspan="1" colspan="6">
+                                <property name="name">
+                                    <cstring>noOtherColRB</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>N&amp;o nick colors</string>
+                                </property>
+                            </widget>
+                            <widget class="QRadioButton" row="1" column="0" rowspan="1" colspan="6">
+                                <property name="name">
+                                    <cstring>autoOtherColRB</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Au&amp;to nick colorization</string>
+                                </property>
+                            </widget>
+                            <widget class="QRadioButton" row="2" column="0">
+                                <property name="name">
+                                    <cstring>fixedOtherColRB</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Fi&amp;xed</string>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="2" column="1">
+                                <property name="name">
+                                    <cstring>nickFGColorLabel</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>&amp;Foreground:</string>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>nickFGCBtn</cstring>
+                                </property>
+                            </widget>
+                            <widget class="KColorButton" row="2" column="2">
+                                <property name="name">
+                                    <cstring>nickFGCBtn</cstring>
+                                </property>
+                                <property name="minimumSize">
+                                    <size>
+                                        <width>0</width>
+                                        <height>0</height>
+                                    </size>
+                                </property>
+                                <property name="maximumSize">
+                                    <size>
+                                        <width>60</width>
+                                        <height>32767</height>
+                                    </size>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="2" column="3">
+                                <property name="name">
+                                    <cstring>nickBGColorLabel</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Backg&amp;round:</string>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>nickBGCBtn</cstring>
+                                </property>
+                            </widget>
+                            <widget class="KColorButton" row="2" column="4">
+                                <property name="name">
+                                    <cstring>nickBGCBtn</cstring>
+                                </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
+                                </property>
+                                <property name="maximumSize">
+                                    <size>
+                                        <width>60</width>
+                                        <height>32767</height>
+                                    </size>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                            </widget>
+                            <spacer row="2" column="5">
+                                <property name="name">
+                                    <cstring>spacer6</cstring>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Horizontal</enum>
+                                </property>
+                                <property name="sizeType">
+                                    <enum>Expanding</enum>
+                                </property>
+                                <property name="sizeHint">
+                                    <size>
+                                        <width>83</width>
+                                        <height>21</height>
+                                    </size>
+                                </property>
+                            </spacer>
+                        </grid>
+                    </widget>
+                    <widget class="QGroupBox">
+                        <property name="name">
+                            <cstring>nickGB</cstring>
+                        </property>
+                        <property name="title">
+                            <string>Highlight Messages</string>
+                        </property>
+                        <vbox>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <widget class="QLayoutWidget">
+                                <property name="name">
+                                    <cstring>layout12</cstring>
+                                </property>
+                                <hbox>
+                                    <property name="name">
+                                        <cstring>unnamed</cstring>
+                                    </property>
+                                    <widget class="QLabel">
+                                        <property name="name">
+                                            <cstring>nickMatchLabel_2</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>Containing &amp;your nick:</string>
+                                        </property>
+                                        <property name="buddy" stdset="0">
+                                            <cstring>ownNickCBtn</cstring>
+                                        </property>
+                                    </widget>
+                                    <widget class="KColorButton">
+                                        <property name="name">
+                                            <cstring>ownContainNickCBtn</cstring>
+                                        </property>
+                                        <property name="maximumSize">
+                                            <size>
+                                                <width>60</width>
+                                                <height>32767</height>
+                                            </size>
+                                        </property>
+                                        <property name="text">
+                                            <string></string>
+                                        </property>
+                                    </widget>
+                                    <spacer>
+                                        <property name="name">
+                                            <cstring>spacer8</cstring>
+                                        </property>
+                                        <property name="orientation">
+                                            <enum>Horizontal</enum>
+                                        </property>
+                                        <property name="sizeType">
+                                            <enum>Expanding</enum>
+                                        </property>
+                                        <property name="sizeHint">
+                                            <size>
+                                                <width>169</width>
+                                                <height>21</height>
+                                            </size>
+                                        </property>
+                                    </spacer>
+                                </hbox>
+                            </widget>
+                            <widget class="QLayoutWidget">
+                                <property name="name">
+                                    <cstring>layout11</cstring>
+                                </property>
+                                <hbox>
+                                    <property name="name">
+                                        <cstring>unnamed</cstring>
+                                    </property>
+                                    <widget class="QLabel">
+                                        <property name="name">
+                                            <cstring>nickMatchLabel_2_3</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>Containing:</string>
+                                        </property>
+                                        <property name="buddy" stdset="0">
+                                            <cstring>ownNickCBtn</cstring>
+                                        </property>
+                                    </widget>
+                                    <widget class="QLineEdit">
+                                        <property name="name">
+                                            <cstring>msg1LE</cstring>
+                                        </property>
+                                    </widget>
+                                    <widget class="KColorButton">
+                                        <property name="name">
+                                            <cstring>msg1CBtn</cstring>
+                                        </property>
+                                        <property name="maximumSize">
+                                            <size>
+                                                <width>60</width>
+                                                <height>32767</height>
+                                            </size>
+                                        </property>
+                                        <property name="text">
+                                            <string></string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QCheckBox">
+                                        <property name="name">
+                                            <cstring>msg1Regex</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>Regex</string>
+                                        </property>
+                                    </widget>
+                                    <spacer>
+                                        <property name="name">
+                                            <cstring>spacer10</cstring>
+                                        </property>
+                                        <property name="orientation">
+                                            <enum>Horizontal</enum>
+                                        </property>
+                                        <property name="sizeType">
+                                            <enum>Expanding</enum>
+                                        </property>
+                                        <property name="sizeHint">
+                                            <size>
+                                                <width>104</width>
+                                                <height>21</height>
+                                            </size>
+                                        </property>
+                                    </spacer>
+                                </hbox>
+                            </widget>
+                            <widget class="QLayoutWidget">
+                                <property name="name">
+                                    <cstring>layout10</cstring>
+                                </property>
+                                <hbox>
+                                    <property name="name">
+                                        <cstring>unnamed</cstring>
+                                    </property>
+                                    <widget class="QLabel">
+                                        <property name="name">
+                                            <cstring>nickMatchLabel_2_3_2</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>Containing:</string>
+                                        </property>
+                                        <property name="buddy" stdset="0">
+                                            <cstring>ownNickCBtn</cstring>
+                                        </property>
+                                    </widget>
+                                    <widget class="QLineEdit">
+                                        <property name="name">
+                                            <cstring>msg2LE</cstring>
+                                        </property>
+                                    </widget>
+                                    <widget class="KColorButton">
+                                        <property name="name">
+                                            <cstring>msg2CBtn</cstring>
+                                        </property>
+                                        <property name="maximumSize">
+                                            <size>
+                                                <width>60</width>
+                                                <height>32767</height>
+                                            </size>
+                                        </property>
+                                        <property name="text">
+                                            <string></string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QCheckBox">
+                                        <property name="name">
+                                            <cstring>msg2Regex</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>Regex</string>
+                                        </property>
+                                    </widget>
+                                    <spacer>
+                                        <property name="name">
+                                            <cstring>spacer10_3</cstring>
+                                        </property>
+                                        <property name="orientation">
+                                            <enum>Horizontal</enum>
+                                        </property>
+                                        <property name="sizeType">
+                                            <enum>Expanding</enum>
+                                        </property>
+                                        <property name="sizeHint">
+                                            <size>
+                                                <width>104</width>
+                                                <height>21</height>
+                                            </size>
+                                        </property>
+                                    </spacer>
+                                </hbox>
+                            </widget>
+                        </vbox>
+                    </widget>
+                    <widget class="QGroupBox">
+                        <property name="name">
+                            <cstring>colorCodesGB</cstring>
+                        </property>
+                        <property name="title">
+                            <string>Color Codes</string>
+                        </property>
+                        <hbox>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <property name="margin">
+                                <number>11</number>
+                            </property>
+                            <property name="spacing">
+                                <number>6</number>
+                            </property>
+                            <widget class="QCheckBox">
+                                <property name="name">
+                                    <cstring>allowKSircColorsCB</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Strip &amp;kSirc color codes</string>
+                                </property>
+                                <property name="checked">
+                                    <bool>true</bool>
+                                </property>
+                            </widget>
+                            <widget class="QCheckBox">
+                                <property name="name">
+                                    <cstring>allowMIRCColorsCB</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Strip &amp;mIRC color codes</string>
+                                </property>
+                                <property name="checked">
+                                    <bool>true</bool>
+                                </property>
+                            </widget>
+                            <spacer>
+                                <property name="name">
+                                    <cstring>spacer4</cstring>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Horizontal</enum>
+                                </property>
+                                <property name="sizeType">
+                                    <enum>Expanding</enum>
+                                </property>
+                                <property name="sizeHint">
+                                    <size>
+                                        <width>21</width>
+                                        <height>20</height>
+                                    </size>
+                                </property>
+                            </spacer>
+                        </hbox>
+                    </widget>
+                    <spacer>
+                        <property name="name">
+                            <cstring>spacer8_2</cstring>
+                        </property>
+                        <property name="orientation">
+                            <enum>Vertical</enum>
+                        </property>
+                        <property name="sizeType">
+                            <enum>Expanding</enum>
+                        </property>
+                        <property name="sizeHint">
+                            <size>
+                                <width>31</width>
+                                <height>16</height>
+                            </size>
+                        </property>
+                    </spacer>
+                </vbox>
+            </widget>
+        </widget>
+    </vbox>
+</widget>
+<connections>
+    <connection>
+        <sender>allowKSircColorsCB</sender>
+        <signal>clicked()</signal>
+        <receiver>PageColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>allowMIRCColorsCB</sender>
+        <signal>clicked()</signal>
+        <receiver>PageColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>backCBtn</sender>
+        <signal>changed(const QColor&amp;)</signal>
+        <receiver>PageColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>chanMsgCBtn</sender>
+        <signal>changed(const QColor&amp;)</signal>
+        <receiver>PageColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>errorCBtn</sender>
+        <signal>changed(const QColor&amp;)</signal>
+        <receiver>PageColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>genericTextCBtn</sender>
+        <signal>changed(const QColor&amp;)</signal>
+        <receiver>PageColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>infoCBtn</sender>
+        <signal>changed(const QColor&amp;)</signal>
+        <receiver>PageColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>linkCBtn</sender>
+        <signal>changed(const QColor&amp;)</signal>
+        <receiver>PageColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>nickBGCBtn</sender>
+        <signal>changed(const QColor&amp;)</signal>
+        <receiver>PageColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>nickFGCBtn</sender>
+        <signal>changed(const QColor&amp;)</signal>
+        <receiver>PageColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>nickFGColorCB</sender>
+        <signal>clicked()</signal>
+        <receiver>PageColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>ownContainNickCBtn</sender>
+        <signal>changed(const QColor&amp;)</signal>
+        <receiver>PageColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>themeAddPB</sender>
+        <signal>clicked()</signal>
+        <receiver>PageColorsBase</receiver>
+        <slot>themeAddPB_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>themeDelPB</sender>
+        <signal>clicked()</signal>
+        <receiver>PageColorsBase</receiver>
+        <slot>themeDelPB_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>themeLB</sender>
+        <signal>clicked(QListBoxItem*)</signal>
+        <receiver>PageColorsBase</receiver>
+        <slot>theme_clicked(QListBoxItem*)</slot>
+    </connection>
+    <connection>
+        <sender>themeLB</sender>
+        <signal>selectionChanged()</signal>
+        <receiver>PageColorsBase</receiver>
+        <slot>theme_sel()</slot>
+    </connection>
+    <connection>
+        <sender>themeLE</sender>
+        <signal>returnPressed()</signal>
+        <receiver>PageColorsBase</receiver>
+        <slot>themeAddPB_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>themeNewPB</sender>
+        <signal>clicked()</signal>
+        <receiver>PageColorsBase</receiver>
+        <slot>themeNewPB_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>selBackCBtn</sender>
+        <signal>changed(const QColor&amp;)</signal>
+        <receiver>PageColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>selForeCBtn</sender>
+        <signal>changed(const QColor&amp;)</signal>
+        <receiver>PageColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>ownNickCBtn</sender>
+        <signal>changed(const QColor&amp;)</signal>
+        <receiver>PageColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>ownNickBoldCB</sender>
+        <signal>stateChanged(int)</signal>
+        <receiver>PageColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>ownNickRevCB</sender>
+        <signal>stateChanged(int)</signal>
+        <receiver>PageColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>ownNickUlCB</sender>
+        <signal>stateChanged(int)</signal>
+        <receiver>PageColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>noOtherColRB</sender>
+        <signal>stateChanged(int)</signal>
+        <receiver>PageColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>autoOtherColRB</sender>
+        <signal>stateChanged(int)</signal>
+        <receiver>PageColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>fixedOtherColRB</sender>
+        <signal>stateChanged(int)</signal>
+        <receiver>PageColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>msg1CBtn</sender>
+        <signal>changed(const QColor&amp;)</signal>
+        <receiver>PageColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>msg1LE</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>PageColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>msg1Regex</sender>
+        <signal>stateChanged(int)</signal>
+        <receiver>PageColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>msg2CBtn</sender>
+        <signal>changed(const QColor&amp;)</signal>
+        <receiver>PageColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>msg2Regex</sender>
+        <signal>stateChanged(int)</signal>
+        <receiver>PageColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>msg2LE</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>PageColorsBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+</connections>
+<tabstops>
+    <tabstop>genericTextCBtn</tabstop>
+    <tabstop>errorCBtn</tabstop>
+    <tabstop>infoCBtn</tabstop>
+    <tabstop>backCBtn</tabstop>
+    <tabstop>chanMsgCBtn</tabstop>
+    <tabstop>linkCBtn</tabstop>
+    <tabstop>selBackCBtn</tabstop>
+    <tabstop>selForeCBtn</tabstop>
+    <tabstop>nickFGCBtn</tabstop>
+    <tabstop>nickBGCBtn</tabstop>
+    <tabstop>nickFGColorCB</tabstop>
+    <tabstop>ownContainNickCBtn</tabstop>
+    <tabstop>allowKSircColorsCB</tabstop>
+    <tabstop>allowMIRCColorsCB</tabstop>
+    <tabstop>themeLE</tabstop>
+    <tabstop>themeLB</tabstop>
+    <tabstop>themeNewPB</tabstop>
+    <tabstop>themeAddPB</tabstop>
+    <tabstop>themeDelPB</tabstop>
+</tabstops>
+<slots>
+    <slot>theme_clicked(QListBoxItem*)</slot>
+    <slot>themeNewPB_clicked()</slot>
+    <slot>themeDelPB_clicked()</slot>
+    <slot>themeAddPB_clicked()</slot>
+    <slot>theme_sel()</slot>
+    <slot>setColourEnabled()</slot>
+    <slot>coloursSetEnable()</slot>
+    <slot>changed()</slot>
+</slots>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

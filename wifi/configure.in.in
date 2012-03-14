@@ -1,0 +1,71 @@
+AC_ARG_WITH(wifi,
+  [AC_HELP_STRING(--with-wifi,
+    [enable support for wireless tools @<:@default=check@:>@])],
+  [], with_wifi=check)
+
+kde_libiw_installed=no
+if test "x$with_wifi" != xno; then
+	AC_LANG_SAVE
+	AC_LANG_CPLUSPLUS
+	AC_MSG_CHECKING([if wireless tools >= 25 are installed])
+	AC_TRY_COMPILE(
+	[
+		#include <iwlib.h>
+	],
+	[
+                const char *s = PROC_NET_DEV;
+	        iw_enum_devices(0, 0, 0, 0);
+	],
+		kde_libiw_installed=yes
+		AC_MSG_RESULT(yes)
+	,
+		kde_libiw_installed=no
+		AC_MSG_RESULT(no)
+	)
+
+	AC_MSG_CHECKING([if wireless tools >= 27 are installed])
+	AC_TRY_COMPILE(
+	[
+		#include <iwlib.h>
+	],
+	[
+	 	// checking how many arguments does it iw_get_stats want
+		// the result is unimportant
+		struct wireless_info info;
+		char * stupid;
+		iw_get_stats(iw_sockets_open(), stupid, &(info.stats));
+		       
+	],	AC_MSG_RESULT(no)
+	,
+               AC_MSG_RESULT(yes)
+	       AC_DEFINE(HAVE_IW_27, 1, [Define if you have iwlib newer than 26])
+
+         AC_MSG_CHECKING([if wireless tools >= 27pre19 are installed])
+         AC_TRY_COMPILE(
+	 [
+		#include <iwlib.h>
+	 ],
+	 [
+	 	// checking if wireless_info got a b.has_freq field
+		struct wireless_info info;
+		info.b.freq = 1;
+		       
+	 ],	[AC_MSG_RESULT(yes)
+		 AC_DEFINE(HAVE_IW_27pre19, 1, [Define if you have iwlib newer than 27pre18])
+
+	 ],
+               AC_MSG_RESULT(no)
+        )
+	
+	)
+
+	AC_LANG_RESTORE
+
+	if test "x$with_wifi" != xcheck && test "x$kde_libiw_installed" = xno; then
+		AC_MSG_ERROR([--with-wifi was given, but test for wireless-tools failed])
+	fi
+fi
+
+if test "$kde_libiw_installed" = "no"; then
+	DO_NOT_COMPILE="$DO_NOT_COMPILE wifi"
+fi

@@ -1,0 +1,25 @@
+# KDE Config File
+# http://www.daxis.nl/ServiceCenter.aspx
+AccountingEnabled=1
+AccountingFile=/Netherlands/BelBasis_Regio.rst
+Authentication=1
+AutoName=0
+BeforeDisconnect=
+Command=
+DNS=195.35.192.131,195.35.192.132
+DefaultRoute=1
+DisconnectCommand=
+Domain=
+ExDNSDisabled=0
+Gateway=0.0.0.0
+IPAddr=0.0.0.0
+Name=Daxis Internet
+Password=%PASSWORD%
+Phonenumber=0676085324
+ScriptArguments=
+ScriptCommands=
+StorePassword=1
+SubnetMask=0.0.0.0
+Username=%USERNAME%
+VolumeAccountingEnabled=1
+pppdArguments=

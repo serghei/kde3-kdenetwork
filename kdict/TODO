@@ -1,0 +1,2 @@
+* offline-support:
+  accessing local database-files without running a dictd-server

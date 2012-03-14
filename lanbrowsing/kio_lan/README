@@ -1,0 +1,16 @@
+This is a brandnew ioslave for my brandnew LISa daemon/server.
+It provides something like a network neighbourhood
+only relying on the TCP/IP protocol stack for KDE. Enter lan:/ to see it.
+Read the README for lisa/reslisa.
+LISa/resLISa is in the subdir lisa/.
+Maybe you have to adjust the Makefile a little bit, it currently doesn't
+use the automake/configure stuff.
+On some systems (e.g. Solaris) you will have to add some libraries, like
+-lnsl, I think.
+
+Copy this directory e.g. under kdebase/kioslave and enter it in
+kdebase/kioslave/Makefile.am in the SUBDIR line. The rerun make in
+kdebase/kioslave.
+
+Alexander Neundorf
+<neundorf@kde.org>

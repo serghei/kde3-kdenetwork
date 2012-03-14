@@ -1,0 +1,500 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>IfConfigPageBase</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>IfConfigPageBase</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>626</width>
+            <height>242</height>
+        </rect>
+    </property>
+    <grid>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <widget class="QLayoutWidget" row="0" column="0">
+            <property name="name">
+                <cstring>layout16</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QLabel">
+                    <property name="name">
+                        <cstring>lb_netName</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Network name:</string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>SSID of the network to connect to. "any" means "arbitrary available network".</string>
+                    </property>
+                </widget>
+                <widget class="KLineEdit">
+                    <property name="name">
+                        <cstring>le_networkName</cstring>
+                    </property>
+                </widget>
+                <widget class="QLabel">
+                    <property name="name">
+                        <cstring>lb_ifName</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Interface:</string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>SSID of the network to connect to. "any" means "arbitrary available network".</string>
+                    </property>
+                </widget>
+                <widget class="QLineEdit">
+                    <property name="name">
+                        <cstring>le_interface</cstring>
+                    </property>
+                    <property name="enabled">
+                        <bool>false</bool>
+                    </property>
+                </widget>
+                <widget class="QCheckBox">
+                    <property name="name">
+                        <cstring>cb_Autodetect</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Autodetect</string>
+                    </property>
+                    <property name="checked">
+                        <bool>true</bool>
+                    </property>
+                </widget>
+                <spacer>
+                    <property name="name">
+                        <cstring>spacer16</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>226</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+            </hbox>
+        </widget>
+        <widget class="QLayoutWidget" row="4" column="0">
+            <property name="name">
+                <cstring>layout13</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QLabel">
+                    <property name="name">
+                        <cstring>lb_connectScript</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Script:</string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Command to perform after the connection is established, e.g. for obtaining a DHCP lease.</string>
+                    </property>
+                </widget>
+                <widget class="KURLRequester">
+                    <property name="name">
+                        <cstring>url_connectScript</cstring>
+                    </property>
+                    <property name="enabled">
+                        <bool>false</bool>
+                    </property>
+                </widget>
+                <spacer>
+                    <property name="name">
+                        <cstring>spacer18</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>196</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+            </hbox>
+        </widget>
+        <widget class="QLayoutWidget" row="5" column="0">
+            <property name="name">
+                <cstring>layout11</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QCheckBox">
+                    <property name="name">
+                        <cstring>cb_pmEnabled</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Enable power management</string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Enables advanced power management settings.</string>
+                    </property>
+                </widget>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>pb_setupPower</cstring>
+                    </property>
+                    <property name="enabled">
+                        <bool>false</bool>
+                    </property>
+                    <property name="text">
+                        <string>Configure...</string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Clicking this button opens the Power Management menu.</string>
+                    </property>
+                </widget>
+                <spacer>
+                    <property name="name">
+                        <cstring>spacer4</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>285</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+            </hbox>
+        </widget>
+        <widget class="QLayoutWidget" row="2" column="0">
+            <property name="name">
+                <cstring>layout6</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QLabel">
+                    <property name="name">
+                        <cstring>textLabel2</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Speed:</string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Sets the connection speed. Not all cards support this.</string>
+                    </property>
+                </widget>
+                <widget class="QComboBox">
+                    <item>
+                        <property name="text">
+                            <string>Auto</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>1 Mb/s</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>2 Mb/s</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>5.5 Mb/s</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>6 Mb/s</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>9 Mb/s</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>11 Mb/s</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>12 Mb/s</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>18 Mb/s</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>24 Mb/s</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>36 Mb/s</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>48 Mb/s</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>54 Mb/s</string>
+                        </property>
+                    </item>
+                    <property name="name">
+                        <cstring>cmb_speed</cstring>
+                    </property>
+                </widget>
+                <spacer>
+                    <property name="name">
+                        <cstring>spacer6</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>190</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+            </hbox>
+        </widget>
+        <widget class="QLayoutWidget" row="1" column="0">
+            <property name="name">
+                <cstring>layout5</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QLabel">
+                    <property name="name">
+                        <cstring>lb_opMode</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Operation mode:</string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Operation mode of the card. For standard infrastructure networks, "Managed" is appropriate.</string>
+                    </property>
+                </widget>
+                <widget class="QComboBox">
+                    <item>
+                        <property name="text">
+                            <string>Ad-Hoc</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>Managed</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>Repeater</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>Master</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>Secondary</string>
+                        </property>
+                    </item>
+                    <property name="name">
+                        <cstring>cmb_wifiMode</cstring>
+                    </property>
+                </widget>
+                <spacer>
+                    <property name="name">
+                        <cstring>spacer5_2</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>413</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+            </hbox>
+        </widget>
+        <widget class="QLayoutWidget" row="3" column="0">
+            <property name="name">
+                <cstring>layout14</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QCheckBox">
+                    <property name="name">
+                        <cstring>cb_runScript</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Execute script on connect</string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Activates a script to perform arbitrary operations after associating with the network.</string>
+                    </property>
+                </widget>
+                <spacer>
+                    <property name="name">
+                        <cstring>spacer19</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>131</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+            </hbox>
+        </widget>
+        <widget class="QLayoutWidget" row="6" column="0">
+            <property name="name">
+                <cstring>layout17</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QCheckBox">
+                    <property name="name">
+                        <cstring>cb_useCrypto</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Use encryption</string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Enables WEP encryption.</string>
+                    </property>
+                </widget>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>pb_setupCrypto</cstring>
+                    </property>
+                    <property name="enabled">
+                        <bool>false</bool>
+                    </property>
+                    <property name="text">
+                        <string>Configure...</string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Clicking this button opens the Encryption menu.</string>
+                    </property>
+                </widget>
+                <spacer>
+                    <property name="name">
+                        <cstring>spacer5</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>396</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+            </hbox>
+        </widget>
+    </grid>
+</widget>
+<connections>
+    <connection>
+        <sender>cb_Autodetect</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>le_interface</receiver>
+        <slot>setDisabled(bool)</slot>
+    </connection>
+    <connection>
+        <sender>cb_runScript</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>lb_connectScript</receiver>
+        <slot>setDisabled(bool)</slot>
+    </connection>
+    <connection>
+        <sender>cb_runScript</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>url_connectScript</receiver>
+        <slot>setEnabled(bool)</slot>
+    </connection>
+</connections>
+<tabstops>
+    <tabstop>le_networkName</tabstop>
+    <tabstop>cmb_wifiMode</tabstop>
+    <tabstop>cmb_speed</tabstop>
+    <tabstop>cb_runScript</tabstop>
+    <tabstop>url_connectScript</tabstop>
+    <tabstop>cb_pmEnabled</tabstop>
+    <tabstop>pb_setupPower</tabstop>
+    <tabstop>cb_useCrypto</tabstop>
+    <tabstop>pb_setupCrypto</tabstop>
+</tabstops>
+<includes>
+    <include location="global" impldecl="in implementation">kdialog.h</include>
+</includes>
+<layoutdefaults spacing="6" margin="11"/>
+<layoutfunctions spacing="KDialog::spacingHint" margin="KDialog::marginHint"/>
+<includehints>
+    <includehint>klineedit.h</includehint>
+    <includehint>kurlrequester.h</includehint>
+    <includehint>klineedit.h</includehint>
+    <includehint>kpushbutton.h</includehint>
+</includehints>
+</UI>

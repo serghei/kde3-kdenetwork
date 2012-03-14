@@ -1,0 +1,17 @@
+For 3.2:
+- new preferences system
+- merge SLP services with identical serviceid
+- better scaling algorithm
+- SASL authentication
+- X11 support
+ - patch xnest to allow embedding it into a QXEmbed
+ - add exec feature to kio_fish or maybe use KSshProcess?
+
+Future:
+- SSL/TLS?
+- make KVncView a KPart
+- possibly reduce flickering by bundling bitblts
+
+
+Known bugs/problems:
+

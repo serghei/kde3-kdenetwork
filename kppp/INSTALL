@@ -1,0 +1,46 @@
+$Id: INSTALL 35014 1999-11-25 11:58:28Z porten $
+
+It is assumed that you have already successfully installed pppd.
+For more info see the PPP-HOWTO.
+
+INSTALLATION:
+
+./configure
+
+Now check the kppp/config.h file ( Linux users should be fine )
+then:
+
+make 
+make install
+
+o If you run "make install" as root the kppp binary will be installed
+  setuid root. Otherwise you can do this on your own:
+  cd $(KDEDIR)/bin ; chown root kppp; chmod +s kppp. This might not 
+  be absolutely necessary ( depending on the permissions 
+  set on the modem device, /etc/resolv.conf etc. but if you can 
+  afford to, this will make your life much easier.
+
+o if you can't give kppp setuid permission, here is the deal:
+  In order for kppp to be able to update /etc/resolv.conf,
+  /etc/ppp/pap-secrets or /etc/ppp/chap-secrets, respectively,
+  the users of kppp must have write permissions to these files 
+  and of course the modem device. It's up to you to figure
+  the right permissions. ;-)
+
+o make sure that the pppd's option file which usually resides
+  in /etc/ppp/ exists, but is empty. pppd wants it to exist,
+  but we don't want pppd to take any options from it. kppp 
+  will hand pppd the necessary options.
+
+o when you run kppp for the first time you need to create and
+  configure kppp for you ISP account. I hope kppp was written 
+  so that you will have no difficutlies understanding the many 
+  options offered. Please make use of the html help documentation
+  if you have questions.
+
+  
+that's it, 
+happy dialing!
+
+Bernd Wuebben           Mario Weilguni          Harri Porten
+wuebben@kde.org         mweilguni@kde.org       porten@kde.org

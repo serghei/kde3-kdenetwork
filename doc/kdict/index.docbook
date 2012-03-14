@@ -1,0 +1,1052 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
+  <!ENTITY kappname "&kdict;">
+  <!ENTITY package "kdenetwork">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % English "INCLUDE" > <!-- change language only here -->
+]>
+
+<book lang="&language;">
+
+<bookinfo>
+<title>The &kdict; Handbook</title>
+
+<authorgroup>
+<author>
+<firstname>Christian</firstname>
+<surname>Gebauer</surname>
+<affiliation>
+<address><email>gebauer@kde.org</email></address>
+</affiliation>
+</author>
+
+<othercredit role="developer">
+<firstname>Christian</firstname>
+<surname>Gebauer</surname>
+<affiliation>
+<address><email>gebauer@kde.org</email></address>
+</affiliation>
+<contrib>Developer</contrib>
+</othercredit>
+
+<othercredit role="reviewer">
+<firstname></firstname>
+<surname></surname>
+<affiliation><address><email></email></address></affiliation>
+<contrib>Reviewer</contrib>
+</othercredit>
+<!-- TRANS:ROLES_OF_TRANSLATORS -->
+</authorgroup>
+
+
+<copyright>
+<year>2002</year>
+<holder>Christian Gebauer</holder>
+</copyright>
+<legalnotice>&FDLNotice;</legalnotice>
+
+<date>2003-09-30</date>
+<releaseinfo>0.5.6</releaseinfo>
+
+<abstract><para>&kdict; is a graphical client for the
+<productname>DICT</productname> protocol. It enables you to search
+through dictionary databases for a word or phrase, then displays
+suitable definitions.</para></abstract>
+
+<keywordset>
+<keyword>KDE</keyword>
+<keyword>kdict</keyword>
+<keyword>kdenetwork</keyword>
+<keyword>dictionary</keyword>
+<keyword>translation</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title>Introduction</title>
+
+<para>&kdict; is a graphical client for the
+<systemitem>DICT</systemitem> Protocol.  It enables you to search
+through dictionary databases for a word or phrase, then displays
+suitable definitions. &kdict; tries to ease basic as well as advanced
+queries. A separate list offers a convenient way to deal with the
+enormous number of matching words that a advanced query can return.
+</para>
+
+<para>
+The remainder of &kdict;'s user interface resembles a web browser. For
+instance, you can jump to the definition of a synonym by simply clicking
+on the highlighted word. The back/forward functionality is also
+implemented, enabling you to quickly go back to the result of previous
+queries.
+</para>
+
+<para>
+&kdict; is able to process the content of the clipboard, so
+it's easy to combine &kdict; with your web browser or text
+editor.</para>
+
+<para>If your machine is behind a firewall, has no permanent internet
+connection or the server of dict.org is too slow for you, you can set up
+your own local server, all you need is available at <ulink
+url="http://www.dict.org">www.dict.org</ulink>. The advantages of a
+local server are optimal performance and the ability to install
+additional databases of your choice.  This handbook contains a <link
+linkend="dictd-mini-howto">small tutorial for installation and links to
+databases.</link></para>
+
+</chapter>
+
+<chapter id="using-kdict">
+<title>Using &kdict;</title>
+
+<sect1 id="getting-started">
+<title>Getting Started</title>
+
+<para>After you have started &kdict; (using the panel menu, or by typing
+<command>kdict</command> at the command prompt) the &kdict; main window
+shows up:</para>
+
+<screenshot>
+<screeninfo>Starting &kdict;</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="mainwin.png" format="PNG"/></imageobject>
+<textobject><phrase>The &kdict; main window.</phrase></textobject>
+<caption><para>The &kdict; main window.</para></caption>
+</mediaobject>
+</screenshot>
+
+<para>There are two different methods to lookup a word or phrase with
+&kdict;.  You can use a <link
+linkend="define-query">define query</link>. &kdict; will look for exact
+matches in the databases and displays all matching definitions in the
+lower left view. Or you can use a <link
+linkend="match-query">match query</link>, in this case all matching
+database entries will be displayed in the list view on the right
+side. You can then decide what definitions you want to look at. This
+method has the advantage that you can use more sophisticated search
+strategies like prefix, suffix or regular expressions.</para>
+</sect1>
+
+<sect1 id="configuration-of-the-server">
+<title>Configuring the <systemitem>DICT</systemitem> server</title>
+
+<para>Before you can make your first query, you have to check if the
+preset server settings work with your setup. You can modify the settings
+in the <link linkend="preferences">preferences dialog</link>.  The
+preset server is dict.org, which is a public server, so you don't have
+to change anything if you have a working internet connection.</para>
+
+<para>You can test your configuration by selecting <guimenuitem>Server
+Information</guimenuitem> from the <guimenu>Server</guimenu> menu, this
+displays some status information about the server.</para>
+
+<para>
+Now you should use <menuchoice><guimenu>Server</guimenu><guimenuitem>Get
+Capabilities</guimenuitem></menuchoice>, this will fetch a list of all
+available databases and strategies from the server.  &kdict; is now able
+to show you all features of the server in its menus. (You should always
+call <guimenuitem>Get Capabilities</guimenuitem> after switching to a
+new server)
+</para>
+
+</sect1>
+
+<sect1 id="define-query">
+<title>Basic Queries: Define</title>
+
+<para>A define query will search for words/phrases in the selected
+database(s) that match the given text exactly. The definitions belonging
+to these words are displayed in the main view. If the server finds
+nothing suitable, &kdict; will use a search strategy optimized for spell
+checking to display a list of of similar words.</para>
+
+<para>In most databases some words (especially synonyms) are marked with
+brackets <quote>{}</quote>. These words are highlighted and by
+clicking on them with the &LMB; you start an new define-query
+with this word.</para>
+
+<para>You can select a part of the text with the &LMB;. The
+selection is automatically copied into the clipboard. This is very
+convenient, because you can use the &MMB; anywhere in the
+main view to define the content of the clipboard.  So, if you want to
+get a definition for a word/phrase that is not tagged as synonym, you
+just mark it with the &LMB; and get the definition when you
+press the &MMB;.</para>
+
+<para>The &RMB; shows a popup menu, where you can choose to
+start queries with the selected text, the clipboard or the tagged
+synonym under the mouse pointer. The menu has also two entries
+<guimenuitem>Back</guimenuitem> and
+<guimenuitem>Forward</guimenuitem>. You can use them to browse through
+the results of previous queries.</para>
+
+</sect1>
+
+<sect1 id="match-query">
+<title>Advanced Queries: Match</title>
+
+<para>A match query uses the currently selected search strategy (the
+strategy selector is is located above the match list) to search in the
+selected database(s) for words similar to the given text. The result is
+a list of similar words that appears in the match list on the right. The
+entries are grouped according to the database they belong to.  Now you
+have multiple options:</para>
+
+<itemizedlist>
+<listitem>
+<para>You can use the <guibutton>Get All</guibutton> button (located
+below the match list) to fetch all definitions. Please note that the
+number of listed words and fetched definitions may differ, because in
+some cases  two or more words share one definition and &kdict; removes
+the duplicated definitions.</para> 
+</listitem>
+
+<listitem>
+<para>You can use the mouse or the keyboard to select the most interesting
+words in the list and then press the <guibutton>Get
+Selected</guibutton> button (located below the match list) to fetch only
+them. If you want to get all definitions from one database just select
+the list item which contains the database name.</para>
+</listitem>
+
+<listitem>
+<para>When you press <keycap>Enter</keycap> (keyboard) or double click
+(mouse) on a list item, &kdict; will ignore the selection and fetch the
+definition for this item. When you do this with a
+<quote>root</quote> item (an item that contains the database name), you
+will get all definitions belonging to this database.</para>
+</listitem>
+
+<listitem>
+<para>You can use one of the words as a starting point for a new query,
+this is done via the popup menu (&RMB;).</para>
+</listitem>
+</itemizedlist>
+
+<para>A click with the &MMB; anywhere in the list will
+start a new match query with the content of the clipboard (similar to
+the main view).</para>
+
+<para>The &RMB; calls the popup menu for a list item, which
+has the following entries:</para>
+
+<variablelist>
+<varlistentry>
+<term><guimenuitem>Get</guimenuitem></term>
+<listitem><para>Shows the definition for the current
+item.</para></listitem> 
+</varlistentry>
+<varlistentry>
+<term><guimenuitem>Match</guimenuitem>,
+<guimenuitem>Define</guimenuitem></term>  
+<listitem><para>Starts a match/define query with the current
+item.</para></listitem>
+</varlistentry> 
+
+<varlistentry>
+<term>
+<guimenuitem>Match Clipboard Content</guimenuitem>, <guimenuitem>Define Clipboard Content</guimenuitem>
+</term>
+<listitem><para>Starts a match/define query with the current content of
+the clipboard.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guimenuitem>Get Selected</guimenuitem>, <guimenuitem>Get
+All</guimenuitem></term>
+<listitem><para>Same functions as the buttons below the
+list.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guimenuitem>Expand List</guimenuitem>, <guimenuitem>Collapse
+List</guimenuitem></term>
+<listitem><para>(Un)folds all databases.</para></listitem>
+</varlistentry>
+</variablelist>
+
+</sect1>
+
+<sect1 id="database-sets">
+<title>Database Sets</title>
+
+<para>Sometimes it's useful to restrict a query to a subset of the
+available databases, for example all english-german dictionaries. This
+is achieved by defining <quote>database sets</quote>.  These sets appear
+in the database selector as virtual databases.</para>
+
+<para>You can access the configuration dialog via
+<menuchoice><guimenu>Server</guimenu><guimenuitem>Edit Database
+Sets</guimenuitem></menuchoice> or the toolbar icon.</para>
+
+<screenshot>
+<screeninfo>Editing database sets</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="seteditor.png" format="PNG"/></imageobject>
+<textobject><phrase>The database set editor.</phrase></textobject>
+<caption><para>The database set editor.</para></caption>
+</mediaobject>
+</screenshot>
+
+<para>The dialog has the following elements:</para>
+
+<variablelist>
+<varlistentry>
+<term><guilabel>Set</guilabel></term>
+<listitem><para>You must use this selector to select the set you want to
+modify. You can also rename a set here by entering a new name and
+pressing the <guibutton>Save</guibutton> button.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guibutton>Save</guibutton></term>
+<listitem><para>Saves changes you made in the current set. You must use
+this button before you select another set or leave the dialog, because
+otherwise all changes will be lost.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guibutton>New</guibutton></term>
+<listitem><para>This button creates a new database set.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guibutton>Delete</guibutton></term>
+<listitem><para>Deletes the currently selected set.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guibutton>Close</guibutton></term>
+<listitem><para>Closes the dialog without saving your
+changes.</para></listitem>
+</varlistentry>
+</variablelist>
+
+<para>The two lists (<guilabel>Selected Databases</guilabel> and
+<guilabel>Available Databases</guilabel>) show which databases are
+currently in the database set. You can use the arrow buttons between the
+lists to transfer items from one list to another.</para> 
+
+<para>By the way, you can leave this configuration dialog open and
+continue your work with &kdict;. This is a nice way to test your changes
+immediately.</para> 
+
+</sect1>
+
+<sect1 id="preferences">
+<title>Preferences</title>
+
+<para>You can modify many aspects of &kdict;'s behavior in the
+preferences dialog. The dialog can be opened via
+<menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure
+Kdict</guimenuitem></menuchoice> or the the toolbar icon.</para>
+
+<screenshot>
+<screeninfo>Configuring &kdict;</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="conf.png" format="PNG"/></imageobject>
+<textobject><phrase>The preferences dialog.</phrase></textobject>
+<caption><para>The preferences dialog.</para></caption>
+</mediaobject>
+</screenshot>
+
+<para>The dialog is divided into several pages. The
+<guibutton>Default</guibutton> button restores the default values for
+the current page. The <guibutton>Apply</guibutton> button will apply
+your changes on all pages. The <guibutton>OK</guibutton> button will
+apply the changes and close the dialog.  The
+<guibutton>Cancel</guibutton> button does this without saving the
+changes. By the way, you can leave the preferences dialog open and
+continue your work with &kdict;. This is a nice way to test your
+changes.</para>
+
+<sect2 id="preferences-server">
+<title>The <guilabel>Server</guilabel> Page</title>
+
+<variablelist>
+<varlistentry>
+<term><guilabel>Hostname</guilabel></term>
+<listitem><para>The internet hostname or the ip address of the
+<productname>DICT</productname> server.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Port</guilabel></term>
+<listitem><para>This is the port number the server listens on. 2628 is
+the default port and is used by the most servers.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Hold connection for</guilabel></term>
+<listitem><para>&kdict; is able to keep the connection open in short
+periods of inactivity. This feature avoids the lengthy login procedure
+before  every query. A value of 0 seconds disables this feature. Very
+large values aren't useful, because in most cases the
+<productname>DICT</productname> server will close the connection after a
+couple of minutes.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Timeout</guilabel></term>
+<listitem><para>This value determines how long &kdict; will wait for a
+answer from the server.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Command Buffer</guilabel></term>
+<listitem><para>The <productname>DICT</productname> protocol allows the
+client to send multiple commands in one network packet. The size of the
+internal command buffer determines how many commands are send in
+parallel by &kdict;. You can try to tune this value for your network
+connection, but in most cases it is not worth the
+effort.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Encoding</guilabel></term>
+<listitem><para>With this selector the text encoding method of the databases can be
+specified. The default value is "utf8", this setting should work on
+most servers. If an encoding is selected that doesn't match the encoding
+used by the databases, you will see broken characters.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Server requires authentication</guilabel></term>
+<listitem><para>Activate this if you want to provide a authentication
+with username and password. (a server may  require this for access to
+all databases) You have to enter a valid <guilabel>Username</guilabel>
+and <guilabel>Password</guilabel> combination below.</para></listitem>
+</varlistentry>
+</variablelist>
+
+</sect2>
+
+<sect2 id="preferences-appearance">
+<title>The <guilabel>Appearance</guilabel> Page</title>
+
+<para>On this page you can customize the colors and fonts of the definition
+view. A proportional font for the normal text will increase readability,
+but will also destroy the hardcoded layout of tables and similar things
+in the definitions of some databases.</para>
+
+</sect2>
+
+<sect2 id="preferences-layout">
+<title>The <guilabel>Layout</guilabel> Page</title>
+
+<para>The layout of the result isn't really configurable yet.  But you
+can decide how many headings (a heading states which database the
+definition belongs to) &kdict; should place in the result. The choices
+should be selfexplaining. Note that changes on this page won't have any
+effect until you start a new query.</para>
+
+</sect2>
+
+<sect2 id="preferences-misc">
+<title>The <guilabel>Miscellaneous</guilabel> Page</title>
+
+<para>On this page you can modify various limits that prevent &kdict;
+from eating up insane amounts of memory.</para>
+
+<variablelist>
+<varlistentry>
+<term><guilabel>Definitions</guilabel></term>
+<listitem><para>This limits the number of definitions you can fetch at once by
+selecting them in the match list.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Cached Results</guilabel></term>
+<listitem><para>This number determines how many previous results are held in a internal cache for fast access.
+You can set this to 0, but this will disable your ability to browse back to old results.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>History Entries</guilabel></term>
+<listitem><para>This is the number of past entries the input line remembers.
+Large values will cause a slower start and shutdown of
+&kdict;.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Save history on exit</guilabel></term>
+<listitem><para>If this is selected, &kdict; will remember your
+history between sessions.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Define selected text on start</guilabel></term>
+<listitem><para>If this is selected, &kdict; will immediately try to
+define the contents of the clipboard when it is
+started.</para></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+
+</sect1>
+
+</chapter>
+
+<chapter id="panel-applet">
+<title>The Panel Applet</title>
+
+<para>If you use &kdict; frequently you may find it useful to use the
+included panel applet. You can get the applet via
+<menuchoice><guimenu>K-Menu</guimenu><guisubmenu>Configure
+Panel</guisubmenu><guisubmenu>Add</guisubmenu><guisubmenu>Applet</guisubmenu><guimenuitem>Dictionary</guimenuitem></menuchoice>.</para>
+
+<screenshot>
+<screeninfo>The Panel Applet</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="applet.png" format="PNG"/></imageobject>
+<textobject><phrase>The Panel Applet</phrase></textobject>
+<caption><para>The Panel Applet</para></caption>
+</mediaobject>
+</screenshot>
+
+<para>The input field behaves like the input field of the &kdict; main
+window.  When you press <keycap>Enter</keycap> &kdict; opens and the
+query starts.  Instead of typing you can also select a phrase you
+entered before from the drop down list.</para>
+
+<para>Additionally the applet features three push buttons:</para>
+
+<variablelist>
+<varlistentry>
+<term><guibutton>C</guibutton></term>
+<listitem><para>Define the current content of the clipboard.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guibutton>D</guibutton></term>
+<listitem><para>Define the current content of the input field.</para></listitem></varlistentry>
+<varlistentry>
+<term><guibutton>M</guibutton></term>
+<listitem><para>Start a match query with the current content of the input field.</para></listitem></varlistentry>
+</variablelist>
+
+</chapter>
+
+<chapter id="commands">
+<title>Command Reference</title>
+
+<sect1 id="file-menu">
+<title>The <guimenu>File</guimenu> Menu</title>
+
+<variablelist>
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;<keycap>S</keycap></keycombo>
+</shortcut>
+<guimenu>File</guimenu>
+<guimenuitem>Save</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Saves the current result as an html document</action>.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<shortcut><keycombo action="simul">&Ctrl;
+<keycap>P</keycap></keycombo></shortcut>
+<guimenu>File</guimenu>
+<guimenuitem>Print</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Prints the current result.</action>.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Start Query</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Defines the content of the input field.</action>.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Stop Query</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Aborts the current query.</action>.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice><shortcut><keycombo action="simul">
+&Ctrl;<keycap>Q</keycap></keycombo></shortcut>
+<guimenu>File</guimenu>
+<guimenuitem>Quit</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Quits</action> &kdict;.</para></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect1>
+
+<sect1 id="edit-menu">
+<title>The <guimenu>Edit</guimenu> Menu</title>
+
+<variablelist>
+
+<varlistentry>
+<term><menuchoice><shortcut><keycombo action="simul">
+&Ctrl;<keycap>C</keycap></keycombo></shortcut>
+<guimenu>Edit</guimenu>
+<guimenuitem>Copy</guimenuitem></menuchoice>
+</term>
+<listitem>
+<para><action>Copies the currently selected text into the clipboard.</action></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice><shortcut><keycombo action="simul">
+&Ctrl;<keycap>C</keycap></keycombo></shortcut>
+<guimenu>Edit</guimenu>
+<guimenuitem>Select All</guimenuitem></menuchoice>
+</term>
+<listitem>
+<para><action>Selects the complete text.</action></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice><guimenu>Edit</guimenu>
+<guimenuitem>Define Clipboard Content</guimenuitem></menuchoice>
+</term>
+<listitem>
+<para><link linkend="define-query">Defines the current content</link> of the clipboard.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Edit</guimenu>
+<guimenuitem>Match Clipboard Content</guimenuitem></menuchoice>
+</term>
+<listitem>
+<para><action>Find database entries</action> which <link
+linkend="match-query">match the current content</link> of the
+clipboard.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice><shortcut><keycombo action="simul">
+&Ctrl;<keycap>F</keycap></keycombo></shortcut>
+<guimenu>Edit</guimenu>
+<guimenuitem>Find...</guimenuitem></menuchoice>
+</term>
+<listitem>
+<para><action>Finds a string in the displayed definitions.</action></para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect1>
+
+<sect1 id="history-menu">
+<title>The <guimenu>History</guimenu> Menu</title>
+
+<variablelist>
+<varlistentry>
+<term><menuchoice><shortcut><keycombo action="simul">
+&Alt;<keycap>Left</keycap></keycombo></shortcut>
+<guimenu>History</guimenu>
+<guimenuitem>Back</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Displays the previous search result.</action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice><shortcut><keycombo action="simul">
+&Alt;<keycap>Right</keycap></keycombo></shortcut>
+<guimenu>History</guimenu>
+<guimenuitem>Forward</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Displays the next search result.</action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>History</guimenu>
+<guimenuitem>Clear History</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Clears the list of past queries.</action></para></listitem>
+</varlistentry>
+
+</variablelist>
+
+<para>At the bottom of the <guimenu>History</guimenu> the ten last queries
+are listed.</para>
+
+</sect1>
+
+<sect1 id="server-menu">
+<title>The <guimenu>Server</guimenu> Menu</title>
+
+<variablelist>
+
+<varlistentry>
+<term><menuchoice> <guimenu>Server</guimenu>
+<guimenuitem>Get Capabilities</guimenuitem>
+</menuchoice></term> <listitem><para><action>Determines which databases
+and strategies are available</action> on the
+<productname>DICT</productname> server. You must call this once to be
+able to specify search strategy and database for a
+query.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Server</guimenu>
+<guimenuitem>Edit Database Sets...</guimenuitem>
+</menuchoice></term>
+<listitem><para>Opens the <link linkend="database-sets">database set editor</link>.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Server</guimenu>
+<guimenuitem>Database Information</guimenuitem>
+</menuchoice></term>
+<listitem><para>Submenu which offers a summary of the databases available, and detailed information for every database.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Server</guimenu>
+<guimenuitem>Strategy Information</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Displays a list with short descriptions of the search strategies
+available on the current server.</action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Server</guimenu>
+<guimenuitem>Server Information</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Displays some status information</action> (uptime, &etc;) about the current
+<productname>DICT</productname> server.</para></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect1>
+
+<sect1 id="settings-menu">
+<title>The <guimenu>Settings</guimenu> Menu</title>
+<para>This menu provides options for configuring &kdict;, changing its
+appearance, shortcuts and standard behavior.</para>
+
+<variablelist>
+<varlistentry>
+<term><menuchoice>
+<guimenu>Settings</guimenu>
+<guimenuitem>Toolbars</guimenuitem>
+</menuchoice></term>
+<listitem><para>Submenu which toggles the toolbars on or off. You can
+toggle either the Main toolbar or the Query toolbar
+independently.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Settings</guimenu>
+<guimenuitem>Show Statusbar</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Toggles the statusbar on/off.</action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Settings</guimenu>
+<guimenuitem>Show Match List</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Hides (or shows) the match list.</action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Settings</guimenu>
+<guimenuitem>Swallow Match List</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>This (un-)swallows the match list into the main window.</action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Settings</guimenu>
+<guimenuitem>Configure Shortcuts...</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Opens a dialog for changing the key bindings.</action>
+Using this option you can change the standard key shortcut for &kdict;'s commands
+or create new ones.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Settings</guimenu>
+<guimenuitem>Configure Toolbars...</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Opens a dialog for configuring the toolbar.</action> You
+can add and remove toolbuttons for &kdict;'s commands with this option.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Settings</guimenu>
+<guimenuitem>Configure Kdict...</guimenuitem>
+</menuchoice></term>
+<listitem><para>Opens the <link linkend="preferences">preferences dialog</link>.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</sect1>
+
+<sect1 id="help-menu">
+<title>The <guimenu>Help</guimenu> Menu</title>
+
+&help.menu.documentation;
+
+</sect1>
+
+</chapter>
+
+<chapter id="command-line">
+<title>Command Line Options</title>
+
+<para>&kdict; can be started directly from a terminal like &konsole; or
+<application>xterm</application>. Several command line options are
+available.</para>
+
+<variablelist>
+<varlistentry>
+<term><command>kdict</command> <option>word/phrase</option></term>
+<listitem><para>lookup the given text. You will have to put the phrase into double quotes,
+if the phrase contains more than one word. For example: <command>kdict "double quote"</command></para></listitem>
+</varlistentry>
+<varlistentry>
+<term><command>kdict</command> <option>-c / --clipboard</option></term>
+<listitem><para>define the current content of the clipboard.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><command>kdict</command> <option>-v / --version</option></term>
+<listitem><para>Displays the version number of &kdict; (and that of
+&Qt;/&kde;).</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><command>kdict</command> <option>--license</option></term>
+<listitem><para>Shows under which licenses &kdict; is being
+published.</para></listitem>
+</varlistentry>
+</variablelist>
+
+<para>&kdict; also supports all other command line options common to
+&kde; and &Qt; programs. You can get a list of these options with
+<userinput><option>--help</option></userinput>,
+<userinput><option>--help-kde</option></userinput> and
+<userinput><option>--help-qt</option></userinput></para>
+
+</chapter>
+
+<chapter id="credits">
+<title>Credits and License</title>
+
+<para>&kdict; - The &kde; Dictionary Client</para>
+
+<para>Copyright (c) 1999-2001, Christian Gebauer</para>
+<para>Copyright (c) 1998, Matthias H&ouml;lzer-Kl&uuml;pfel</para>
+
+
+<para>&kdict; was originally written in 1998 by Matthias
+H&ouml;lzer-Kl&uuml;pfel <email>hoelzer@kde.org</email>. Currently it is
+maintained by Christian Gebauer <email>gebauer@kde.org</email>.</para>
+
+&underFDL;               <!-- FDL: do not remove -->
+&underArtisticLicense;   <!-- Artistic License -->
+
+</chapter>
+
+<appendix id="installation">
+<title>Installation</title>
+
+<sect1 id="getting-kdict">
+<title>How to obtain &kdict;</title>
+	  
+&install.intro.documentation;
+&install.compile.documentation;
+
+</sect1>
+<sect1 id="requirements">
+<title>Requirements</title>
+
+<para>Besides a working &kde; installation &kdict; requires the posix
+threads library which is available on all modern unices.</para>
+</sect1>
+
+</appendix>
+
+<appendix id="dictd-mini-howto">
+<title>Mini-Howto: Installing a local <productname>DICT</productname> server</title>
+
+<sect1 id="obtaining-dictd">
+<title>Obtaining and installing <command>dictd</command></title>
+
+<para>At first the <command>dictd</command> daemon has to be installed.
+The easiest way to install <command>dictd</command> is using a
+precompiled package.  Such a package is included both in <ulink
+url="http://www.debian.org/">Debian</ulink> and <ulink
+url="http://www.suse.com/">SuSE</ulink> &Linux;. You can find packages
+that should work on all <productname>RPM</productname> based &Linux; distributions on <ulink
+url="http://rpmfind.net/linux/RPM/">rpmfind.net</ulink>.</para>
+
+<para>If you want to compile <command>dictd</command> yourself, download
+<ulink
+url="ftp://ftp.dict.org/pub/dict/dictd-1.9.1.tar.gz">ftp://ftp.dict.org/pub/dict/dictd-1.9.1.tar.gz</ulink>.
+Compilation is easy, just unpack the archive and run
+<userinput><command>./configure</command></userinput>,
+<userinput><command>make</command></userinput> and
+<userinput><command>make</command> <option>install</option></userinput>
+in the <filename class="directory">dictd</filename> folder. You might
+want to use the <option>--prefix</option> option of the configure script
+to install <command>dictd</command> in a different folder. By default
+<command>dictd</command> will be installed in <filename
+class="directory">/usr/local</filename>.</para>
+
+</sect1>
+
+<sect1 id="obtaining-databases">
+<title>Obtaining databases</title>
+
+<para>Now you need to download some databases. The standard set
+(webster, wordnet, jargon file, foldoc, ...) that is present on the
+<productname>DICT</productname> server of <ulink
+url="http://www.dict.org">dict.org</ulink>, is available from <ulink
+url="ftp://ftp.dict.org/pub/dict/pre/">ftp://ftp.dict.org/pub/dict/pre/</ulink>.
+These are also available as <ulink
+url="http://www.debian.org/">Debian</ulink> and <ulink
+url="http://rpmfind.net/linux/RPM/">rpm</ulink> packages.</para>
+
+<sect2 id="additional-databases">
+<title>Additional preformatted databases</title>
+
+<variablelist>
+
+<varlistentry>
+<term><ulink url="http://www.freedict.de/">www.freedict.de</ulink></term>
+<listitem><para>Translating dictionaries for Africaans, Czech, Danish,
+English, French, German, Greek, Hungarian, Irish, Italian, Japanese,
+Latin, Nederlands (Dutch), Portuguese, Russian, Serbo-Croatian, Swedish,
+Slovak, Spanish, Swahili, Swedish, Turkish and Welsh</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><ulink url="http://www.wh9.tu-dresden.de/~heinrich/dict/">http://www.wh9.tu-dresden.de/~heinrich/dict/</ulink></term>
+<listitem><para>Translating dictionaries for English, French, German, Italian, Latin, Portugue and Spanish.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><ulink url="http://purl.oclc.org/NET/voko/revodict.tgz">http://purl.oclc.org/NET/voko/revodict.tgz</ulink></term>
+<listitem><para>Esperanto dictionary</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><ulink url="http://www.bainsware.com/downloads/obi-bio.tar.gz">http://www.bainsware.com/downloads/obi-bio.tar.gz</ulink></term>
+<listitem><para><acronym>OBI</acronym>'s Online Biographical Dictionary</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><ulink url="http://www.bainsware.com/downloads/inaug.tar.gz"></ulink>http://www.bainsware.com/downloads/inaug.tar.gz</term>
+<listitem><para>The Inaugural Addresses of all the US presidents</para></listitem>
+</varlistentry>
+
+</variablelist>
+
+<para>You can find more databases on the link page of <ulink
+url="http://www.dict.org">www.dict.org</ulink>, but the majority of them
+are not formatted for <command>dictd</command>.</para>
+
+<para>Each database consists of two files: The <literal
+role="extension">*.index</literal> file contains the index and the
+<literal role="extension">*.dict.dz</literal> file the actual
+data. Unpack all packages into a folder of your choice, for example
+<filename class="directory">/usr/share/dict/</filename>.</para>
+
+</sect2>
+</sect1>
+
+<sect1 id="configuration-dictd">
+<title>Configuration</title>
+
+<para>You have to create/modify two configuration files. Both are stored
+in <filename class="directory">/usr/local/etc</filename> if you used the default
+installation prefix (<filename class="directory">/usr/local</filename>).</para>
+
+<para><filename>dict.conf</filename> belongs to the basic
+<command>dict</command> client.  It contains only one line:
+<userinput>server localhost</userinput>. This tells
+<command>dict</command> to use the local server.</para>
+
+<para><filename>dictd.conf</filename> configures the server. First you
+must add the access statement: <userinput>access {allow localhost
+deny *}</userinput>.</para>
+
+<para> This example grants only local access and blocks all external
+connections.  You can use more than one allow and deny rule, for
+example: <programlisting>access {allow localhost allow *.workgroup deny
+*}</programlisting> The database statement configures the location of
+the index and the data file for a database:
+</para>
+
+
+<programlisting>
+    database web1913   { data "/usr/share/dict/web1913.dict.dz"
+                         index "/usr/share/dict/web1913.index" }
+                         </programlisting>
+
+<para>You must add a statement for each database you want to use.</para>
+
+<para>Now you should be able to start <command>dictd</command>
+and to use it with <command>dict</command> and &kdict;.</para>
+
+<para>Please consult the man page of <command>dictd</command>
+for a complete description of <filename>dictd.conf</filename>.</para>
+</sect1>
+
+<sect1 id="starting-dictd">
+<title>Starting <command>dictd</command> automatically</title>
+
+<para>If you want to use the <command>dict</command> server
+frequently, you might want to start it automatically during the startup
+process of your system.  Some of the precomplied packages install a
+suitable script, but you can also adapt the generic SYSV style script
+included in the source distribution: <ulink
+url="ftp://ftp.dict.org/pub/dict/INITSCRIPT">ftp://ftp.dict.org/pub/dict/INITSCRIPT</ulink>.</para>
+</sect1>
+
+</appendix>
+
+&documentation.index;
+
+</book>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet
+-->

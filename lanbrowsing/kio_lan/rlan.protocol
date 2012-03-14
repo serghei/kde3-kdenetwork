@@ -1,0 +1,15 @@
+[Protocol]
+exec=kio_lan
+protocol=rlan
+input=none
+output=filesystem
+listing=Name,Type
+reading=true
+writing=false
+makedir=false
+deleting=false
+linking=false
+moving=false
+DocPath=kioslave/rlan.html
+Icon=network_local
+Class=:local

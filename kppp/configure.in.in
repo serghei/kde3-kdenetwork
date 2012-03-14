@@ -1,0 +1,53 @@
+AC_MSG_CHECKING(if kppp's headers are installed)
+# this is a little piece of code out of kppp. If it doesn't compile,
+# kppp is not good for this system. It doesn't do anything, but enough
+# to fail ;)
+AC_LANG_SAVE
+AC_LANG_CPLUSPLUS
+AC_TRY_LINK([
+#if defined(__osf__) || defined(__svr4__)
+  #define _POSIX_PII_SOCKET
+  extern "C" int sethostname(char *name, int name_len);
+#endif
+#include <unistd.h>
+#include <arpa/inet.h>
+#ifdef __DragonFly__
+#include <net/ppp_layer/ppp_defs.h>
+#else
+#include <net/ppp_defs.h>
+#endif
+#include <netinet/in.h>
+
+#ifdef __svr4__
+  #include <sys/stropts.h>
+  #include <net/pppio.h>		/* SVR4, Solaris 2, etc. */
+
+#else
+  #include <sys/time.h>
+  #include <sys/socket.h>
+  #include <net/if.h>
+
+  #ifndef STREAMS 
+
+    #if defined(linux)
+      #include <linux/if_ppp.h>
+    #elif defined(__DragonFly__)
+      #include <net/ppp/if_ppp.h>
+    #else
+      #include <net/if_ppp.h>                /* BSD, NeXT, etc. */
+    #endif
+
+  #else				/* SunOS 4, AIX 4, OSF/1, etc. */
+    #include <sys/stream.h>
+    #include <net/ppp_str.h>
+  #endif
+#endif
+],[
+  sethostname("", 1); /* never run this program! :*/ 
+], 
+[ AC_MSG_RESULT(yes) ],
+[ DO_NOT_COMPILE="$DO_NOT_COMPILE kppp"
+  AC_MSG_RESULT(no)
+])
+AC_LANG_RESTORE
+AC_CHECK_HEADERS(sys/param.h string.h)

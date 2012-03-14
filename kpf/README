@@ -1,0 +1,42 @@
+Public fileserver for KDE
+
+Features:
+
+  * Runs as an applet in kicker.
+  * Uses HTTP protocol (supports 1.0 & 1.1)
+  * Realtime connection monitor and control
+  * Bandwidth capping.
+  * Connection count limiting.
+  * Designed for safety. No CGI, no PUT, no access outside virtual root.
+  * Drag and drop an URL pointing to a local dir to add a share.
+  * Integration with konqueror's ``properties'' dialog.
+  * Persistent connections.
+
+WARNING:
+
+Please note that allowing remote access to local files is inherently dangerous.
+I will not be held responsible for loss, damage, your head falling off, etc. I
+will, however, do all in my power to keep this software secure. If you don't
+trust me (and why should you ?) then simply don't run this software.
+
+Currently there are no known security holes in this software.
+
+Developers:
+
+This code allows remote access to local files. Therefore it must be secure.
+I also try to limit the effect of DoS attacks and to help the user avoid
+making silly mistakes like sharing ~.
+
+Please send patches to me for approval before committing to CVS.
+
+Shortly before a KDE release, during the feature freeze, I will do a full code
+audit. If I am unable to do this for whatever reason, I will ask for someone
+else to do the audit. If the audit cannot be performed and code changes are
+non-trivial, kpf should not be released.
+
+License terms:
+
+MIT license. See COPYING.
+
+Rik Hemsley (rikkus) <rik@kde.org>
+

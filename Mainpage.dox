@@ -1,0 +1,12 @@
+/** @mainpage KDENetwork
+*
+* KDENetwork is a collection of applications that
+* are network-oriented. This means that there
+* are mostly communications applications in here,
+* as well as some file-transfer things.
+*
+*
+* - Kopete is a multi-protocol instant message client.
+* - KSirc is an IRC client (i.e. single-protocol IM client).
+*
+*/

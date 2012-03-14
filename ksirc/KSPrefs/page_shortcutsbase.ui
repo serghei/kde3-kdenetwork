@@ -1,0 +1,57 @@
+<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<class>PageShortcutsBase</class>
+<widget class="QFrame">
+    <property name="name">
+        <cstring>PageShortcutslBase</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>425</width>
+            <height>452</height>
+        </rect>
+    </property>
+    <property name="minimumSize">
+        <size>
+            <width>425</width>
+            <height>450</height>
+        </size>
+    </property>
+    <property name="caption">
+        <string>Shortcuts</string>
+    </property>
+    <property name="frameShape">
+        <enum>NoFrame</enum>
+    </property>
+    <property name="frameShadow">
+        <enum>Plain</enum>
+    </property>
+    <vbox>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <property name="margin">
+            <number>0</number>
+        </property>
+        <widget class="QGroupBox">
+            <property name="name">
+                <cstring>globalGB</cstring>
+            </property>
+            <property name="title">
+                <string>Global Shortcuts</string>
+            </property>
+        </widget>
+    </vbox>
+</widget>
+<connections>
+</connections>
+<tabstops>
+</tabstops>
+<slots>
+    <slot access="protected">setPreviewPixmap(bool)</slot>
+    <slot access="protected">showWallpaperPixmap(const QString &amp;)</slot>
+    <slot>changed()</slot>
+</slots>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

@@ -1,0 +1,391 @@
+<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<class>PageAutoConnectBase</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>PageAutoConnectBase</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>551</width>
+            <height>460</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>Auto Connect</string>
+    </property>
+    <vbox>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <property name="margin">
+            <number>0</number>
+        </property>
+        <widget class="KListView">
+            <column>
+                <property name="text">
+                    <string>Auto Connect List</string>
+                </property>
+                <property name="clickable">
+                    <bool>true</bool>
+                </property>
+                <property name="resizable">
+                    <bool>true</bool>
+                </property>
+            </column>
+            <column>
+                <property name="text">
+                    <string>Port/Key</string>
+                </property>
+                <property name="clickable">
+                    <bool>true</bool>
+                </property>
+                <property name="resizable">
+                    <bool>true</bool>
+                </property>
+            </column>
+            <column>
+                <property name="text">
+                    <string>Server Password</string>
+                </property>
+                <property name="clickable">
+                    <bool>true</bool>
+                </property>
+                <property name="resizable">
+                    <bool>true</bool>
+                </property>
+            </column>
+            <column>
+                <property name="text">
+                    <string>SSL</string>
+                </property>
+                <property name="clickable">
+                    <bool>true</bool>
+                </property>
+                <property name="resizable">
+                    <bool>true</bool>
+                </property>
+            </column>
+            <property name="name">
+                <cstring>KLVAutoConnect</cstring>
+            </property>
+            <property name="rootIsDecorated">
+                <bool>true</bool>
+            </property>
+            <property name="fullWidth">
+                <bool>true</bool>
+            </property>
+        </widget>
+        <widget class="QGroupBox">
+            <property name="name">
+                <cstring>groupBox12</cstring>
+            </property>
+            <property name="title">
+                <string>Auto Connect Setup</string>
+            </property>
+            <vbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QLayoutWidget">
+                    <property name="name">
+                        <cstring>layout13</cstring>
+                    </property>
+                    <hbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <widget class="QLayoutWidget">
+                            <property name="name">
+                                <cstring>layout9</cstring>
+                            </property>
+                            <vbox>
+                                <property name="name">
+                                    <cstring>unnamed</cstring>
+                                </property>
+                                <widget class="QLabel">
+                                    <property name="name">
+                                        <cstring>textLabelSever</cstring>
+                                    </property>
+                                    <property name="text">
+                                        <string>Server:</string>
+                                    </property>
+                                </widget>
+                                <widget class="QLineEdit">
+                                    <property name="name">
+                                        <cstring>ServerLE</cstring>
+                                    </property>
+                                </widget>
+                            </vbox>
+                        </widget>
+                        <widget class="QLayoutWidget">
+                            <property name="name">
+                                <cstring>layout12</cstring>
+                            </property>
+                            <vbox>
+                                <property name="name">
+                                    <cstring>unnamed</cstring>
+                                </property>
+                                <widget class="QLabel">
+                                    <property name="name">
+                                        <cstring>textLabelPort</cstring>
+                                    </property>
+                                    <property name="text">
+                                        <string>&amp;Port:</string>
+                                    </property>
+                                    <property name="buddy" stdset="0">
+                                        <cstring>PortKI</cstring>
+                                    </property>
+                                </widget>
+                                <widget class="KIntNumInput">
+                                    <property name="name">
+                                        <cstring>PortKI</cstring>
+                                    </property>
+                                </widget>
+                            </vbox>
+                        </widget>
+                        <widget class="QLayoutWidget">
+                            <property name="name">
+                                <cstring>layout11</cstring>
+                            </property>
+                            <vbox>
+                                <property name="name">
+                                    <cstring>unnamed</cstring>
+                                </property>
+                                <widget class="QLabel">
+                                    <property name="name">
+                                        <cstring>textLabelPass</cstring>
+                                    </property>
+                                    <property name="text">
+                                        <string>Server password:</string>
+                                    </property>
+                                </widget>
+                                <widget class="QLineEdit">
+                                    <property name="name">
+                                        <cstring>PassLE</cstring>
+                                    </property>
+                                </widget>
+                            </vbox>
+                        </widget>
+                        <widget class="QLayoutWidget">
+                            <property name="name">
+                                <cstring>layout15</cstring>
+                            </property>
+                            <vbox>
+                                <property name="name">
+                                    <cstring>unnamed</cstring>
+                                </property>
+                                <widget class="QLabel">
+                                    <property name="name">
+                                        <cstring>textLabelSSL</cstring>
+                                    </property>
+                                    <property name="text">
+                                        <string></string>
+                                    </property>
+                                    <property name="buddy" stdset="0">
+                                        <cstring>PortKI</cstring>
+                                    </property>
+                                </widget>
+                                <widget class="QCheckBox">
+                                    <property name="name">
+                                        <cstring>sslCB</cstring>
+                                    </property>
+                                    <property name="text">
+                                        <string>Use SS&amp;L</string>
+                                    </property>
+                                </widget>
+                            </vbox>
+                        </widget>
+                    </hbox>
+                </widget>
+                <widget class="QLayoutWidget">
+                    <property name="name">
+                        <cstring>layout12</cstring>
+                    </property>
+                    <hbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <widget class="QLayoutWidget">
+                            <property name="name">
+                                <cstring>layout3</cstring>
+                            </property>
+                            <vbox>
+                                <property name="name">
+                                    <cstring>unnamed</cstring>
+                                </property>
+                                <widget class="QLabel">
+                                    <property name="name">
+                                        <cstring>textLabelChan</cstring>
+                                    </property>
+                                    <property name="text">
+                                        <string>&amp;Channel:</string>
+                                    </property>
+                                    <property name="buddy" stdset="0">
+                                        <cstring>ChannelLE</cstring>
+                                    </property>
+                                </widget>
+                                <widget class="QLineEdit">
+                                    <property name="name">
+                                        <cstring>ChannelLE</cstring>
+                                    </property>
+                                </widget>
+                            </vbox>
+                        </widget>
+                        <widget class="QLayoutWidget">
+                            <property name="name">
+                                <cstring>layout9</cstring>
+                            </property>
+                            <vbox>
+                                <property name="name">
+                                    <cstring>unnamed</cstring>
+                                </property>
+                                <widget class="QLabel">
+                                    <property name="name">
+                                        <cstring>textLabelKey</cstring>
+                                    </property>
+                                    <property name="text">
+                                        <string>&amp;Key:</string>
+                                    </property>
+                                    <property name="buddy" stdset="0">
+                                        <cstring>KeyLE</cstring>
+                                    </property>
+                                </widget>
+                                <widget class="QLineEdit">
+                                    <property name="name">
+                                        <cstring>KeyLE</cstring>
+                                    </property>
+                                </widget>
+                            </vbox>
+                        </widget>
+                    </hbox>
+                </widget>
+                <widget class="QLayoutWidget">
+                    <property name="name">
+                        <cstring>layout17</cstring>
+                    </property>
+                    <hbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <widget class="QPushButton">
+                            <property name="name">
+                                <cstring>NewPB</cstring>
+                            </property>
+                            <property name="text">
+                                <string>&amp;New</string>
+                            </property>
+                        </widget>
+                        <widget class="QPushButton">
+                            <property name="name">
+                                <cstring>AddPB</cstring>
+                            </property>
+                            <property name="text">
+                                <string>&amp;Add</string>
+                            </property>
+                        </widget>
+                        <widget class="QPushButton">
+                            <property name="name">
+                                <cstring>DeletePB</cstring>
+                            </property>
+                            <property name="text">
+                                <string>&amp;Delete</string>
+                            </property>
+                        </widget>
+                    </hbox>
+                </widget>
+            </vbox>
+        </widget>
+    </vbox>
+</widget>
+<connections>
+    <connection>
+        <sender>ServerLE</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>PageAutoConnectBase</receiver>
+        <slot>item_changed()</slot>
+    </connection>
+    <connection>
+        <sender>PortKI</sender>
+        <signal>valueChanged(int)</signal>
+        <receiver>PageAutoConnectBase</receiver>
+        <slot>item_changed()</slot>
+    </connection>
+    <connection>
+        <sender>PassLE</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>PageAutoConnectBase</receiver>
+        <slot>item_changed()</slot>
+    </connection>
+    <connection>
+        <sender>sslCB</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>PageAutoConnectBase</receiver>
+        <slot>item_changed()</slot>
+    </connection>
+    <connection>
+        <sender>ChannelLE</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>PageAutoConnectBase</receiver>
+        <slot>item_changed()</slot>
+    </connection>
+    <connection>
+        <sender>KeyLE</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>PageAutoConnectBase</receiver>
+        <slot>item_changed()</slot>
+    </connection>
+    <connection>
+        <sender>NewPB</sender>
+        <signal>pressed()</signal>
+        <receiver>PageAutoConnectBase</receiver>
+        <slot>new_pressed()</slot>
+    </connection>
+    <connection>
+        <sender>AddPB</sender>
+        <signal>pressed()</signal>
+        <receiver>PageAutoConnectBase</receiver>
+        <slot>add_pressed()</slot>
+    </connection>
+    <connection>
+        <sender>DeletePB</sender>
+        <signal>pressed()</signal>
+        <receiver>PageAutoConnectBase</receiver>
+        <slot>delete_pressed()</slot>
+    </connection>
+    <connection>
+        <sender>KLVAutoConnect</sender>
+        <signal>clicked(QListViewItem*)</signal>
+        <receiver>PageAutoConnectBase</receiver>
+        <slot>kvl_clicked(QListViewItem*)</slot>
+    </connection>
+</connections>
+<tabstops>
+    <tabstop>KLVAutoConnect</tabstop>
+    <tabstop>ServerLE</tabstop>
+    <tabstop>PortKI</tabstop>
+    <tabstop>PassLE</tabstop>
+    <tabstop>sslCB</tabstop>
+    <tabstop>ChannelLE</tabstop>
+    <tabstop>KeyLE</tabstop>
+    <tabstop>NewPB</tabstop>
+    <tabstop>AddPB</tabstop>
+    <tabstop>DeletePB</tabstop>
+</tabstops>
+<slots>
+    <slot>item_changed()</slot>
+    <slot>new_pressed()</slot>
+    <slot>add_pressed()</slot>
+    <slot>delete_pressed()</slot>
+    <slot>KLVAutoConnect_clicked(QListViewItem*)</slot>
+    <slot>kcl_clicked(QListViewItem *)</slot>
+    <slot>kvl_clicked(QListViewItem*)</slot>
+</slots>
+<layoutdefaults spacing="6" margin="11"/>
+<includehints>
+    <includehint>klistview.h</includehint>
+    <includehint>knuminput.h</includehint>
+    <includehint>knuminput.h</includehint>
+</includehints>
+</UI>

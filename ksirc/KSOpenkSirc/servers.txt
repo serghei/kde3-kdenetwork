@@ -1,0 +1,654 @@
+Random:Random AU EFnet server:au.rr.efnet.net:6667:
+Random:Random AU IRCnet server:au.ircnet.org:6667:
+Random:Random CA EFnet server:ca.rr.efnet.net:6667:
+Random:Random EFnet server:irc.chat.org:6667:
+Random:Random EU DALnet server:irc.eu.dal.net:6667:
+Random:Random EU DALnet server:irc.eu.dal.net:7000:
+Random:Random EU EFnet server:eu.rr.efnet.net:6667:
+Random:Random EU IRCnet server:eu.ircnet.org:6665,6666,6668:
+Random:Random EU Undernet server:eu.undernet.org:6667:
+Random:Random Freenode server:irc.freenode.net:6667:
+Random:Random US DALnet server:irc.dal.net:6662,6663,6664:
+Random:Random US DALnet server:irc.dal.net:7000:
+Random:Random US EFnet server:us.rr.efnet.net:6667:
+Random:Random US IRCnet server:us.ircnet.org:6665,6666,6668:
+Random:Random US Undernet server:us.undernet.org:6667:
+Accessirc:Random server:irc.accessirc.net:6667:
+Acestar:Random server:irc.acestar.org:6667:
+Action-IRC:Random server:irc.action-irc.net:6660,6662,6664:
+Afternet:Random server:irc.afternet.org:6667:
+Afternet:US, CA, San Diego:blacklodge.c2.org:6667:
+Afternet:US, LA, Ruston:scorpion.latech.edu:6667:
+Afternet:US, OH, Columbus:irc.coldfusion.net:6667:
+Afternet:US, OR, Portland:agora.rdrop.com:6667:
+Alternativenet:Random server:irc.altnet.org:6667:
+AnotherNet:Random server:irc.another.net:6667,7000:
+Anothernet:US, CA, Los Angeles:sunrise.ca.us.another.net:6667:
+Anothernet:US, CA, Morgan Hill:neato.ca.us.another.net:6667:
+Anothernet:US, VT, Burlington:together.vt.us.another.net:6667:
+ArabChat:Random server:irc.arabchat.org:6660,6661,6662:
+AstroLink:Random server:irc.astrolink.org:6660,6662,6663:
+Asylumnet:Random server:irc.asylum-net.org:6661,6664,7000:
+Austnet:AS, Singapore:ntu.sg.austnet.org:6667:
+Austnet:AU, Melbourne:aussie.au.austnet.org:6667,6668:
+Austnet:AU, Sydney:sydney.au.austnet.org:6667,6668:
+Austnet:CA, ON, Toronto:insane.ca.austnet.org:6667,6668:
+Austnet:Random AU server:au.austnet.org:6667:
+Austnet:Random NZ server:nz.austnet.org:6667:
+Austnet:Random SG server:sg.austnet.org:6667:
+Austnet:Random US server:us.austnet.org:6667:
+Austnet:US, CA, Santa Clara:webmaster.us.austnet.org:6667,6668:
+Austnet:US, FL, Wizard:wizard.us.austnet.org:6667,6668:
+Austnet:US, PA, Wallaby:wallaby.us.austnet.org:6667,6668:
+AwesomeChat:Random server:irc.awesomechat.net:6662,6665,6666:
+Axenet:Random server:irc.axenet.org:6661,6664,6665:
+BeyondIRC:Random server:irc.beyondirc.net:6660,6662,6664:
+BeyondIRC:US, AL, Snowhill:irc.snowhill.com:6667,6668,6669,6670:
+BeyondIRC:US, CA, Los Angeles:babylon.beyondirc.net:6667,6668,6669:
+BeyondIRC:US, MO, Jefferson City:irc.telcentral.com:6667:
+Blabbernet:Random server:irc.blabber.net:6667,7000:
+Blitzed:Random server:irc.blitzed.org:6667,7000:
+BrasIRC:Brazil, PI, Teresina:irc.ranet.com.br:6667:
+BrasIRC:Brazil, PR, Curitiba:irc2.kanopus.com.br:6667:
+BrasIRC:Brazil, RJ, Rio de Janeiro:irc.ism.com.br:6667:
+BrasIRC:Brazil, SP, Santos:irc.iron.com.br:6667:
+BrasIRC:Brazil, Starcom:irc.stc.com.br:6667:
+BrasIRC:US, FL, Miami:irc2.sodre.net:6667:
+Brasilnet:Brazil, BA, Bahia:irc.magiclink.com.br:6667,6668,6669,7000,7001,7002:
+Brasilnet:Brazil, BA, Salvador:irc.nway.com.br:6667,6668,6669,7000,7001,7002:
+Brasilnet:Brazil, GO, Brasilia (ab):irc.abordo.com.br:6667,6668,6669,7000,7001,7002:
+Brasilnet:Brazil, GO, Brasilia (pc):irc.persocom.com.br:6667,6668,6669,7000,7001,7002:
+Brasilnet:Brazil, PE, Caruaru:irc.netstage.com.br:6667,6668,6669,7000,7001,7002:
+Brasilnet:Brazil, PE, Recife:irc.elogica.com.br:6667,6668,6669,7000,7001,7002:
+Brasirc:BR, PA, Belem:irc.libnet.com.br:6666,6668,7777:
+Brasirc:BR, SC, Florianopolis:irc.globalite.com.br:6667:
+Brasirc:Random server:irc.brasirc.net:6666,6667:
+Brasnet:Brazil, DF, Brasilia:irc.americasnet.com.br:6667:
+Brasnet:Brazil, RJ, Rio de Janeiro:irc.pontocom.com.br:6667:
+Brasnet:Brazil, SP, Campinas:irc.correionet.com.br:6667:
+Brasnet:Brazil, SP, Sao Paulo:irc.cpunet.com.br:6667:
+Brasnet:Random European server:eu.brasnet.org:6665,6666,6668:
+Brasnet:Random US server:us.brasnet.org:6665,6666,6668:
+Brasnet:Random server:irc.brasnet.org:6665,6666,6668:
+Brasnet:US, Americasnet:americasnet.usa.brasnet.org:6667:
+Bulgaria:Random server:irc.bulgaria.org:6666,6668,6669:
+CCnet:Random server:irc.cchat.net:6667,7000:
+CCnet:US, TX, Dallas:irc2.cchat.net:6667,7000:
+CNN:CNN News discussions:chat.cnn.com:6668,6669,7000:
+ChatArea:Random server:irc.chatarea.net:6667:
+ChatCentral2:Random server:irc.cc2.org:6660,6661,6663:
+ChatCircuit:Random server:irc.chatcircuit.com:6668:
+ChatPR:Random server:irc.chatpr.org:6667:
+ChatX:Random server:irc.chatx.net:6667:
+Chatcafe:Random server:irc.chatcafe.net:6667:
+Chatlink:Random server:irc.chatlink.org:6667:
+Chatnet:EU, Norway:Frogn.NO.ChatNet.Org:6667:
+Chatnet:Random AU server:au.chatnet.org:6667:
+Chatnet:Random EU server:eu.chatnet.org:6667:
+Chatnet:Random US server:us.chatnet.org:6667:
+Chatnet:US, CA, Los Angeles:LosAngeles.CA.US.ChatNet.Org:6667:
+Chatnet:US, CA, San Francisco:SF.CA.US.Chatnet.Org:6667:
+Chatnet:US, CA, Walnut Creek:WalnutCreek.CA.US.ChatNet.Org:6667:
+Chatnet:US, FL, Pensacola:Pensacola.FL.US.ChatNet.Org:6666,6667,6668,6669:
+Chatnet:US, ID, Pocatello:Pocatello.IS.US.ChatNet.Org:6667:
+Chatnet:US, KY, Louisville:Louisville.KY.US.ChatNet.Org:6667:
+Chatnet:US, MS, Tupelo:Tupelo.MS.US.Chatnet.Org:6666,6667,6668,6669:
+Chatnet:US, OK, Stillwater:Stillwater.OK.US.ChatNet.Org:6667:
+Chatnet:US, OR, Portland:Portland.OR.US.Chatnet.Org:6666,6667,6668,6669:
+Chatnet:US, SC, Rock Hill:RockHill.SC.US.ChatNet.Org:6666,6667,6668,6669:
+Chatnet:US, UT, Salt Lake City:SLC.UT.US.Chatnet.Org:6666,6667,6668,6669:
+Chatpinoy:Random server:irc.chatpinoy.com:6667:
+Chatroom:Random server:irc.chatroom.org:6667:
+Chatsolutions:Random server:irc.chatsolutions.org:6667:
+Chatster:Random server:irc.chatster.org:6667:
+Cobranet:CA, AK, Specific:Specific.AK.US.Cobra.Net:6667:
+Cobranet:CA, ON, StrathRoy:StrathRoy.ON.CA.Cobra.Net:6667:
+Cobranet:EU, UK, London:London.UK.EU.Cobra.Net:6667:
+Cobranet:US, RI, Providence:Providence.RI.US.Cobra.Net:6667:
+Coolchat:Random server:irc.coolchat.net:6667:
+Criten:Random server:irc.criten.net:6667:
+CyGanet:Random server:irc.cyga.net:6667:
+Cyberchat:Random server:irc.cyberchat.org:6667,6668:
+DALnet:AS, MY, Kuala Lumpur:coins.dal.net:6663,6664,6668:
+DALnet:AU, Adelaide:ozbytes.dal.net:6667,7000:
+DALnet:AU, New South Wales:bunyip.DAL.net:7000,6665,6666,6668,6669:
+DALnet:CA, BC, Vancouver:vancouver.dal.net:6661,6662,6666:
+DALnet:Canada, Edmonton Alb.:raptor.DAL.net:6661,6662,6663,7000:
+DALnet:Canada, Toronto:toronto.DAL.net:7000,7001,7002:
+DALnet:EU, DE, Frankfurt:nexgo.de.eu.dal.net:6664,6665,6669:
+DALnet:EU, FI, Espoo:xgw.DAL.net:6668,7000:
+DALnet:EU, NO, Oslo:powertech.no.eu.dal.net:6666,6667,7000:
+DALnet:EU, NO, Tromso:viking.dal.net:6666,6668,6669:
+DALnet:EU, SE, Goteborg:ced.dal.net:6667,7000:
+DALnet:EU, SE, Stockholm:paranoia.dal.net:6661,6662,6669:
+DALnet:EU, UK, Bristol:liberator.DAL.net:6668,6669,7000:
+DALnet:EU, UK, London:defiant.dal.net:6668,6669,7001:
+DALnet:EU, UK, London:defiant.dal.net:7000,7001,7002,7003:
+DALnet:US, CA, Davis:davis.DAL.net:6668,6669,7000:
+DALnet:US, CA, El Segundo:cyberverse.DAL.net:6667,7000:
+DALnet:US, CA, San Diego:voyager.DAL.net:6666,6667,6668,6669,7000:
+DALnet:US, CA, Santa Clara:spider.DAL.net:6668,6669,7000,7777:
+DALnet:US, CA, Sunnyvale:mindijari.DAL.net:6667,6668,6669,7000:
+DALnet:US, FL, Hollywood:sodre.dal.net:6663,6666,6668:
+DALnet:US, FL, Jacksonville:centurion.dal.net:6668,7000,7500:
+DALnet:US, IN, Hebron:hebron.dal.net:6661,6662,6663,7000:
+DALnet:US, IN, Hebron:hebron.dal.net:6661,6664,6669:
+DALnet:US, MA, Norwood:twisted.dal.net:6663,6665,6669:
+DALnet:US, MD, Manchester:qis.md.us.dal.net:6660,6664,6668:
+DALnet:US, MO, St.Louis:stlouis.DAL.net:6665,6666,6667,7000:
+DALnet:US, NC, Charlotte:uncc.DAL.net:6667,6668,6669,7000:
+DALnet:US, NY, New York City:liberty.dal.net:6662,6666,6669:
+DALnet:US, OH, Cleveland:barovia.dal.net:6661,6662,6663,7000:
+DALnet:US, OH, Toledo:glass.DAL.net:6667,7000:
+DALnet:US, OH, Toledo:glass.dal.net:6660,6661,6664:
+DALnet:US, OK, Tulsa:webzone.dal.net:6664,6665,6668,7000:
+DALnet:US, OK, Tulsa:webzone.dal.net:6665,6666,6669:
+DarkMyst:Random server:irc.darkmyst.org:6667:
+DarkServ:Random server:irc.darkserv.net:6664,6665,6666:
+Darkfire:Random server:irc.darkfire.net:6667,7000,8000:
+Darkfyre:Random server:irc.darkfyre.net:6667:
+Darktree:Random server:irc.darktree.net:6667:
+Deepspace:Disability network:irc.deepspace.org:6667:
+Different:Random server:irc.different.net:6667:
+Digarix:Random server:irc.digarix.net:6667:
+Digatech:Random server:irc.digatech.net:6667:
+Digitalirc:Random server:irc.digitalirc.net:6667:
+Dobbernet:Random server:irc.dobber.net:6667:
+DragonLynk:Random server:irc.dragonlynk.net:6661,6665,6666:
+Dreamcast:Random server:irc0.dreamcast.com:6667:
+Dreamnet:Random server:irc.dreamnet.org:6664,6665,6666:
+DwarfStar:Random server:irc.dwarfstar.net:6667:
+Dynastynet:Random server:irc.dynastynet.net:6667:
+EFnet:Australia, Telstra:efnet.telstra.net.au:6667:
+EFnet:CA, AB, Edmonton:irc.powersurfr.com:6667:
+EFnet:CA, ON, Toronto:irc2.magic.ca:6667:
+EFnet:CA, QB, Montreal:irc.etsmtl.ca:6667:
+EFnet:Canada, Cadvision:irc.cadvision.ab.ca:6667:
+EFnet:Canada, Internex:irc.io.org:6667:
+EFnet:Canada, Magic:irc.magic.mb.ca:6667:
+EFnet:Canada, McGill:irc.mcgill.ca:6667:
+EFnet:Canada, Mun:irc.cs.mun.ca:6667:
+EFnet:Canada, Polymtl:irc.polymtl.ca:6667:
+EFnet:Canada, Portal:portal.mbnet.mb.ca:6667:
+EFnet:Canada, Vianet:irc.vianet.on.ca:6667:
+EFnet:Canada, Yorku:irc.yorku.ca:6667:
+EFnet:EU, FI, Helsinki:efnet.cs.hut.fi:6667:
+EFnet:EU, FR, Paris:irc.isdnet.fr:6667,6668,6669:
+EFnet:EU, France:irc.ec-lille.fr:6667:
+EFnet:EU, Israel (ibm):irc.ibm.net.il:6667:
+EFnet:EU, Israel (tau):irc.tau.ac.il:6667:
+EFnet:EU, Israel (tech):irc.technion.ac.il:6667:
+EFnet:EU, NL, Amsterdam:efnet.vuurwerk.nl:6667:
+EFnet:EU, NO, Homelien:irc.homelien.no:6666,7000,7001:
+EFnet:EU, Netherlands:irc.nijenrode.nl:6667:
+EFnet:EU, Norway:irc.homelien.no:6667:
+EFnet:EU, RU, Moscow:irc.rt.ru:6662,6665,6668:
+EFnet:EU, SE, Dalarna:irc.du.se:6666,6668,6669:
+EFnet:EU, SE, Sweden:irc.light.se:6667:
+EFnet:EU, Sweden (gu):irc.gd.gu.se:6667:
+EFnet:EU, Sweden (lth):irc.df.lth.se:6667:
+EFnet:EU, UK, Bofh:irc.bofh.co.uk:6667:
+EFnet:EU, UK, Demon:efnet.demon.co.uk:6665,6666,6668,6669:
+EFnet:EU, UK, Demon:efnet.demon.co.uk:6665,6666,6668:
+EFnet:EU, UK, London:irc.ins.net.uk:6665,6666,6668:
+EFnet:ME, IL, Inter:irc.inter.net.il:6665,6666,6668:
+EFnet:US, AZ, Phoenix:irc.primenet.com:6667:
+EFnet:US, AZ, Tucson:irc.blackened.com:6667:
+EFnet:US, America OnLine:irc02.irc.aol.com:6667:
+EFnet:US, CA, Los Angeles:irc.west.gblx.net:6667:
+EFnet:US, CA, San Diego:irc.cerf.net:6667:
+EFnet:US, CA, San Luis Obispo:irc.prison.net:6666,6667:
+EFnet:US, CA, Stanford:irc.stanford.edu:6667:
+EFnet:US, CO, Colorado:irc.colorado.edu:5555,6665,6666:
+EFnet:US, CO, Colorado:irc.colorado.edu:6667:
+EFnet:US, FL, Miami:opus.bridge.net:6667:
+EFnet:US, GA, Atlanta (Emory):irc.emory.edu:6667:
+EFnet:US, GA, Atlanta (Mindspring):irc.mindspring.com:6660,6663,6668:
+EFnet:US, GA, Atlanta:irc.emory.edu:6667:
+EFnet:US, IL, Chicago (ais):irc.ais.net:6667:
+EFnet:US, IL, Chicago (mcs):irc.mcs.net:6667:
+EFnet:US, IL, Chicago:irc.mcs.net:6666,6667,6668:
+EFnet:US, IL, Chicago:irc.plur.net:6667:
+EFnet:US, MI, Ann Arbor:irc.umich.edu:6667:
+EFnet:US, MN, Twin Cities:irc.umn.edu:6665,6666,6668:
+EFnet:US, MO, Missouri:irc.mo.net:6667:
+EFnet:US, NY, New York:irc.east.gblx.net:6667:
+EFnet:US, Netcom0:ircd.netcom.com:6667:
+EFnet:US, Netcom1:irc.netcom.com:6667:
+EFnet:US, Netcom2:irc2.netcom.com:6667:
+EFnet:US, OK, Oklahoma:irc.ionet.net:6667:
+EFnet:US, PA, Ivyland:irc.voicenet.com:6667:
+EFnet:US, TX, Houston (Phoenix):irc.phoenix.net:6667:
+EFnet:US, TX, Houston (University):irc.tech.uh.edu:6667:
+EFnet:US, VA, Herndon:irc.psinet.com:6667:
+EFnet:US, WA, Seattle:irc.sprynet.com:6667:
+EICN:AU, Perth:Perth.WA.AU.EarthInt.Net:6667:
+EICN:EU, FI, Espoo:FOO.FI.EarthInt.Net:6667:
+EICN:US, FL, Tampa:Shadow.FL.US.EarthInt.Net:6667:
+EgyptianIRC:Random server:irc.egyptianirc.net:6667,6668,6669:
+EntertheGame:Random server:irc.enterthegame.com:6667,6668,6669:
+Escaped:Random server:irc.escaped.net:6661,6665,6668:
+Esprit:Random server:irc.esprit.net:6667:
+ExodusIRC:Random server:irc.exodusirc.net:6662,6663,6664:
+FDFnet:Random server:irc.fdf.net:6666,6668,9999:
+FEFnet:Random server:irc.fef.net:6667:
+FEFnet:UK, Quantum:quantum.uk.fef.net:6667:
+FEFnet:US, AZ, Phoenix:stf.fef.net:6667:
+FEFnet:US, CA, San Jose:vendetta.fef.net:6667:
+FEFnet:US, DC, Auburn:blizzard.fef.net:6667:
+FEFnet:US, NY, Long Island:liii.fef.net:6667:
+Forestnet:Random server:irc.forestnet.org:6667,7000:
+FreedomChat:Random server:chat.freedomchat.net:6667:
+Freenode:Random server:irc.freenode.net:6667:
+FunNet:Random server:irc.funnet.org:6667:
+GalaxyNet:AS, Singapore:pacific.sg.galaxynet.org:6667:
+GalaxyNet:AU, NZ, Auckland:auckland.nz.galaxynet.org:6666,6667,6668:
+GalaxyNet:Canada, Vancouver:vancouver.bc.ca.galaxynet.org:6667:
+GalaxyNet:EU, NO, Oslo:oslo.no.galaxynet.org:6666,6667,6668:
+GalaxyNet:US, Atlanta:atlanta.ga.us.galaxynet.org:6667:
+Galaxynet:AU, NZ, Auckland:auckland.nz.galaxynet.org:6661,6666,6668:
+Galaxynet:EU, BE, Online:online.be.galaxynet.org:6664,6666,6668:
+Galaxynet:EU, SE, Vltmedia:vltmedia.se.galaxynet.org:6662,6664,6666:
+Galaxynet:Random server:irc.galaxynet.org:6662,6663,6666:
+Galaxynet:US, FL, Florida:gymnet.us.galaxynet.org:6663,6666,6668:
+Galaxynet:US, WA, Seattle:freei.us.galaxynet.org:6661,6665,6666:
+Gamesnet:Random east US server:east.gamesnet.net:6667:
+Gamesnet:Random west US server:west.gamesnet.net:6667:
+GammaNet:US, Alfheim:Alfheim.NJ.US.gamma.net:6667:
+GammaNet:US, Chromium:Chromium.VA.US.gamma.net:6667:
+GammaNet:US, Galaxy:Galaxy.CT.US.gamma.net:6667:
+GammaNet:US, Wildstar:Wildstar.OK.US.gamma.net:6667:
+GizNet:Random server:irc.giznet.com:6666,6668,6669:
+Globalchat:Random server:irc.globalchat.org:6667:
+Grnet:Random EU server:gr.irc.gr:6667,7000:
+Grnet:Random US server:us.irc.gr:6667,7000:
+Grnet:Random server:srv.irc.gr:6667,7000:
+HabberNet:Random server:irc.habber.net:6667:
+HanIRC:Random server:irc.hanirc.org:6667:
+Hellenicnet:Random server:irc.mirc.gr:6667,7000:
+Hybnet:Random server:irc.hybnet.net:6667:
+ICQnet:Random server:irc.icq.com:6667:
+IRC-Hispano:Random server:irc.irc-hispano.org:6667:
+IRCLink:EU, NO, Alesund:alesund.no.eu.irclink.net:6667,6668,6669:
+IRCLink:EU, NO, Oslo:frogn.no.eu.irclink.net:6667,6668,6669:
+IRCLink:US, SC, Rock Hill:rockhill.sc.us.irclink.net:6667,6668,6669:
+IRCNet:AF, ZA, Sprint:irc-2.sprintlink.co.za:6667:
+IRCNet:AU, Dfat:irc.dfat.gov.au:6667:
+IRCNet:AU, Monash:yoyo.cc.monash.edu.au:6667:
+IRCNet:AU, Telstra:flute.telstra.net.au:6667:
+IRCNet:AU, Usyd:irc.usyd.edu.au:6667:
+IRCNet:CA, Quebec, Montreal:irc.openface.ca:6667:
+IRCNet:EU, Austria, Vienna:irc.wu-wien.ac.at:6667:
+IRCNet:EU, BE, Belnet:irc.belnet.be:6667:
+IRCNet:EU, DE, Berlin:irc.fu-berlin.de:6667:
+IRCNet:EU, DE, Muenchen:irc.informatik.tu-muenchen.de:6667:
+IRCNet:EU, DE, Stuttgart:irc.rus.uni-stuttgart.de:6667:
+IRCNet:EU, ES, Gondwana:gondwana.upc.es:6667:
+IRCNet:EU, FI, Espoo:irc.funet.fi:6667:
+IRCNet:EU, FI, Kuopio:irc.pspt.fi:6667:
+IRCNet:EU, FR, Eurecom:irc.eurecom.fr:6667:
+IRCNet:EU, FR, Lille:irc.ec-lille.fr:6667:
+IRCNet:EU, FR, Lyon:irc.univ-lyon1.fr:6667:
+IRCNet:EU, FR, Nice:irc.eurecom.fr:6667:
+IRCNet:EU, FR, Paris (Enst):irc.enst.fr:6667:
+IRCNet:EU, FR, Paris (Poly):sil.polytechnique.fr:6667:
+IRCNet:EU, FR, Poly:sil.polytechnique.fr:6667:
+IRCNet:EU, IS, Reykjavik:irc.isnet.is:6667:
+IRCNet:EU, IT, Pisa:irc.ccii.unipi.it:6667:
+IRCNet:EU, NL, Amsterdam:irc.xs4all.nl:6667:
+IRCNet:EU, NL, Nijmegen:irc2.sci.kun.nl:6667:
+IRCNet:EU, SE, Lulea:irc.ludd.luth.se:6667:
+IRCNet:EU, UK, London (BT):chat.btinternet.com:6667:
+IRCNet:EU, UK, London (Demon):ircnet.demon.co.uk:6665,6666,6668,6669:
+IRCNet:EU, UK, London (Imperial):stork.doc.ic.ac.uk:6667:
+IRCNet:EU, UK, London (Netcom):irc.netcom.net.uk:6667:
+IRCNet:US, AOL:irc02.irc.aol.com:6666:
+IRCNet:US, CA, Santa Clara:irc.aimnet.com:6667:
+IRCNet:US, IL, Chicago:irc.anet-chi.com:6667:
+IRCNet:US, MI, Taylor:irc.webbernet.net:6667:
+IRCNet:US, NY, New York:irc.stealth.net:6667:
+IRCNet:US, WA, Seattle:ircnet.sprynet.com:6667:
+IRChat-br:Random server:irc.irchat.com.br:6667:
+IRChat:Random server:irc.irchat.net:6661,6662,6666:
+IRCnet:AS, JP, Tokyo:irc.tokyo.wide.ad.jp:6667:
+IRCnet:AU, Melbourne:yoyo.cc.monash.edu.au:6668,6669,9990:
+IRCnet:AU, Sydney:irc.usyd.edu.au:6667:
+IRCnet:EU, AT, Linz:linz.irc.at:6666,6667,6668:
+IRCnet:EU, AT, Wien:vienna.irc.at:6666,6668,6669:
+IRCnet:EU, BE, Brussels:irc.belnet.be:6667:
+IRCnet:EU, BE, Zaventem:ircnet.wanadoo.be:6661,6664,6665:
+IRCnet:EU, CZ, Prague:irc.felk.cvut.cz:6667:
+IRCnet:EU, DE, Berlin:irc.fu-berlin.de:6665,6666,6668:
+IRCnet:EU, DE, Dusseldorf:irc.freenet.de:6665,6666,6668:
+IRCnet:EU, DE, Stuttgart:irc.belwue.de:6665,6666,6668:
+IRCnet:EU, DK, Copenhagen:irc.ircnet.dk:6667:
+IRCnet:EU, EE, Tallinn:irc.estpak.ee:6666,6667,6668:
+IRCnet:EU, FI, Espoo:irc.funet.fi:6661,6663,6668:
+IRCnet:EU, FI, Helsinki:irc.cs.hut.fi:6667:
+IRCnet:EU, FR, Nice:irc.eurecom.fr:6667:
+IRCnet:EU, FR, Paris:irc.fr.ircnet.net:6667:
+IRCnet:EU, GR, Thessaloniki:irc.ee.auth.gr:6666,6668,6669:
+IRCnet:EU, HU, Budapest:irc.elte.hu:6667:
+IRCnet:EU, IL, Haifa:ircnet.netvision.net.il:6661,6662,6663:
+IRCnet:EU, IS, Reykjavik:irc.ircnet.is:6661,6662,6666:
+IRCnet:EU, IS, Reykjavik:irc.ircnet.is:6663,6664,6668:
+IRCnet:EU, IT, Random:irc.ircd.it:6665,6666,6668:
+IRCnet:EU, IT, Rome:irc.tin.it:6665,6666,6668:
+IRCnet:EU, LV, Riga:irc.telia.lv:6666,6668,6669:
+IRCnet:EU, NL, Amsterdam (nlnet):irc.nl.uu.net:6661,6662,6663:
+IRCnet:EU, NL, Amsterdam (xs4all):irc.xs4all.nl:6663,6664,6665:
+IRCnet:EU, NL, Enschede:irc.snt.utwente.nl:6661,6662,6666:
+IRCnet:EU, NL, Nijmegen:irc.sci.kun.nl:6663,6664,6668:
+IRCnet:EU, NO, Oslo:irc.ifi.uio.no:6667:
+IRCnet:EU, NO, Trondheim:irc.pvv.ntnu.no:6667:
+IRCnet:EU, PL, Warsaw:warszawa.irc.pl:6666,6667,6668:
+IRCnet:EU, RU, Moscow:irc.msu.ru:6667:
+IRCnet:EU, SE, Lulea:irc.ludd.luth.se:6665,6666,6668:
+IRCnet:EU, UK, London (Btnet):chat.bt.net:6662,6663,6668:
+IRCnet:EU, UK, London (Demon):ircnet.demon.co.uk:6665,6666,6668:
+IRCnet:EU, UK, London (Netcom):irc.netcom.net.uk:6660,6661,6662:
+IRCnet:EU, UK, Warrington (u-net):irc.u-net.com:6660,6661,6665:
+IRCnet:US, NY, New York:irc.stealth.net:6663,6664,6665:
+IRCworld:Random server:irc.ircworld.org:6667:
+Icenet:AU, Perth:ois.perth.au.icenet.org:6667:
+Icenet:AU, Sydney:zip.syd.au.icenet.org:6667:
+Icenet:SA, Johannesburg:Snowflake.Jhb.Za.IceNet.Org:6667:
+Icenet:US, CA, San Diego:slurpee.ca.us.icenet.org:6667:
+Icenet:US, MO, Kansas City:frozen.mo.us.icenet.org:6667:
+Icenet:US, NC, Charlotte:WebServe.Nc.Us.IceNet.Org:6667:
+Icenet:US, NY, Warwick:Warwick.Ny.Us.IceNet.Org:6667:
+Icenet:US, WI, Ashland:Dockernet.Wi.Us.IceNet.Org:6667:
+Idealnet:US, Boston:irc.aasp.net:6667:
+Idealnet:US, New Jersey:irc.cps.k12.ny.us:6667:
+Idealnet:US, Tennesse:irc.pov.net:6667:
+Infatech:Random server:irc.infatech.net:6661,6663,6666:
+Infinity:Random server:irc.infinity-irc.org:6667:
+Infomatrix:Random server:irc.infomatrix.net:6667:
+IniQuity:EU, SE, Stockholm:StockHolm.SE.EU.iNiQuiTY.NeT:6667:
+IniQuity:US, KY, Louisville:Louisville.ky.us.Iniquity.net:6667:
+IniQuity:US, PA, Belle-Vernon:Belle-Vernon.PA.US.iNiQuiTY.Net:6667:
+IniQuity:US, WI, Milwaukee:Milwaukee.WI.US.iNiQuiTY.Net:6667:
+Irctoo:Random server:irc.irctoo.net:6667:
+Israelnet:Random server:irc.israel.net:6667:
+K0wNet:Random server:irc.k0w.net:6661,6665,6668:
+Kewl.org:EU, FR, Nanterre:nanterre.fr.eu.kewl.org:6667:
+Kewl.org:EU, UK, London:london.uk.eu.kewl.org:6667:
+Kewl.org:Random server:irc.kewl.org:6667:
+Kidsworld:EU, UK, Notts:notts.uk.eu.Kidsworld.org:6664,6666,6668:
+Kidsworld:US, CA, Los Angeles:Losangeles.ca.us.Kidsworld.org:6664,6666,6668:
+Kidsworld:US, CO, Denver:denver.co.us.kidsworld.org:6666,6668,6669:
+Kidsworld:US, IN, Jeffersonville:Jeffersonville.In.us.Kidsworld.org:6664,6666,6668:
+Kidsworld:US, MD, Baltimore:Baltimore.MD.US.Kidsworld.org:6664,6666,6668:
+Kidsworld:US, MD, Baltimore:baltimore.md.us.kidsworld.org:6666,6668,6669:
+Kidsworld:US, NY, New York:CCSD.NY.us.Kidsworld.org:6664,6666,6668:
+KissLand:Random server:irc.kissland.com:6667:
+Knightnet:AF, ZA, Durban:orc.dbn.za.knightnet.net:6667,5555:
+Knightnet:US, CA, Goldengate:goldengate.ca.us.knightnet.net:6667,5555:
+KreyNet:Random server:irc.krey.net:6667:
+Krushnet:Random server:irc.krushnet.org:6667:
+LagNet:AF, South Africa, Cape Town:babylon5.lagnet.org.za:6667:
+LagNet:AF, South Africa, Johannesburg:halcyon.lagnet.org.za:6667:
+LagNet:AF, South Africa, Pretoria:splash.lagnet.org.za:6667:
+LagNet:AF, ZA, Cape Town:reaper.lagnet.org.za:6667:
+LagNet:AF, ZA, Johannesburg:mystery.lagnet.org.za:6667:
+LagNet:Random server:irc.lagnet.org.za:6667:
+Librenet:Random server:irc.librenet.net:6667:
+Lunarnetirc:Random server:irc.lunarnetirc.org:6667:
+Lunatics:Random server:irc.lunatics.net:6667,6668,6669:
+MagicStar:Random server:irc.magicstar.net:6667:
+MavraNet:Random server:irc.mavra.net:6662,6663,6664:
+MediaDriven:Random server:irc.mediadriven.com:6667,6668,6669:
+Messique:Random server:irc.messique.org:6661,6664,6666:
+Millenia:Random server:irc.millenia.org:6664,6665,6666:
+Mozilla:Random server:irc.mozilla.org:6667,7000:
+Mysteria:Random server:irc.mysteria.net:6667,7000:
+Mystical:Random server:irc.mystical.net:6667,7000:
+NdrsNet:Random server:irc.ndrsnet.com:6666,6668,6669:
+Net-France:Random server:irc.net-france.com:6667:
+Nevernet:Random server:irc.nevernet.net:6667:
+NewNet:AF, South Africa:irc.sprintlink.co.za:6667:
+NewNet:EU, NL, Amsterdam:irc.desk.nl:6660,6663,6666,6669:
+NewNet:US, AZ, Phoenix:irc2.inficad.com:6667:
+NewNet:US, FL, Gainsville:irc.aohell.org:6667:
+NewNet:US, MD, Ocean City:irc.beachin.net:6667:
+NewNet:US, MI, Detroit:irc.tyme.net:6667:
+NewNet:US, NY, Buffalo:irc.localnet.com:6667:
+NewNet:US, NY, Freedom:vader.institute.wnyric.org:6667:
+NewNet:US, NY, Ysp:irc.ysp.com:6667:
+NewNet:US, TX, Houston:irc.localhost.net:6667:
+NewNet:US, WA, Seattle:irc.eskimo.com:6667:
+NewNet:US, WA, Silverdale:irc.tscnet.com:6667:
+Newnet:EU, DE, Trusted:irc.trusted-network.de:6666,7000:
+Newnet:EU, UK, Oasis:irc.oasis-net.net:6666,7000:
+Newnet:NZ, Auckland:irc.uplink.net.nz:6661,6662,6666:
+Newnet:Random server:irc.newnet.net:6665,6666,6667:
+Newnet:US, CA, Flagglerock:irc.fragglerock.org:6666,7000:
+Newnet:US, MA, Chelmsford:irc.chelmsford.com:6660,6665,6668:
+Newnet:US, VA, Randolph:irc.rma.edu:6665,6666,6668:
+Nexusirc:Random server:irc.nexusirc.org:6667:
+Nightstar:Random server:irc.nightstar.net:6665,6666,6668:
+NitroNet:Random server:irc.nitro.net:6667:
+Novernet:Random server:irc.novernet.com:6665,6666,6668:
+Novernet:US, GA, Augusta:irc.c-plusnet.com:6666,6668,6669:
+Novernet:US, MN, Minneapolis:chat.novernet.com:6667:
+Othernet:Random server:irc.othernet.org:6667:
+Othernet:US, FL, Miami:miami.fl.us.othernet.org:6667:
+Othernet:US, MO, StLouis:stlouis.mo.us.othernet.org:6667:
+Otherside:Random server:irc.othersideirc.net:6667:
+Outsiderz:Random server:irc.outsiderz.com:6667:
+OzChat:Random server:irc.ozchat.org:6667:
+OzOrg:AU, Adelaide:chariot.adelaide.oz.org:6666,6668,7000:
+OzOrg:AU, Goldcoast:onthenet.goldcoast.oz.org:6667:
+OzOrg:AU, Perth:iinet.perth.oz.org:6667:
+OzOrg:AU, Sydney (aussie):aussie.sydney.oz.org:6667:
+OzOrg:AU, Sydney (mpx):mpx.sydney.oz.org:6667:
+OzOrg:AU, Sydney:aussie.sydney.oz.org:6668,6669,7000:
+OzOrg:AU, Wollongong:wollongong.oz.org:6667:
+OzOrg:US, CA, Davis:davis.oz.org:6667:
+PTlink:Random server:irc.ptlink.net:6667:
+PTnet:EU, PT, Faro:ualg.ptnet.org:6667:
+PTnet:EU, PT, Lisboa:telepac2.ptnet.org:6667:
+ParaBolax:US, MA, Westminster:irc.parabolax.com:6667:
+ParaBolax:US, MI, Farmington Hills:irc.redhot.parabolax.com:6667:
+ParaBolax:US, NY, Madison:irc.bluewonder.parabolax.com:6667:
+Pinoycentral:Random server:chat.abs-cbn.com:6667:
+Planetarion:Random server:irc.planetarion.com:6667:
+PowerChat:Random server:irc.powerchat.org:6954,6956,6999:
+Pseudonet:Random server:irc.pseudonet.org:6667:
+QChat:Random server:irc.qchat.net:6667:
+QuakeNet:Random server:irc.quakenet.eu.org:6667,6668,6669:
+Raptanet:Random server:irc.rapta.net:6667:
+Raptornet:Random server:irc.raptornet.org:6667:
+Realirc:Random server:irc.realirc.org:6667:
+Rebelchat:Random server:irc.rebelchat.org:6667:
+Red-Latina:NA, MX, SanJose:irc.dalsom.net:6666,6667:
+Red-Latina:Random server:irc.red-latina.org:6667:
+RedLatina:NA, Mexico, Guadalajara:irc.udg.mx:6667:
+RedLatina:NA, Mexico, Mexico, D.F:yuju.anahuac.mx:6667:
+RedLatina:NA, Mexico, Morelos:academ02.mor.itesm.mx:6667:
+RedLatina:NA, México, Aguascalientes:sundi.basico.uaa.mx:6667:
+RedLatona:Random server:irc.redlatona.net:6667,6668:
+RedeBrasil:BR, CE, Ceara:irc.linline.com.br:6666,7000,7001:
+RedeBrasil:BR, PE, Recife:irc.hotlink.com.br:6665,6666,7000:
+RedeBrasil:BR, PR, Parana:irc.intermam.com.br:6660,6661,6662:
+RedeBrasil:BR, SP, Sao Paulo:irc.aserver.com.br:6662,6666,7000:
+RedeSul:BR, PR, Maringa:irc.wnet.com.br:6667:
+RedeSul:BR, SC, Blumenau:irc.braznet.com.br:6667,9001:
+RekorNet:Random server:irc.rekor.net:6665,6668,6669:
+Relicnet:Random server:irc.relic.net:6667:
+Relicnet:US, MA, Cyclone:cyclone.us.relic.net:6661,6662,6663:
+Risanet:Random server:irc.risanet.com:6667,6668,6669:
+Rusnet:EU, RU, Tomsk:irc.tsk.ru:7771,7773,7774:
+Rusnet:EU, RU, Vladivostok:irc.vladivostok.ru:6669,7771,7774:
+Rusnet:EU, UA, Kiev:irc.kar.net:6669,7770,7774:
+SandNet:FL, Ocala:ocala.fl.us.sandnet.org:7000:
+SandNet:GA, Atlanta:atlanta.ga.us.sandnet.org:6667:
+SandNet:MO, Stlouis:stlouis.mo.us.sandnet.org:6667,7000:
+SandNet:TX, Laredo:laredo.tx.us.sandnet.org:6667:
+Sandnet:Random server:irc.sandnet.net:6660,6662,6668:
+Sandnet:US, CA, Mystic:mystic.tides.sandnet.net:6662,6665,6666:
+Sandnet:US, NJ, DuneBuggy:dunebuggy.nj.sandnet.net:6661,6662,6666:
+Scunc:Random server:irc.scunc.net:6667:
+SexNet:Random server:irc.sexnet.org:6667:
+SgNet:Random server:irc.sgnet.org:6661,6663,6668:
+ShadowFire:Random server:irc.shadowfire.org:6667:
+ShadowWorld:Random server:irc.shadowworld.net:6667:
+SideNet:Random server:irc.sidenet.org:6661,6663,6666:
+Skyyenet:US, VA, Arlington:arlington.va.us.skyyenet.org:6667:
+Slashnet:Random server:irc.slashnet.org:6667:
+Solarchat:Random server:irc.solarchat.net:6667,7000:
+SorceryNet:CA, ON, Jordan:blackmagic.sorcery.net:9000:
+SorceryNet:EU, DE, Hamburg:atlantis.sorcery.net:9000:
+SorceryNet:EU, NL, Amsterdam:tardis.sorcery.net:9000:
+SorceryNet:US, MA, Cambridge:kechara.sorcery.net:9000:
+SorceryNet:US, MD, Clinton:quasar.sorcery.net:9000:
+Sorcerynet:EU, SE, Karlskrona:nexus.sorcery.net:6667,7000,9000:
+Sorcerynet:Random server:irc.sorcery.net:6667,7000,9000:
+Sorcerynet:US, CA, Palo Alto:kechara.sorcery.net:6667,7000,9000:
+Spamnet:Random server:irc.spamnet.org:6667,6668,6669:
+StarChat:AU, QLD, SouthernCross:boomer.qld.au.starchat.net:6668,6669,7000:
+StarChat:EU, NO, Asker:reality.no.eu.starchat.net:6668,6669,7000:
+StarChat:Random server:irc.starchat.net:6668,6669,7000:
+StarChat:US, CA, San Jose:sand.ca.us.starchat.net:6668,6669,7000:
+StarLink Org:US, CO, Denver:denver.co.us.starlink.org:6660,6662,6666:
+StarLink Org:US, NC, Durham:durham-r.nc.us.starlink.org:6661,6663,6668:
+StarLink Org:US, TX, WichitaFalls:wichitafalls.tx.us.starlink.org:6666,6667,6668:
+StarLink-irc:Random server:irc.starlink-irc.org:6667:
+StarLink-irc:US, MI, Rochester:rochester.mi.us.starlink-irc.org:6667:
+StarLink-irc:US, TX, Houston:houston.tx.us.starlink-irc.org:6667:
+StarLink:EU, NL, Utrecht:Utrecht.NL.EU.StarLink.Org:6667:
+StarLink:US, CO, Aspen:Aspen.CO.US.StarLink.Org:6667:
+StarLink:US, CO, Denver:Denver.CO.US.StarLink.Org:6667:
+StarLink:US, FL, Miami:Miami.FL.US.StarLink.Org:6667:
+StarLink:US, SC, Rockhill:RockHill.SC.US.StarLink.Org:6667:
+StarLinkIRC:US, GA, Atlanta:Atlanta.GA.US.Starlink-IRC.Org:6667:
+StarLinkIRC:US, MI, Rochester:Rochester.MI.US.Starlink-IRC.Org:6667:
+StarLinkIRC:US, OH, Cleveland:Cleveland.OH.US.Starlink-IRC.Org:6667:
+StarNet:US, FL, Jacksonville:irc.starnet.org:6667:
+StarNet:US, NY, New york:ny.us.starnet.org:6660,6662,6664,6666,6668:
+StarNet:US, OH, Cincinatti:oh.us.starnet.org:6662,6664,6666,6667:
+StarNet:US, TX, San Antonio:irc.xtatix.com:6667:
+StarWars-IRC:Random server:irc.starwars-irc.net:6663,6664,6665:
+StormNet:NZ, Auckland:auckland.nz.stormnet.org:6667:
+StormNet:US, CA, Valencia:valencia.ca.us.stormnet.org:6667:
+StormNet:US, FL, Brandon:brandon.fl.us.stormnet.org:6667:
+StormNet:US, IN, Indianapolis:indianapolis.in.us.stormnet.org:6667:
+StormNet:US, NC, Durham:durham.nc.us.stormnet.org:6667:
+Stormdancing:Random server:irc.stormdancing.net:6664,6668,7000:
+Sub-city:Random server:irc.sub-city.net:6668,6669,7000:
+Superchat:Random server:irc.superchat.org:6660,6664,6665:
+Superchat:US, GA, Cartersville:superchat.innerx.net:6660,6662,6664,6666,6668:
+Superchat:US, LA, Houma:chat.cajun.net:6660,6662,6664,6666,6668:
+Superchat:US, NJ, New Brunswick:irc.superlink.net:6660,6662,6664,6666,6668:
+Superchat:US, PA, Pittsburgh:irc.pitnet.net:6660,6662,6664,6666,6668:
+Superchat:US, TX, Dallas:irc.airmail.net:6660,6662,6664,6666,6668:
+Superonline:Random server:irc.superonline.com:6663,6664,6669:
+Sysopnet:Random server:irc.sysopnet.org:6666,6667,6668:
+TR-net:EU, TR, Ankara:irc.dominet.com.tr:6667:
+TR-net:EU, Tr, Istanbul:irc.teklan.com.tr:6667:
+TRcom:Random server:irc.trcom.net:6666,6668,6669:
+Techdreams:Random server:irc.techdreams.net:6667:
+Telstra:Random server:irc.telstra.com:6667,6668,6669:
+Tri-net:Random server:irc.tri-net.org:6667:
+UltraIRC:Random server:irc.ultrairc.net:6667:
+UltraNet:EU, FR, Neuilly:Neuilly.FR.EU.UltraNET.Org:6668:
+UltraNet:EU, UK, London:London.UK.EU.UltraNET.Org:6667:
+UltraNet:US, MS, Vicksburg:Vicksburg.MS.US.UltraNET.Org:6667:
+UltraNet:US, PA, Philadelphia:Philadelphia.PA.US.Ultranet.Org:6667:
+UnderZ:Random server:irc.underz.org:6667,6668:
+Undergrid:US, AS, Little Rock:tomes.undergrid.com:6665,6667,6669,7000,10000:
+Undergrid:US, CA, Chatsworth:ribbit.undergrid.com:10000:
+Undergrid:US, IA, Hawarden:starwars.undergrid.com:667,7000,10000:
+Undergrid:US, OK, Oklahoma City:thor.undergrid.com:6667,7000,10000:
+Undernet:CA, ON, Toronto:toronto.on.ca.undernet.org:6661,6662,6666:
+Undernet:CA, QC, Montreal:montreal.qu.ca.undernet.org:6660,6661,6664:
+Undernet:Canada, Montreal:montreal.qu.ca.undernet.org:6667,6668,6669,7777:
+Undernet:Canada, Toronto:toronto.on.ca.undernet.org:6667,6668,6669,7777:
+Undernet:Canada, Vancouver:vancouver.bc.ca.undernet.org:6666,6667,6668,6669:
+Undernet:EU, AT, Graz:graz.at.eu.undernet.org:6661,6663,6668:
+Undernet:EU, BE, Antwerp:flanders.be.eu.undernet.org:6660,6662,6663:
+Undernet:EU, BE, Brussels:brussels.be.eu.undernet.org:6661,6663,6668:
+Undernet:EU, DE, Regensburg:regensburg.de.eu.undernet.org:6667,6668:
+Undernet:EU, FI, Espoo:espoo.fi.eu.undernet.org:6667,6668:
+Undernet:EU, FR, Caen:caen.fr.eu.undernet.org:6666,6668,6669:
+Undernet:EU, FR, Caen:caen.fr.eu.undernet.org:6667,6668:
+Undernet:EU, FR, Paris:paris.fr.eu.undernet.org:6662,6663,6666:
+Undernet:EU, NL, Amsterdam:amsterdam.nl.eu.undernet.org:6667,6668,6669,7000:
+Undernet:EU, NL, Diemen:diemen.nl.eu.undernet.org:6665,6666,6668:
+Undernet:EU, NL, Diemen:diemen.nl.eu.undernet.org:6667,6668,6669,7000:
+Undernet:EU, NL, Haarlem:haarlem.nl.eu.undernet.org:6660,6662,6666:
+Undernet:EU, NO, Oslo:oslo.no.eu.undernet.org:6662,6664,6668:
+Undernet:EU, NO, Oslo:oslo.no.eu.undernet.org:6667,6668:
+Undernet:EU, SE, Lulea:lulea.se.eu.undernet.org:6667,7000,7777:
+Undernet:EU, SE, Stockholm:stockholm.se.eu.undernet.org:6661,6662,6664:
+Undernet:EU, UK, London:london.uk.eu.undernet.org:6666,6667:
+Undernet:EU, UK, London:london.uk.eu.undernet.org:6666,6668,6669:
+Undernet:EU, UK, Surrey:surrey.uk.eu.undernet.org:6662,6665,6666:
+Undernet:NZ, Auckland:auckland.nz.undernet.org:6667:
+Undernet:US, AZ, Phoenix:phoenix.az.us.undernet.org:6667,6668,6669:
+Undernet:US, America OnLine:irc01.irc.aol.com:6667:
+Undernet:US, CA, San Diego:sandiego.ca.us.undernet.org:6665,6666,6668:
+Undernet:US, CA, SanDiego:sandiego.ca.us.undernet.org:6667,6668,7000,7777:
+Undernet:US, DC, Washington:washington.dc.us.undernet.org:6660,6665,6668:
+Undernet:US, DC, Washington:washington.dc.us.undernet.org:6661,6663,6665,6667:
+Undernet:US, IL, Chicago:chicago.il.us.Undernet.org:6667,6668,6669,7777:
+Undernet:US, KS, Manhattan:manhattan.ks.us.undernet.org:6662,6664,6665:
+Undernet:US, KS, Manhattan:manhattan.ks.us.undernet.org:6667,6668,7000,7777:
+Undernet:US, MA, Lowell:lowell.ma.us.undernet.org:6667,6668,6669,7777:
+Undernet:US, MO, Springfield:springfield.mo.us.undernet.org:6667,6668,6669,7000:
+Undernet:US, MO, St.Louis:stlouis.mo.us.undernet.org:6666,6667,6668,6669:
+Undernet:US, NV, Las Vegas:lasvegas.nv.us.undernet.org:6662,6663,6668:
+Undernet:US, PA , Pittsburg:pittsburgh.pa.us.undernet.org:6667,6668,6669:
+Undernet:US, TX, Austin:austin.tx.us.undernet.org:6661,6663,6664:
+Undernet:US, TX, Dallas:dallas.tx.us.undernet.org:6667,6668,6669:
+Undernet:US, UT, Saltlake:saltlake.ut.us.undernet.org:6663,6665,6666:
+Undernet:US, VA, Arlington:arlington.va.us.undernet.org:6661,6663,6665:
+Undernet:US, VA, Blacksburg:blacksburg.va.us.undernet.org:6667,6668,7000,7777:
+Undernet:US, VA, McLean:mclean.va.us.undernet.org:6666,6668,6669:
+UnionLatina:Random server:irc.unionlatina.org:6667:
+UnitedChat Net:Random server:irc.unitedchat.net:6667:
+UnitedChat Org:Random server:irc.unitedchat.org:6667:
+Univers:Random server:irc.univers.org:6665,6666,6668:
+Vidgamechat:Random server:irc.vidgamechat.com:6667:
+Virtuanet:Random server:irc.virtuanet.org:6662,6666,6669:
+Vitamina:Random server:irc-rr.vitamina.ca:6667:
+Warpednet:Random server:irc.warped.net:6667:
+WebNet:US, CA, Santa Clara:webmaster.ca.us.webchat.org:7000:
+WebNet:US, IL, Geneva:inil.il.us.webchat.org:7000:
+WebNet:US, MN, St.Paul:mwweb.oh.us.webchat.org:7000:
+WebNet:US, OK, Tulsa:webzone.ok.us.webchat.org:7000:
+WebNet:US, WA, Seattle:prostar.wa.us.webchat.org:7000:
+Webnet:Random server:irc.webchat.org:6668,6669,7000:
+Webnet:US, AL, Dothan:wiregrass.al.us.webchat.org:6668,6669,7000:
+Webnet:US, CA, Santa Clara:webmaster.ca.us.webchat.org:6662,6663,6664:
+Webnet:US, MA, Boston:greennet.ma.us.webchat.org:6668,6669,7000:
+WonKnet:Random server:irc.wonk.net:6668,6669,7000:
+WorldIRC:Random server:irc.worldirc.org:6661,6662,6665:
+WorldIRC:US, IL, Chicago:Chicago.Il.Us.WorldIRC.Org:6667:
+WorldIRC:US, MD, Baltimore:Baltimore.Md.US.WorldIRC.Org:6667:
+WorldIRC:US, MI, GrandRapids:GrandRapids.Mi.Us.WorldIRC.Org:6667:
+WorldIRC:US, OK, Norman:Norman.Ok.US.WorldIRC.Org:6667:
+Wwfin:US, FL, Gainesville:irc.afn.org:6667:
+Wwfin:US, IL, Champaign:prairienet.org:6667:
+Wwfin:US, MI, Grand Rapids:irc.grfn.org:6667:
+Wwfin:US, MI, Holland:irc.macatawa.org:6667:
+XNet:Random server:irc.xnet.org:6667:
+XWorld:EU, DE, Wesel:startrek.xworld.org:6667:
+XWorld:Random server:irc.xworld.org:6667:
+XWorld:US, FL, Pensacola:llama.xworld.org:6667:
+XWorld:US, KS ,Kansas City:irc.xworld.org:6667:
+XWorld:US, SC, Rockhill:chat.xworld.org:6667:
+Xevion:Random server:irc.xevion.net:6667,7000:
+ZAnet Net:AF, ZA, CI (lia):lia.zanet.net:6667:
+ZAnet Net:AF, ZA, MWeb (timewiz):timewiz.zanet.net:6667:
+ZAnet Org:AF, ZA, Cape Town (gaspode):gaspode.zanet.org.za:6667:
+ZAnet Org:AF, ZA, Johannesburg (is):is.zanet.org.za:6667:
+ZAnet Org:AF, ZA, Midrand (ethereal):ethereal.zanet.org.za:6660,6666:
+ZAnet:AF, ZA, Cape Town:gaspode.zanet.org.za:6667:
+ZAnet:AF, ZA, Cape Town:guru.zanet.org.za:6667:
+ZAnet:AF, ZA, Johannesburg:is.zanet.org.za:6667:
+ZAnet:AF, ZA, Midrand:ibi.zanet.org.za:6667:
+ZUHnet:Random server:irc.zuh.net:6667:
+ZiRC:Random server:irc.zirc.org:6660,6662,6665:
+Zurna:Random server:irc.zurna.net:6667:
+euIRC:Random server:irc.euirc.net:6665,6666,6668:

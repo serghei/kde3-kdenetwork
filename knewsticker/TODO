@@ -1,0 +1,10 @@
+TODO
+----
+* Make KNewsTicker choose one of the rotated modes as soon as Kicker is moved
+  to one of the sides.
+* Fix the highlighting of the headlines, right now the headlines stay
+  highlighted sometimes even if the mouse is moved away (i.e. with the context
+  menu)
+* Make the "Suggest" function in the news source dialog work for program news
+  sources.
+* Make it possible to pass parameters to external program newssources.

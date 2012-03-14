@@ -1,0 +1,19 @@
+#ifndef LISADEFINES_H
+#define LISADEFINES_H
+
+
+#define MYVERSION "0.2.3"
+#define MY_ID 7741
+#define MYPORT 7741
+#define MAX_SPECS 128
+#define SELECT_TIMEOUT 7
+
+#define EXTRACONFIGSTYLE 0
+#define UNIXCONFIGSTYLE 1
+
+#define CONFIGFILEBASENAME "lisarc"
+#define STRICTCONFIGFILEBASENAME "reslisarc"
+
+#define STRICTMODEMAXHOSTS 64
+
+#endif

@@ -1,0 +1,68 @@
+<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<class>PropertyTableBase</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>PropertyTableBase</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>552</width>
+            <height>439</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>Wireless Network Device Properties</string>
+    </property>
+    <grid>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <property name="margin">
+            <number>0</number>
+        </property>
+        <widget class="QTable" row="1" column="0" rowspan="1" colspan="2">
+            <column>
+                <property name="text">
+                    <string>Property</string>
+                </property>
+            </column>
+            <column>
+                <property name="text">
+                    <string>Value</string>
+                </property>
+            </column>
+            <property name="name">
+                <cstring>table</cstring>
+            </property>
+            <property name="numRows">
+                <number>0</number>
+            </property>
+            <property name="numCols">
+                <number>2</number>
+            </property>
+            <property name="readOnly">
+                <bool>true</bool>
+            </property>
+            <property name="sorting">
+                <bool>true</bool>
+            </property>
+        </widget>
+        <widget class="QComboBox" row="0" column="1">
+            <property name="name">
+                <cstring>cbDeviceSelector</cstring>
+            </property>
+        </widget>
+        <widget class="QLabel" row="0" column="0">
+            <property name="name">
+                <cstring>tlDevice</cstring>
+            </property>
+            <property name="text">
+                <string>Network device:</string>
+            </property>
+        </widget>
+    </grid>
+</widget>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

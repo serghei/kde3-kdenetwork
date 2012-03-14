@@ -1,0 +1,268 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
+  <!ENTITY kappname "&kppp;">
+  <!ENTITY package "kdenetwork">  
+  <!ENTITY getting-online SYSTEM "getting-online.docbook">
+  <!ENTITY wizard SYSTEM "wizard.docbook">
+  <!ENTITY dialog-setup SYSTEM "dialog-setup.docbook">
+  <!ENTITY global-settings SYSTEM "global-settings.docbook">
+  <!ENTITY security SYSTEM "security.docbook">
+  <!ENTITY chap-and-pap SYSTEM "chap.docbook">
+  <!ENTITY tricks SYSTEM "tricks.docbook">
+  <!ENTITY callback SYSTEM "callback.docbook">
+  <!ENTITY kppp-faq SYSTEM "kppp-faq.docbook">
+  <!ENTITY hayes-reference SYSTEM "hayes.docbook">
+  <!ENTITY accounting SYSTEM "accounting.docbook">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % English "INCLUDE" > <!-- change language only here -->
+]>
+
+<book lang="&language;">
+
+<bookinfo>
+<title>The &kppp; Handbook</title>
+
+<authorgroup>
+<author>
+<firstname>Lauri</firstname>
+<surname>Watts</surname>
+<affiliation>
+<address><email>lauri@kde.org</email></address>
+</affiliation>
+</author>
+<!-- TRANS:ROLES_OF_TRANSLATORS -->
+</authorgroup>
+
+<copyright>
+<year>2001</year>
+<holder>Lauri Watts</holder>
+</copyright>
+
+<legalnotice>&FDLNotice;</legalnotice>
+
+<date>2001-06-11</date>
+<releaseinfo>1.01.00</releaseinfo>
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para>&kppp; is a dialer and front end for <application>pppd</application>,
+allowing for interactive script generation and network setup.</para>
+</abstract>
+
+<keywordset>
+<keyword>KDE</keyword>
+<keyword>kppp</keyword>
+<keyword>kdenetwork</keyword>
+<keyword>dialer</keyword>
+<keyword>internet</keyword>
+<keyword>ppp</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title>Introduction</title>
+
+<para>&kppp; is a dialer and front end for <application>pppd</application>. It
+allows for interactive script generation and network setup. It will automate the
+dialing in process to your <acronym>ISP</acronym> while letting you conveniently
+monitor the entire process. </para>
+
+<para>Once connected &kppp; will provide a rich set of statistics and keep track
+of the time spent online for you.</para>
+
+<para>A built-in terminal and script generator will enable you to set up your
+connection with ease. You will no longer need an additional terminal program
+such as <application>seyon</application> or <application>minicom</application>
+to test and setup your connection.</para>
+
+<para>&kppp; features elaborate phone cost accounting, which enables you to
+easily track your online costs.</para>
+
+<para>We hope you enjoy this dialer, and that it eases your way onto the
+internet.</para>
+
+</chapter>
+
+&getting-online;
+
+&wizard;
+
+&dialog-setup;
+
+&global-settings;
+
+&security;
+
+&chap-and-pap;
+
+&tricks;
+
+&callback;
+
+&kppp-faq;
+
+<chapter id="credits">
+
+<title>Credits and License</title>
+
+<para>&kppp;</para>
+
+<para>&kppp; is derived from <application>ezppp</application> 0.6, by Jay
+Painter.  However, nearly everything in &kppp; was rewritten so
+<application>ezppp</application> and &kppp; do not have much in common any
+longer.</para>
+
+<para>Primary Developers:</para>
+
+<itemizedlist>
+<listitem><para>Bernd Johannes Wuebben <email>wuebben@kde.org</email></para>
+</listitem>
+<listitem><para>Mario Weilguni <email>mweilguni@sime.com</email></para>
+</listitem>
+<listitem><para>Harri Porten <email>porten@kde.org</email> (Current
+maintainer)</para>
+</listitem>
+</itemizedlist>
+
+<para>Many thanks to the following people who have contributed code to
+&kppp;</para>
+
+<itemizedlist>
+<listitem><para>Jesus Fuentes Saaverdra
+<email>jesus.fuentes@etsi.tel.uva.esfor</email> implementing several options and
+miscellaneous work.</para>
+</listitem>
+<listitem><para>Markus Wuebben <email>wuebben@eure.de</email> for the ATI query
+dialog</para>
+</listitem>
+<listitem><para>Peter Silva <email>peter.silva@videotron.ca</email> for pop up
+dialogs and other contributions</para>
+</listitem>
+<listitem><para>Martin A. Brown <email>MABrown@etcconnect.org</email></para>
+</listitem>
+<listitem><para>Martin H&auml;fner
+<email>mh@ap-dec717c.physik.uni-karlsruhe.de</email> for the section on callback.</para>
+</listitem>
+<listitem><para>Olaf Kirch <email>okir@caldera.de</email> for the introduction
+to the mysteries of file descriptor passing.</para>
+</listitem>
+</itemizedlist>
+
+
+<para>Documentation copyright 2001 Lauri Watts
+<email>lauri@kde.org</email>, although largely based on the original by
+Bernd Johannes Wuebben <email>wuebben@kde.org</email></para>
+
+&underFDL;               <!-- FDL: do not remove -->
+
+&underGPL;        	 <!-- GPL License -->
+
+</chapter>
+
+<appendix id="installation">
+<title>Installation</title>
+
+<sect1 id="getting-kppp">
+<title>How to obtain &kppp;</title>
+
+&install.intro.documentation;
+
+</sect1>
+
+<sect1 id="compilation">
+<title>Compilation and Installation</title>
+
+&install.compile.documentation;
+
+</sect1>
+
+<sect1 id="preparing-your-computer">
+<title>Preparing your Computer for a <acronym>PPP</acronym> Connection</title>
+
+<para>The following sections contain some fairly generic information for several
+common operating systems which might run &kppp;.  The following sites may be of
+interest for further information about the <acronym>ppp</acronym> protocol,
+<application>pppd</application> and networking in general:</para>
+
+<itemizedlist>
+<listitem><para>The &Linux; <acronym>PPP</acronym> &FAQ;: <ulink 
+url="http://metalab.unc.edu/mdw/FAQ/PPP-FAQ.html">
+http://metalab.unc.edu/mdw/FAQ/PPP-FAQ.html</ulink></para></listitem>
+<listitem><para>The &Linux; <acronym>PPP</acronym> HOWTO: <ulink 
+url="http://metalab.unc.edu/mdw/HOWTO/PPP-HOWTO.html">
+http://metalab.unc.edu/mdw/HOWTO/PPP-HOWTO.html</ulink></para></listitem>
+<listitem><para><ulink url="http://www.thoughtport.com:8080/PPP/index.html">
+http://www.thoughtport.com:8080/PPP/index.html</ulink></para></listitem>
+<listitem><para>The Network Administrators' Guide: <ulink
+url="http://metalab.unc.edu/mdw/LDP/nag/nag.html">
+http://metalab.unc.edu/mdw/LDP/nag/nag.html</ulink></para></listitem>
+</itemizedlist>
+
+<sect2 id="preparing-linux-for-ppp">
+<title>Preparing a &Linux; system for <acronym>PPP</acronym></title>
+
+<para>In order for &kppp; (or indeed, <application>pppd</application>) to work,
+your kernel must have ppp support compiled in.  If this is not the case, get
+yourself the latest version of <application>pppd</application> from any of the
+popular &Linux; archives (such as <ulink
+url="ftp://sunsite.unc.edu/pub/Linux/system/Network/serial/ppp/">ftp://sunsite.unc.edu/pub/Linux/system/Network/serial/ppp/</ulink>,
+and recompile your kernel with <acronym>ppp</acronym> support enabled.</para>
+
+<para>Don't fret, since this sounds a lot scarier than it actually is.  Don't
+forget to install <application>pppd</application> afterwards.</para>
+
+<para>If you're not sure if you have a kernel with ppp support, issue the
+<command>dmesg</command> at the command prompt and look for something like
+this:</para>
+
+<informalexample>
+<screen><computeroutput>
+PPP: version 2.3.0 (demand dialing)
+TCP compression code copyright 1989 Regents of the University of California
+PPP Dynamic channel allocation code copyright 1995 Caldera, Inc.
+PPP line discipline registered
+</computeroutput></screen>
+</informalexample>
+
+<para>&kppp; tries to find out for itself if your kernel supports
+<acronym>PPP</acronym>.  If not, you will be notified as soon as &kppp; starts
+up.</para>
+
+<para>For &Linux; 2.x kernels, the <application>pppd</application> daemon should
+be version 2.3 or greater.  You can find out what version your system has, by
+issuing the command <userinput><command>pppd</command>
+<option>--version</option></userinput> on the command line.  None of the
+<application>pppd</application> daemons actually have a
+<option>--version</option>, but putting the option in will cause the
+<application>pppd</application> daemon to issue an error message, and then to
+print out a list of options and other information, which includes the version of
+the <application>ppd</application> daemon.</para>
+
+</sect2>
+
+<!--<sect2 id="preparing-bsd-for-ppp">
+<title>Preparing your FreeBSD computer for ppp connections</title>
+
+<para>to be written</para>
+</sect2> -->
+
+</sect1>
+
+</appendix>
+
+&hayes-reference;
+
+&accounting;
+
+&documentation.index;
+</book>
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes: nil
+sgml-general-insert-case: lower
+End:
+-->
+

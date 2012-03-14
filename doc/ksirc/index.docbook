@@ -1,0 +1,1446 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
+  <!ENTITY mirc "<application>mIrc</application>">
+  <!ENTITY kappname "&ksirc;">
+  <!ENTITY package "kdenetwork">
+  <!ENTITY irc "<acronym>IRC</acronym>">
+  <!ENTITY CTCP "<acronym>CTCP</acronym>">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % English "INCLUDE" > <!-- change language only here -->
+]>
+	
+<book lang="&language;">
+
+<bookinfo>
+<title>The &ksirc; Handbook</title>
+<authorgroup>
+<author>
+&Andrew.Stanley-Jones;
+&Andrew.Stanley-Jones.mail;
+</author>
+<author>
+&Philip.Rodrigues;
+&Philip.Rodrigues.mail;
+</author>
+<author>
+&Anne-Marie.Mahfouf;
+&Anne-Marie.Mahfouf.mail;
+</author>
+</authorgroup>
+
+<copyright>
+<year>1997</year>
+<holder>Andrew Stanley-Jones</holder>
+</copyright>
+
+<copyright>
+<year>2001</year><year>2002</year><year>2004</year>
+<holder>
+Philip Rodrigues
+</holder>
+
+</copyright>
+
+<copyright>
+<year>2005</year>
+<holder>
+Anne-Marie Mahfouf
+</holder>
+
+</copyright>
+
+<!-- TRANS:ROLES_OF_TRANSLATORS -->
+<date>2005-05-10</date>
+<releaseinfo>1.3.12</releaseinfo>
+
+<legalnotice>&FDLNotice;</legalnotice>
+
+<abstract>
+<para>This documentation describes &ksirc; 1.2.1, the &kde; &irc;
+client.</para>
+</abstract>
+
+<keywordset>
+<keyword>KDE</keyword>
+<keyword>KSirc</keyword>
+<keyword>irc</keyword>
+<keyword>Internet relay chat</keyword>
+</keywordset>
+</bookinfo>
+
+<chapter id="introduction">
+<title>Introduction</title>
+
+<para>&ksirc; is the default &kde; &irc; client. It supports scripting
+with <acronym>Perl</acronym> and has a lot of compatibility with &mirc;
+for general use.</para>
+
+</chapter>
+
+<chapter id="using-ksirc">
+<title>Using &ksirc;</title>
+
+<sect1 id="irc-basics">
+<title>If you haven't used &irc; before...</title>
+
+<para>Simply put, &irc; is a chat protocol, defined by official Internet
+standards, and capable of stealing many hours of your life. To use
+&irc;, you must connect to a server, and then join a channel (equivalent
+to a chat room).</para>
+
+<para>To connect to a server, open &ksirc; and select
+<menuchoice><guimenu>Connections</guimenu><guimenuitem>New
+Server...</guimenuitem></menuchoice> or press <keycap>F2</keycap>. In the
+dialog box that is displayed, select a group from the leftmost drop-down
+box and then a server from the middle drop-down box. The port, shown on
+the right, will almost always be 6667. A new window will be displayed
+showing the messages sent by the server to the client. When these
+messages have finished scrolling past, you want to choose your
+channel. To display a list of available channels, type
+<userinput><command>/list</command></userinput>. To join a channel,
+type: <userinput><command>/join</command>
+<replaceable>#channelname</replaceable></userinput>. To leave a channel,
+just type <userinput><command>/part</command></userinput>.</para>
+
+<para>That's the basics; for more detailed information, read
+on...</para>
+
+</sect1>
+
+<sect1 id="ksirc-basics">
+<title>&ksirc; Basics</title>
+
+<sect2 id="servers">
+<title>Servers</title>
+
+<para>&ksirc; allows you to connect to any number of
+servers. To connect to a server, select
+<menuchoice><guimenu>Connections</guimenu><guimenuitem>New
+Server</guimenuitem></menuchoice> or press <keycap>F2</keycap>.The
+<guilabel>Connect to Server</guilabel> Dialog appears, and you can select a
+<guilabel>Group</guilabel>, then a <guilabel>Server</guilabel>, and also
+a <guilabel>Port</guilabel> to connect to.</para>
+
+<para>Just click <guilabel>Connect</guilabel> when you're done, and a
+new window for the server is displayed. You can keep track of the
+servers you're connected to in the &ksirc; <guilabel>Server
+Control</guilabel> window.</para>
+
+<para>You can get help on most &irc; commands by typing <userinput>/help
+<replaceable>commandname</replaceable></userinput>.
+ Typing <userinput>/help</userinput> on its own gives a list of available
+commands.</para>
+</sect2>
+
+<sect2 id="channels">
+<title>Channels</title>
+
+<para>You can connect to channels with the normal &irc; command
+<userinput><command>/join</command> <replaceable>#channelname</replaceable>
+</userinput>, by selecting
+<menuchoice><guimenu>Connections</guimenu><guimenuitem>Join
+Channel...</guimenuitem></menuchoice> or by pressing
+<keycap>F3</keycap>.</para>
+
+<para>Channels you are connected to are shown in the <guilabel>Server
+Control</guilabel> window under the server to which the they belong. To
+leave a channel, you can <userinput>/part</userinput>, select
+<menuchoice><guimenu>Channel</guimenu><guimenuitem>Close</guimenuitem>
+</menuchoice> or press <keycombo action="simul">&Ctrl;<keycap>W</keycap></keycombo>.</para>
+
+</sect2>
+
+<sect2 id="channel-options">
+<title>Channel Options</title>
+
+<para>The <guimenu>Channel</guimenu> menu, available in any channel
+window, contains some useful options:</para>
+
+<variablelist>
+
+<varlistentry>
+<term><menuchoice>
+<shortcut><keycombo>&Ctrl;<keycap>S</keycap>
+</keycombo></shortcut>
+<guimenuitem>Save to Logfile...</guimenuitem>
+</menuchoice></term>
+<listitem>
+<para><action>Saves the contents of the channel to a
+file.</action></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenuitem>Time Stamp</guimenuitem>
+</menuchoice></term>
+<listitem>
+<para><action>If selected, prepends each thing said in the channel with the
+time it was said, in the form [HH:MM:SS]</action></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice> <shortcut><keycombo action="seq">&Alt;<keycap>C</keycap>
+<keycap>T</keycap></keycombo></shortcut>
+<guimenuitem>Ascii Table</guimenuitem>
+</menuchoice></term>
+<listitem>
+<para><action>Displays a table of Ascii characters</action>, from which you can
+choose any characters you require.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice><shortcut><keycombo action="seq">&Alt;<keycap>C</keycap>
+<keycap>P</keycap></keycombo></shortcut>
+<guimenuitem>Beep on Change</guimenuitem>
+</menuchoice></term>
+<listitem>
+<para><action>If selected, &ksirc; emits a beep every time something is said on
+a channel.</action></para></listitem>
+</varlistentry>
+
+
+</variablelist>
+
+</sect2>
+
+<sect2 id="user-options">
+<title>User Options</title>
+
+<para>In a channel, the user list is displayed along the right hand
+side. Right-clicking a nickname in that list gives you a pop-up menu of
+options, most of which are self-explanatory. Those actions can be configured (changing the order, adding or removing some) in the Configure KSirc... dialog in the User Menu tab. The default actions are the following:</para>
+
+<variablelist>
+
+<varlistentry>
+<term><guimenuitem>Refresh Nicks</guimenuitem></term>
+<listitem>
+<para><action>Sends a message to the server to request the list of users in the
+channel.</action> This ensures that the list of nicknames is up-to-date.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guimenuitem>Follow</guimenuitem></term>
+<listitem>
+<para><action>Highlights the user's nick in every message they send to
+the channel. This way, you can follow someone's thread of conversation
+in a busy channel. The user's nick color is picked at random.</action></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guimenuitem>unFollow</guimenuitem></term>
+<listitem>
+<para><action>Stops following the user.</action></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guimenuitem>Whois</guimenuitem></term>
+<listitem>
+<para><action>Sends a &CTCP; whois query to the user, which
+provides information about the user, such as his hostname and what
+server he is connected to.</action></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guimenuitem>Ping</guimenuitem></term>
+<listitem>
+<para><action>Sends a &CTCP; ping request to the user, to
+determine his echo time.</action></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guimenuitem>Version</guimenuitem></term>
+<listitem>
+<para><action>Sends a &CTCP; version request to the user, to
+determine what software he is using.</action></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guimenuitem>Abuse</guimenuitem></term>
+<listitem>
+<para><action>Abuses the user in one of various amusing
+ways.</action></para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+<para>The following commands are only available if you are an operator
+on the channel:</para>
+
+<variablelist>
+<varlistentry>
+<term><guimenuitem>Kick</guimenuitem></term>
+<listitem>
+<para><action>Removes the user off the channel.</action></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guimenuitem>Ban</guimenuitem></term>
+<listitem>
+<para><action>Bans the user from joining the channel.</action></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guimenuitem>unBan</guimenuitem></term>
+<listitem>
+<para><action>Removes the ban on the user joining the channel.</action></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guimenuitem>Op</guimenuitem></term>
+<listitem>
+<para><action>Gives the user operator privileges.</action></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guimenuitem>DeOp</guimenuitem></term>
+<listitem>
+<para><action>Removes operator privileges from the user.</action></para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+</sect1>
+
+<sect1 id="autoconnecting">
+<title>Autoconnecting</title>
+<para>If you have a number of servers and/or channels which you
+connect to every time you use &ksirc;, then you can set up &ksirc; to
+automatically connect to them: In the <guilabel>Server
+Control</guilabel> window, select
+<menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure
+KSirc...</guimenuitem></menuchoice>, and in the dialog which appears,
+select the <guilabel>Auto Connect</guilabel> page. To add a channel on
+a new server, fill in the <guilabel>Server</guilabel> and
+<guilabel>Channel</guilabel> text boxes, and then click on
+<guibutton>Add</guibutton>. To add another channel on this server,
+select the server name in the tree view, enter the channel name in the
+<guilabel>Channel</guilabel> text box, and click on
+<guibutton>Update/Add</guibutton>. You can repeat this process as many
+times as you like to add several servers and channels for &ksirc; to
+connect to at startup.</para>
+</sect1>
+
+</chapter>
+
+<chapter id="ksirc-configuration">
+<title>&ksirc; Configuration</title>
+
+<sect1 id="config-intro">
+<title>Introduction to Configuration</title>
+<para>The &ksirc; configuration dialog is available from
+<menuchoice><guimenu>Options</guimenu><guimenuitem>Preferences...</guimenuitem></menuchoice>
+in the &ksirc; <guilabel>Server Control</guilabel> window.
+</para>
+</sect1>
+
+<sect1 id="look-and-feel">
+<title>The <guilabel>Look and Feel</guilabel> Tab</title>
+<sect2 id="windowmode">
+<title><guilabel>Window Mode</guilabel></title>
+<para>
+<variablelist>
+
+<varlistentry>
+<term><guilabel>SDI Mode (old behavior)</guilabel></term>
+<listitem><para>Causes &ksirc; to use single document interface mode, in which
+each new channel or <command>/query</command> window has its own, separate
+window.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Paged MDI mode (XChat)</guilabel></term>
+<listitem><para>Causes &ksirc; to use multiple document interface mode, in the
+style of <application>XChat</application>, in which each new channel or
+<command>/query</command> window has a tab in one main &ksirc; window. Each tab
+can be brought to the front by clicking its tab, and you can switch tabs using
+<keycombo>&Alt;<keysym>Left Arrow</keysym></keycombo> and
+<keycombo>&Alt;<keysym>Right Arrow</keysym></keycombo>.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</para>
+</sect2>
+<sect2 id="wallpaper-config">
+<title><guilabel>Wallpaper</guilabel></title>
+<para>
+In the <guilabel>Wallpaper</guilabel> section, you can change the image placed
+in the background of your &ksirc; windows. You can enter the name of the file
+to use in the text box, or browse for files using the button to the right of
+the textbox. Image files used must be in  &GIF;, <acronym>JPEG</acronym> or
+<acronym>PNG</acronym> format. A preview of the image is shown at the right of
+the dialog box.</para>
+<para>If you don't want a wallpaper, simply right-click in the path field and choose clear in the context menu. Or remove the wallpaper location to leave the field empty and click Apply. No wall paper will be set then.</para>
+</sect2> 
+
+</sect1>
+
+<sect1 id="general-config">
+<title>The <guilabel>General</guilabel> Tab</title>
+
+<sect2 id="general-global-config">
+<title><guilabel>Global Options</guilabel> </title>
+<para>
+<variablelist>
+<varlistentry>
+<term><guilabel>Dock in system tray</guilabel></term>
+<listitem><para>This allows KSirc to be docked in the system tray. By default this is not enabled. When KSirc is docked in the system tray, you are able to access several options by clicking on the KSirc icon. When you close KSirc window, the icon stays in the systray until you quit KSirc.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Color picker popup</guilabel></term>
+<listitem><para>If selected, a popup window from which to select the color of
+your text is presented when you press
+<keycombo action="simul">&Ctrl;<keycap>K</keycap></keycombo>. If not, you have
+to type the color codes manually. See also <xref
+linkend="sectcolors"/>. This option is selected by default.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Auto create window</guilabel></term> <listitem><para>If
+selected, &ksirc; will automatically create a new window for each user who
+sends a <command>/msg</command> command to you. If not selected, any text sent
+to you with <command>/msg</command> is displayed in the current window and you
+can use <command>/query <replaceable>username</replaceable></command> to create
+a window to chat to that user. It is selected by default.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Auto-rejoin</guilabel></term>
+<listitem><para><action>Rejoins channels automatically if you are
+disconnected.</action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Auto create on notice</guilabel></term>
+<listitem><para>If someone sends you a /notice then if this option is checked it will create a new window.</para></listitem>
+</varlistentry> 
+
+<varlistentry>
+<term><guilabel>Announce away messages</guilabel></term>
+<listitem><para>If this is checked, you will see the messages when a user selects the away option. By default this option is not checked. It is checked by default.</para></listitem>
+</varlistentry>
+
+<varlistentry id="nick-completion">
+<term><guilabel>Nick completion</guilabel></term> <listitem><para>
+If selected, switches nickname completion on. Nickname completion works as
+follows:
+<orderedlist>
+
+<listitem><para>Type the first letters of a user's nickname.</para></listitem>
+
+<listitem><para>Press <keysym>TAB</keysym>. The text you typed will be
+completed to match the username, including changes in capitalization if
+necessary. &eg; <userinput>phi&lt;TAB&gt;</userinput> becomes
+<computeroutput>PhilRod</computeroutput> if there is a user called
+<quote>PhilRod</quote> on the channel.</para></listitem>
+
+<listitem><para>If more than one user's nickname on the channel matches the
+text you have typed, the first name in the list is chosen. Pressing
+<keysym>TAB</keysym> subsequent times displays the next nickname in the
+list. For example, if there are users <quote>PhilA</quote> and
+<quote>PhilRod</quote> on a channel, and you type
+<userinput>phi&lt;TAB&gt;</userinput>, the text will first be completed to
+<computeroutput>PhilA</computeroutput>, and if you press <keysym>TAB</keysym>
+again, it will change to <computeroutput>PhilRod</computeroutput>.</para>
+</listitem>
+
+</orderedlist>
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Use color nick list</guilabel></term>
+<listitem><para>If selected, it will use the colors set in the Colors tab of the Configure KSirc dialog for coloring the nicknames.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Display topic in caption</guilabel></term>
+<listitem><para><action>Displays the topic of the current channel in the window
+caption.</action> If not selected, the topic is only displayed inside the
+window.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Dock passive popups</guilabel></term>
+<listitem><para>This option is only available if Dock in system tray is checked. If it checked, the passive popups will be displayed docked to the system tray.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>One line text entry box</guilabel></term>
+<listitem><para>If this is not selected, the entry box where you write your text in each channel will expand on several lines depending of the text length. If this is selected, only one line will be used and that means you will not see the beginning of the text you are writing if it is longer than the line.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>History Length</guilabel></term>
+<listitem><para>Stores up to this many lines of chat from each window, allowing
+you to scroll upwards and see what has already been said.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Auto save history</guilabel></term>
+<listitem><para>If this is selected, private message history is saved. When you open a private window the second time with the same user, you will see a log (the history) of your previous chat with him.</para></listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+</sect2>
+
+<sect2 id="misc-general-config">
+<title><guilabel>Per Channel Options</guilabel> </title>
+<para>
+
+<variablelist>
+
+<varlistentry>
+<term><guilabel>Override existing channels options</guilabel></term>
+<listitem><para>If this is selected, the settings in this tab will override each channel options so these settings will be applied in each channel, independently of your channel settings in the Channel menu. This setting will only work until next time you open the configuration dialog and it will be reset unchecked then. This is because you probably don't want to override the existing channels options all the time.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Time Stamp</guilabel></term> <listitem><para><action>Prepends
+each thing said in the channel with the time it was said,</action> in the form
+[HH:MM:SS].</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Show topic</guilabel></term>
+<listitem><para>Displays the channel topic on top of each channel window.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Beep on change</guilabel></term>
+<listitem><para>If selected, a system beep will be generated whenever a user on
+your <command>/notify</command> list signs onto the &irc; server you are
+on.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Enable logging</guilabel></term>
+<listitem><para>Creates log files for each channel per day. These log files are stored in $KDEHOME/share/apps/ksirc/logs/ and the files look like: /$KDEHOME/share/apps/ksirc/logs/#channelname_year_month_day_servername.log</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Hide part/join messages</guilabel></term>
+<listitem><para>Don't show part/join messages. This is useful in a channel with many people.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Default encoding</guilabel></term>
+<listitem><para>Fixes the default encoding for all channels. Choose the encoding in the drop-down list.</para></listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+</sect2>
+
+
+</sect1>
+
+<sect1 id="startup-tab">
+<title>The <guilabel>Startup</guilabel> Tab</title>
+
+<para>
+Here you can configure &ksirc;'s startup settings.
+</para>
+
+<sect2 id="server">
+<title><guilabel>Server</guilabel></title>
+
+<para><!--to be written-->
+</para>
+
+</sect2>
+
+<sect2 id="name-settings">
+<title><guilabel>Name Settings</guilabel></title>
+
+<para>
+
+<variablelist>
+
+<varlistentry>
+<term><guilabel>Nick Name</guilabel></term>
+<listitem><para>Set your &irc; nickname.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Alternative Nick</guilabel></term>
+<listitem><para>Set the nickname to use if your first choice is already in use
+by another user.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Real Name</guilabel></term>
+<listitem><para>Your real name, as returned by a <command>/whois</command>
+query on you.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>User ID</guilabel></term>
+<listitem><para>Your real name, as returned by a <command>/whois</command>
+query on you.</para></listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+</sect2>
+
+<sect2 id="notify-list">
+<title><guilabel>Notify List</guilabel></title>
+
+<para>
+Here you can enter a list of users who you want added to your
+<command>/notify</command> list at startup. You will be alerted when each of
+the users in the list is online.</para>
+</sect2>
+
+</sect1>
+
+<sect1 id="colors-tab">
+<title>The <guilabel>Colors</guilabel> Tab</title>
+<para>
+Here you can configure &ksirc;'s use of color.
+</para>
+
+<sect2 id="chat-colors">
+<title><guilabel>Chat colors</guilabel> Configuration</title>
+<para>
+Here you can set colors for each of the types of text. Clicking the color
+button to the right of each text type's label will display a color selector box
+in which you can choose the color in which you want this type of text to be
+displayed.
+</para>
+</sect2>
+
+<sect2 id="nick-colors">
+<title><guilabel>Nick Colors</guilabel></title>
+<para>
+<guilabel>Foreground:</guilabel> and <guilabel>Background:</guilabel> set the
+colors for the foreground and background of users' nicknames in chat
+windows. The <guilabel>Color for messages containing your nick:</guilabel>
+option sets the color for any message appearing in a channel which contains
+your nickname.</para>
+</sect2>
+
+<sect2 id="color-codes">
+<title><guilabel>Color codes</guilabel></title>
+<para>
+Here you can set whether &ksirc; allows native color codes (see <xref
+linkend="sectcolors"/>) and also whether &mirc; color codes are allowed.</para>
+</sect2>
+
+</sect1>
+
+<!--<sect1 id="irc-colors-tab">
+<title>The <guilabel>IRC Colors</guilabel> Tab</title>
+<para>
+</para>
+</sect1>-->
+
+<sect1 id="user-menu-tab">
+<title>The <guilabel>User Menu</guilabel> Tab</title>
+<para>This page allows configuration for the RMB (Right Mouse Button) menu for the nick list located on the right in each channel. When you right click on a nickname, some actions are defined by default. These are the actions listed on the left. You can change these actions order, delete some and add others.
+</para>
+</sect1>
+
+<sect1 id="server-channel-tab">
+<title>The <guilabel>Server/Channel</guilabel> Tab</title>
+<para>Here are listed the servers and channels you join to using the New Server (<keycap>F2</keycap>) and New Channel (<keycombo action="simul">&Ctrl;<keycap>N</keycap></keycombo>) dialogs via the Channel menu.
+</para>
+<sect2 id="server-config">
+<title>Server</title>
+<para>You add there the servers you want to use. Write the server name in the field and click the Add Server to List button. If you want to delete a server from the list, you click on the server name and then on the Delete Server from List button.</para>
+</sect2>
+<sect2 id="channels-config">
+<title>Channels</title>
+<para>You add there the channels you want to connect to. Write the channel name in the field and click the Add Channel to List button. If you want to delete a channel from the list, you click on the channel name and then on the Delete Channel from List button.</para>
+</sect2>
+</sect1>
+
+<sect1 id="auto-connect-tab">
+<title>The <guilabel>Auto Connect</guilabel> Tab</title>
+<para>
+</para>
+<sect2 id="auto-connect-setup">
+<title>Auto Connect Setup</title>
+<para>You set here the server and channels names that you want to connect directly when KSirc starts.</para>
+<para>You need to use the Auto Connect Setup dialog first to add new channels. You enter there the server name. The server port is set by default for most servers. If you are not sure, just leave it as it is. Usually servers don't ask for passwords so if you don't have a password, leave the Password field empty. Then add a channel name and click the Add button. The channel will be displayed in the Auto Connect List.</para>
+<para>
+If you want to add more channel for a same server, click on the server in the Auto Connect List and the server name will be displayed in the Auto Connect Setup dialog. Write the channel name in the Channel field and click on Update/Add.
+</para>
+<para>
+In order to remove a channel form the Auto Connect List, click on the channel name in the list and then click the Delete button.
+</para>
+</sect2>
+</sect1>
+
+<sect1 id="fonts-tab">
+<title>The <guilabel>Fonts</guilabel> Tab</title>
+<para>
+You can change here the font for the main window. Select the font you want then click the Apply button to preview the change. Ok applies the changes and quits the dialog.
+</para>
+</sect1>
+
+<!--<sect1 id="shortcuts-tab">
+<title>The <guilabel>Shortcuts</guilabel> Tab</title>
+<para>
+</para>
+
+<sect2 id="global-shortcuts">
+<title>Global Shortcuts</title>
+<para></para>
+
+</sect2>
+<sect2 id="shortcuts-selected-action">
+<title>Shortcut for Selected Action</title>
+<para></para>
+</sect2>
+</sect1>-->
+
+</chapter>
+
+
+<chapter id="sectcolors">
+<title>&ksirc; Colors</title>
+
+<para>&ksirc; follows the color scheme used by
+&mirc; and a slight modification for more
+powerful in house use.</para>
+
+<screen>&lt;fg&gt; == foreground
+&lt;bg&gt; == background
+&lsqb;&rsqb; == optional
+</screen>
+
+<sect1 id="mirccompatibility">
+<title>&mirc; compatibility</title>
+
+<para>Format:</para>
+<itemizedlist>
+<listitem>
+<para><userinput>0x03&lt;fg&gt;&lsqb;,&lt;bg&gt;&rsqb;</userinput>
+sets the foreground and background</para>
+</listitem>
+<listitem>
+<para><userinput>0x03</userinput>
+resets to defaults for <emphasis>that</emphasis> line</para>
+</listitem>
+</itemizedlist>
+</sect1>
+
+<sect1 id="ksircnative">
+<title>&ksirc; native</title>
+
+<para>Format:</para>
+
+<itemizedlist>
+<listitem>
+<para><userinput>&tilde;&lt;fg&gt;&lsqb;,&lt;bg&gt;&rsqb;</userinput>
+sets the foreground and background</para>
+</listitem>
+<listitem>
+<para><userinput>&tilde;c</userinput> resets to defaults</para>
+</listitem>
+<listitem>
+<para><userinput>&tilde;b</userinput> sets bold font</para>
+</listitem>
+<listitem>
+<para><userinput>&tilde;u</userinput> sets underline</para>
+</listitem>
+<listitem>
+<para><userinput>&tilde;i</userinput> sets italics</para>
+</listitem>
+<listitem>
+<para><userinput>&tilde;r</userinput> sets reverse video</para>
+</listitem>
+</itemizedlist>
+
+<para>Why did I change &ksirc; to use &tilde; instead of 0x03
+(<keycombo action="simul">&Ctrl;<keycap>C</keycap></keycombo>)?
+Well, it's hard to use 0x03 in scripts and not all C functions seem to
+like it. <userinput>&tilde;<replaceable>letter</replaceable></userinput>
+also allows more commands while not stomping on &mirc;'s future changes.</para>
+
+</sect1>
+
+<sect1 id="colornumbers">
+<title>Color Numbers</title>
+
+<orderedlist>
+<listitem>
+<para> white</para>
+</listitem>
+<listitem>
+<para> black</para>
+</listitem>
+<listitem>
+<para> blue</para>
+</listitem>
+<listitem>
+<para> green</para>
+</listitem>
+<listitem>
+<para> red</para>
+</listitem>
+<listitem>
+<para> brown</para>
+</listitem>
+<listitem>
+<para> purple</para>
+</listitem>
+<listitem>
+<para> orange</para>
+</listitem>
+<listitem>
+<para> yellow</para>
+</listitem>
+<listitem>
+<para> lightGreen</para>
+</listitem>
+<listitem>
+<para> cyan</para>
+</listitem>
+<listitem>
+<para> lightCyan</para>
+</listitem>
+<listitem>
+<para> lightBlue</para>
+</listitem>
+<listitem>
+<para> pink</para>
+</listitem>
+<listitem>
+<para> gray</para>
+</listitem>
+<listitem>
+<para> lightGray</para>
+</listitem>
+</orderedlist>
+</sect1>
+
+<sect1 id="sendingboldunderlinereverseandcolor">
+<title>Sending Bold, Underline, Reverse, and Color</title>
+
+<para>You can use the following key combinations to insert control codes
+in text:</para>
+
+<itemizedlist>
+<listitem>
+<para><keycombo action="simul">&Ctrl;<keycap>B</keycap></keycombo> for
+bold text</para>
+</listitem>
+<listitem>
+<para><keycombo action="simul">&Ctrl;<keycap>U</keycap></keycombo> for
+underlined text</para>
+</listitem>
+<listitem>
+<para><keycombo action="simul">&Ctrl;<keycap>R</keycap></keycombo> for
+reverse text</para>
+</listitem>
+<listitem>
+<para><keycombo action="simul">&Ctrl;<keycap>K</keycap></keycombo> for
+colored text</para>
+</listitem>
+<listitem>
+<para><keycombo action="simul">&Ctrl;<keycap>O</keycap></keycombo> for
+plain text</para>
+</listitem>
+</itemizedlist>
+
+</sect1>
+
+<sect1 id="examplessetcolors">
+<title>Examples</title>
+
+<para>To underline a single word in a sentence:</para>
+
+<procedure>
+<step>
+<para>Type <keycombo
+action="simul">&Ctrl;<keycap>U</keycap></keycombo></para>
+</step>
+<step>
+<para>Type in the word</para>
+</step>
+<step>
+<para>Type <keycombo action="simul">&Ctrl;<keycap>U</keycap></keycombo>
+again</para>
+</step>
+</procedure>
+
+<para>Only the text that is enclosed by the start and end codes will be
+affected. You can use this method with all of the other control
+codes.</para>
+
+<para>The <keycombo action="simul">&Ctrl;<keycap>K</keycap></keycombo>
+control code is slightly different because it allows you to specify a
+color number. To color a single word in a sentence:</para>
+
+<procedure>
+<step>
+<para>Type <keycombo
+action="simul">&Ctrl;<keycap>K</keycap></keycombo></para>
+</step>
+<step>
+<para>Type a number between 0 and 15</para>
+</step>
+<step>
+<para>Type the word</para>
+</step>
+<step>
+<para>Type <keycombo
+action="simul">&Ctrl;<keycap>K</keycap></keycombo> again</para>
+</step>
+</procedure>
+
+<para>If you also want to change the background color of a word, you
+would need to type two numbers separated by a comma instead of just one
+number. The first number is the text color, the second number is the
+background color. The colors range from 0 to 15, the index is in the
+previous section.</para>
+
+<para>You can enclose text in multiple control codes, so for example you
+could have a bold, underlined, and colored word.</para>
+
+</sect1>
+</chapter>
+
+<chapter id="filters">
+<title>Filters</title>
+
+<sect1 id="filterrulesandhowtomakethem">
+<title>Filter Rules and How to Make them</title>
+
+<para>If you just can't figure it out, wait. I want to build a nice
+<quote>filter builder</quote> where you can just click your way through
+it. Though, it might be a while.</para>
+
+<para>The filter tries to find the <quote>match</quote> string then use
+the <quote>From</quote> and <quote>To</quote> as a substitution.  The
+match, from and to are all <application>Perl</application> regex
+expressions. Rules are evaluated in descending order.  The top rule is
+evaluated first, then the second from the top, &etc; All strings are
+evaluated as:</para>
+
+<para><varname>$<replaceable>name</replaceable></varname> is expanded to
+the environment variable
+<varname><replaceable>name</replaceable></varname>.  This is done
+immediately when you insert the rule, and will not change after that
+time.  Therefore it's probably of limited value.</para>
+
+<para><varname>$$<replaceable>name</replaceable></varname> is
+substituted with the <acronym>Perl</acronym>
+<varname>$<replaceable>name</replaceable></varname> variable during the
+match.  This can be substrings such as <varname>$1</varname>,
+<varname>$2</varname> in the substitution, or normal variables available
+under <application>sirc</application> (such as <varname>$nick</varname>,
+<varname>$channel</varname>, &etc;).</para>
+
+<para><varname>&tilde;<replaceable>name</replaceable>&tilde;</varname>
+<emphasis>prepended once and only once</emphasis> to the line will send
+the line of text to the window called <replaceable>name</replaceable>.
+If the window does not exist it will go to the last window which had
+focus.  There are several special windows, all prefixed by a single
+<literal>!</literal>:</para>
+
+<para><variablelist>
+<varlistentry>
+<term><varname>!default</varname></term>
+<listitem>
+<para>The current default window.  Guaranteed to exist.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><varname>!all</varname></term>
+<listitem>
+<para>Send to every window.  This might not show up on all windows,
+depending on how the text is parsed.  For example, channel windows won't
+show a <command>/part</command> or <command>/quit</command> unless the nickname is on the channel.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><varname>!discard</varname></term>
+<listitem>
+<para>discards the text.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</para>
+
+<para>The rest of the expression is dealt with as normal
+<acronym>Perl</acronym> regex.  A
+good understanding of the <command>perlre</command> man page will
+definitely help, but a basic understanding of regex is most certainly
+required.</para>
+
+</sect1>
+
+<sect1 id="examplesfilters">
+<title>Examples:</title>
+
+<orderedlist><listitem>
+<para>Want to convert all boren from boren to BoreN</para>
+
+<screen>Match: .*
+From: boren
+To: BoreN</screen>
+
+<para>Pretty straight forward, match anything, then substitute boren
+with BoreN.</para>
+
+</listitem>
+<listitem>
+<para>You want to match everything with boren in it and send to the
+window called <quote>boren</quote></para>
+
+<screen>Match: boren
+From: &circ;
+To: &tilde;boren&tilde;</screen>
+
+<para>Looks for <quote>boren</quote> if found, substitutes the beginning
+of the string (&circ;) with &tilde;boren&tilde;.</para>
+
+</listitem>
+<listitem>
+
+<para>Though the previous example works, if the string already has
+<literal>&tilde;somewindow&tilde;</literal> on it, you'll now have two
+<literal>&tilde;boren&tilde;&tilde;somewindow&tilde;...</literal> So you
+can do this instead.</para>
+
+<screen>Match: boren
+From: ^(?:&tilde;\S+&tilde;)
+To: &tilde;boren&tilde;</screen>
+
+<para>Ok, the from line is a little bit more complicated.  It means: match
+0 or 1 copies of <literal>&tilde;\S+&tilde;</literal>.  Which is 1
+tilde, one or more non-whitespaces, and then another tilde.  The
+paranoid might do <literal>(*:&tilde;\S+&tilde;)</literal>, which means:
+match 0 or more channel directives in case prior rules are
+broken.</para>
+
+</listitem>
+
+<listitem>
+<para>Server kill messages tend to be long, ugly, annoying, &etc; A basic
+message on dalnet looks like:</para>
+
+<screen>*** Notice -- Received KILL message for
+BOBO!ANDY@line82-basel.datacomm.ch from NickServ
+Path: empire.ny.us.dal.net[209.51.168.14]!trapdoor.ca.us.dal.net
+[206.86.127.252]!caris.ca.us.dal.net[208.1.222.221]
+!services.dal.net[2008.1.222.222]!services.dal.net
+(NickServ Enforcement)</screen>
+
+<para>When you're <literal>+s</literal> you get tons of them; you don't
+want all of them flying across your screen.  I'm going to make 3 rules
+to deal with them one bit at a time.  You could do it in less rules, but
+it'll show you the basic rule structure, in nice steps, and how to use
+multiple rules to parse a message.  The first step is to remove the
+Path: portion of the message:</para>
+
+<screen>Match: ^\*\*\*.* KILL message for.*
+From:  Path: \S+
+To: .</screen>
+
+
+<para>Match looks for the message starting with <literal>***</literal>,
+the <literal>*</literal>'s have to be quoted with <literal>\</literal>
+since by themselves they mean 0 or more of the prior character.
+<literal>.*</literal> means: match anything until you find <literal>
+KILL message for</literal>.  This allows us to avoid typing in
+<literal>-- Received...</literal> &etc; The trailing
+<literal>.*</literal> means: match anything to the end of the line. (not
+needed, I think)</para>
+
+<para>The From line means: substitute " Path: " and any
+non-whitespace characters with the To.  To is a <literal>"."</literal>
+therefore the entire path turns into a single period.</para>
+
+<para>The message now looks like:</para>
+
+<screen>*** Notice -- Received KILL message for BOBO!ANDY@line82-basel.datacomm.ch
+from NickServ. (NickServ Enforcement)</screen>
+
+<para>Notice the new <literal>"."</literal> after
+<literal>NickServ</literal>?</para>
+</listitem>
+
+<listitem>
+<para>Ok, the message is a lot cleaner, but KILLs from nickserv aren't
+really that important, so let's forward them to the
+<literal>!discard</literal> window.</para>
+
+<screen>Match: ^\*\*\*.*KILL message.*\(NickServ Enforcement\)
+From: ^(?:&tilde;\S+&tilde;)
+To:  &tilde;!discard&tilde;</screen>
+
+<para>Match rule searches for the KILL message and makes sure it's from
+NickServ.  Notice the <literal>\(</literal> and <literal>\)</literal>
+are both used in regex, therefore we have to quote
+them.  This is very similar to what we said two examples before.</para>
+
+</listitem>
+<listitem>
+<para>We've now filtered out all the nickserv kills, but the message is
+still pretty hard to read by simply glancing at it.  So let's reorder it
+to something like:</para>
+
+<screen>*** [KILL] <replaceable>KILLER</replaceable>; killed <replaceable>KILLED</replaceable>; (<replaceable>REASON</replaceable>)</screen>
+
+<screen>Match: \*\*\*.*KILL message
+From: \*\*\*.*for (.*?) from (.*?)\. \((.*?)\).*
+To: *** [KILL] $$2 killed $$1 ($$3)
+</screen>
+
+<para>Ok, the match looks for
+<literal>***<replaceable>something</replaceable> KILL message</literal>.
+We can't use <literal>&circ;</literal> since we may have just appended
+<literal>&tilde;&lt;window&gt;&tilde;</literal>.</para>
+
+<para>The from line gets a little more interesting. The <literal>"for
+(.*?) "</literal> looks for the word "for" then some text.
+<literal>.*?</literal> means: match zero or more of anything except
+newline, but isn't greedy. The rule is to stop when the first terminating condition is
+found, not the last. In other words it matches anything until a space is encountered.
+The surrounding <literal>()</literal> means: save the contents.  Each
+() saves the matched data in <literal>$&num;</literal> where
+<literal>&num;</literal> starts at 1 for the first substring, &etc;  In
+this case, <varname>$1</varname> gets the nick/user-info of the person
+killed. <varname>$2</varname> is then filled with the name of the
+killer. Between the <literal>()</literal> we have the reason for the
+kill. Here the <literal>(</literal> and <literal>\(</literal> get a
+little confusing.  Remember <literal>\(</literal> matches the actual
+character <literal>'('</literal>.</para>
+
+</listitem>
+<listitem>
+<para>How to colorize your life.</para>
+
+<para>Ok, you want to add some color to
+&ksirc;.  See the <link linkend="sectcolors">Colors section</link> for
+color info, but here's a filter rule to highlight the nickname between
+<literal>&lt;NICK&gt;</literal> on each line: </para>
+
+<screen>Match: ^(?:&tilde;\S+&tilde;)&lt;\S+&gt;
+From: &lt;(\S+)&gt;
+To: &lt;&tilde;4$$1&tilde;c&gt;</screen>
+
+<para>Takes the nickname and adds color &num;4 between the two
+<literal>&lt;&gt;</literal>. <literal>&tilde;c</literal> clears the color.</para>
+
+</listitem>
+</orderedlist>
+
+</sect1>
+</chapter>
+
+<chapter id="keys">
+<title>Keys</title>
+
+<para>This is a listing of the shortcut and command keys available
+under &ksirc;.</para>
+
+<table>
+<title>Keybindings</title>
+<tgroup cols="2">
+<thead>
+<row>
+<entry>Keybinding</entry>
+<entry>Action</entry>
+</row>
+</thead>
+
+<tbody>
+
+<row>
+<entry><keycombo
+action="simul">&Ctrl;<keycap>N</keycap></keycombo></entry>
+<entry>Open a new Channel/Query Window.</entry>
+</row>
+
+<row>
+<entry><keycombo
+action="simul">&Ctrl;<keycap>Q</keycap></keycombo></entry>
+<entry>Quit</entry>
+</row>
+
+<row>
+<entry><keycombo
+action="simul">&Ctrl;<keycap>Enter</keycap></keycombo></entry>
+<entry>Begin a message to the most recent person to send you a
+message.</entry>
+</row>
+
+<row>
+<entry><keycombo
+action="simul">&Ctrl;&Shift;<keycap>Enter</keycap></keycombo></entry>
+<entry>Begin a message to the last-but-one person to send you a
+message.</entry>
+</row>
+
+<row>
+<entry><keycombo
+action="simul">&Ctrl;<keycap>K</keycap></keycombo></entry>
+<entry>Start color code with a number. Text you type after this will be
+colored.</entry>
+</row>
+
+<row>
+<entry><keycombo
+action="simul">&Ctrl;<keycap>U</keycap></keycombo></entry>
+<entry>Begin or end underlining text. Text after the first occurrence
+of this will be underlined until you type the shortcut again.</entry>
+</row>
+
+<row>
+<entry><keycombo action="simul">&Ctrl;<keycap>I</keycap></keycombo></entry>
+<entry>Begin or end italic text. Text after the first occurrence
+of this will be italic until you type the shortcut again.</entry>
+</row>
+
+<row>
+<entry><keycombo action="simul">&Ctrl;<keycap>B</keycap>
+</keycombo></entry>
+<entry>Begin or end bold text. Text after the first occurrence
+of this will be bold until you type the shortcut again.</entry>
+</row>
+
+<row>
+<entry><keycombo action="simul">&Ctrl;<keycap>R</keycap></keycombo></entry>
+<entry>Begin or end reverse video text.  Text after the first occurrence
+of this will be reversed  until you type the shortcut again.</entry>
+</row>
+
+<row>
+<entry><keycap>TAB</keycap></entry>
+<entry>Tries to complete the nickname of someone on the channel, based
+on the text you entered. You are probably familiar with this from your
+commandline shell, although it does not necessarily work in exactly the same
+way. See <xref linkend="nick-completion"/>.</entry>
+</row>
+
+</tbody>
+</tgroup>
+</table>
+
+</chapter>
+
+<!-- annma: chapter title not good-->
+<chapter id="tips">
+<title>Tips</title>
+
+<sect1 id="kde-channels">
+<title>Joining &kde; channels</title>
+
+<para>
+&kde; &irc; channel are hosted on the Freenode network. Use the <guilabel>Server/Channel</guilabel> tab or the
+<guilabel>Auto Connect</guilabel> tab in <guilabel>Configure KSirc</guilabel> to add these channels. The network
+should be <userinput><systemitem class="domainname">irc.freenode.org</systemitem></userinput> on port <userinput>6667</userinput>. Below are listed the most
+important &kde; channels and their goals. Choose the channels you are
+interested in.
+</para>
+
+<para>You can find some tips about asking questions on &kde; channels on
+the <ulink
+url="http://wiki.kde.org/tiki-index.php?page=Asking+Questions">&kde;
+community wiki</ulink>.
+</para>
+
+<table>
+  <title>KDE IRC channels</title>
+  <tgroup cols="2">
+    <thead>
+      <row>
+	<entry>Channel</entry>
+	<entry>Target</entry>
+      </row>
+    </thead>
+<tbody>
+ <row>
+   <entry>#kde</entry>
+   <entry>User help</entry>
+ </row>
+ <row>
+   <entry>#kde-devel</entry>
+   <entry>&kde; development</entry>
+ </row>
+ <row>
+   <entry>#kdevelop</entry>
+   <entry>KDevelop questions</entry>
+ </row>
+ <row>
+   <entry>#kontact</entry>
+   <entry><application>Kontact</application> (&kmail;, &korganizer;, &knotes;, ...)  related questions</entry>
+ </row>
+ <row>
+   <entry>#amarok</entry>
+   <entry>Community channel about <application>amaroK</application>: user questions, development</entry>
+ </row>
+ <row>
+   <entry>#debian-kde</entry>
+   <entry>Debian KDE related questions</entry>
+ </row>
+ <row>
+   <entry>#kde-freebsd</entry>
+   <entry>FreeBSD KDE related questions</entry>
+ </row>
+</tbody>
+</tgroup>
+</table>
+</sect1>
+
+<sect1 id="autoidentify">
+<title>Auto identify</title>
+
+<para>If you intend to use &irc; on a regular basis you will probably
+want to register your nickname. This protects your nickname so that
+only you can use it. On DALnet, after you log on, you register your
+nickname using the command <userinput><command>/msg</command>
+nickserv register <replaceable>PASSWORD</replaceable></userinput>,
+where  <replaceable>PASSWORD</replaceable> is your password. You'll get a
+confirmation your nickname has been registered.
+</para>
+
+<para>
+Then each time you log on to DALnet you get a message asking you to
+identify yourself. You will then need to type
+<userinput><command>/msg nickserv identify
+<replaceable>PASSWORD</replaceable></command></userinput>.
+</para>
+
+<para>
+&ksirc; can identify you automatically when you log into any
+channel. You simply need to add the following Perl script in your home
+directory:
+</para>
+
+<para>
+The following script will work on Freenode. This script should be
+saved as <filename>.sircrc.pl</filename> in your home
+directory. When you run &ksirc;, this script will automatically have
+you identified.
+</para>
+
+<programlisting>
+sub hook_nick_notice {
+my $n = shift;
+my $m = shift;
+
+
+if($who =~ /NickServ/){
+if($m =~ /If this is your nickname/){
+$silent = 1; 
+&amp;msg("nickserv", "identify <replaceable>XXXXXX</replaceable>");
+$silent = 0; 
+}
+}
+}
+&amp;addhook("notice", "nick_notice");   # join on the "end of MOTD" numeric
+</programlisting>
+<para>
+Replace <replaceable>XXXXXX</replaceable> with your password.
+</para>
+
+<para>
+The above script will work on other networks than Freenode where
+nickserv sends you the request "identify" but on some networks like
+Undernet you will need the following script:
+</para>
+
+<programlisting>
+sub hook_connected {
+if($server =~ /undernet.org$/){
+	&amp;msg("X\@channels.undernet.org", "login <replaceable>YOUR_NAME</replaceable> <replaceable>XXXX</replaceable>");
+		&amp;docommand("umode +x");
+}
+}
+&amp;addhook("255", "connected");   # join on the "end of MOTD" numeric
+</programlisting>
+
+<para>
+Replace <replaceable>YOUR_NAME</replaceable> with your login name and
+<replaceable>XXXXXX</replaceable> with your password.
+</para>
+
+<para>
+  You can find more about SIRC programming on this page: <ulink
+  url="http://www.iagora.com/~espel/sirc/PROGRAMMING">http://www.iagora.com/~espel/sirc/PROGRAMMING</ulink>
+</para>
+</sect1>
+</chapter>
+<!-- end annma -->
+
+<chapter id="credits-and-license">
+<title>Credits and Licenses</title>
+
+<para>&ksirc; copyright 1997-2002, the &ksirc; developers.</para>
+
+<para>Portions of documentation copyright 1997, &Andrew.Stanley-Jones;</para>
+
+<para>Documentation updated for &kde; 3.0 by &Philip.Rodrigues;
+&Philip.Rodrigues.mail;.</para>
+
+<para><xref linkend="tips"/> was written by &Anne-Marie.Mahfouf; &Anne-Marie.Mahfouf.mail;.</para>
+<!-- TRANS:CREDIT_FOR_TRANSLATORS -->
+
+&underFDL;
+&underGPL;
+
+</chapter>
+
+<appendix id="installation">
+<title>Installation</title>
+
+<sect1 id="getting-ksirc">
+<title>Where to get &ksirc;</title>
+
+&install.intro.documentation;
+
+</sect1>
+
+
+<sect1 id="compilation">
+<title>Compilation and Installation</title>
+
+&install.compile.documentation;
+
+</sect1>
+</appendix>
+
+&documentation.index;
+
+</book>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-omittag: nil
+sgml-shorttag: t
+sgml-indent-step: nil
+End:
+-->
+
+
+
+

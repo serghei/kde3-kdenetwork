@@ -1,0 +1,1640 @@
+dnl =======================================================
+dnl FILE: ./admin/configure.in.min
+dnl =======================================================
+
+dnl    This file is part of the KDE libraries/packages
+dnl    Copyright (C) 2001 Stephan Kulow (coolo@kde.org)
+ 
+dnl    This file is free software; you can redistribute it and/or
+dnl    modify it under the terms of the GNU Library General Public
+dnl    License as published by the Free Software Foundation; either
+dnl    version 2 of the License, or (at your option) any later version.
+ 
+dnl    This library is distributed in the hope that it will be useful,
+dnl    but WITHOUT ANY WARRANTY; without even the implied warranty of
+dnl    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+dnl    Library General Public License for more details.
+ 
+dnl    You should have received a copy of the GNU Library General Public License
+dnl    along with this library; see the file COPYING.LIB.  If not, write to
+dnl    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+dnl    Boston, MA 02110-1301, USA.
+
+# Original Author was Kalle@kde.org
+# I lifted it in some mater. (Stephan Kulow)
+# I used much code from Janos Farkas
+
+dnl Process this file with autoconf to produce a configure script.
+
+AC_INIT(acinclude.m4) dnl a source file from your sub dir
+
+dnl This is so we can use kde-common
+AC_CONFIG_AUX_DIR(admin)
+
+dnl This ksh/zsh feature conflicts with `cd blah ; pwd`
+unset CDPATH
+
+dnl Checking host/target/build systems, for make, install etc.
+AC_CANONICAL_SYSTEM 
+dnl Perform program name transformation
+AC_ARG_PROGRAM
+
+dnl Automake doc recommends to do this only here. (Janos)
+AM_INIT_AUTOMAKE(kdenetwork, "3.5.10") dnl searches for some needed programs
+
+KDE_SET_PREFIX
+
+dnl generate the config header
+AM_CONFIG_HEADER(config.h) dnl at the distribution this done
+
+dnl Checks for programs.
+AC_CHECK_COMPILERS
+AC_ENABLE_SHARED(yes)
+AC_ENABLE_STATIC(no)
+KDE_PROG_LIBTOOL
+
+dnl for NLS support. Call them in this order!
+dnl WITH_NLS is for the po files
+AM_KDE_WITH_NLS
+
+dnl KDE_USE_QT
+AC_PATH_KDE
+dnl =======================================================
+dnl FILE: configure.in.in
+dnl =======================================================
+
+#MIN_CONFIG
+KDE_ENABLE_HIDDEN_VISIBILITY
+KDE_INIT_DOXYGEN([KDE Network API Reference], [Version $VERSION])
+
+
+dnl Checks for header files.
+AC_CHECK_HEADERS(linux/tcp.h linux/if_ppp.h)
+AC_CHECK_HEADERS(net/errno.h net/if_ppp.h)
+AC_CHECK_HEADERS(asm/param.h)
+AC_CHECK_HEADERS(sys/file.h sys/stat.h sys/time.h sys/cdefs.h sys/sockio.h)
+AC_CHECK_HEADERS(fcntl.h unistd.h fnmatch.h sysent.h strings.h paths.h)
+AC_CHECK_HEADERS(utmp.h re_comp.h getopt.h byteswap.h)
+AC_CHECK_HEADER([resolv.h],,,[#include <netinet/in.h>])
+
+
+AC_SYS_LARGEFILE
+if test "$ac_cv_sys_file_offset_bits" != no; then
+  CPPFLAGS="$CPPFLAGS -D_FILE_OFFSET_BITS=$ac_cv_sys_file_offset_bits"
+fi
+
+if test "x$ac_cv_sys_large_files" != "xno"; then
+  CPPFLAGS="$CPPFLAGS -D_LARGE_FILES=1"
+fi
+
+AC_CHECK_FUNCS(flock)
+AC_CHECK_USLEEP
+
+dnl Checks for library functions.
+AC_CHECK_FUNCS(socket fabsl strdup vsnprintf tzset)
+AC_CHECK_SETENV
+AC_CHECK_UNSETENV
+AC_CHECK_GETDOMAINNAME
+AC_CHECK_GETHOSTNAME
+AC_C_BIGENDIAN
+
+AC_CHECK_FUNC(res_init)
+if test "$ac_cv_func_res_init" = no; then
+  AC_CHECK_LIB(resolv, res_init, LIBRESOLV="-lresolv $LIBSOCKET", , $LIBSOCKET)
+fi
+AC_SUBST(LIBRESOLV)
+
+AC_CACHE_CHECK(for timezone variable, ac_cv_var_timezone,
+	AC_TRY_COMPILE([
+		#include <time.h>
+	], [
+		timezone = 1;
+	], ac_cv_var_timezone=yes, ac_cv_var_timezone=no))
+if test $ac_cv_var_timezone = yes; then
+	AC_DEFINE(HAVE_TIMEZONE, 1, [define if you have a timezone variable])
+fi
+AC_CACHE_CHECK(for tm_gmtoff in struct tm, ac_cv_struct_tm_gmtoff,	
+	AC_TRY_COMPILE([
+		#include <time.h>
+	], [
+		struct tm tm;
+		tm.tm_gmtoff = 1;
+	], ac_cv_struct_tm_gmtoff=yes, ac_cv_struct_tm_gmtoff=no))
+if test $ac_cv_struct_tm_gmtoff = yes; then
+	AC_DEFINE(HAVE_TM_GMTOFF, 1, [Define if you have a tm_gmtoff member in struct tm])
+fi
+
+# check for SLP
+dnl define the configure option that disables slp
+AC_ARG_ENABLE(slp, [  --disable-slp     don't require libslp (Browsing in krfb and krdc not possible) ],  with_slp=$enableval, with_slp=yes)
+if test "$with_slp" = "yes"; then
+AC_MSG_CHECKING(for SLP support)
+save_slptest_LIBS="$LIBS"
+save_slptest_LDFLAGS="$LDFLAGS"
+save_slptest_CPPFLAGS="$CPPFLAGS"
+LDFLAGS="$all_libraries $LDFLAGS"
+CPPFLAGS="$CPPFLAGS $all_includes"
+LIBS="-lslp"
+AC_TRY_LINK(	[
+			#include <slp.h>
+		],[
+			SLPOpen(0, SLP_FALSE, (SLPHandle*) 0);
+		],[
+			AC_DEFINE(HAVE_SLP,1,[Define if SLP is available])
+                        LIB_SLP="-lslp"
+			AC_MSG_RESULT(yes)
+		],[
+			AC_MSG_RESULT(no)
+                        LIB_SLP=""
+])
+CPPFLAGS=$save_slptest_CPPFLAGS
+LDFLAGS=$save_slptest_LDFLAGS
+LIBS=$save_slptest_LIBS
+fi
+AC_SUBST(LIB_SLP)
+
+KDE_CHECK_THREADING
+
+dnl For apps that NEED threads
+if test -z "$LIBPTHREAD" && test -z "$USE_THREADS"; then
+  DO_NOT_COMPILE="$DO_NOT_COMPILE kdict krfb krdc"
+fi
+CXXFLAGS="$CXXFLAGS $KDE_DEFAULT_CXXFLAGS"
+
+AH_VERBATIM(_osf_config_h,
+[
+#ifdef __osf__
+/* From Tom Leitner */
+#if __STDC__
+#include <stdarg.h>
+#include <stdlib.h>
+#else
+#include <varargs.h>
+#endif
+#ifndef __OSF_INCLUDED__
+#define __OSF_INCLUDED__
+#define MSG_NOSIGNAL 0
+#ifndef AF_LOCAL
+#define AF_LOCAL 1          /* is the same as AF_UNIX */
+#endif
+#ifndef herror
+#define herror(a)   printf(a)
+#endif
+
+#include <sys/types.h>
+#ifdef __cplusplus
+extern "C" int sethostname (char *name, int name_len );
+extern "C" int flock(int filedes, int operation );
+#else
+int sethostname (char *name, int name_len );
+int flock(int filedes, int operation );
+#endif
+#endif
+#endif
+])
+dnl =======================================================
+dnl FILE: ./kopete/configure.in.in
+dnl =======================================================
+
+#MIN_CONFIG(3.3)
+AC_HAVE_GL
+KDE_INIT_DOXYGEN
+AC_CACHE_CHECK(for tm_gmtoff in struct tm, ac_cv_struct_tm_gmtoff,
+        AC_TRY_COMPILE([
+                #include <time.h>
+        ], [
+                struct tm tm;
+                tm.tm_gmtoff = 1;
+        ], ac_cv_struct_tm_gmtoff=yes, ac_cv_struct_tm_gmtoff=no))
+if test $ac_cv_struct_tm_gmtoff = yes; then
+        AC_DEFINE(HAVE_TM_GMTOFF, 1, [Define if you have a tm_gmtoff member in struct tm])
+fi
+
+KDE_CHECK_HEADERS(knotifydialog.h)
+
+KOPETE_INCLUDES='-I$(top_srcdir)/kopete/libkopete -I$(top_builddir)/kopete/libkopete -I$(top_srcdir)/kopete/libkopete/avdevice -I$(top_srcdir)/kopete/libkopete/ui -I$(top_builddir)/kopete/libkopete/ui'
+
+AC_MSG_CHECKING([for kdelibs newer than 3.3.x])
+AC_LANG_SAVE
+AC_LANG_CPLUSPLUS
+kcompat_save_CXXFLAGS="$CXXFLAGS"
+kcompat_safe_LIBS="$LIBS"
+LIBS="$LIBS $X_EXTRA_LIBS"
+CXXFLAGS="$CXXFLAGS $all_includes"
+
+AC_TRY_COMPILE([
+#include <kdeversion.h>
+#if !( KDE_IS_VERSION( 3, 3, 90 ) )
+#error Kopete compatibility with KDE 3.3 needs to be enabled
+#endif
+],
+[
+],
+	AC_MSG_RESULT(yes)
+,
+	KOPETE_COMPAT_INCLUDES='-I$(top_srcdir)/kopete/libkopete/compat'
+	KOPETE_INCLUDES=$KOPETE_INCLUDES' $(KOPETE_COMPAT_INCLUDES)'
+	LIB_KOPETECOMPAT='$(top_builddir)/kopete/libkopete/libkopete.la'
+	AC_MSG_RESULT(no)
+)
+CXXFLAGS="$kcompat_save_CXXFLAGS"
+LIBS="$kcompat_safe_LIBS"
+AC_LANG_RESTORE
+AM_CONDITIONAL(compile_LIBKOPETE_COMPAT, test -n "$LIB_KOPETECOMPAT")
+
+
+AC_ARG_ENABLE(smpppd,
+[AC_HELP_STRING([--enable-smpppd], [enable support for the SuSE Meta PPP Daemon (smpppd) (default is NO)])],
+[
+  if test $enableval = yes; then
+    AC_DEFINE(USE_SMPPPD, 1, [enable support for the smpppd])
+    COMPILESMPPPDCS=true
+  else
+    COMPILESMPPPDCS=
+  fi
+],
+[ COMPILESMPPPDCS=
+])
+AM_CONDITIONAL(include_smpppdcs, test -n "$COMPILESMPPPDCS")
+
+KDE_FIND_PATH(xml2-config, XML_CONFIG, [${exec_prefix}/bin ${prefix}/bin], [
+  AC_MSG_WARN([libxml2 not found anywhere, check ftp://xmlsoft.org/ for libxml >= 2.4.8. ])
+])
+
+if test -n "$XML_CONFIG"; then
+  vers=`$XML_CONFIG --version 2>/dev/null | sed -e 's/libxml //' | awk 'BEGIN { FS = "."; } { printf "%d", ($1 * 1000 + $2) * 1000 + $3;}'`
+  if test -n "$vers" && test "$vers" -ge 2004008
+  then
+     LIBXML_LIBS="`$XML_CONFIG --libs`"
+     LIBXML_RPATH=
+     for args in $LIBXML_LIBS; do
+	  case $args in
+	    -L*)
+	       LIBXML_RPATH="$LIBXML_RPATH $args"
+	       ;;
+          esac
+     done
+     LIBXML_RPATH=`echo $LIBXML_RPATH | sed -e "s/-L/-R/g"`
+     LIBXML_CFLAGS="`$XML_CONFIG --cflags`"
+
+     KDE_FIND_PATH(xmllint, XMLLINT, [${prefix}/bin ${exec_prefix}/bin /usr/local/bin /opt/local/bin /usr/bin], [XMLLINT=""])
+     AC_DEFINE_UNQUOTED(XMLLINT, "$XMLLINT", [Defines the executable of xmllint])
+  else
+     AC_MSG_WARN([You need at least libxml 2.4.8])
+     DO_NOT_COMPILE="$DO_NOT_COMPILE kopete"
+  fi
+fi
+
+
+  KDE_FIND_PATH(xslt-config, XSLT_CONFIG, [${prefix}/bin ${exec_prefix}/bin /usr/local/bin /opt/local/bin /usr/bin], [
+    AC_MSG_WARN([Could not find libxslt anywhere, check ftp://xmlsoft.org/ for libxslt >= 1.0.7.])
+  ])
+
+  if test -n "$XSLT_CONFIG"; then
+     vers=`$XSLT_CONFIG --version 2>/dev/null | awk 'BEGIN { FS = "."; } { printf "%d", ($1 * 1000 + $2) * 1000 + $3;}'`
+     if test -n "$vers" && test "$vers" -ge 1000007; then
+       LIBXSLT_LIBS="`$XSLT_CONFIG --libs`"
+       LIBXSLT_RPATH=
+       for args in $LIBXSLT_LIBS; do
+	  case $args in
+	    -L*)
+  	       LIBXSLT_RPATH="$LIBXSLT_RPATH $args"
+ 	       ;;
+          esac
+       done
+       LIBXSLT_RPATH=`echo $LIBXSLT_RPATH | sed -e "s/-L/-R/g"`
+       LIBXSLT_CFLAGS="`$XSLT_CONFIG --cflags`"
+	   AC_DEFINE(HAVE_XSLT, 1, [Define if you have xslt libraries and header files])
+     else
+       AC_WARN([You need at least libxslt 1.0.7])
+     fi
+  fi
+
+if test ! "$USE_RPATH" = "yes"; then
+  LIBXSLT_RPATH=
+  LIBXML_RPATH=
+fi
+
+if test -z "$XML_CONFIG"; then
+  DO_NOT_COMPILE="$DO_NOT_COMPILE kopete"
+fi
+
+if test -z "$XSLT_CONFIG"; then
+  DO_NOT_COMPILE="$DO_NOT_COMPILE kopete"
+fi
+AC_SUBST(LIBXSLT_LIBS)
+AC_SUBST(LIBXSLT_CFLAGS)
+AC_SUBST(LIBXSLT_RPATH)
+
+AC_SUBST(LIBXML_LIBS)
+AC_SUBST(LIBXML_CFLAGS)
+AC_SUBST(LIBXML_RPATH)
+
+AC_SUBST(KOPETE_INCLUDES)
+AC_SUBST(KOPETE_COMPAT_INCLUDES)
+AC_SUBST(LIB_KOPETECOMPAT)
+
+# -- Check for installed Valgrind headers --------------------
+
+AC_MSG_CHECKING([for valgrind.h])
+
+AC_TRY_COMPILE([
+#define __VALGRIND_SOMESKIN_H
+#include <valgrind/valgrind.h>
+],
+[
+],
+	ac_have_valgrind_h=yes
+,
+	ac_have_valgrind_h=no
+)
+
+if test $ac_have_valgrind_h = yes; then
+	AC_DEFINE(HAVE_VALGRIND_H, 1, [Define if you have valgrind.h installed])
+fi
+
+AC_MSG_RESULT($ac_have_valgrind_h)
+
+# -- End valgrind ----------------------------------------------
+
+# -- Determine pointer size for sqlite -------------------------
+
+KDE_CHECK_TYPES
+AC_DEFINE(SQLITE_PTR_SZ, SIZEOF_CHAR_P, [Determine pointer size for SQLite])
+
+# -- End sqlite ------------------------------------------------
+dnl =======================================================
+dnl FILE: ./kopete/kopete/contactlist/configure.in.in
+dnl =======================================================
+
+
+dnl -----------------------------------------------------
+dnl XRender check - stolen from kdelibs/kdefx
+dnl -----------------------------------------------------
+LIB_XRENDER=
+if test "$kde_use_qt_emb" = "no" && test "$kde_use_qt_mac" = "no"; then
+  KDE_CHECK_HEADER(X11/extensions/Xrender.h, [xrender_h=yes], [xrender_h=no])
+  if test "$xrender_h" = yes; then
+  KDE_CHECK_LIB(Xrender, XRenderComposite, [
+    LIB_XRENDER=-lXrender
+    AC_DEFINE_UNQUOTED(HAVE_XRENDER, 1, [Defined if your system has XRender support])
+  ], [], -lXext -lX11 $X_EXTRA_LIBS)
+  fi
+fi
+AC_SUBST(LIB_XRENDER)
+dnl =======================================================
+dnl FILE: ./kopete/libkopete/configure.in.in
+dnl =======================================================
+
+# -- Check for XScreenSaver -----------------------------------------
+AC_CHECK_HEADERS(tgmath.h)xss_save_ldflags="$LDFLAGS"
+LDFLAGS="$X_LDFLAGS"
+
+LIB_XSS=
+
+KDE_CHECK_HEADER(X11/extensions/scrnsaver.h,
+    [
+    AC_CHECK_LIB(Xext,XScreenSaverQueryInfo,
+	[
+        AC_DEFINE(HAVE_XSCREENSAVER, 1, [Define if you have the XScreenSaver extension])
+	LIB_XSS="-lXext"
+        ],
+        [
+        ld_shared_flag=
+        KDE_CHECK_COMPILER_FLAG(shared, [ld_shared_flag="-shared"])
+        AC_CHECK_LIB(Xss,XScreenSaverQueryInfo,
+            [
+            AC_DEFINE(HAVE_XSCREENSAVER, 1, [Define if you have the XScreenSaver extension])
+            LIB_XSS="-lXss"
+            ],
+            [],
+            [ $ld_shared_flag $X_PRE_LIBS -lXext -lX11 $X_EXTRA_LIBS ])
+        ],
+        [ $X_PRE_LIBS -lX11 $X_EXTRA_LIBS ])
+     ], [],
+     [
+     #include <X11/Xlib.h>
+     ] )
+
+AC_SUBST(LIB_XSS)
+LDFLAGS="$xss_save_ldflags"
+dnl =======================================================
+dnl FILE: ./kopete/plugins/motionautoaway/configure.in.in
+dnl =======================================================
+
+dnl Only compile motionautoaway on Linux (needs video4linux)
+
+dnl Disabled for now. It breaks with patched Linux 2.4 kernels and
+dnl vanilla Linux 2.5 and 2.6 kernels
+
+#AC_MSG_CHECKING([if motionautoaway plugin should be compiled])
+
+#if test "x`uname`" = "xLinux"; then
+#  COMPILEMOTION=true
+#  AC_SUBST(COMPILEMOTION)
+#  AC_MSG_RESULT([yes])
+#else
+  COMPILEMOTION=
+#  AC_SUBST(COMPILEMOTION)
+#  AC_MSG_RESULT([no])
+#fi
+
+AM_CONDITIONAL(include_motionautoaway, test -n "$COMPILEMOTION")
+dnl =======================================================
+dnl FILE: ./kopete/plugins/nowlistening/configure.in.in
+dnl =======================================================
+
+dnl AM_PATH_XMMS([1.0.0])
+dnl dnl PACKAGE set before
+dnl AC_PATH_PROG(XMMS_CONFIG, xmms-config, no)
+dnl AM_PATH_XMMS(1.0.0,,AC_MSG_ERROR([*** XMMS >= 1.0.0 not installed - please install first ***]))
+
+AC_DEFUN([AC_CHECK_XMMS],
+[
+  AC_MSG_CHECKING([for libxmms])
+  AC_CACHE_VAL(ac_cv_have_xmms,
+  [
+    ac_save_libs="$LIBS"
+    LIBS="`xmms-config --libs`"
+    ac_CPPFLAGS_save="$CPPFLAGS"
+    CPPFLAGS="$CPPFLAGS $all_includes `xmms-config --cflags`"
+    ac_LDFLAGS_save="$LDFLAGS"
+    LDFLAGS="$LDFLAGS $all_libraries"
+    AC_TRY_LINK(
+      [#include <xmms/xmmsctrl.h>],
+      [xmms_remote_stop(0);],
+      [ac_cv_have_xmms="yes"],
+      [ac_cv_have_xmms="no"]
+    )
+    LIBS="$ac_save_libs"
+    LDFLAGS="$ac_LDFLAGS_save"
+    CPPFLAGS="$ac_CPPFLAGS_save"
+  ])
+  AC_MSG_RESULT($ac_cv_have_xmms)
+  if test "$ac_cv_have_xmms" = "yes"; then
+    XMMS_INCLUDES="`xmms-config --cflags`"
+
+    for arg in `xmms-config --libs`; do
+	case $arg in
+	    -[[lL]]*)
+	    XMMS_LIBS="$XMMS_LIBS $arg"
+	    ;;
+	    *)
+	    XMMS_LDFLAGS="$XMMS_LDFLAGS $arg"
+	esac
+    done
+    AC_DEFINE(HAVE_XMMS, 1, [Define if you have xmms libraries and header files.])
+  fi
+])
+
+AC_ARG_WITH(xmms,
+  [AC_HELP_STRING(--with-xmms,
+    [enable support for XMMS @<:@default=check@:>@])],
+  [], with_xmms=check)
+
+if test "x$with_xmms" != xno; then
+  AC_CHECK_XMMS
+
+  if test "x$with_xmms" != xcheck && test "x$ac_cv_have_xmms" = xno; then
+    AC_MSG_ERROR([--with-xmms was given, but test for XMMS failed])
+  fi
+fi
+
+AC_SUBST(XMMS_LIBS)
+AC_SUBST(XMMS_LDFLAGS)
+AC_SUBST(XMMS_INCLUDES)
+dnl =======================================================
+dnl FILE: ./kopete/protocols/configure.in.in
+dnl =======================================================
+
+LIBGG_INCLUDES=""
+LIBGG_LIBS=""
+ac_libgadu_includes=""
+ac_libgadu_libs=""
+
+AC_ARG_WITH(external-libgadu,
+  [AC_HELP_STRING(--with-external-libgadu,
+    [use external libgadu library @<:@default=check@:>@])],
+  [], with_external_libgadu=check)
+
+AC_ARG_WITH(libgadu-includes,
+	AC_HELP_STRING([--with-libgadu-includes=DIR], [where the libgadu includes are.]),
+	[  ac_libgadu_includes="$withval" ])
+
+if test "$ac_libgadu_includes" != "" ; then
+LIBGG_INCLUDES="-I$ac_libgadu_includes"
+fi
+
+AC_ARG_WITH(libgadu-libs,
+	AC_HELP_STRING([--with-libgadu-libs=DIR], [where the libgadu libraries are.]),
+	[  ac_libgadu_libs="$withval" ])
+
+if test "$ac_libgadu_libs" != "" ; then
+	LIBGG_LIBS="-L$ac_libgadu_libs"
+fi
+
+if test "x$with_external_libgadu" != xno; then
+	ac_save_LIBS="$LIBS"
+	ac_save_CFLAGS="$CFLAGS"
+	LIBS="$LIBGG_LIBS -lgadu $LIBPTHREAD"
+	CFLAGS="$CFLAGS $LIBGG_INCLUDES"
+	AC_MSG_CHECKING([libgadu version 1.5(rcX) with pthread support])
+	AC_TRY_RUN(
+	[
+	
+	#include <libgadu.h>
+	#include <stdio.h>
+	#include <string.h>
+		
+	int main()
+	{
+#if defined __GG_LIBGADU_HAVE_PTHREAD && defined GG_LOGIN60
+		int maj, min, date;
+		sscanf( gg_libgadu_version(), "%u.%u.%u", &maj,&min,&date );
+		if ( maj != 1 ) {
+			return 1;
+		}
+		if ( ( min == 4 || min == 5 ) && date < 20040520 ) {
+			return 1;
+		}
+
+		if ( min == 5 || min == 6 ){
+			return 0;
+		}
+			     
+#endif
+	    return 1;
+	}
+	], [
+	LIBGG_LIBS="$LIBGG_LIBS -lgadu $LIBPTHREAD"
+	AC_MSG_RESULT([yes])
+	COMPILE_GADU=true
+	use_libgadu_copy=
+	], [
+	AC_MSG_RESULT([no])
+	])
+	LIBS="$ac_save_LIBS"
+	CFLAGS="$ac_save_CFLAGS"
+
+	if test "x$with_external_libgadu" != xcheck && test -z "$COMPILE_GADU"; then
+		AC_MSG_ERROR([--with-external-libgadu was given, but test for libgadu failed])
+	fi
+fi
+
+if test -z "$COMPILE_GADU"; then
+	AC_MSG_CHECKING([if supplied libgadu-copy can be used])
+	if test "$kde_use_threading" = "yes"; then
+		AC_MSG_RESULT([yes])
+		use_libgadu_copy=yes
+		COMPILE_GADU=true
+	else
+		AC_MSG_RESULT([no (no pthread), support for Gadu-Gadu will be disabled])
+		use_libgadu_copy=
+		COMPILE_GADU=
+	fi
+fi
+
+AC_SUBST(LIBGG_INCLUDES)
+AC_SUBST(LIBGG_LIBS)
+AC_SUBST(COMPILE_GADU)
+AM_CONDITIONAL(include_gadu, test -n "$COMPILE_GADU")
+AM_CONDITIONAL(include_libggcopy, test -n "$use_libgadu_copy")
+
+if test "$use_libgadu_copy" = "yes"; then
+	AM_CONFIG_HEADER(kopete/protocols/gadu/libgadu/libgadu-config.h)
+
+	if test "$ac_cv_c_bigendian" = "yes"; then
+		AC_DEFINE_UNQUOTED([__GG_LIBGADU_BIGENDIAN], 1, [Define if big endian])
+	fi
+	KDE_CHECK_LONG_LONG()
+	if test "$kde_cv_c_long_long" = "yes"; then
+		AC_DEFINE_UNQUOTED([__GG_LIBGADU_HAVE_LONG_LONG], 1, [long long support])
+	fi
+	KDE_CHECK_SSL()
+	if test  "$have_ssl" = "yes"; then
+	AC_DEFINE_UNQUOTED([__GG_LIBGADU_HAVE_OPENSSL], 1, [Define if SSL support is available])
+	fi
+	AC_MSG_CHECKING([for C99-compatible vsnprintf()])
+	AC_TRY_RUN(
+	[
+		#include <stdio.h>
+		int main()
+		{
+			char tmp;
+			return (snprintf(&tmp, sizeof(tmp), "test") != 4);
+		}
+	],[
+		AC_MSG_RESULT([yes])
+		AC_DEFINE_UNQUOTED([__GG_LIBGADU_HAVE_C99_VSNPRINTF], 1, [C99 vsnprintf() available])
+	], [
+		 AC_MSG_RESULT([no])
+	])
+	AC_CHECK_FUNCS([va_copy],
+		       [AC_DEFINE_UNQUOTED([__GG_LIBGADU_HAVE_VA_COPY], 1, [va_copy])],[])
+	AC_CHECK_FUNCS([_va_copy],
+		       [AC_DEFINE_UNQUOTED([__GG_LIBGADU_HAVE__VA_COPY], 1, [__va_copy])],[])
+fi
+
+KDE_PKG_CHECK_MODULES(IDN, libidn, have_libidn=yes, have_libidn=no)
+if test x$have_libidn = xno; then
+	AC_MSG_WARN([Libidn not found, Kopete Jabber plugin will not be compiled])
+else
+	AC_DEFINE(LIBIDN, 1, [Define to 1 if you want IDN support.])
+fi
+AC_SUBST(IDN_CFLAGS)
+AC_SUBST(IDN_LIBS)
+
+AC_MSG_CHECKING([if Libidn can be used])
+AC_MSG_RESULT($have_libidn)
+
+AM_CONDITIONAL(include_jabber, test "$have_libidn" = "yes")
+
+# Sametime support
+
+# lower and upper-bound versions of Meanwhile library
+m4_define(libmeanwhile_version_min, 1.0.1)
+m4_define(libmeanwhile_version_max, 1.1.0)
+
+# Let the user disable the plugin
+AC_ARG_ENABLE(meanwhile,
+      AC_HELP_STRING([--disable-meanwhile],
+      [disable the Kopete Meanwhile plugin (Lotus Sametime support) @<:@default=enabled@:>@]),
+      )
+
+if test "x$enable_meanwhile" != "xno"; then
+    # Check and setup for libmeanwhile
+    KDE_PKG_CHECK_MODULES(MEANWHILE,
+        [meanwhile >= libmeanwhile_version_min meanwhile < libmeanwhile_version_max],
+        [have_libmeanwhile=yes], [have_libmeanwhile=no])
+
+    if test "x$have_libmeanwhile" = "xno"; then
+        enable_meanwhile=no
+        AC_MSG_RESULT([not found])
+    else
+        AC_MSG_RESULT([found])
+    fi
+fi
+
+AC_SUBST(MEANWHILE_CFLAGS)
+AC_SUBST(MEANWHILE_LIBS)
+
+AC_MSG_CHECKING([if Meanwhile plugin should be compiled])
+if test "x$enable_meanwhile" != "xno"; then
+    AC_MSG_RESULT([yes])
+else
+    AC_MSG_RESULT([no])
+fi
+
+# Set the flag to compile meanwhile
+AM_CONDITIONAL(include_meanwhile, [test "x$enable_meanwhile" != "xno"])
+
+# testbed protocol
+dnl define the configure option that disables testbed protocol
+AC_ARG_ENABLE(testbed, [  --disable-testbed     disable kopete testbed protocol compilation ],  with_testbed=$enableval, with_testbed=yes)
+AM_CONDITIONAL(include_testbed, test "$with_testbed" = "yes")
+
+PKG_CHECK_MODULES(GLIB, glib-2.0 gmodule-2.0, have_glib=yes, have_glib=no)
+if test x$have_glib = xno; then
+	AC_MSG_WARN([GLib 2.0 is required for MSN webcam and Jabber Jingle. You can get it from http://www.gtk.org/])
+else
+	AC_SUBST(GLIB_CFLAGS)
+	AC_SUBST(GLIB_LIBS)
+	AC_DEFINE(HAVE_GLIB, 1, [Glib is required for oRTP code and libmimic code])
+fi
+
+if test "x$have_glib" != "xyes"; then
+    compile_msn_webcam=no
+    msn_webcam_val=0
+else
+    compile_msn_webcam=yes
+    msn_webcam_val=1
+fi
+
+AC_MSG_CHECKING([if MSN webcam support should be enabled])
+AC_MSG_RESULT($compile_msn_webcam)
+AC_DEFINE_UNQUOTED(MSN_WEBCAM, $msn_webcam_val, [Define if MSN webcam support can be enabled])
+
+AM_CONDITIONAL(include_msn_webcam, test "x$compile_msn_webcam" = "xyes")
+
+# Check for sms protocol
+AC_ARG_ENABLE(smsgsm,
+      AC_HELP_STRING([--disable-smsgsm], [disable the GSM SMS protocol]),
+      [compile_smsgsm=$enableval],
+      [compile_smsgsm=yes]
+      )
+
+AC_LANG_PUSH(C++)
+ac_save_LIBS="$LIBS"
+LIBS="-lgsmme $LIBS"
+AC_TRY_LINK([#include <gsmlib/gsm_util.h>],[(void)gsmlib::latin1ToGsm("text");], 
+	[have_smsgsm_lib=yes],
+	[have_smsgsm_lib=no])
+LIBS=$ac_save_LIBS
+
+AC_CHECK_HEADER(gsmlib/gsm_util.h, 
+	[have_smsgsm_inc=yes],
+	[have_smsgsm_inc=no])
+
+if test "x$have_smsgsm_lib" != "xyes" || test "x$have_smsgsm_inc" != "xyes"; then
+    compile_smsgsm=no
+fi
+AC_LANG_POP(C++)
+
+# Let the user know
+AC_MSG_CHECKING([if SMSGSM Plugin should be compiled])
+AC_MSG_RESULT($compile_smsgsm)
+
+# Here we go
+AM_CONDITIONAL(include_smsgsm, [test "x$compile_smsgsm" = "xyes"])
+
+if test "x$compile_smsgsm" = "xyes"; then
+	AC_DEFINE(INCLUDE_SMSGSM, 1, [Define to compile with GSM SMS support])
+fi
+dnl =======================================================
+dnl FILE: ./kopete/protocols/jabber/jingle/configure.in.in
+dnl =======================================================
+
+AC_DEFINE(PRODUCTION_BUILD, 1, [Build as a production build])
+AC_DEFINE(PRODUCTION, 1, [Build as a production build])
+AC_DEFINE(POSIX, 1, [If we're using configure, we're on POSIX])
+
+# Check if the user want Jabber Jingle voice support
+AC_ARG_ENABLE(jingle, [  --enable-jingle     enable Jabber Jingle voice support ],  with_jingle=$enableval, with_jingle=no)
+
+# Here we go
+HAVE_EXPAT=no
+AC_CHECK_LIB(expat, XML_ParserCreate, HAVE_EXPAT="yes")
+if test "x$HAVE_EXPAT" = xyes ; then
+  EXPAT_LIBS="-lexpat"
+  AC_SUBST(EXPAT_LIBS)
+else
+  with_jingle=no
+  AC_MSG_WARN([Expat is required to build Jabber Jingle voice support. You can get it from http://expat.sourceforge.net/])
+fi
+
+AC_CHECK_HEADERS(alsa/asoundlib.h,
+	[AC_CHECK_LIB(asound, snd_pcm_open,
+		[ALSA_LIBS="-lasound" ; AC_DEFINE(__ALSA_ENABLED__,1,[Defined when alsa support is enabled]) ])
+	]
+)
+AC_SUBST(ALSA_LIBS)
+
+# We test for GLIB in protocols/configure.in.in
+if test x$have_glib = xno; then
+	with_jingle=no
+fi
+
+PKG_CHECK_MODULES(ORTP, ortp, enable_ortp=yes, enable_ortp=no)
+if test x$enable_ortp = xno ; then
+      with_jingle=no
+      AC_MSG_WARN([oRTP is required to build Jabber Jingle voice support. You can get it from http://www.linphone.org/ortp/])
+fi 
+AC_SUBST(ORTP_CFLAGS)
+AC_SUBST(ORTP_LIBS)
+
+AC_ARG_WITH( speex,
+      [  --with-speex      Set prefix where speex lib can be found (ex:/usr, /usr/local) [default=/usr] ],
+      [ speex_prefix=${withval}],[ speex_prefix="/usr" ])
+
+PKG_CHECK_MODULES(SPEEX, speex, speex_found=yes, speex_found=no)
+AC_CHECK_HEADERS(speex.h,[AC_CHECK_LIB(speex,speex_encode_int,speex_found=yes,speex_found=no)],speex_found=no)
+AC_CHECK_HEADERS(speex/speex.h,[AC_CHECK_LIB(speex,speex_encode_int,speex_found=yes,speex_found=no)],speex_found=no)
+
+if test x$speex_found = xno; then
+	AC_MSG_WARN([Could not find a libspeex version that have the speex_encode_int() function. Please install libspeex=1.0.5 or libspeex>=1.1.6 from http://www.speex.org/])
+else
+	SPEEX_CFLAGS="$SPEEX_CFLAGS -I${speex_prefix}/include -I${speex_prefix}/include/speex"
+	AC_SUBST(SPEEX_CFLAGS)
+	AC_SUBST(SPEEX_LIBS)
+	AC_DEFINE(HAVE_SPEEX,1,[Speex codec is enabled])
+fi
+
+
+# dnl only accept speex>=1.1.6 or 1.0.5 (the versions that have speex_encode_int )
+# AC_ARG_WITH( speex,
+#       [  --with-speex      Set prefix where speex lib can be found (ex:/usr, /usr/local) [default=/usr] ],
+#       [ speex_prefix=${withval}],[ speex_prefix="/usr" ])
+#                                                                                                                                      
+# AC_CHECK_HEADERS(speex.h,[AC_CHECK_LIB(speex,speex_encode_int,speex_found=yes,speex_found=no)
+# ],speex_found=no)
+#                                                                                                                                      
+# if test "$speex_found" = "no" ; then
+# AC_MSG_WARN([Could not find a libspeex version that have the speex_encode_int() function. Please install libspeex=1.0.5 or libspeex>=1.1.6 from http://www.speex.org/])
+# else
+# SPEEX_CFLAGS=" -I${speex_prefix}/include -I${speex_prefix}/include/speex"
+# SPEEX_LIBS="-L${speex_prefix}/lib -lspeex -lm"
+# CPPFLAGS_save=$CPPFLAGS
+# CPPFLAGS=$SPEEX_CFLAGS
+# LDFLAGS_save=$LDFLAGS
+# LDFLAGS=$SPEEX_LIBS
+# AC_DEFINE(HAVE_SPEEX,1,[has speex])
+# fi
+#                                                                                                                                      
+# AC_SUBST(SPEEX_CFLAGS)
+# AC_SUBST(SPEEX_LIBS)
+# CPPFLAGS=$CPPFLAGS_save
+# LDFLAGS=$LDFLAGS_save
+ilbc_found="no"
+
+AM_CONDITIONAL(include_jingle, test "$with_jingle" = "yes")
+
+if test "$with_jingle" = "yes" ; then
+	AC_DEFINE(SUPPORT_JINGLE,1,[Jingle support is enabled])
+fi
+dnl =======================================================
+dnl FILE: ./kopete/protocols/yahoo/libkyahoo/configure.in.in
+dnl =======================================================
+
+YAHOO2_VERSION=""
+AC_SUBST(YAHOO2_VERSION)
+
+# Checks for typedefs, structures, and compiler characteristics.
+AC_C_BIGENDIAN
+AC_C_CONST
+AC_C_INLINE
+AC_TYPE_SIZE_T
+AC_STRUCT_TM
+
+AC_CHECK_TYPE([uint8_t],,
+[AC_DEFINE([uint8_t], [unsigned char],
+[Define to `unsigned char' if not defined.])])
+AC_CHECK_TYPE([uint32_t],,
+[AC_DEFINE([uint32_t], [unsigned int],
+[Define to `unsigned int' if not defined.])])
+AC_CHECK_TYPE([uint64_t],,
+[AC_DEFINE([uint64_t], [unsigned long long],
+[Define to `unsigned long long' if not defined.])])
+
+dnl Checks for library functions.
+AC_CHECK_FUNCS(strerror)
+
+# Checks for library functions.
+
+AC_ARG_WITH([struct-callbacks], [AC_HELP_STRING([--with-struct-callbacks],
+[use a callback structure instead of callback functions])])
+if test "$with_struct_callbacks" = "yes"; then
+	AC_DEFINE(USE_STRUCT_CALLBACKS, 1, 
+	[Define if you want to use a callback structure instead of callback functions])
+fi
+
+enable_sample_client="no"
+AM_CONDITIONAL(SAMPLE_CLIENT, test "$enable_sample_client" != "no")
+
+YAHOOPKGREQ=""
+AC_SUBST(YAHOOPKGREQ)
+
+dnl =======================================================
+dnl FILE: ./kppp/configure.in.in
+dnl =======================================================
+
+AC_MSG_CHECKING(if kppp's headers are installed)
+# this is a little piece of code out of kppp. If it doesn't compile,
+# kppp is not good for this system. It doesn't do anything, but enough
+# to fail ;)
+AC_LANG_SAVE
+AC_LANG_CPLUSPLUS
+AC_TRY_LINK([
+#if defined(__osf__) || defined(__svr4__)
+  #define _POSIX_PII_SOCKET
+  extern "C" int sethostname(char *name, int name_len);
+#endif
+#include <unistd.h>
+#include <arpa/inet.h>
+#ifdef __DragonFly__
+#include <net/ppp_layer/ppp_defs.h>
+#else
+#include <net/ppp_defs.h>
+#endif
+#include <netinet/in.h>
+
+#ifdef __svr4__
+  #include <sys/stropts.h>
+  #include <net/pppio.h>		/* SVR4, Solaris 2, etc. */
+
+#else
+  #include <sys/time.h>
+  #include <sys/socket.h>
+  #include <net/if.h>
+
+  #ifndef STREAMS 
+
+    #if defined(linux)
+      #include <linux/if_ppp.h>
+    #elif defined(__DragonFly__)
+      #include <net/ppp/if_ppp.h>
+    #else
+      #include <net/if_ppp.h>                /* BSD, NeXT, etc. */
+    #endif
+
+  #else				/* SunOS 4, AIX 4, OSF/1, etc. */
+    #include <sys/stream.h>
+    #include <net/ppp_str.h>
+  #endif
+#endif
+],[
+  sethostname("", 1); /* never run this program! :*/ 
+], 
+[ AC_MSG_RESULT(yes) ],
+[ DO_NOT_COMPILE="$DO_NOT_COMPILE kppp"
+  AC_MSG_RESULT(no)
+])
+AC_LANG_RESTORE
+AC_CHECK_HEADERS(sys/param.h string.h)
+dnl =======================================================
+dnl FILE: ./krdc/configure.in.in
+dnl =======================================================
+
+KDE_CHECK_HEADER(X11/extensions/xf86vmode.h, [
+	AC_DEFINE(HAVE_VIDMODE_EXTENSION, 1, [defined if XFree86's VidMode extension is supported])
+	LIBXF86VIDMODE="-lXext -lXxf86vm"
+], ,
+[
+#include <X11/Xlib.h>
+])
+AC_SUBST(LIBXF86VIDMODE)
+
+KDE_CHECK_SSL()
+
+if test "$have_ssl" != yes || test "x$kde_use_qt_mac" = "xyes"; then
+   DO_NOT_COMPILE="$DO_NOT_COMPILE krdc"
+fi
+dnl =======================================================
+dnl FILE: ./krfb/configure.in.in
+dnl =======================================================
+
+KDE_CHECK_HEADER(X11/extensions/XTest.h, 
+	[],
+	AC_MSG_ERROR([XTest  extension header not found / no xlib headers]))
+
+#check for getifaddrs(3) (as in glibc >= 2.3 and newer bsds)
+AC_MSG_CHECKING(for getifaddrs support)
+AC_TRY_LINK(    [
+			#include <sys/types.h>
+			#include <sys/socket.h>
+			#include <ifaddrs.h>
+                ],[
+			getifaddrs(0);
+                ],[
+                        AC_DEFINE(HAVE_GETIFADDRS,1,[Define if getifaddrs is available])
+                        AC_MSG_RESULT(yes)
+                        COMPILE_GETIFADDRS=""
+                ],[
+                        AC_MSG_RESULT(no)
+                        COMPILE_GETIFADDRS="getifaddrs.cpp"
+])
+AC_SUBST(COMPILE_GETIFADDRS)
+dnl =======================================================
+dnl FILE: ./ktalkd/configure.in.in
+dnl =======================================================
+
+## ktalkd specific checks
+## David Faure <faure@kde.org>
+
+AC_DEFUN([AC_FIND_USER_METHOD],
+[ 
+AC_MSG_CHECKING(ktalkd find_user method)
+if test -n "`echo $target_os | grep linux`" ; then
+    if test -d /proc; then
+       AC_DEFINE(PROC_FIND_USER, 1, [/proc exists])
+
+## Sufficient if all xdm and kdm would call sessreg to log the user into utmp
+       AC_DEFINE(UTMP_AND_PROC_FIND_USER, 1, [kdm/xmd log user])
+
+## Waiting for this, here is complement, looking for DISPLAY set in any process
+## in /proc that the user owns
+       AC_DEFINE(ALL_PROCESSES_AND_PROC_FIND_USER, 1, [whatever])
+
+       AC_MSG_RESULT(using /proc.)
+    else
+       AC_MSG_RESULT(/proc not found, using utmp.)
+    fi
+else
+    AC_MSG_RESULT(not a linux system, using utmp.)
+fi
+
+])
+
+AC_FIND_USER_METHOD
+
+# Define a symbol, to know that we're compiling WITH kde.
+# (Separate distributions of ktalkd can compile without KDE)
+AM_CONDITIONAL(KDE_INSTALLED, test "$have_kde" = "yes")
+
+dnl Check for utmp file
+AC_CHECK_UTMP_FILE([], [DO_NOT_COMPILE="$DO_NOT_COMPILE ktalkd"])
+
+AC_LANG_C
+dnl Checks for libraries. 
+AC_CHECK_LIB(bsd, bsd_ioctl, [LIBBSD="-lbsd"]) dnl for Linux with libc5
+AC_SUBST(LIBBSD)
+
+AC_CHECK_HEADERS(sgtty.h bsd/sgtty.h sys/select.h)
+
+AC_HEADER_TIME
+
+dnl check for this stupid scandir constness problem
+AC_LANG_CPLUSPLUS
+save_CXXFLAGS="$CXXFLAGS"
+dnl for some reason CXXFLAGS contains $(KDE_CXXFLAGS) at this point. Argl.
+CXXFLAGS="-Wall -W"
+if test "$GCC" = "yes"; then
+CXXFLAGS="$CXXFLAGS -pedantic-errors"
+fi
+AC_MSG_CHECKING(whether the third argument of scandir needs const)
+AC_CACHE_VAL(ac_cv_scandir_const,
+[
+AC_TRY_COMPILE([
+#include <dirent.h>
+int select_process(const struct dirent *) { return 0; }
+],
+[
+  struct dirent **namelist;
+  (void) scandir("/proc", &namelist, select_process, 0 /*no sort*/);
+],
+ac_cv_scandir_const=yes,
+ac_cv_scandir_const=no)
+])
+AC_MSG_RESULT($ac_cv_scandir_const)
+
+if eval "test \"`echo $ac_cv_scandir_const`\" = yes"; then
+  AC_DEFINE(SCANDIR_NEEDS_CONST, 1, [Define if third argument of scandir needs const])
+fi
+CXXFLAGS="$save_CXXFLAGS"
+dnl =======================================================
+dnl FILE: ./lanbrowsing/kcmlisa/configure.in.in
+dnl =======================================================
+
+AC_CHECK_FUNCS(getifaddrs getnameinfo)
+AC_CHECK_MEMBERS([struct sockaddr.sa_len],,,[
+#include <sys/types.h>
+#include <sys/socket.h>])
+dnl =======================================================
+dnl FILE: ./wifi/configure.in.in
+dnl =======================================================
+
+AC_ARG_WITH(wifi,
+  [AC_HELP_STRING(--with-wifi,
+    [enable support for wireless tools @<:@default=check@:>@])],
+  [], with_wifi=check)
+
+kde_libiw_installed=no
+if test "x$with_wifi" != xno; then
+	AC_LANG_SAVE
+	AC_LANG_CPLUSPLUS
+	AC_MSG_CHECKING([if wireless tools >= 25 are installed])
+	AC_TRY_COMPILE(
+	[
+		#include <iwlib.h>
+	],
+	[
+                const char *s = PROC_NET_DEV;
+	        iw_enum_devices(0, 0, 0, 0);
+	],
+		kde_libiw_installed=yes
+		AC_MSG_RESULT(yes)
+	,
+		kde_libiw_installed=no
+		AC_MSG_RESULT(no)
+	)
+
+	AC_MSG_CHECKING([if wireless tools >= 27 are installed])
+	AC_TRY_COMPILE(
+	[
+		#include <iwlib.h>
+	],
+	[
+	 	// checking how many arguments does it iw_get_stats want
+		// the result is unimportant
+		struct wireless_info info;
+		char * stupid;
+		iw_get_stats(iw_sockets_open(), stupid, &(info.stats));
+		       
+	],	AC_MSG_RESULT(no)
+	,
+               AC_MSG_RESULT(yes)
+	       AC_DEFINE(HAVE_IW_27, 1, [Define if you have iwlib newer than 26])
+
+         AC_MSG_CHECKING([if wireless tools >= 27pre19 are installed])
+         AC_TRY_COMPILE(
+	 [
+		#include <iwlib.h>
+	 ],
+	 [
+	 	// checking if wireless_info got a b.has_freq field
+		struct wireless_info info;
+		info.b.freq = 1;
+		       
+	 ],	[AC_MSG_RESULT(yes)
+		 AC_DEFINE(HAVE_IW_27pre19, 1, [Define if you have iwlib newer than 27pre18])
+
+	 ],
+               AC_MSG_RESULT(no)
+        )
+	
+	)
+
+	AC_LANG_RESTORE
+
+	if test "x$with_wifi" != xcheck && test "x$kde_libiw_installed" = xno; then
+		AC_MSG_ERROR([--with-wifi was given, but test for wireless-tools failed])
+	fi
+fi
+
+if test "$kde_libiw_installed" = "no"; then
+	DO_NOT_COMPILE="$DO_NOT_COMPILE wifi"
+fi
+KDE_CREATE_SUBDIRSLIST
+AM_CONDITIONAL(doc_SUBDIR_included, test "x$doc_SUBDIR_included" = xyes)
+AM_CONDITIONAL(filesharing_SUBDIR_included, test "x$filesharing_SUBDIR_included" = xyes)
+AM_CONDITIONAL(kdict_SUBDIR_included, test "x$kdict_SUBDIR_included" = xyes)
+AM_CONDITIONAL(kdnssd_SUBDIR_included, test "x$kdnssd_SUBDIR_included" = xyes)
+AM_CONDITIONAL(kfile_plugins_SUBDIR_included, test "x$kfile_plugins_SUBDIR_included" = xyes)
+AM_CONDITIONAL(kget_SUBDIR_included, test "x$kget_SUBDIR_included" = xyes)
+AM_CONDITIONAL(kopete_SUBDIR_included, test "x$kopete_SUBDIR_included" = xyes)
+AM_CONDITIONAL(kpf_SUBDIR_included, test "x$kpf_SUBDIR_included" = xyes)
+AM_CONDITIONAL(kppp_SUBDIR_included, test "x$kppp_SUBDIR_included" = xyes)
+AM_CONDITIONAL(krdc_SUBDIR_included, test "x$krdc_SUBDIR_included" = xyes)
+AM_CONDITIONAL(krfb_SUBDIR_included, test "x$krfb_SUBDIR_included" = xyes)
+AM_CONDITIONAL(ksirc_SUBDIR_included, test "x$ksirc_SUBDIR_included" = xyes)
+AM_CONDITIONAL(ktalkd_SUBDIR_included, test "x$ktalkd_SUBDIR_included" = xyes)
+AM_CONDITIONAL(lanbrowsing_SUBDIR_included, test "x$lanbrowsing_SUBDIR_included" = xyes)
+AM_CONDITIONAL(librss_SUBDIR_included, test "x$librss_SUBDIR_included" = xyes)
+AM_CONDITIONAL(wifi_SUBDIR_included, test "x$wifi_SUBDIR_included" = xyes)
+AM_CONDITIONAL(knewsticker_SUBDIR_included, test "x$knewsticker_SUBDIR_included" = xyes)
+AM_CONDITIONAL(dcoprss_SUBDIR_included, test "x$dcoprss_SUBDIR_included" = xyes)
+AC_CONFIG_FILES([ Makefile ])
+AC_CONFIG_FILES([ dcoprss/Makefile ])
+AC_CONFIG_FILES([ doc/Makefile ])
+AC_CONFIG_FILES([ doc/kcontrol/Makefile ])
+AC_CONFIG_FILES([ doc/kcontrol/kcmktalkd/Makefile ])
+AC_CONFIG_FILES([ doc/kcontrol/lanbrowser/Makefile ])
+AC_CONFIG_FILES([ doc/kdict/Makefile ])
+AC_CONFIG_FILES([ doc/kget/Makefile ])
+AC_CONFIG_FILES([ doc/knewsticker/Makefile ])
+AC_CONFIG_FILES([ doc/kopete/Makefile ])
+AC_CONFIG_FILES([ doc/kpf/Makefile ])
+AC_CONFIG_FILES([ doc/kppp/Makefile ])
+AC_CONFIG_FILES([ doc/krdc/Makefile ])
+AC_CONFIG_FILES([ doc/krfb/Makefile ])
+AC_CONFIG_FILES([ doc/ksirc/Makefile ])
+AC_CONFIG_FILES([ doc/ktalkd/Makefile ])
+AC_CONFIG_FILES([ doc/kwifimanager/Makefile ])
+AC_CONFIG_FILES([ doc/lisa/Makefile ])
+AC_CONFIG_FILES([ filesharing/Makefile ])
+AC_CONFIG_FILES([ filesharing/advanced/Makefile ])
+AC_CONFIG_FILES([ filesharing/advanced/kcm_sambaconf/Makefile ])
+AC_CONFIG_FILES([ filesharing/advanced/nfs/Makefile ])
+AC_CONFIG_FILES([ filesharing/advanced/propsdlgplugin/Makefile ])
+AC_CONFIG_FILES([ filesharing/simple/Makefile ])
+AC_CONFIG_FILES([ kdict/Makefile ])
+AC_CONFIG_FILES([ kdict/applet/Makefile ])
+AC_CONFIG_FILES([ kdict/pics/Makefile ])
+AC_CONFIG_FILES([ kdnssd/Makefile ])
+AC_CONFIG_FILES([ kdnssd/ioslave/Makefile ])
+AC_CONFIG_FILES([ kdnssd/kdedmodule/Makefile ])
+AC_CONFIG_FILES([ kfile-plugins/Makefile ])
+AC_CONFIG_FILES([ kfile-plugins/torrent/Makefile ])
+AC_CONFIG_FILES([ kget/Makefile ])
+AC_CONFIG_FILES([ kget/icons/Makefile ])
+AC_CONFIG_FILES([ kget/kget_plug_in/Makefile ])
+AC_CONFIG_FILES([ kget/pics/Makefile ])
+AC_CONFIG_FILES([ kget/sounds/Makefile ])
+AC_CONFIG_FILES([ knewsticker/Makefile ])
+AC_CONFIG_FILES([ knewsticker/common/Makefile ])
+AC_CONFIG_FILES([ knewsticker/knewstickerstub/Makefile ])
+AC_CONFIG_FILES([ knewsticker/kntsrcfilepropsdlg/Makefile ])
+AC_CONFIG_FILES([ kopete/Makefile ])
+AC_CONFIG_FILES([ kopete/icons/Makefile ])
+AC_CONFIG_FILES([ kopete/kopete/Makefile ])
+AC_CONFIG_FILES([ kopete/kopete/addaccountwizard/Makefile ])
+AC_CONFIG_FILES([ kopete/kopete/addcontactwizard/Makefile ])
+AC_CONFIG_FILES([ kopete/kopete/chatwindow/Makefile ])
+AC_CONFIG_FILES([ kopete/kopete/chatwindow/tests/Makefile ])
+AC_CONFIG_FILES([ kopete/kopete/config/Makefile ])
+AC_CONFIG_FILES([ kopete/kopete/config/accounts/Makefile ])
+AC_CONFIG_FILES([ kopete/kopete/config/appearance/Makefile ])
+AC_CONFIG_FILES([ kopete/kopete/config/avdevice/Makefile ])
+AC_CONFIG_FILES([ kopete/kopete/config/behavior/Makefile ])
+AC_CONFIG_FILES([ kopete/kopete/config/identity/Makefile ])
+AC_CONFIG_FILES([ kopete/kopete/config/plugins/Makefile ])
+AC_CONFIG_FILES([ kopete/kopete/contactlist/Makefile ])
+AC_CONFIG_FILES([ kopete/kopete/kconf_update/Makefile ])
+AC_CONFIG_FILES([ kopete/libkopete/Makefile ])
+AC_CONFIG_FILES([ kopete/libkopete/avdevice/Makefile ])
+AC_CONFIG_FILES([ kopete/libkopete/compat/Makefile ])
+AC_CONFIG_FILES([ kopete/libkopete/private/Makefile ])
+AC_CONFIG_FILES([ kopete/libkopete/tests/Makefile ])
+AC_CONFIG_FILES([ kopete/libkopete/tests/mock/Makefile ])
+AC_CONFIG_FILES([ kopete/libkopete/ui/Makefile ])
+AC_CONFIG_FILES([ kopete/plugins/Makefile ])
+AC_CONFIG_FILES([ kopete/plugins/addbookmarks/Makefile ])
+AC_CONFIG_FILES([ kopete/plugins/alias/Makefile ])
+AC_CONFIG_FILES([ kopete/plugins/autoreplace/Makefile ])
+AC_CONFIG_FILES([ kopete/plugins/autoreplace/icons/Makefile ])
+AC_CONFIG_FILES([ kopete/plugins/connectionstatus/Makefile ])
+AC_CONFIG_FILES([ kopete/plugins/contactnotes/Makefile ])
+AC_CONFIG_FILES([ kopete/plugins/cryptography/Makefile ])
+AC_CONFIG_FILES([ kopete/plugins/cryptography/icons/Makefile ])
+AC_CONFIG_FILES([ kopete/plugins/highlight/Makefile ])
+AC_CONFIG_FILES([ kopete/plugins/highlight/icons/Makefile ])
+AC_CONFIG_FILES([ kopete/plugins/history/Makefile ])
+AC_CONFIG_FILES([ kopete/plugins/latex/Makefile ])
+AC_CONFIG_FILES([ kopete/plugins/latex/icons/Makefile ])
+AC_CONFIG_FILES([ kopete/plugins/motionautoaway/Makefile ])
+AC_CONFIG_FILES([ kopete/plugins/netmeeting/Makefile ])
+AC_CONFIG_FILES([ kopete/plugins/nowlistening/Makefile ])
+AC_CONFIG_FILES([ kopete/plugins/smpppdcs/Makefile ])
+AC_CONFIG_FILES([ kopete/plugins/smpppdcs/icons/Makefile ])
+AC_CONFIG_FILES([ kopete/plugins/smpppdcs/libsmpppdclient/Makefile ])
+AC_CONFIG_FILES([ kopete/plugins/smpppdcs/unittest/Makefile ])
+AC_CONFIG_FILES([ kopete/plugins/statistics/Makefile ])
+AC_CONFIG_FILES([ kopete/plugins/statistics/sqlite/Makefile ])
+AC_CONFIG_FILES([ kopete/plugins/texteffect/Makefile ])
+AC_CONFIG_FILES([ kopete/plugins/texteffect/icons/Makefile ])
+AC_CONFIG_FILES([ kopete/plugins/translator/Makefile ])
+AC_CONFIG_FILES([ kopete/plugins/webpresence/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/gadu/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/gadu/icons/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/gadu/libgadu/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/gadu/ui/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/groupwise/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/groupwise/icons/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/groupwise/libgroupwise/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/groupwise/libgroupwise/qca/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/groupwise/libgroupwise/qca/src/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/groupwise/libgroupwise/tasks/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/groupwise/libgroupwise/tasks/tests/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/groupwise/libgroupwise/tests/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/groupwise/ui/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/irc/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/irc/icons/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/irc/libkirc/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/irc/ui/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/jabber/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/jabber/icons/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/jabber/jingle/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/jabber/jingle/libjingle/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/jabber/jingle/libjingle/talk/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/jabber/jingle/libjingle/talk/base/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/jabber/jingle/libjingle/talk/examples/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/jabber/jingle/libjingle/talk/examples/call/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/jabber/jingle/libjingle/talk/examples/login/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/jabber/jingle/libjingle/talk/p2p/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/jabber/jingle/libjingle/talk/p2p/base/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/jabber/jingle/libjingle/talk/p2p/client/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/jabber/jingle/libjingle/talk/session/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/jabber/jingle/libjingle/talk/session/phone/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/jabber/jingle/libjingle/talk/third_party/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/jabber/jingle/libjingle/talk/third_party/mediastreamer/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/jabber/jingle/libjingle/talk/xmllite/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/jabber/jingle/libjingle/talk/xmpp/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/jabber/kioslave/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/jabber/libiris/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/jabber/libiris/cutestuff/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/jabber/libiris/cutestuff/network/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/jabber/libiris/cutestuff/util/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/jabber/libiris/iris/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/jabber/libiris/iris/include/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/jabber/libiris/iris/jabber/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/jabber/libiris/iris/xmpp-core/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/jabber/libiris/iris/xmpp-im/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/jabber/libiris/qca/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/jabber/libiris/qca/src/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/jabber/ui/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/meanwhile/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/meanwhile/icons/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/meanwhile/ui/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/msn/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/msn/config/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/msn/icons/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/msn/ui/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/msn/webcam/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/msn/webcam/libmimic/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/oscar/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/oscar/aim/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/oscar/aim/ui/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/oscar/icons/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/oscar/icq/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/oscar/icq/ui/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/oscar/liboscar/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/oscar/liboscar/tests/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/sms/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/sms/icons/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/sms/services/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/sms/ui/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/testbed/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/testbed/icons/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/testbed/ui/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/winpopup/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/winpopup/icons/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/winpopup/libwinpopup/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/winpopup/ui/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/yahoo/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/yahoo/icons/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/yahoo/libkyahoo/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/yahoo/libkyahoo/tests/Makefile ])
+AC_CONFIG_FILES([ kopete/protocols/yahoo/ui/Makefile ])
+AC_CONFIG_FILES([ kopete/sounds/Makefile ])
+AC_CONFIG_FILES([ kopete/styles/Makefile ])
+AC_CONFIG_FILES([ kopete/styles/Clean/Makefile ])
+AC_CONFIG_FILES([ kopete/styles/Clean/Contents/Makefile ])
+AC_CONFIG_FILES([ kopete/styles/Clean/Contents/Resources/Makefile ])
+AC_CONFIG_FILES([ kopete/styles/Clean/Contents/Resources/Incoming/Makefile ])
+AC_CONFIG_FILES([ kopete/styles/Clean/Contents/Resources/Outgoing/Makefile ])
+AC_CONFIG_FILES([ kopete/styles/Clean/Contents/Resources/images/Makefile ])
+AC_CONFIG_FILES([ kopete/styles/Clear/Makefile ])
+AC_CONFIG_FILES([ kopete/styles/Clear/Contents/Makefile ])
+AC_CONFIG_FILES([ kopete/styles/Clear/Contents/Resources/Makefile ])
+AC_CONFIG_FILES([ kopete/styles/Clear/Contents/Resources/Incoming/Makefile ])
+AC_CONFIG_FILES([ kopete/styles/Clear/Contents/Resources/Outgoing/Makefile ])
+AC_CONFIG_FILES([ kopete/styles/Clear/Contents/Resources/Variants/Makefile ])
+AC_CONFIG_FILES([ kopete/styles/Clear/Contents/Resources/images/Makefile ])
+AC_CONFIG_FILES([ kopete/styles/Gaim/Makefile ])
+AC_CONFIG_FILES([ kopete/styles/Gaim/Contents/Makefile ])
+AC_CONFIG_FILES([ kopete/styles/Gaim/Contents/Resources/Makefile ])
+AC_CONFIG_FILES([ kopete/styles/Gaim/Contents/Resources/Incoming/Makefile ])
+AC_CONFIG_FILES([ kopete/styles/Gaim/Contents/Resources/Outgoing/Makefile ])
+AC_CONFIG_FILES([ kopete/styles/Gaim/Contents/Resources/Variants/Makefile ])
+AC_CONFIG_FILES([ kopete/styles/Hacker/Makefile ])
+AC_CONFIG_FILES([ kopete/styles/Hacker/Contents/Makefile ])
+AC_CONFIG_FILES([ kopete/styles/Hacker/Contents/Resources/Makefile ])
+AC_CONFIG_FILES([ kopete/styles/Hacker/Contents/Resources/Incoming/Makefile ])
+AC_CONFIG_FILES([ kopete/styles/Hacker/Contents/Resources/Outgoing/Makefile ])
+AC_CONFIG_FILES([ kopete/styles/Hacker/Contents/Resources/Variants/Makefile ])
+AC_CONFIG_FILES([ kopete/styles/Hacker/Contents/Resources/images/Makefile ])
+AC_CONFIG_FILES([ kopete/styles/Konqi/Makefile ])
+AC_CONFIG_FILES([ kopete/styles/Konqi/Contents/Makefile ])
+AC_CONFIG_FILES([ kopete/styles/Konqi/Contents/Resources/Makefile ])
+AC_CONFIG_FILES([ kopete/styles/Konqi/Contents/Resources/Incoming/Makefile ])
+AC_CONFIG_FILES([ kopete/styles/Konqi/Contents/Resources/Outgoing/Makefile ])
+AC_CONFIG_FILES([ kopete/styles/Konqi/Contents/Resources/Variants/Makefile ])
+AC_CONFIG_FILES([ kopete/styles/Konqi/Contents/Resources/Variants/konqui/Makefile ])
+AC_CONFIG_FILES([ kopete/styles/Kopete/Makefile ])
+AC_CONFIG_FILES([ kopete/styles/Kopete/Contents/Makefile ])
+AC_CONFIG_FILES([ kopete/styles/Kopete/Contents/Resources/Makefile ])
+AC_CONFIG_FILES([ kopete/styles/Kopete/Contents/Resources/Incoming/Makefile ])
+AC_CONFIG_FILES([ kopete/styles/Kopete/Contents/Resources/Outgoing/Makefile ])
+AC_CONFIG_FILES([ kopete/styles/Kopete/Contents/Resources/Variants/Makefile ])
+AC_CONFIG_FILES([ kopete/styles/Kopete/Contents/Resources/images/Makefile ])
+AC_CONFIG_FILES([ kopete/styles/Retropete/Makefile ])
+AC_CONFIG_FILES([ kopete/styles/Retropete/Contents/Makefile ])
+AC_CONFIG_FILES([ kopete/styles/Retropete/Contents/Resources/Makefile ])
+AC_CONFIG_FILES([ kopete/styles/Retropete/Contents/Resources/Incoming/Makefile ])
+AC_CONFIG_FILES([ kopete/styles/Retropete/Contents/Resources/Outgoing/Makefile ])
+AC_CONFIG_FILES([ kpf/Makefile ])
+AC_CONFIG_FILES([ kpf/src/Makefile ])
+AC_CONFIG_FILES([ kppp/Makefile ])
+AC_CONFIG_FILES([ kppp/DB/Makefile ])
+AC_CONFIG_FILES([ kppp/DB/Provider/Makefile ])
+AC_CONFIG_FILES([ kppp/DB/Provider/Austria/Makefile ])
+AC_CONFIG_FILES([ kppp/DB/Provider/Belarus/Makefile ])
+AC_CONFIG_FILES([ kppp/DB/Provider/Czech_Republic/Makefile ])
+AC_CONFIG_FILES([ kppp/DB/Provider/Denmark/Makefile ])
+AC_CONFIG_FILES([ kppp/DB/Provider/France/Makefile ])
+AC_CONFIG_FILES([ kppp/DB/Provider/Germany/Makefile ])
+AC_CONFIG_FILES([ kppp/DB/Provider/Ireland/Makefile ])
+AC_CONFIG_FILES([ kppp/DB/Provider/Netherlands/Makefile ])
+AC_CONFIG_FILES([ kppp/DB/Provider/New_Zealand/Makefile ])
+AC_CONFIG_FILES([ kppp/DB/Provider/Norway/Makefile ])
+AC_CONFIG_FILES([ kppp/DB/Provider/Portugal/Makefile ])
+AC_CONFIG_FILES([ kppp/DB/Provider/Slovenia/Makefile ])
+AC_CONFIG_FILES([ kppp/DB/Provider/Sweden/Makefile ])
+AC_CONFIG_FILES([ kppp/DB/Provider/Switzerland/Makefile ])
+AC_CONFIG_FILES([ kppp/DB/Provider/Taiwan/Makefile ])
+AC_CONFIG_FILES([ kppp/DB/Provider/Ukraine/Makefile ])
+AC_CONFIG_FILES([ kppp/DB/Provider/United_Kingdom/Makefile ])
+AC_CONFIG_FILES([ kppp/DB/Provider/Yugoslavia/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/Argentina/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/Australia/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/Austria/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/Austria/Business_1/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/Austria/Business_2/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/Austria/Minimum/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/Austria/Standard/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/Bangladesh/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/Belgium/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/Bosnia_and_Herzegovina/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/Brasil/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/Croatia/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/Czechia/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/Denmark/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/Estonia/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/Finland/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/France/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/Germany/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/Greece/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/HongKong/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/Hungary/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/Iceland/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/India/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/Indonesia/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/Ireland/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/Israel/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/Italy/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/Jamaica/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/Japan/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/Kazakhstan/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/Luxembourg/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/Macedonia/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/Malaysia/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/Netherlands/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/Norway/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/Poland/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/Portugal/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/Romania/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/Russia/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/Singapore/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/Slovakia/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/Slovenia/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/SouthAfrica/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/SouthAfrika/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/Spain/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/Sweden/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/Switzerland/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/Turkey/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/Ukraine/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/United_Kingdom/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/Uruguay/Makefile ])
+AC_CONFIG_FILES([ kppp/Rules/Yugoslavia/Makefile ])
+AC_CONFIG_FILES([ kppp/icons/Makefile ])
+AC_CONFIG_FILES([ kppp/logview/Makefile ])
+AC_CONFIG_FILES([ kppp/pixmaps/Makefile ])
+AC_CONFIG_FILES([ krdc/Makefile ])
+AC_CONFIG_FILES([ krdc/rdp/Makefile ])
+AC_CONFIG_FILES([ krdc/vnc/Makefile ])
+AC_CONFIG_FILES([ krfb/Makefile ])
+AC_CONFIG_FILES([ krfb/kcm_krfb/Makefile ])
+AC_CONFIG_FILES([ krfb/kinetd/Makefile ])
+AC_CONFIG_FILES([ krfb/krfb/Makefile ])
+AC_CONFIG_FILES([ krfb/krfb_httpd/Makefile ])
+AC_CONFIG_FILES([ krfb/libvncserver/Makefile ])
+AC_CONFIG_FILES([ krfb/srvloc/Makefile ])
+AC_CONFIG_FILES([ ksirc/Makefile ])
+AC_CONFIG_FILES([ ksirc/KSOpenkSirc/Makefile ])
+AC_CONFIG_FILES([ ksirc/KSPrefs/Makefile ])
+AC_CONFIG_FILES([ ksirc/KSProgress/Makefile ])
+AC_CONFIG_FILES([ ksirc/KSTicker/Makefile ])
+AC_CONFIG_FILES([ ksirc/icons/Makefile ])
+AC_CONFIG_FILES([ ksirc/img/Makefile ])
+AC_CONFIG_FILES([ ksirc/img/emoticons/Makefile ])
+AC_CONFIG_FILES([ ksirc/puke/Makefile ])
+AC_CONFIG_FILES([ ktalkd/Makefile ])
+AC_CONFIG_FILES([ ktalkd/kcmktalkd/Makefile ])
+AC_CONFIG_FILES([ ktalkd/ktalkd/Makefile ])
+AC_CONFIG_FILES([ ktalkd/ktalkd/machines/Makefile ])
+AC_CONFIG_FILES([ ktalkd/ktalkdlg/Makefile ])
+AC_CONFIG_FILES([ ktalkd/mail.local/Makefile ])
+AC_CONFIG_FILES([ lanbrowsing/Makefile ])
+AC_CONFIG_FILES([ lanbrowsing/kcmlisa/Makefile ])
+AC_CONFIG_FILES([ lanbrowsing/kio_lan/Makefile ])
+AC_CONFIG_FILES([ lanbrowsing/lisa/Makefile ])
+AC_CONFIG_FILES([ librss/Makefile ])
+AC_CONFIG_FILES([ wifi/Makefile ])
+AC_CONFIG_FILES([ wifi/kcmwifi/Makefile ])
+AC_CONFIG_FILES([ wifi/kwireless/Makefile ])
+AC_CONFIG_FILES([ wifi/locations/Makefile ])
+AC_CONFIG_FILES([ wifi/pixmaps/Makefile ])
+AC_OUTPUT
+# if libidn test fails the following line will be written:
+# include_jabber_TRUE = #
+# the following test will then issue a warning at the end of configure output
+# so users see it more easily
+if test "$have_glib" = no; then
+  echo ""
+  echo "You're missing glib >= 2.0 and its development files. Kopete's MSN"
+  echo "plugin will not have webcam support. If you want webcam support for"
+  echo "MSN, be sure to install glib and its development packages"
+  all_tests=bad
+fi
+if test "$with_jingle" = yes; then
+	echo ""
+	echo Supported Jabber Jingle voice Codecs for Kopete:
+	echo Speex: $speex_found
+	echo iLBC:  $ilbc_found
+	echo MULAW: yes
+else
+	echo ""
+	echo "You have disabled Jabber Jingle voice support or you are missing required libraries required to compile it."
+	echo "Jingle is a new Jabber standard that define a signaling protocol via XMPP for peer-to-peer applications."
+	echo "Jingle audio is compatible with the Google Talk voice service."
+	echo ""
+	echo "Required Jingle dependencies are listed on this page:"
+	echo "http://wiki.kde.org/tiki-index.php?page=Kopete+Jabber+Jingle"
+	all_tests=bad
+fi
+if test -z "$LIB_SLP"; then
+   echo ""
+   echo "You're missing OpenSLP, or the OpenSLP devel package."
+   echo "Browsing in krfb and krdc will not be possible."
+   echo "If you want browsing support in krfb, you should consider"
+   echo "installing it. "
+   echo "Have a look at http://www.openslp.org/ or find a binary"
+   echo "package for your platform."
+   echo ""
+   all_tests=bad
+fi
+
+if test "$have_ssl" != yes; then
+  echo ""
+  echo "You're missing openSSL, or your version is too old (before 0.9.5a)."
+  echo "krdc will not be compiled. If you want to use krdc, you should consider"
+  echo "installing or upgrading it."
+  echo "Have a look at http://www.openssl.org, or find a binary package for"
+  echo "your platform."
+  echo ""
+  all_tests=bad
+fi
+
+if test -z "$COMPILE_GADU"; then
+  echo ""
+  echo "You're missing libgadu or the libgadu development package."
+  echo "Kopete's Gadu-Gadu plugin will not be compiled."
+  echo "If you want Gadu-Gadu, a Polish messaging protocol, support in Kopete"
+  echo "you can download it from http://dev.null.pl/ekg/ or find a binary"
+  echo "package for your platform."
+  echo "You can find more information in ./kopete/protocols/gadu/README.gadu ."
+  echo ""
+  all_tests=bad
+fi
+
+if test "X$have_libidn" = Xno; then
+  echo ""
+  echo "You're missing libidn or the libidn development package"
+  echo "Kopete's Jabber plugin will not be compiled."
+  echo "If you want Jabber support in Kopete, You can download libidn from"
+  echo "http://www.gnu.org/software/libidn or find a binary package"
+  echo "for your platform."
+  all_tests=bad
+fi
+
+
+if test "x$with_xmms" = xcheck && test -z "$XMMS_LIBS"; then
+  echo ""
+  echo "You're missing the XMMS libraries, or the libxmms development package."
+  echo "Without libxmms Kopete's NowListening plugin won't be able to talk to"
+  echo "the XMMS music player. If you want Kopete's NowListening plugin to"
+  echo "support XMMS, have a look at http://www.xmms.org/ or find a"
+  echo "binary package for your system."
+  echo ""
+  all_tests=bad
+fi
+
+if test "x$with_wifi" = xcheck && test "$kde_libiw_installed" = "no"; then
+  echo ""
+  echo "You're missing the wireless tools libraries, or the wireless tools"
+  echo "header files. Without these, KWiFiManager and the kwireless applet"
+  echo "will not be compiled. You are unable to monitor wireless LAN"
+  echo "connections without these. If you want wireless LAN support enabled," 
+  echo "have a look at "
+  echo "http://www.hpl.hp.com/personal/Jean_Tourrilhes/Linux/Tools.html"
+  echo "or find a binary package for your system."
+  echo ""
+  all_tests=bad
+fi
+# Check if KDE_SET_PREFIX was called, and --prefix was passed to configure
+if test -n "$kde_libs_prefix" -a -n "$given_prefix"; then
+  # And if so, warn when they don't match
+  if test "$kde_libs_prefix" != "$given_prefix"; then
+    # And if kde doesn't know about the prefix yet
+    echo ":"`kde-config --path exe`":" | grep ":$given_prefix/bin/:" 2>&1 >/dev/null
+    if test $? -ne 0; then
+      echo ""
+      echo "Warning: you chose to install this package in $given_prefix,"
+      echo "but KDE was found in $kde_libs_prefix."
+      echo "For this to work, you will need to tell KDE about the new prefix, by ensuring"
+      echo "that KDEDIRS contains it, e.g. export KDEDIRS=$given_prefix:$kde_libs_prefix"
+      echo "Then restart KDE."
+      echo ""
+    fi
+  fi
+fi
+
+if test x$GXX = "xyes" -a x$kde_have_gcc_visibility = "xyes" -a x$kde_cv_val_qt_gcc_visibility_patched = "xno"; then
+  echo ""
+  echo "Your GCC supports symbol visibility, but the patch for Qt supporting visibility"
+  echo "was not included. Therefore, GCC symbol visibility support remains disabled."
+  echo ""
+  echo "For better performance, consider including the Qt visibility supporting patch"
+  echo "located at:"
+  echo ""
+  echo "http://bugs.kde.org/show_bug.cgi?id=109386"
+  echo ""
+  echo "and recompile all of Qt and KDE. Note, this is entirely optional and"
+  echo "everything will continue to work just fine without it."
+  echo ""
+fi
+
+if test "$all_tests" = "bad"; then
+  if test ! "$cache_file" = "/dev/null"; then
+    echo ""
+    echo "Please remove the file $cache_file after changing your setup"
+    echo "so that configure will find the changes next time."
+    echo ""
+  fi
+else
+  echo ""
+  echo "Good - your configure finished. Start make now"
+  echo ""
+fi

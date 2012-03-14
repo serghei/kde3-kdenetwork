@@ -1,0 +1,323 @@
+<!DOCTYPE UI><UI version="3.2" stdsetdef="1">
+<class>PageLooknFeelBase</class>
+<widget class="QFrame">
+    <property name="name">
+        <cstring>PageLooknFeelBase</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>425</width>
+            <height>452</height>
+        </rect>
+    </property>
+    <property name="minimumSize">
+        <size>
+            <width>425</width>
+            <height>450</height>
+        </size>
+    </property>
+    <property name="caption">
+        <string>LooknFeel</string>
+    </property>
+    <property name="frameShape">
+        <enum>NoFrame</enum>
+    </property>
+    <property name="frameShadow">
+        <enum>Plain</enum>
+    </property>
+    <vbox>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <property name="margin">
+            <number>0</number>
+        </property>
+        <widget class="QButtonGroup">
+            <property name="name">
+                <cstring>windowModeGB</cstring>
+            </property>
+            <property name="frameShape">
+                <enum>Box</enum>
+            </property>
+            <property name="frameShadow">
+                <enum>Sunken</enum>
+            </property>
+            <property name="title">
+                <string>Window Mode</string>
+            </property>
+            <grid>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <spacer row="4" column="0">
+                    <property name="name">
+                        <cstring>Spacer1</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Vertical</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>20</width>
+                            <height>31</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget class="QRadioButton" row="3" column="0">
+                    <property name="name">
+                        <cstring>mdiCB</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&amp;Paged MDI mode (XChat)</string>
+                    </property>
+                    <property name="checked">
+                        <bool>false</bool>
+                    </property>
+                    <property name="buttonGroupId">
+                        <number>0</number>
+                    </property>
+                </widget>
+                <spacer row="1" column="0">
+                    <property name="name">
+                        <cstring>Spacer1_2</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Vertical</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>20</width>
+                            <height>31</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget class="QLabel" row="0" column="0">
+                    <property name="name">
+                        <cstring>wmLabel</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Choose your favorite window mode:</string>
+                    </property>
+                    <property name="alignment">
+                        <set>WordBreak|AlignVCenter|AlignLeft</set>
+                    </property>
+                    <property name="vAlign" stdset="0">
+                    </property>
+                    <property name="wordwrap" stdset="0">
+                    </property>
+                </widget>
+                <widget class="QRadioButton" row="2" column="0">
+                    <property name="name">
+                        <cstring>sdiCB</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&amp;SDI mode (old behavior)</string>
+                    </property>
+                    <property name="checked">
+                        <bool>true</bool>
+                    </property>
+                    <property name="buttonGroupId">
+                        <number>0</number>
+                    </property>
+                </widget>
+                <widget class="QFrame" row="1" column="1" rowspan="4" colspan="1">
+                    <property name="name">
+                        <cstring>Frame3</cstring>
+                    </property>
+                    <property name="minimumSize">
+                        <size>
+                            <width>120</width>
+                            <height>120</height>
+                        </size>
+                    </property>
+                    <property name="maximumSize">
+                        <size>
+                            <width>120</width>
+                            <height>120</height>
+                        </size>
+                    </property>
+                    <property name="frameShape">
+                        <enum>StyledPanel</enum>
+                    </property>
+                    <property name="frameShadow">
+                        <enum>Raised</enum>
+                    </property>
+                    <widget class="QLabel">
+                        <property name="name">
+                            <cstring>modePreview</cstring>
+                        </property>
+                        <property name="geometry">
+                            <rect>
+                                <x>10</x>
+                                <y>10</y>
+                                <width>100</width>
+                                <height>100</height>
+                            </rect>
+                        </property>
+                        <property name="scaledContents">
+                            <bool>true</bool>
+                        </property>
+                    </widget>
+                </widget>
+            </grid>
+        </widget>
+        <widget class="QGroupBox">
+            <property name="name">
+                <cstring>wallpaperGB</cstring>
+            </property>
+            <property name="title">
+                <string>Wallpaper</string>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QLayoutWidget">
+                    <property name="name">
+                        <cstring>Layout4</cstring>
+                    </property>
+                    <hbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <property name="margin">
+                            <number>0</number>
+                        </property>
+                        <property name="spacing">
+                            <number>6</number>
+                        </property>
+                        <widget class="KURLRequester">
+                            <property name="name">
+                                <cstring>wallpaperPathLE</cstring>
+                            </property>
+                            <property name="minimumSize">
+                                <size>
+                                    <width>100</width>
+                                    <height>25</height>
+                                </size>
+                            </property>
+                            <property name="maximumSize">
+                                <size>
+                                    <width>32767</width>
+                                    <height>30</height>
+                                </size>
+                            </property>
+                        </widget>
+                    </hbox>
+                </widget>
+                <widget class="QFrame">
+                    <property name="name">
+                        <cstring>Frame3_2</cstring>
+                    </property>
+                    <property name="minimumSize">
+                        <size>
+                            <width>120</width>
+                            <height>120</height>
+                        </size>
+                    </property>
+                    <property name="maximumSize">
+                        <size>
+                            <width>120</width>
+                            <height>120</height>
+                        </size>
+                    </property>
+                    <property name="frameShape">
+                        <enum>StyledPanel</enum>
+                    </property>
+                    <property name="frameShadow">
+                        <enum>Raised</enum>
+                    </property>
+                    <widget class="QLabel">
+                        <property name="name">
+                            <cstring>wallpaperPreview</cstring>
+                        </property>
+                        <property name="geometry">
+                            <rect>
+                                <x>10</x>
+                                <y>10</y>
+                                <width>100</width>
+                                <height>100</height>
+                            </rect>
+                        </property>
+                        <property name="scaledContents">
+                            <bool>true</bool>
+                        </property>
+                    </widget>
+                </widget>
+            </hbox>
+        </widget>
+        <spacer>
+            <property name="name">
+                <cstring>spacer5</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Vertical</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>51</width>
+                    <height>1</height>
+                </size>
+            </property>
+        </spacer>
+    </vbox>
+</widget>
+<connections>
+    <connection>
+        <sender>sdiCB</sender>
+        <signal>clicked()</signal>
+        <receiver>PageLooknFeelBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>sdiCB</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>PageLooknFeelBase</receiver>
+        <slot>setPreviewPixmap(bool)</slot>
+    </connection>
+    <connection>
+        <sender>mdiCB</sender>
+        <signal>clicked()</signal>
+        <receiver>PageLooknFeelBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+    <connection>
+        <sender>wallpaperPathLE</sender>
+        <signal>textChanged(const QString &amp;)</signal>
+        <receiver>PageLooknFeelBase</receiver>
+        <slot>showWallpaperPixmap(const QString&amp;)</slot>
+    </connection>
+    <connection>
+        <sender>wallpaperPathLE</sender>
+        <signal>textChanged(const QString &amp;)</signal>
+        <receiver>PageLooknFeelBase</receiver>
+        <slot>changed()</slot>
+    </connection>
+</connections>
+<tabstops>
+    <tabstop>sdiCB</tabstop>
+    <tabstop>wallpaperPathLE</tabstop>
+</tabstops>
+<slots>
+    <slot access="protected">setPreviewPixmap(bool)</slot>
+    <slot access="protected">showWallpaperPixmap(const QString &amp;)</slot>
+    <slot>changed()</slot>
+</slots>
+<layoutdefaults spacing="6" margin="11"/>
+<includehints>
+    <includehint>kurlrequester.h</includehint>
+    <includehint>klineedit.h</includehint>
+    <includehint>kpushbutton.h</includehint>
+</includehints>
+</UI>
