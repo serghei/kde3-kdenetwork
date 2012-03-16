@@ -2,7 +2,7 @@
     Kopete Yahoo Protocol
     Change our Status
 
-    Copyright (c) 2005 André Duffeck <andre.duffeck@kdemail.net>
+    Copyright (c) 2005 André Duffeck <duffeck@kde.org>
 
     *************************************************************************
     *                                                                       *
@@ -32,7 +32,7 @@ public:
 	enum Type { Available, Away };
 	ChangeStatusTask(Task *parent);
 	~ChangeStatusTask();
-	
+
 	virtual void onGo();
 
 	void setMessage( const QString &msg );

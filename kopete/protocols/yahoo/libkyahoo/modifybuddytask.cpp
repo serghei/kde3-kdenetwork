@@ -2,7 +2,7 @@
     Kopete Yahoo Protocol
     Add a buddy to the Contactlist
 
-    Copyright (c) 2005 André Duffeck <andre.duffeck@kdemail.net>
+    Copyright (c) 2005-2006 André Duffeck <duffeck@kde.org>
 
     *************************************************************************
     *                                                                       *
@@ -19,21 +19,70 @@
 #include "ymsgtransfer.h"
 #include "yahootypes.h"
 #include "client.h"
-#include <qstring.h>
+
 #include <kdebug.h>
 
 ModifyBuddyTask::ModifyBuddyTask(Task* parent) : Task(parent)
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_RAW_DEBUG) ;
 }
 
 ModifyBuddyTask::~ModifyBuddyTask()
 {
 }
 
+bool ModifyBuddyTask::take( Transfer* transfer )
+{
+     if( !forMe( transfer ) )
+	  return false;
+
+     YMSGTransfer *t = static_cast<YMSGTransfer *>(transfer);
+
+     bool success = t->firstParam(66) == "0";
+
+     switch(t->service())
+     {
+     case Yahoo::ServiceBuddyAdd:
+	  emit buddyAddResult(m_target, m_group, success);
+	  break;
+     case Yahoo::ServiceBuddyRemove:
+	  emit buddyRemoveResult(m_target, m_group, success);
+	  break;
+     case Yahoo::ServiceBuddyChangeGroup:
+	  emit buddyChangeGroupResult(m_target, m_group, success);
+     default:
+	  return false;
+     }
+
+     if(success)
+	  setSuccess();
+     else
+	  setError();
+
+     return true;
+}
+
+bool ModifyBuddyTask::forMe( const Transfer* transfer ) const
+{
+     const YMSGTransfer *t = 0L;
+     t = dynamic_cast<const YMSGTransfer*>(transfer);
+
+     if(!t)
+	  return false;
+
+     if( (t->service() == Yahoo::ServiceBuddyAdd ||
+	  t->service() == Yahoo::ServiceBuddyRemove) &&
+	 m_target == t->firstParam(7).data() )
+     {
+	  return true;
+     }
+
+     return false;
+}
+
 void ModifyBuddyTask::onGo()
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_RAW_DEBUG) ;
 
 	switch( m_type )
 	{
@@ -47,31 +96,31 @@ void ModifyBuddyTask::onGo()
 			moveBuddy();
 		break;
 	}
-
-
-	
-	setSuccess( true );
 }
 
 void ModifyBuddyTask::addBuddy()
 {
-	YMSGTransfer *t = new YMSGTransfer(Yahoo::ServiceAddBuddy);
+	YMSGTransfer *t = new YMSGTransfer(Yahoo::ServiceBuddyAdd);
 	t->setId( client()->sessionID() );
+	t->setParam( 65, m_group.local8Bit() );
+	t->setParam( 97, 1 );           // UTF-8
 	t->setParam( 1, client()->userId().local8Bit() );
-	t->setParam( 7, m_target.local8Bit() );
-	t->setParam( 14, m_message.utf8() );
-	t->setParam( 65, m_group.local8Bit() );	
-	t->setParam( 97, 1 );	// UTF-8
+	t->setParam( 302,  319 );
+	t->setParam( 300,  319 );
+	t->setParam( 7,  m_target.local8Bit() );
+	t->setParam( 334,  0 );
+	t->setParam( 301, 319 );
+	t->setParam( 303, 319 );
 	send( t );
 }
 
 void ModifyBuddyTask::removeBuddy()
 {
-	YMSGTransfer *t = new YMSGTransfer(Yahoo::ServiceRemBuddy);
+	YMSGTransfer *t = new YMSGTransfer(Yahoo::ServiceBuddyRemove);
 	t->setId( client()->sessionID() );
 	t->setParam( 1, client()->userId().local8Bit() );
 	t->setParam( 7, m_target.local8Bit() );
-	t->setParam( 65, m_group.local8Bit() );	
+	t->setParam( 65, m_group.local8Bit() );
 	send( t );
 }
 
@@ -114,3 +163,5 @@ void ModifyBuddyTask::setType( Type type )
 {
 	m_type = type;
 }
+
+#include "modifybuddytask.moc"

@@ -2,7 +2,7 @@
     Kopete Yahoo Protocol
     Request a Picture of a Buddy
 
-    Copyright (c) 2005 André Duffeck <andre.duffeck@kdemail.net>
+    Copyright (c) 2005-2006 André Duffeck <duffeck@kde.org>
 
     *************************************************************************
     *                                                                       *
@@ -19,12 +19,12 @@
 #include "ymsgtransfer.h"
 #include "yahootypes.h"
 #include "client.h"
-#include <qstring.h>
+
 #include <kdebug.h>
 
 RequestPictureTask::RequestPictureTask(Task* parent) : Task(parent)
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_GEN_DEBUG) << k_funcinfo << endl;
 }
 
 RequestPictureTask::~RequestPictureTask()
@@ -35,12 +35,12 @@ void RequestPictureTask::onGo()
 {
 	YMSGTransfer *t = new YMSGTransfer(Yahoo::ServicePicture);
 	t->setId( client()->sessionID() );
-	t->setParam( 4, client()->userId().local8Bit());
+	t->setParam( 1, client()->userId().local8Bit());
 	t->setParam( 5, m_target.local8Bit() );
 	t->setParam( 13, "1" );
 	send( t );
-	
-	setSuccess( true );
+
+	setSuccess();
 }
 
 void RequestPictureTask::setTarget( const QString &target )

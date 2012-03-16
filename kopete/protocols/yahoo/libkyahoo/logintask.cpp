@@ -3,10 +3,10 @@
     Handles logging into to the Yahoo service
 
     Copyright (c) 2004 Duncan Mac-Vicar P. <duncan@kde.org>
+    Copyright (c) 2005-2006 André Duffeck <duffeck@kde.org>
+    Copyright     2009 Matt Rogers <mattr@kde.org>
 
-    Copyright (c) 2005 André Duffeck <andre.duffeck@kdemail.net>
-
-    Kopete (c) 2002-2005 by the Kopete developers <kopete-devel@kde.org>
+    Kopete (c) 2002-2009 by the Kopete developers <kopete-devel@kde.org>
 
     *************************************************************************
     *                                                                       *
@@ -18,7 +18,7 @@
     *************************************************************************
 */
 
-#include <qstring.h>
+
 
 #include "logintask.h"
 #include "transfer.h"
@@ -28,6 +28,10 @@
 #include <qstring.h>
 #include <kdebug.h>
 #include <stdlib.h>
+
+#include <kio/job.h>
+#include <kmdcodec.h>
+
 extern "C"
 {
 #include "libyahoo.h"
@@ -35,7 +39,7 @@ extern "C"
 
 LoginTask::LoginTask(Task* parent) : Task(parent)
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_RAW_DEBUG) ;
 	mState = InitialState;
 }
 
@@ -46,10 +50,9 @@ LoginTask::~LoginTask()
 
 bool LoginTask::take(Transfer* transfer)
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
 	/*
 	  Yahoo login task has various stages
-	  
+
 	  1 .- Initial State
 	      1.1 .- OnGo is called
 	      1.2 .- SendVerify() - send a service verify ack
@@ -61,11 +64,17 @@ bool LoginTask::take(Transfer* transfer)
               2.3 - Need to decode and send a transfer back
 	  4.- SentAuthResp
 	*/
-	
+
 	if ( !forMe( transfer ) )
 		return false;
 
 	YMSGTransfer *t = static_cast<YMSGTransfer *>(transfer);
+
+
+	if ( t->service() == Yahoo::ServicePing) {
+		emit buddyListReady();
+		return true;
+	}
 
 	switch (mState)
 	{
@@ -93,13 +102,15 @@ bool LoginTask::take(Transfer* transfer)
 	}
 }
 
-bool LoginTask::forMe(Transfer* transfer) const
+bool LoginTask::forMe(const Transfer* transfer) const
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
-	YMSGTransfer *t = 0L;
-	t = dynamic_cast<YMSGTransfer*>(transfer);
+	const YMSGTransfer *t = 0L;
+	t = dynamic_cast<const YMSGTransfer*>(transfer);
 	if (!t)
 		return false;
+
+	if ( t->service() == Yahoo::ServicePing)
+		return true;
 
 	switch (mState)
 	{
@@ -128,12 +139,12 @@ bool LoginTask::forMe(Transfer* transfer) const
 
 void LoginTask::onGo()
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_RAW_DEBUG) ;
 	/* initial state, we have to send a ServiceVerify */
 	if (mState == InitialState)
 		sendVerify();
 	else
-			client()->notifyError( "Error in login procedure.", "take called while not in initial state", Client::Debug );
+		client()->notifyError( "Error in login procedure.", "onGo called while not in initial state", Client::Debug );
 }
 
 void LoginTask::reset()
@@ -144,20 +155,20 @@ void LoginTask::reset()
 void LoginTask::sendVerify()
 {
 	/* send a ServiceVerify */
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_RAW_DEBUG) ;
 	YMSGTransfer *t = new YMSGTransfer(Yahoo::ServiceVerify);
 	send( t );
-	mState = SentVerify;	
+	mState = SentVerify;
 }
 
 void LoginTask::sendAuth(YMSGTransfer* transfer)
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_RAW_DEBUG) ;
 	// transfer is the verify ack transfer, no useful data in it.
 	Q_UNUSED(transfer);
-	
+
 	/* got ServiceVerify ACK, send a ServiceAuth with username */
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_RAW_DEBUG) ;
 	YMSGTransfer *t = new YMSGTransfer( Yahoo::ServiceAuth );
 	t->setParam( 1 , client()->userId().local8Bit() );
 	send(t);
@@ -166,76 +177,225 @@ void LoginTask::sendAuth(YMSGTransfer* transfer)
 
 void LoginTask::sendAuthResp(YMSGTransfer* t)
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
-	
+	kdDebug(YAHOO_RAW_DEBUG) ;
+
 	QString sn = t->firstParam( 1 );
 	QString seed = t->firstParam( 94 );
+	m_challengeString = seed;
 	QString version_s = t->firstParam( 13 );
-	uint sessionID = t->id();
+	m_sessionID = t->id();
 	int version = version_s.toInt();
-	
+
 	switch (version)
 	{
 		case 0:
-		kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << " Version pre 0x0b "<< version_s << endl;	
-		break;
+		case 1:
+		case 2:
+			kdDebug(YAHOO_RAW_DEBUG) << "Using version 16 authorization" << endl;
+			sendAuthSixteenStage1(sn, seed);
+			break;
 		default:
-		kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << " Version 0x0b "<< version_s << endl;
-		sendAuthResp_0x0b(sn, seed, sessionID);
+			kdDebug(YAHOO_RAW_DEBUG) << "Unknown authentication method used!"
+			                         << "Attempting current authentication anyways" << endl;
+			sendAuthSixteenStage1(sn, seed);
 		break;
-	}	
+	}
 	mState = SentAuthResp;
 
-	emit haveSessionID( sessionID );
+	emit haveSessionID( m_sessionID );
 }
 
-void LoginTask::sendAuthResp_0x0b(const QString &sn, const QString &seed, uint sessionID)
+void LoginTask::sendAuthSixteenStage1(const QString& sn, const QString& seed)
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << " with seed " << seed << endl;
-	char *resp_6 = (char *) malloc(100);
-	char *resp_96 = (char *) malloc(100);
-	authresp_0x0b(seed.latin1(), sn.latin1(), (client()->password()).latin1(), resp_6, resp_96);
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << "resp_6: " << resp_6 << " resp_69: " << resp_96 << endl;
-	YMSGTransfer *t = new YMSGTransfer(Yahoo::ServiceAuthResp, m_stateOnConnect);
-	t->setId( sessionID );
-	t->setParam( 0 , sn.local8Bit());
-	t->setParam( 6 , resp_6);
-	t->setParam( 96 , resp_96);
-	t->setParam( 59 , "B\\tfckeert1kk1nl&b=2" );	// ???
-	t->setParam( 135 , "7,0,0,437" );	// Client version
-	t->setParam( 148 , -60 );
-	t->setParam( 244 , 524223 );
-	t->setParam( 1 , sn.local8Bit());
+	const QString YahooTokenUrl = "https://login.yahoo.com/config/pwtoken_get?src=ymsgr&ts=&login=%1&passwd=%2&chal=%3";
+	kdDebug(YAHOO_RAW_DEBUG) << "seed:" << seed << endl;
+	m_stage1Data= QString::null;
+	/* construct a URL from the seed and request tokens */
+	QByteArray encodedUrl;
+	QString fullUrl = YahooTokenUrl.arg(sn, client()->password(), seed);
+	KURL tokenUrl(fullUrl);
+	KIO::Job* job = KIO::get(tokenUrl, true, false);
+	connect(job, SIGNAL(data(KIO::Job*, const QByteArray&)),
+	        this, SLOT(handleAuthSixteenStage1Data(KIO::Job*, const QByteArray&)));
+	connect(job, SIGNAL(result(KIO::Job*)),
+	        this, SLOT(handleAuthSixteenStage1Result(KIO::Job*)));
+}
 
-	if( !m_verificationWord.isEmpty() )
+void LoginTask::handleAuthSixteenStage1Data(KIO::Job* job, const QByteArray& data)
+{
+	kdDebug(YAHOO_RAW_DEBUG) << "data:" << data << endl;
+	m_stage1Data.append(data);
+}
+
+void LoginTask::handleAuthSixteenStage1Result(KIO::Job* job)
+{
+	int responseNumber = -1;
+	QString token;
+	int error = job->error();
+	kdDebug(YAHOO_RAW_DEBUG) << "error:" << error << endl;
+	if (error == 0)
 	{
-		t->setParam( 227 , m_verificationWord.local8Bit() );
-		m_verificationWord = QString::null;
+		QStringList responses = QStringList::split("\r\n", m_stage1Data);
+		responseNumber = responses[0].toInt();
+		if (responses.count() >= 3)
+		{
+			token = responses[1];
+			token.remove("ymsgr=");
+			kdDebug(YAHOO_RAW_DEBUG) << "response is:" << responseNumber << endl;
+			kdDebug(YAHOO_RAW_DEBUG) << "token is:" << token << endl;
+		}
+		if (responseNumber != 0)
+		{
+			switch(responseNumber)
+			{
+			case -1:
+				/* error in the received stream */
+				emit loginResponse(Yahoo::LoginSock, QString());
+				kdDebug(YAHOO_RAW_DEBUG) << "unknown error logging in" << endl;
+				break;
+			case 1212:
+				/* password incorrect */
+				emit loginResponse(Yahoo::LoginPasswd, QString());
+				kdDebug(YAHOO_RAW_DEBUG) << "password incorrect" << endl;
+				break;
+			case 1213:
+				/* security lock */
+				emit loginResponse(Yahoo::LoginLock, QString());
+				break;
+			case 1235:
+				/* username does not exist */
+				emit loginResponse(Yahoo::LoginUname, QString());
+				kdDebug(YAHOO_RAW_DEBUG) << "user does not exist" << endl;
+				break;
+			case 1214:
+			case 1236:
+				emit loginResponse(Yahoo::LoginVerify, QString());
+				break;
+			case 100: /* username or password missing */
+				/*FIXME handle this */
+				break;
+			default:
+				/* FIXME unknown error. handle it! */
+				break;
+			}
+		}
+		else
+		{
+			/* start stage 2 here */
+			sendAuthSixteenStage2(token);
+		}
 	}
+}
 
-	free(resp_6);
-	free(resp_96);
+void LoginTask::sendAuthSixteenStage2(const QString& token)
+{
+	const QString YahooLoginUrl = "https://login.yahoo.com/config/pwtoken_login?src=ymsgr&ts=&token=%1";
+	kdDebug(YAHOO_RAW_DEBUG) << "token:" << token << endl;
+	m_stage2Data = QString::null;
+	QString fullUrl = YahooLoginUrl.arg(token);
+	KURL loginUrl(fullUrl);
+	KIO::Job* job = KIO::get(loginUrl, true, false);
+	connect(job, SIGNAL(data(KIO::Job*, const QByteArray&)),
+	        this, SLOT(handleAuthSixteenStage2Data(KIO::Job*, const QByteArray&)));
+	connect(job, SIGNAL(result(KIO::Job*)),
+	        this, SLOT(handleAuthSixteenStage2Result(KIO::Job*)));
+}
+
+void LoginTask::handleAuthSixteenStage2Data(KIO::Job*, const QByteArray& data)
+{
+	kdDebug(YAHOO_RAW_DEBUG) << "data:" << data << endl;
+	m_stage2Data.append(data);
+}
+
+void LoginTask::handleAuthSixteenStage2Result(KIO::Job* job)
+{
+	QString crumb;
+	int responseNumber = -1;
+	int error = job->error();
+	kdDebug(YAHOO_RAW_DEBUG) << "error:" << error << endl;
+	if (error == 0)
+	{
+		QStringList responses = QStringList::split("\r\n", m_stage2Data);
+		kdDebug(YAHOO_RAW_DEBUG) << responses << endl;
+		responseNumber = responses[0].toInt();
+		if (responseNumber == 0)
+		{
+			crumb = responses[1];
+			crumb.remove("crumb=");
+			m_yCookie = responses[2].remove(0,2); /* remove Y= */
+			m_tCookie = responses[3].remove(0,2); /* remove T= */
+		}
+
+		if (responseNumber != 0)
+		{
+			switch(responseNumber)
+			{
+			case -1:
+				emit loginResponse(Yahoo::LoginSock, QString());
+				break;
+			case 100:
+				emit loginResponse(Yahoo::LoginSock, QString());
+				break;
+			default: /* try to login anyways */
+				break;
+			}
+		}
+		else
+		{
+			QString cryptString = crumb;
+			cryptString.append(m_challengeString);
+			sendAuthSixteenStage3(cryptString);
+		}
+	}
+}
+
+void LoginTask::sendAuthSixteenStage3(const QString& cryptString)
+{
+	kdDebug(YAHOO_RAW_DEBUG) << " with crypt string" << cryptString << endl;
+
+	//QByteArray cryptStringHash = QCryptographicHash::hash( cryptString.toAscii(),
+	//                                                       QCryptographicHash::Md5 );
+	//cryptStringHash = cryptStringHash.toBase64();
+
+	QString cryptStringHash = KMD5( cryptString.ascii() ).base64Digest();
+
+	cryptStringHash = cryptStringHash.replace('+', '.');
+	cryptStringHash = cryptStringHash.replace('/', '_');
+	cryptStringHash = cryptStringHash.replace('=', '-');
+
+	YMSGTransfer *t = new YMSGTransfer(Yahoo::ServiceAuthResp, m_stateOnConnect);
+	t->setId( m_sessionID );
+   	t->setParam( 1, client()->userId().local8Bit());
+	t->setParam( 0 , client()->userId().local8Bit());
+	t->setParam( 277, m_yCookie.local8Bit() );
+	t->setParam( 278, m_tCookie.local8Bit() );
+	t->setParam( 307, cryptStringHash.local8Bit() );
+	t->setParam( 244, 2097087 );
+	t->setParam( 2 , client()->userId().local8Bit());
+	t->setParam( 2, 1 ); // Both parameter 2s wind up in the packet
+	t->setParam( 135, YMSG_PROGRAM_VERSION_STRING );
+
 	send(t);
 
 }
 
 void LoginTask::sendAuthResp_pre_0x0b(const QString &/*sn*/, const QString &/*seed*/)
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_RAW_DEBUG) ;
 }
 
 void LoginTask::handleAuthResp(YMSGTransfer *t)
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_RAW_DEBUG) ;
 
 	switch( t->service() )
 	{
 		case( Yahoo::ServiceList ):
-			kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << "Emitting Signal" << endl;
-			emit loginResponse( Yahoo::LoginOk, QString::null );
+			kdDebug(YAHOO_RAW_DEBUG) << "Emitting Signal" << endl;
+			emit loginResponse( Yahoo::LoginOk, QString() );
 		break;
 		case( Yahoo::ServiceAuthResp ):
-			kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << "Emitting Signal" << endl;
+			kdDebug(YAHOO_RAW_DEBUG) << "Emitting Signal" << endl;
 			emit loginResponse( t->firstParam( 66 ).toInt(), t->firstParam( 20 ) );
 		break;
 		default:
@@ -251,10 +411,10 @@ void LoginTask::setStateOnConnect( Yahoo::Status status )
 
 void LoginTask::parseCookies( YMSGTransfer *t )
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_RAW_DEBUG) ;
 
 	for( int i = 0; i < t->paramCount( 59 ); ++i)
-	{	
+	{
 		QString cookie;
 		cookie = t->nthParam( 59, i );
         	if( cookie.startsWith( "Y" ) )
@@ -271,8 +431,7 @@ void LoginTask::parseCookies( YMSGTransfer *t )
 			m_cCookie = getcookie( cookie.latin1() );
 		}
     	}
-	if( !m_yCookie.isEmpty() && !m_tCookie.isEmpty() &&
-		!m_cCookie.isEmpty() )
+	if( !m_yCookie.isEmpty() && !m_tCookie.isEmpty())
 		emit haveCookies();
 }
 

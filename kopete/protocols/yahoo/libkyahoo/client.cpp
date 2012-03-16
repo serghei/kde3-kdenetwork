@@ -1,14 +1,14 @@
 /*
     Kopete Yahoo Protocol
-    
-    Copyright (c) 2005-2006 André Duffeck <andre.duffeck@kdemail.net>
+
+    Copyright (c) 2005-2006 André Duffeck <duffeck@kde.org>
     Copyright (c) 2004 Duncan Mac-Vicar P. <duncan@kde.org>
     Copyright (c) 2004 Matt Rogers <matt.rogers@kdemail.net>
     Copyright (c) 2004 SuSE Linux AG <http://www.suse.com>
-    Copyright (C) 2003  Justin Karneges
-    
+    Copyright (C) 2003  Justin Karneges <justin@affinix.com>
+
     Kopete (c) 2002-2006 by the Kopete developers <kopete-devel@kde.org>
- 
+
     *************************************************************************
     *                                                                       *
     * This library is free software; you can redistribute it and/or         *
@@ -20,9 +20,9 @@
 */
 
 #include <qtimer.h>
+#include <qpixmap.h>
 
 #include <kdebug.h>
-#include <kurl.h>
 #include <ksocketbase.h>
 
 #include "yahooclientstream.h"
@@ -52,6 +52,7 @@
 #include "sendfiletask.h"
 #include "filetransfernotifiertask.h"
 #include "receivefiletask.h"
+#include "yahoochattask.h"
 #include "client.h"
 #include "yahootypes.h"
 #include "yahoobuddyiconloader.h"
@@ -73,7 +74,7 @@ public:
 	int error;
 	QString errorString;
 	QString errorInformation;
-	
+
 	// tasks
 	bool tasksInitialized;
 	LoginTask * loginTask;
@@ -86,6 +87,8 @@ public:
 	ConferenceTask *conferenceTask;
 	YABTask *yabTask;
 	FileTransferNotifierTask *fileTransferTask;
+	YahooChatTask *yahooChatTask;
+	ReceiveFileTask *receiveFileTask;
 
 	// Connection data
 	uint sessionID;
@@ -95,10 +98,13 @@ public:
 	Yahoo::Status status;
 	Yahoo::Status statusOnConnect;
 	QString statusMessageOnConnect;
-	int pictureFlag;
+	Yahoo::PictureStatus pictureFlag;
+	int pictureChecksum;
+	bool buddyListReady;
+	QStringList pictureRequestQueue;
 };
 
-Client::Client(QObject *par) :QObject(par, "yahooclient" )
+Client::Client(QObject *par) :QObject(par, "yahooclient")
 {
 	d = new ClientPrivate;
 /*	d->tzoffset = 0;*/
@@ -112,19 +118,21 @@ Client::Client(QObject *par) :QObject(par, "yahooclient" )
 	d->iconLoader = 0L;
 	d->loginTask = new LoginTask( d->root );
 	d->listTask = new ListTask( d->root );
-	d->pictureFlag = 0;
+	d->pictureFlag = Yahoo::NoPicture;
+	d->buddyListReady = false;
 	m_connector = 0L;
 
 	m_pingTimer = new QTimer( this );
 	QObject::connect( m_pingTimer, SIGNAL( timeout() ), this, SLOT( sendPing() ) );
 
 	QObject::connect( d->loginTask, SIGNAL( haveSessionID( uint ) ), SLOT( lt_gotSessionID( uint ) ) );
-	QObject::connect( d->loginTask, SIGNAL( loginResponse( int, const QString& ) ), 
+	QObject::connect( d->loginTask, SIGNAL( buddyListReady() ), SLOT( processPictureQueue() ) );
+	QObject::connect( d->loginTask, SIGNAL( loginResponse( int, const QString& ) ),
 				SLOT( slotLoginResponse( int, const QString& ) ) );
 	QObject::connect( d->loginTask, SIGNAL( haveCookies() ), SLOT( slotGotCookies() ) );
-	QObject::connect( d->listTask, SIGNAL( gotBuddy(const QString &, const QString &, const QString &) ), 
+	QObject::connect( d->listTask, SIGNAL( gotBuddy(const QString &, const QString &, const QString &) ),
 					SIGNAL( gotBuddy(const QString &, const QString &, const QString &) ) );
-	QObject::connect( d->listTask, SIGNAL( stealthStatusChanged( const QString&, Yahoo::StealthStatus ) ), 
+	QObject::connect( d->listTask, SIGNAL( stealthStatusChanged( const QString&, Yahoo::StealthStatus ) ),
 					SIGNAL( stealthStatusChanged( const QString&, Yahoo::StealthStatus ) ) );
 }
 
@@ -138,7 +146,7 @@ Client::~Client()
 
 void Client::connect( const QString &host, const uint port, const QString &userId, const QString &pass )
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_GEN_DEBUG) << k_funcinfo << endl;
 	d->host = host;
 	d->port = port;
 	d->user = userId;
@@ -151,7 +159,8 @@ void Client::connect( const QString &host, const uint port, const QString &userI
 	QObject::connect( d->stream, SIGNAL( connected() ), this, SLOT( cs_connected() ) );
 	QObject::connect( d->stream, SIGNAL( error(int) ), this, SLOT( streamError(int) ) );
 	QObject::connect( d->stream, SIGNAL( readyRead() ), this, SLOT( streamReadyRead() ) );
-	
+	QObject::connect( d->stream, SIGNAL( connectionClosed() ), this, SLOT( streamDisconnected() ) );
+
 	d->stream->connectToServer( host, false );
 }
 
@@ -162,9 +171,9 @@ void Client::cancelConnect()
 
 void Client::cs_connected()
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_GEN_DEBUG) << k_funcinfo << endl;
 	emit connected();
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << " starting login task ... "<<  endl;
+	kdDebug(YAHOO_RAW_DEBUG) << " starting login task ... " << endl;
 
 	d->loginTask->setStateOnConnect( (d->statusOnConnect == Yahoo::StatusInvisible) ? Yahoo::StatusInvisible : Yahoo::StatusAvailable );
 	d->loginTask->go();
@@ -173,7 +182,7 @@ void Client::cs_connected()
 
 void Client::close()
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_GEN_DEBUG) << k_funcinfo << endl;
 	m_pingTimer->stop();
 	if( d->active )
 	{
@@ -181,7 +190,7 @@ void Client::close()
 		lt->go( true );
 	}
 	if( d->tasksInitialized)
-		deleteTasks();	
+		deleteTasks();
 	d->loginTask->reset();
 	if( d->stream ) {
 		QObject::disconnect( d->stream, SIGNAL( readyRead() ), this, SLOT( streamReadyRead() ) );
@@ -191,6 +200,8 @@ void Client::close()
 	if( m_connector )
 		m_connector->deleteLater();
 	m_connector = 0L;
+	d->active = false;
+	d->buddyListReady = false;
 }
 
 int Client::error()
@@ -211,18 +222,18 @@ QString Client::errorInformation()
 // SLOTS //
 void Client::streamError( int error )
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << "CLIENT ERROR (Error " <<  error << ")" << endl;
+	kdDebug(YAHOO_RAW_DEBUG) << "CLIENT ERROR (Error " <<  error << ")" << endl;
 	QString msg;
 
 	d->active = false;
 
 	// Examine error
-	if( error == ClientStream::ErrConnection )			// Ask Connector in this case
+	if( error == ClientStream::ErrConnection && m_connector )			// Ask Connector in this case
 	{
 		d->error = m_connector->errorCode();
 		d->errorString = KSocketBase::errorString( (KSocketBase::SocketError)d->error );
 	}
-	else
+	else if( d->stream )
 	{
 		d->error = error;
 		d->errorString = d->stream->errorText();
@@ -241,9 +252,15 @@ void Client::streamReadyRead()
 	distribute( transfer );
 }
 
+void Client::streamDisconnected()
+{
+	d->active = false;
+	emit disconnected();
+}
+
 void Client::lt_loginFinished()
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_GEN_DEBUG) << k_funcinfo << endl;
 
 	slotLoginResponse( d->loginTask->statusCode(), d->loginTask->statusString() );
 }
@@ -258,26 +275,27 @@ void Client::slotLoginResponse( int response, const QString &msg )
 			changeStatus( d->statusOnConnect, d->statusMessageOnConnect, Yahoo::StatusTypeAway );
 		d->statusMessageOnConnect = QString::null;
 		setStatus( d->statusOnConnect );
-		m_pingTimer->start( 60 * 1000 );
+		/* only send a ping every hour. we get disconnected otherwise */
+		m_pingTimer->start( 60 * 60 * 1000 );
 		initTasks();
 	} else {
 		d->active = false;
 		close();
 	}
 
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << "Emitting loggedIn" << endl;
+	kdDebug(YAHOO_RAW_DEBUG) << "Emitting loggedIn" << endl;
 	emit loggedIn( response, msg );
 }
 
 void Client::lt_gotSessionID( uint id )
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << "Got SessionID: " << id << endl;	
+	kdDebug(YAHOO_RAW_DEBUG) << "Got SessionID: " << id << endl;
 	d->sessionID = id;
 }
 
 void Client::slotGotCookies()
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << "Y: " << d->loginTask->yCookie()
+	kdDebug(YAHOO_RAW_DEBUG) << "Y: " << d->loginTask->yCookie()
 					<< " T: " << d->loginTask->tCookie()
 					<< " C: " << d->loginTask->cCookie() << endl;
 	d->yCookie = d->loginTask->yCookie();
@@ -388,17 +406,17 @@ void Client::cancelFileTransfer( unsigned int transferId )
 
 void Client::changeStatus( Yahoo::Status status, const QString &message, Yahoo::StatusType type )
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << "status: " << status
+	kdDebug(YAHOO_RAW_DEBUG) << "status: " << status
 					<< " message: " << message
-					<< " type: " << type << endl;	
+					<< " type: " << type << endl;
 	ChangeStatusTask *cst = new ChangeStatusTask( d->root );
 	cst->setStatus( status );
 	cst->setMessage( message );
 	cst->setType( type );
 	cst->go( true );
-	
+
 	if( status == Yahoo::StatusInvisible )
-		stealthContact( QString::null, Yahoo::StealthOnline, Yahoo::StealthClear );
+		stealthContact( QString(), Yahoo::StealthOnline, Yahoo::StealthClear );
 
 	setStatus( status );
 }
@@ -416,10 +434,10 @@ void Client::sendPing()
 {
 	if( !d->active )
 	{
-		kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << "Disconnected. NOT sending a PING." << endl;
+		kdDebug(YAHOO_RAW_DEBUG) << "Disconnected. NOT sending a PING." << endl;
 		return;
 	}
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << "Sending a PING." << endl;
+	kdDebug(YAHOO_RAW_DEBUG) << "Sending a PING." << endl;
 	PingTask *pt = new PingTask( d->root );
 	pt->go( true );
 }
@@ -438,6 +456,10 @@ void Client::stealthContact(QString const &userId, Yahoo::StealthMode mode, Yaho
 void Client::addBuddy( const QString &userId, const QString &group, const QString &message )
 {
 	ModifyBuddyTask *mbt = new ModifyBuddyTask( d->root );
+
+	QObject::connect(mbt, SIGNAL(buddyAddResult( const QString &, const QString &, bool )),
+			 SIGNAL(buddyAddResult( const QString &, const QString &, bool)));
+
 	mbt->setType( ModifyBuddyTask::AddBuddy );
 	mbt->setTarget( userId );
 	mbt->setGroup( group );
@@ -448,6 +470,10 @@ void Client::addBuddy( const QString &userId, const QString &group, const QStrin
 void Client::removeBuddy( const QString &userId, const QString &group )
 {
 	ModifyBuddyTask *mbt = new ModifyBuddyTask( d->root );
+
+	QObject::connect(mbt, SIGNAL(buddyRemoveResult( const QString &, const QString &, bool )),
+			 SIGNAL(buddyRemoveResult( const QString &, const QString &, bool)));
+
 	mbt->setType( ModifyBuddyTask::RemoveBuddy );
 	mbt->setTarget( userId );
 	mbt->setGroup( group );
@@ -457,6 +483,10 @@ void Client::removeBuddy( const QString &userId, const QString &group )
 void Client::moveBuddy( const QString &userId, const QString &oldGroup, const QString &newGroup )
 {
 	ModifyBuddyTask *mbt = new ModifyBuddyTask( d->root );
+
+	QObject::connect(mbt, SIGNAL(buddyChangeGroupResult( const QString &, const QString &, bool )),
+			 SIGNAL(buddyChangeGroupResult( const QString &, const QString &, bool)));
+
 	mbt->setType( ModifyBuddyTask::MoveBuddy );
 	mbt->setTarget( userId );
 	mbt->setOldGroup( oldGroup );
@@ -466,8 +496,33 @@ void Client::moveBuddy( const QString &userId, const QString &oldGroup, const QS
 
 // ***** Buddyicon handling *****
 
+void Client::processPictureQueue()
+{
+	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	d->buddyListReady = true;
+	if( d->pictureRequestQueue.isEmpty() )
+	{
+		return;
+	}
+
+	requestPicture( d->pictureRequestQueue.front() );
+	d->pictureRequestQueue.pop_front();
+
+
+	if( !d->pictureRequestQueue.isEmpty() )
+	{
+		QTimer::singleShot( 1000, this, SLOT(processPictureQueue()) );
+	}
+}
+
 void Client::requestPicture( const QString &userId )
 {
+	if( !d->buddyListReady )
+	{
+		d->pictureRequestQueue << userId;
+		return;
+	}
+
 	RequestPictureTask *rpt = new RequestPictureTask( d->root );
 	rpt->setTarget( userId );
 	rpt->go( true );
@@ -478,8 +533,8 @@ void Client::downloadPicture(  const QString &userId, KURL url, int checksum )
 	if( !d->iconLoader )
 	{
 		d->iconLoader = new YahooBuddyIconLoader( this );
-		QObject::connect( d->iconLoader, SIGNAL(fetchedBuddyIcon(const QString&, KTempFile*, int )),
-				SIGNAL(pictureDownloaded(const QString&, KTempFile*,  int ) ) );
+		QObject::connect( d->iconLoader, SIGNAL(fetchedBuddyIcon(const QString&, const QByteArray &, int )),
+				SIGNAL(pictureDownloaded(const QString&, const QByteArray &,  int ) ) );
 	}
 
 	d->iconLoader->fetchBuddyIcon( QString(userId), KURL(url), checksum );
@@ -487,32 +542,31 @@ void Client::downloadPicture(  const QString &userId, KURL url, int checksum )
 
 void Client::uploadPicture( KURL url )
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << "URL: " << url.url() << endl;
+	kdDebug(YAHOO_RAW_DEBUG) << "URL: " << url.url() << endl;
 	SendPictureTask *spt = new SendPictureTask( d->root );
 	spt->setType( SendPictureTask::UploadPicture );
 	spt->setFilename( url.fileName() );
 	if ( url.isLocalFile() )
-		spt->setPath( url.path() );
+		spt->setPath( url.path() ); // FIXME: to test if is what we want
 	else
 		spt->setPath( url.url() );
-	d->pictureFlag = 2;
 	spt->go( true );
 }
 
-void Client::sendPictureChecksum( int checksum, const QString &who )
+void Client::sendPictureChecksum( const QString &userId, int checksum )
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << "checksum: " << checksum << endl;
+	kdDebug(YAHOO_RAW_DEBUG) << "checksum: " << checksum << endl;
 	SendPictureTask *spt = new SendPictureTask( d->root );
 	spt->setType( SendPictureTask::SendChecksum );
 	spt->setChecksum( checksum );
-	if( !who.isEmpty() )
-		spt->setTarget( who );
-	spt->go( true );	
+	if( !userId.isEmpty() )
+		spt->setTarget( userId );
+	spt->go( true );
 }
 
 void Client::sendPictureInformation( const QString &userId, const QString &url, int checksum )
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << "checksum: " << checksum << endl;
+	kdDebug(YAHOO_RAW_DEBUG) << "checksum: " << checksum << endl;
 	SendPictureTask *spt = new SendPictureTask( d->root );
 	spt->setType( SendPictureTask::SendInformation );
 	spt->setChecksum( checksum );
@@ -521,13 +575,16 @@ void Client::sendPictureInformation( const QString &userId, const QString &url, 
 	spt->go( true );
 }
 
-void Client::sendPictureStatusUpdate( const QString &userId, int type )
+void Client::setPictureStatus( Yahoo::PictureStatus status )
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << "Setting PictureStatus to: " << type << endl;
+	if( d->pictureFlag == status )
+		return;
+
+	kdDebug(YAHOO_RAW_DEBUG) << "Setting PictureStatus to: " << status << endl;
+	d->pictureFlag = status;
 	SendPictureTask *spt = new SendPictureTask( d->root );
 	spt->setType( SendPictureTask::SendStatus );
-	spt->setStatus( type );
-	spt->setTarget( userId );
+	spt->setStatus( status );
 	spt->go( true );
 }
 
@@ -624,10 +681,36 @@ void Client::deleteYABEntry(  YABEntry &entry )
 	myt->go(true);
 }
 
+// ***** Yahoo Chat *****
+void Client::getYahooChatCategories()
+{
+	d->yahooChatTask->getYahooChatCategories();
+}
+
+void Client::getYahooChatRooms( const Yahoo::ChatCategory &category )
+{
+	d->yahooChatTask->getYahooChatRooms( category );
+}
+
+void Client::joinYahooChatRoom( const Yahoo::ChatRoom &room )
+{
+	d->yahooChatTask->joinRoom( room );
+}
+
+void Client::sendYahooChatMessage( const QString &msg, const QString &handle )
+{
+	d->yahooChatTask->sendYahooChatMessage( msg, handle );
+}
+
+void Client::leaveChat()
+{
+	d->yahooChatTask->logout();
+}
+
 // ***** other *****
 void Client::notifyError( const QString &info, const QString & errorString, LogLevel level )
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << QString::fromLatin1("\nThe following error occured: %1\n    Reason: %2\n    LogLevel: %3")
+	kdDebug(YAHOO_RAW_DEBUG) << QString::fromLatin1("\nThe following error occurred: %1\n    Reason: %2\n    LogLevel: %3")
 		.arg(info).arg(errorString).arg(level) << endl;
 	d->errorString = errorString;
 	d->errorInformation = info;
@@ -675,12 +758,6 @@ QString Client::password()
 	return d->pass;
 }
 
-QCString Client::ipAddress()
-{
-	//TODO determine ip address
-	return "127.0.0.1";
-}
-
 QString Client::host()
 {
 	return d->host;
@@ -701,9 +778,14 @@ int Client::pictureFlag()
 	return d->pictureFlag;
 }
 
-void Client::setPictureFlag( int flag )
+int Client::pictureChecksum()
 {
-	d->pictureFlag = flag;
+	return d->pictureChecksum;
+}
+
+void Client::setPictureChecksum( int cs )
+{
+	d->pictureChecksum = cs;
 }
 
 QString Client::yCookie()
@@ -723,7 +805,7 @@ QString Client::cCookie()
 
 void Client::distribute( Transfer * transfer )
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_GEN_DEBUG) << k_funcinfo << endl;
 	if( !rootTask()->take( transfer ) )
 		kdDebug(YAHOO_RAW_DEBUG) << "CLIENT: root task refused transfer" << endl;
 	delete transfer;
@@ -731,9 +813,9 @@ void Client::distribute( Transfer * transfer )
 
 void Client::send( Transfer* request )
 {
-	kdDebug(YAHOO_RAW_DEBUG) << "CLIENT::send()"<< endl;
+	kdDebug(YAHOO_RAW_DEBUG) << "CLIENT::send()" << endl;
 	if( !d->stream )
-	{	
+	{
 		kdDebug(YAHOO_RAW_DEBUG) << "CLIENT - NO STREAM TO SEND ON!" << endl;
 		return;
 	}
@@ -743,7 +825,7 @@ void Client::send( Transfer* request )
 
 void Client::debug(const QString &str)
 {
-	qDebug( "CLIENT: %s", str.ascii() );
+       qDebug( "CLIENT: %s", str.ascii() );
 }
 
 Task * Client::rootTask()
@@ -757,23 +839,21 @@ void Client::initTasks()
 		return;
 
 	d->statusTask = new StatusNotifierTask( d->root );
-	QObject::connect( d->statusTask, SIGNAL( statusChanged( const QString&, int, const QString&, int, int ) ), 
-				SIGNAL( statusChanged( const QString&, int, const QString&, int, int ) ) );
-	QObject::connect( d->statusTask, SIGNAL( stealthStatusChanged( const QString&, Yahoo::StealthStatus ) ), 
+	QObject::connect( d->statusTask, SIGNAL( statusChanged(const QString&,int,const QString&,int,int,int) ),
+				SIGNAL( statusChanged(const QString&,int,const QString&,int,int,int) ) );
+	QObject::connect( d->statusTask, SIGNAL( stealthStatusChanged( const QString&, Yahoo::StealthStatus ) ),
 				SIGNAL( stealthStatusChanged( const QString&, Yahoo::StealthStatus ) ) );
-	QObject::connect( d->statusTask, SIGNAL( loginResponse( int, const QString& ) ), 
+	QObject::connect( d->statusTask, SIGNAL( loginResponse( int, const QString& ) ),
 				SLOT( slotLoginResponse( int, const QString& ) ) );
-	QObject::connect( d->statusTask, SIGNAL( authorizationRejected( const QString&, const QString& ) ), 
+	QObject::connect( d->statusTask, SIGNAL( authorizationRejected( const QString&, const QString& ) ),
 				SIGNAL( authorizationRejected( const QString&, const QString& ) ) );
-	QObject::connect( d->statusTask, SIGNAL( authorizationAccepted( const QString& ) ), 
+	QObject::connect( d->statusTask, SIGNAL( authorizationAccepted( const QString& ) ),
 				SIGNAL( authorizationAccepted( const QString& ) ) );
-	QObject::connect( d->statusTask, SIGNAL( gotAuthorizationRequest( const QString &, const QString &, const QString & ) ), 
+	QObject::connect( d->statusTask, SIGNAL( gotAuthorizationRequest( const QString &, const QString &, const QString & ) ),
 				SIGNAL( gotAuthorizationRequest( const QString &, const QString &, const QString & ) ) );
-	QObject::connect( d->statusTask, SIGNAL( gotPictureChecksum( const QString &, int ) ),
-				SIGNAL( pictureChecksumNotify( const QString &, int ) ) );
 
 	d->mailTask = new MailNotifierTask( d->root );
-	QObject::connect( d->mailTask, SIGNAL( mailNotify(const QString&, const QString&, int) ), 
+	QObject::connect( d->mailTask, SIGNAL( mailNotify(const QString&, const QString&, int) ),
 				SIGNAL( mailNotify(const QString&, const QString&, int) ) );
 
 	d->messageReceiverTask = new MessageReceiverTask( d->root );
@@ -797,8 +877,8 @@ void Client::initTasks()
 				SIGNAL( pictureInfoNotify( const QString &, KURL, int ) ) );
 	QObject::connect( d->pictureNotifierTask, SIGNAL( pictureRequest( const QString & ) ),
 				SIGNAL( pictureRequest( const QString & ) ) );
-	QObject::connect( d->pictureNotifierTask, SIGNAL( pictureUploaded( const QString & ) ),
-				SIGNAL( pictureUploaded( const QString & ) ) );
+	QObject::connect( d->pictureNotifierTask, SIGNAL( pictureUploaded( const QString &, int ) ),
+				SIGNAL( pictureUploaded( const QString &, int ) ) );
 
 	d->webcamTask = new WebcamTask( d->root );
 	QObject::connect( d->webcamTask, SIGNAL( webcamImageReceived( const QString &, const QPixmap &) ),
@@ -839,10 +919,24 @@ void Client::initTasks()
 				SIGNAL( gotYABRevision( long, bool ) ) );
 
 	d->fileTransferTask = new FileTransferNotifierTask( d->root );
-	QObject::connect( d->fileTransferTask, SIGNAL(incomingFileTransfer( const QString &, const QString &, 
-					long, const QString &, const QString &, unsigned long )),
-				SIGNAL(incomingFileTransfer( const QString &, const QString &, 
-					long, const QString &, const QString &, unsigned long )) );
+	QObject::connect( d->fileTransferTask, SIGNAL(incomingFileTransfer( const QString &, const QString &,
+					long, const QString &, const QString &, unsigned long, const QPixmap & )),
+				SIGNAL(incomingFileTransfer( const QString &, const QString &,
+					long, const QString &, const QString &, unsigned long, const QPixmap & )) );
+
+	d->yahooChatTask = new YahooChatTask( d->root );
+	QObject::connect( d->yahooChatTask, SIGNAL(gotYahooChatCategories( const QDomDocument & )),
+				SIGNAL(gotYahooChatCategories( const QDomDocument & )) );
+	QObject::connect( d->yahooChatTask, SIGNAL(gotYahooChatRooms( const Yahoo::ChatCategory &, const QDomDocument & )),
+				SIGNAL(gotYahooChatRooms( const Yahoo::ChatCategory &, const QDomDocument & )) );
+	QObject::connect( d->yahooChatTask, SIGNAL(chatRoomJoined( int , int , const QString &, const QString & ) ),
+				SIGNAL(chatRoomJoined( int , int , const QString &, const QString & ) ) );
+	QObject::connect( d->yahooChatTask, SIGNAL(chatBuddyHasJoined( const QString &, const QString &, bool  ) ),
+				SIGNAL(chatBuddyHasJoined( const QString &, const QString &, bool  ) ) );
+	QObject::connect( d->yahooChatTask, SIGNAL(chatBuddyHasLeft(QString,QString) ),
+				SIGNAL(chatBuddyHasLeft(QString,QString) ) );
+	QObject::connect( d->yahooChatTask, SIGNAL(chatMessageReceived( const QString &, const QString &, const QString & ) ),
+				SIGNAL(chatMessageReceived( const QString &, const QString &, const QString & ) ) );
 }
 
 void Client::deleteTasks()
@@ -864,6 +958,10 @@ void Client::deleteTasks()
 	d->yabTask = 0L;
 	d->fileTransferTask->deleteLater();
 	d->fileTransferTask = 0;
+	d->yahooChatTask->deleteLater();
+	d->yahooChatTask = 0;
+	d->receiveFileTask->deleteLater();
+	d->receiveFileTask = 0;
 }
 
 #include "client.moc"

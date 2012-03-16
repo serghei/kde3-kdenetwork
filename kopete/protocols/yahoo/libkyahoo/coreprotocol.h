@@ -1,14 +1,14 @@
 /*
     Kopete Yahoo Protocol
-    
+
     Copyright (c) 2004 Duncan Mac-Vicar P. <duncan@kde.org>
-    
-    Based on code 
+
+    Based on code
     Copyright (c) 2004 SuSE Linux AG <http://www.suse.com>
-    Copyright (C) 2003  Justin Karneges
-    
+    Copyright (C) 2003  Justin Karneges <justin@affinix.com>
+
     Kopete (c) 2002-2004 by the Kopete developers <kopete-devel@kde.org>
- 
+
     *************************************************************************
     *                                                                       *
     * This library is free software; you can redistribute it and/or         *
@@ -22,9 +22,7 @@
 #ifndef YAHOO_CORE_PROTOCOL_H
 #define YAHOO_CORE_PROTOCOL_H
 
-#include <qcstring.h>
 #include <qobject.h>
-#include <qptrlist.h>
 
 class Transfer;
 class YMSGProtocol;
@@ -36,43 +34,43 @@ public:
 	enum State { NeedMore, Available, NoData, OutOfSync };
 
 	CoreProtocol();
-	
+
 	virtual ~CoreProtocol();
-	
+
 	/**
 	 * Reset the protocol, clear buffers
 	 */
 	void reset();
-	
+
 	/**
 	 * Accept data from the network, and buffer it into a useful message
 	 * This requires parsing out each FLAP, etc. from the incoming data
 	 * @param incomingBytes Raw data in wire format.
 	 */
 	void addIncomingData( const QByteArray& incomingBytes );
-	
+
 	/**
 	 * @return the incoming transfer or 0 if none is available.
 	 */
 	Transfer* incomingTransfer();
-	
-	/** 
+
+	/**
 	 * Convert a request into an outgoing transfer
 	 * emits @ref outgoingData() with each part of the transfer
 	 */
 	void outgoingTransfer( Transfer* outgoing );
-	
+
 	/**
-	 * Get the state of the protocol 
+	 * Get the state of the protocol
 	 */
 	int state();
-	
+
 signals:
-	/** 
+	/**
 	 * Emitted as the core protocol converts fields to wire ready data
 	 */
 	void outgoingData( const QByteArray& );
-	
+
 	/**
 	 * Emitted when there is incoming data, parsed into a Transfer
 	 */
@@ -81,8 +79,8 @@ protected slots:
 	/**
 	 * Just a debug method to test emitting to the socket, atm - should go to the ClientStream
 	 */
-	void slotOutgoingData( const QCString & );
-	
+	void slotOutgoingData( const QByteArray & );
+
 protected:
 	/**
 	 * Check that there is data to read, and set the protocol's state if there isn't any.
@@ -91,7 +89,7 @@ protected:
 	/**
 	 * Convert incoming wire data into a Transfer object and queue it
 	 * @return number of bytes from the input that were parsed into a Transfer
-	 */ 
+	 */
 	int wireToTransfer( const QByteArray& wire );
 
 private:

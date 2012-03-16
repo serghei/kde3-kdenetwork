@@ -2,7 +2,7 @@
     Kopete Yahoo Protocol
     Log off the Yahoo server
 
-    Copyright (c) 2005 André Duffeck <andre.duffeck@kdemail.net>
+    Copyright (c) 2005 André Duffeck <duffeck@kde.org>
 
     *************************************************************************
     *                                                                       *
@@ -24,7 +24,7 @@
 
 LogoffTask::LogoffTask(Task* parent) : Task(parent)
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_RAW_DEBUG) ;
 }
 
 LogoffTask::~LogoffTask()
@@ -33,11 +33,11 @@ LogoffTask::~LogoffTask()
 
 void LogoffTask::onGo()
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_RAW_DEBUG) ;
 
 	YMSGTransfer *t = new YMSGTransfer(Yahoo::ServiceLogoff);
 	t->setId( client()->sessionID() );
 	send( t );
-	
-	setSuccess( true );
+
+	setSuccess();
 }

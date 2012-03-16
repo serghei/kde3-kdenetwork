@@ -2,7 +2,7 @@
     Kopete Yahoo Protocol
     Handles several lists such as buddylist, ignorelist and so on
 
-    Copyright (c) 2005 André Duffeck <andre.duffeck@kdemail.net>
+    Copyright (c) 2005 André Duffeck <duffeck@kde.org>
 
     *************************************************************************
     *                                                                       *
@@ -31,18 +31,16 @@ Q_OBJECT
 public:
 	ListTask(Task *parent);
 	~ListTask();
-	
+
 	bool take(Transfer *transfer);
 
 protected:
-	bool forMe( Transfer *transfer ) const;
+	virtual bool forMe( const Transfer *transfer ) const;
 	void parseBuddyList( YMSGTransfer *transfer );
-	void parseStealthList( YMSGTransfer *transfer );	
+	void parseStealthList( YMSGTransfer *transfer );
 signals:
 	void gotBuddy(const QString&, const QString&, const QString&);
 	void stealthStatusChanged( const QString&, Yahoo::StealthStatus );
-private:
-	QString m_list;
 };
 
 #endif

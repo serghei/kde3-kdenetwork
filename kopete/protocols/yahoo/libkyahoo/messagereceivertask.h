@@ -2,7 +2,7 @@
     Kopete Yahoo Protocol
     Receive Messages
 
-    Copyright (c) 2005 André Duffeck <andre.duffeck@kdemail.net>
+    Copyright (c) 2005 André Duffeck <duffeck@kde.org>
 
     *************************************************************************
     *                                                                       *
@@ -35,7 +35,7 @@ public:
 	bool take(Transfer *transfer);
 
 protected:
-	bool forMe( Transfer *transfer ) const;
+	virtual bool forMe( const Transfer *transfer ) const;
 	void parseMessage( YMSGTransfer *transfer );
 	void parseNotify( YMSGTransfer *transfer );
 signals:

@@ -15,8 +15,8 @@
     *************************************************************************
 */
 
-#ifndef KNETWORKBYTESTREAM_H
-#define KNETWORKBYTESTREAM_H
+#ifndef YAHOOBYTESTREAM_H
+#define YAHOOBYTESTREAM_H
 
 #include <kbufferedsocket.h>
 
@@ -27,14 +27,14 @@
  * Low level socket class, using KDE's KNetwork socket classes
  * @author Till Gerken
  */
- 
+
 class KNetworkByteStream : public ByteStream
 {
 
 Q_OBJECT
 
 public:
-	KNetworkByteStream ( QObject *parent = 0, const char *name = 0 );
+	KNetworkByteStream ( QObject *parent = 0 );
 
 	~KNetworkByteStream ();
 
@@ -63,7 +63,6 @@ private:
 
 };
 
-#endif
+#endif // YAHOOBYTESTREAM_H
 
 // kate: indent-width 4; replace-tabs off; tab-width 4; space-indent off;
-

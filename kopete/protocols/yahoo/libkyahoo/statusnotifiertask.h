@@ -2,7 +2,7 @@
     Kopete Yahoo Protocol
     Notifies about status changes of buddies
 
-    Copyright (c) 2005 André Duffeck <andre.duffeck@kdemail.net>
+    Copyright (c) 2005 André Duffeck <duffeck@kde.org>
 
     *************************************************************************
     *                                                                       *
@@ -36,18 +36,17 @@ public:
 	bool take(Transfer *transfer);
 
 protected:
-	bool forMe( Transfer *transfer ) const;
+	virtual bool forMe( const Transfer *transfer ) const;
 	void parseStatus( YMSGTransfer *transfer );
 	void parseStealthStatus( YMSGTransfer *transfer );
 	void parseAuthorization( YMSGTransfer *transfer );
 signals:
-	void statusChanged( const QString&, int, const QString&, int, int );
+	void statusChanged( const QString &nick, int state, const QString &message, int away, int idle, int pictureChecksum );
 	void stealthStatusChanged( const QString&, Yahoo::StealthStatus );
 	void loginResponse( int, const QString& );
 	void authorizationAccepted( const QString & );
 	void authorizationRejected( const QString &, const QString & );
 	void gotAuthorizationRequest( const QString &, const QString &, const QString & );
-	void gotPictureChecksum( const QString &, int );
 };
 
 #endif

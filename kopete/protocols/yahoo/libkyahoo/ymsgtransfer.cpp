@@ -4,7 +4,7 @@
 
     Copyright (c) 2004 Duncan Mac-Vicar P. <duncan@kde.org>
 
-    Copyright (c) 2005 André Duffeck <andre.duffeck@kdemail.net>
+    Copyright (c) 2005 André Duffeck <duffeck@kde.org>
 
     Kopete (c) 2002-2005 by the Kopete developers <kopete-devel@kde.org>
 
@@ -23,6 +23,7 @@
 #include "ymsgtransfer.h"
 #include "yahootypes.h"
 #include "kdebug.h"
+
 #include <qdatastream.h>
 #include <qmap.h>
 #include <qstring.h>
@@ -39,7 +40,7 @@ public:
 	int packetLength;
 	Yahoo::Service service;
 	Yahoo::Status status;
-	unsigned int id;	
+	unsigned int id;
 	ParamList data;
 	bool valid;
 };
@@ -80,12 +81,12 @@ Transfer::TransferType YMSGTransfer::type()
 	return Transfer::YMSGTransfer;
 }
 
-bool YMSGTransfer::isValid()
+bool YMSGTransfer::isValid() const
 {
 	return d->valid;
 }
 
-Yahoo::Service YMSGTransfer::service()
+Yahoo::Service YMSGTransfer::service() const
 {
 	return d->service;
 }
@@ -95,7 +96,7 @@ void YMSGTransfer::setService(Yahoo::Service service)
 	d->service = service;
 }
 
-Yahoo::Status YMSGTransfer::status()
+Yahoo::Status YMSGTransfer::status() const
 {
 	return d->status;
 }
@@ -105,7 +106,7 @@ void YMSGTransfer::setStatus(Yahoo::Status status)
 	d->status = status;
 }
 
-unsigned int YMSGTransfer::id()
+unsigned int YMSGTransfer::id() const
 {
 	return d->id;
 }
@@ -115,15 +116,25 @@ void YMSGTransfer::setId(unsigned int id)
 	d->id = id;
 }
 
-ParamList YMSGTransfer::paramList()
+int YMSGTransfer::packetLength() const
+{
+	return d->packetLength;
+}
+
+void YMSGTransfer::setPacketLength(int len)
+{
+	d->packetLength = len;
+}
+
+ParamList YMSGTransfer::paramList() const
 {
 	return d->data;
 }
 
-int YMSGTransfer::paramCount( int index )
+int YMSGTransfer::paramCount( int index ) const
 {
 	int cnt = 0;
-	for (ParamList::ConstIterator it = d->data.begin(); it !=  d->data.end(); ++it) 
+	for (ParamList::ConstIterator it = d->data.constBegin(); it !=  d->data.constEnd(); ++it)
 	{
 		if( (*it).first == index )
 			cnt++;
@@ -132,34 +143,34 @@ int YMSGTransfer::paramCount( int index )
 }
 
 
-QCString YMSGTransfer::nthParam( int index, int occurence )
+QCString YMSGTransfer::nthParam( int index, int occurrence ) const
 {
 	int cnt = 0;
-	for (ParamList::ConstIterator it = d->data.begin(); it !=  d->data.end(); ++it) 
+	for (ParamList::ConstIterator it = d->data.constBegin(); it !=  d->data.constEnd(); ++it)
 	{
-		if( (*it).first == index && cnt++ == occurence)
+		if( (*it).first == index && cnt++ == occurrence)
 			return (*it).second;
 	}
 	return QCString();
 }
 
-QCString YMSGTransfer::nthParamSeparated( int index, int occurence, int separator )
+QCString YMSGTransfer::nthParamSeparated( int index, int occurrence, int separator ) const
 {
 
 	int cnt = -1;
-	for (ParamList::ConstIterator it = d->data.begin(); it !=  d->data.end(); ++it) 
+	for (ParamList::ConstIterator it = d->data.constBegin(); it !=  d->data.constEnd(); ++it)
 	{
 		if( (*it).first == separator )
 			cnt++;
-		if( (*it).first == index && cnt == occurence)
+		if( (*it).first == index && cnt == occurrence)
 			return (*it).second;
 	}
 	return QCString();
 }
 
-QCString YMSGTransfer::firstParam( int index )
+QCString YMSGTransfer::firstParam( int index ) const
 {
-	for (ParamList::ConstIterator it = d->data.begin(); it !=  d->data.end(); ++it) 
+	for (ParamList::ConstIterator it = d->data.constBegin(); it !=  d->data.constEnd(); ++it)
 	{
 		if( (*it).first == index )
 			return (*it).second;
@@ -177,10 +188,10 @@ void YMSGTransfer::setParam( int index, int data )
 	d->data.append( Param( index, QString::number( data ).local8Bit() ) );
 }
 
-int YMSGTransfer::length()
+int YMSGTransfer::length() const
 {
 	int len = 0;
-	for (ParamList::ConstIterator it = d->data.begin(); it !=  d->data.end(); ++it) 
+	for (ParamList::ConstIterator it = d->data.constBegin(); it !=  d->data.constEnd(); ++it)
 	{
 		len += QString::number( (*it).first ).length();
 		len += 2;
@@ -191,7 +202,7 @@ int YMSGTransfer::length()
 }
 
 
-QByteArray YMSGTransfer::serialize()
+QByteArray YMSGTransfer::serialize() const
 {
 	/*
 	<------- 4B -------><------- 4B -------><---2B--->
@@ -205,17 +216,17 @@ QByteArray YMSGTransfer::serialize()
 	/                   0 - 65535*                   |
 	+-------------------------------------------------+
 	*/
-	
+
 	int pos = 0;
 	QStringList::ConstIterator listIt = 0;
 	QByteArray buffer;
 	QDataStream stream( buffer, IO_WriteOnly );
-	
+
 	stream << (Q_INT8)'Y' << (Q_INT8)'M' << (Q_INT8)'S' << (Q_INT8)'G';
 	if( d->service == Yahoo::ServicePictureUpload )
-		stream << (Q_INT16)0x0e00;
+		stream << (Q_INT16)0x0f00;
 	else
-		stream << (Q_INT16)0x000e;
+		stream << (Q_INT16)0x000f;
 	stream << (Q_INT16)0x0000;
 	if( d->service == Yahoo::ServicePictureUpload ||
 		d->service == Yahoo::ServiceFileTransfer )
@@ -225,15 +236,15 @@ QByteArray YMSGTransfer::serialize()
 	stream << (Q_INT16)d->service;
 	stream << (Q_INT32)d->status;
 	stream << (Q_INT32)d->id;
- 	for (ParamList::ConstIterator it = d->data.begin(); it !=  d->data.end(); ++it) 
+ 	for (ParamList::ConstIterator it = d->data.constBegin(); it !=  d->data.constEnd(); ++it)
 	{
- 		kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << " Serializing key " << (*it).first << " value " << (*it).second << endl;
+ 		kdDebug(YAHOO_RAW_DEBUG) << " Serializing key " << (*it).first << " value " << (*it).second << endl;
 		stream.writeRawBytes ( QString::number( (*it).first ).local8Bit(), QString::number( (*it).first ).length() );
 		stream << (Q_INT8)0xc0 << (Q_INT8)0x80;
 		stream.writeRawBytes( (*it).second, (*it).second.length() );
 		stream << (Q_INT8)0xc0 << (Q_INT8)0x80;
 	}
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << " pos=" << pos << " (packet size)" << buffer << endl;
+	kdDebug(YAHOO_RAW_DEBUG) << " pos=" << pos << " (packet size)" << buffer << endl;
 	return buffer;
 }
 

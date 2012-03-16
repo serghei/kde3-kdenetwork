@@ -4,7 +4,7 @@
 
     Copyright (c) 2004 Duncan Mac-Vicar P. <duncan@kde.org>
 
-    Copyright (c) 2005 André Duffeck <andre.duffeck@kdemail.net>
+    Copyright (c) 2005 André Duffeck <duffeck@kde.org>
 
     Kopete (c) 2002-2005 by the Kopete developers <kopete-devel@kde.org>
 
@@ -27,6 +27,11 @@
 class QString;
 class YMSGTransfer;
 
+namespace KIO
+{
+	class Job;
+}
+
 /**
 @author Duncan Mac-Vicar
 */
@@ -36,7 +41,7 @@ Q_OBJECT
 public:
 	LoginTask(Task *parent);
 	~LoginTask();
-	
+
 	bool take(Transfer* transfer);
 	virtual void onGo();
 
@@ -49,7 +54,7 @@ public:
 	const QString &tCookie();
 	const QString &loginCookie();
 protected:
-	bool forMe( Transfer* transfer ) const;
+	virtual bool forMe( const Transfer* transfer ) const;
 	enum State { InitialState, SentVerify, GotVerifyACK, SentAuth, GotAuthACK, SentAuthResp };
 	void sendVerify();
 	void sendAuth(YMSGTransfer* transfer);
@@ -58,10 +63,20 @@ protected:
 	void sendAuthResp_pre_0x0b(const QString &sn, const QString &seed);
 	void handleAuthResp(YMSGTransfer *transfer);
 	void parseCookies( YMSGTransfer *transfer );
+	void sendAuthSixteenStage1(const QString& sn, const QString& seed);
+	void sendAuthSixteenStage2(const QString& token);
+	void sendAuthSixteenStage3(const QString& cryptString);
+protected slots:
+	void handleAuthSixteenStage1Data(KIO::Job*, const QByteArray& data);
+	void handleAuthSixteenStage1Result(KIO::Job*);
+	void handleAuthSixteenStage2Data(KIO::Job*, const QByteArray& data);
+	void handleAuthSixteenStage2Result(KIO::Job*);
+
 signals:
 	void haveSessionID( uint );
 	void haveCookies();
 	void loginResponse( int, const QString& );
+	void buddyListReady();
 private:
 	State mState;
 	Yahoo::Status m_stateOnConnect;
@@ -70,6 +85,10 @@ private:
 	QString m_cCookie;
 	QString m_loginCookie;
 	QString m_verificationWord;
+	QString m_stage1Data;
+	QString m_stage2Data;
+	QString m_challengeString;
+	uint m_sessionID;
 };
 
 #endif

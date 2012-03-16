@@ -2,7 +2,7 @@
     Kopete Yahoo Protocol
     Stealth/Unstealth a buddy
 
-    Copyright (c) 2005 André Duffeck <andre.duffeck@kdemail.net>
+    Copyright (c) 2005 André Duffeck <duffeck@kde.org>
 
     *************************************************************************
     *                                                                       *
@@ -23,7 +23,7 @@
 
 StealthTask::StealthTask(Task* parent) : Task(parent)
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_RAW_DEBUG) ;
 }
 
 StealthTask::~StealthTask()
@@ -37,7 +37,7 @@ void StealthTask::onGo()
 	{
 		t->setService( Yahoo::ServiceStealthOnline );
 		t->setParam( 13, "1" );
-		t->setParam( 31, m_state );	
+		t->setParam( 31, m_state );
 	}
 	else if( m_mode == Yahoo::StealthOffline )
 	{
@@ -53,11 +53,16 @@ void StealthTask::onGo()
 	}
 	t->setId( client()->sessionID() );
 	t->setParam( 1, client()->userId().local8Bit());
-	if( !m_target.isEmpty() )
+	if( !m_target.isEmpty() ) {
+		t->setParam( 302, 319 );
+		t->setParam( 300, 319 );
 		t->setParam( 7, m_target.local8Bit() );
+		t->setParam( 301, 319 );
+		t->setParam( 303, 319 );
+	}
 	send( t );
-	
-	setSuccess( true );
+
+	setSuccess();
 }
 
 void StealthTask::setTarget( const QString &to )

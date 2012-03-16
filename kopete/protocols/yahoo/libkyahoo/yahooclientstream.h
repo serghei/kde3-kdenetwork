@@ -1,13 +1,13 @@
 /*
 	oscarclientstream.h - Kopete Yahoo Protocol
-	
+
 	Copyright (c) 2004 Matt Rogers <matt.rogers@kdemail.net>
-	
+
 	Based on code Copyright (c) 2004 SuSE Linux AG <http://www.suse.com>
-	Based on Iris, Copyright (C) 2003  Justin Karneges
-	
+	Based on Iris, Copyright (C) 2003  Justin Karneges <justin@affinix.com>
+
 	Kopete (c) 2002-2004 by the Kopete developers <kopete-devel@kde.org>
-	
+
 	*************************************************************************
 	*                                                                       *
 	* This library is free software; you can redistribute it and/or         *
@@ -26,7 +26,6 @@
 class QHostAddress;
 
 // forward defines
-class ByteStream;
 class Connector;
 class Transfer;
 
@@ -40,20 +39,20 @@ public:
 		ErrAuth,                    // Auth error, see condition
 		ErrBind                     // Resource binding error
 	};
-	
+
 	enum Warning {
-		WarnOldVersion,             // server uses older XMPP/Jabber "0.9" protocol  // can be customised for novell versions
+		WarnOldVersion,             // server uses older XMPP/Jabber "0.9" protocol  // can be customized for novell versions
 		WarnNoTLS                   // there is no chance for TLS at this point
 	};
-	
+
 	enum NegCond {
 		HostGone,                   // host no longer hosted
 		HostUnknown,                // unknown host
 		RemoteConnectionFailed,     // unable to connect to a required remote resource
 		SeeOtherHost,               // a 'redirect', see errorText() for other host
 		UnsupportedVersion          // unsupported XMPP version
-	};
-
+	}
+;
 	enum AuthCond {
 		GenericAuthError,           // all-purpose "can't login" error
 		NoMech,                     // No appropriate auth mech available
@@ -66,13 +65,13 @@ public:
 		NotAuthorized,              // bad user, bad password, bad creditials
 		TemporaryAuthFailure        // please try again later!
 	};
-	
+
 	enum BindCond {
 		BindNotAllowed,             // not allowed to bind a resource
 		BindConflict                // resource in-use
 	};
 
-	ClientStream(Connector *conn, QObject *parent=0);
+	explicit ClientStream(Connector *conn, QObject *parent=0);
 	~ClientStream();
 
 	void connectToServer(const QString& server, bool auth=true);
@@ -87,12 +86,12 @@ public:
 	void setLocalAddr(const QHostAddress &addr, Q_UINT16 port);
 
 	void close();
-	
+
 	/**
 	 * Are there any messages waiting to be read
 	 */
 	bool transfersAvailable() const;
-	
+
 	/**
 	 * Read a message received from the server
 	 */
@@ -124,7 +123,7 @@ private slots:
 	void cr_error();
 	/**
 	 * collects wire ready outgoing data from the core protocol and sends
-	 */ 
+	 */
 	void cp_outgoingData( const QByteArray& );
 	/**
 	 * collects parsed incoming data as a transfer from the core protocol and queues
@@ -142,15 +141,15 @@ private slots:
 
 private:
 	class Private;
-	Private *d;
+	Private * const d;
 
 	void reset(bool all=false);
 	void processNext();
 	bool handleNeed();
 	void handleError();
 	void srvProcessNext();
-	
-	/** 
+
+	/**
 	 * convert internal method representation to wire
 	 */
 	static char* encode_method(Q_UINT8 method);

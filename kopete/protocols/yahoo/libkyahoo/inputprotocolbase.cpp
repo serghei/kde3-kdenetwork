@@ -18,6 +18,7 @@
 
 #include "inputprotocolbase.h"
 
+
 InputProtocolBase::InputProtocolBase(QObject *parent, const char *name)
  : QObject(parent, name)
 {
@@ -59,6 +60,7 @@ bool InputProtocolBase::okToProceed()
 	return false;
 }
 
+// FIXME: need to be checked
 bool InputProtocolBase::safeReadBytes( QCString & data, uint & len )
 {
 	// read the length of the bytes
@@ -81,8 +83,8 @@ bool InputProtocolBase::safeReadBytes( QCString & data, uint & len )
 		// the rest of the string will be filled with FF,
 		// so look for that in the last position instead of \0
 		// this caused a crash - guessing that temp.length() is set to the number of bytes actually read...
-		// if ( (Q_UINT8)( * ( temp.data() + ( temp.length() - 1 ) ) ) == 0xFF )
-		if ( temp.length() < ( val - 1 ) )
+		// if ( (quint8)( * ( temp.data() + ( temp.length() - 1 ) ) ) == 0xFF )
+		if ( temp.length() < static_cast<int>( val - 1 ) )
 		{
 			qDebug( "InputProtocol::safeReadBytes() - string broke, giving up, only got: %i bytes out of %i",  temp.length(), val );
 			m_state = NeedMore;

@@ -23,12 +23,13 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * $Id: sha1.h 373471 2004-12-27 03:02:26Z dmacvicar $
+ * $Id: sha1.h 549618 2006-06-09 10:11:04Z mlaurent $
  */
 
 #ifndef _SHA1_H
 #define _SHA1_H
 
+#include "../../../../config.h"
 #if HAVE_INTTYPES_H
 # include <inttypes.h>
 #else

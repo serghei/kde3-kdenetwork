@@ -2,7 +2,7 @@
     Kopete Yahoo Protocol
     sendpicturetask.h - Send our picture or information about it
 
-    Copyright (c) 2005 André Duffeck <andre.duffeck@kdemail.net>
+    Copyright (c) 2005 André Duffeck <duffeck@kde.org>
 
     *************************************************************************
     *                                                                       *
@@ -21,11 +21,11 @@
 
 class QString;
 class QFile;
-namespace KIO	{ 
+namespace KIO	{
 	class Job;
-	class TransferJob; 
+	class TransferJob;
 }
-namespace KNetwork	{ 
+namespace KNetwork	{
 	class KBufferedSocket;
 }
 
@@ -39,8 +39,8 @@ public:
 	enum Type { UploadPicture, SendChecksum, SendInformation, SendStatus };
 
 	SendPictureTask(Task *parent);
-	~SendPictureTask();
-	
+	virtual ~SendPictureTask();
+
 	virtual void onGo();
 
 	void setType( Type type );

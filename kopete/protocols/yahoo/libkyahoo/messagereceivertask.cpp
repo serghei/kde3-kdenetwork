@@ -2,7 +2,7 @@
     Kopete Yahoo Protocol
     Receive Messages
 
-    Copyright (c) 2005 André Duffeck <andre.duffeck@kdemail.net>
+    Copyright (c) 2005 André Duffeck <duffeck@kde.org>
 
     *************************************************************************
     *                                                                       *
@@ -21,12 +21,11 @@
 #include "ymsgtransfer.h"
 #include "yahootypes.h"
 #include "client.h"
-#include <qstring.h>
 #include <kdebug.h>
 
 MessageReceiverTask::MessageReceiverTask(Task* parent) : Task(parent)
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_RAW_DEBUG) ;
 }
 
 MessageReceiverTask::~MessageReceiverTask()
@@ -35,8 +34,6 @@ MessageReceiverTask::~MessageReceiverTask()
 
 bool MessageReceiverTask::take( Transfer* transfer )
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
-	
 	if ( !forMe( transfer ) )
 		return false;
 
@@ -44,7 +41,7 @@ bool MessageReceiverTask::take( Transfer* transfer )
 	t = dynamic_cast<YMSGTransfer*>(transfer);
 	if (!t)
 		return false;
-	
+
 	if( t->service() == Yahoo::ServiceNotify )
 		parseNotify( t );
 	else
@@ -53,19 +50,17 @@ bool MessageReceiverTask::take( Transfer* transfer )
 	return true;
 }
 
-bool MessageReceiverTask::forMe( Transfer* transfer ) const
+bool MessageReceiverTask::forMe( const Transfer* transfer ) const
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
-	
-	YMSGTransfer *t = 0L;
-	t = dynamic_cast<YMSGTransfer*>(transfer);
+	const YMSGTransfer *t = 0L;
+	t = dynamic_cast<const YMSGTransfer*>(transfer);
 	if (!t)
 		return false;
 
 	if ( t->service() == Yahoo::ServiceMessage ||
 		t->service() == Yahoo::ServiceGameMsg ||
 		t->service() == Yahoo::ServiceSysMessage ||
-		t->service() == Yahoo::ServiceNotify )	
+		t->service() == Yahoo::ServiceNotify )
 		return true;
 	else
 		return false;
@@ -73,7 +68,7 @@ bool MessageReceiverTask::forMe( Transfer* transfer ) const
 
 void MessageReceiverTask::parseMessage( YMSGTransfer *t )
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_RAW_DEBUG) ;
 
 	int cnt = t->paramCount( 5 );
 	for( int i = 0; i < cnt; ++i )
@@ -89,26 +84,26 @@ void MessageReceiverTask::parseMessage( YMSGTransfer *t )
 		// Separating by key "5" (sender) doesn't work in that case, because the "1" and "4" keys are sent before the "5" key
 		if( cnt == 1 )
 			from = t->firstParam( 1 ).isEmpty() ? t->firstParam( 4 ) : t->firstParam( 1 );
-	
+
 		if( !sysmsg.isEmpty() )
 		{
 			client()->notifyError( "Server message received: ", sysmsg, Client::Error );
 			continue;
 		}
-	
+
 		if( msg.isEmpty() )
 		{
-			kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << "Got a empty message. Dropped." << endl;
+			kdDebug(YAHOO_RAW_DEBUG) << "Got a empty message. Dropped." << endl;
 			continue;
 		}
-	
+
 		if( utf8.startsWith( "1" ) )
 			msg = QString::fromUtf8( msg.latin1() );
-	
+
 		if( t->service() == Yahoo::ServiceSysMessage )
 			emit systemMessage( sysmsg );
 		else
-		{	
+		{
 			if( msg.startsWith( "<ding>" ) )
 				emit gotBuzz( from, timestamp.toLong() );
 			else
@@ -119,7 +114,7 @@ void MessageReceiverTask::parseMessage( YMSGTransfer *t )
 
 void MessageReceiverTask::parseNotify( YMSGTransfer *t )
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_RAW_DEBUG) ;
 
 	QString from = t->firstParam( 4 );
 	//QString to = t->firstParam( 5 );
@@ -135,12 +130,12 @@ void MessageReceiverTask::parseNotify( YMSGTransfer *t )
 	{
 		if( ind.startsWith(" ") )
 		{
-			kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << "Got a WebcamInvitation." << endl;
+			kdDebug(YAHOO_RAW_DEBUG) << "Got a WebcamInvitation." << endl;
 			emit gotWebcamInvite( from );
 		}
 		else
 		{
-			kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << "Got a WebcamRequest-Response: " << ind.toInt() << endl;
+			kdDebug(YAHOO_RAW_DEBUG) << "Got a WebcamRequest-Response: " << ind.toInt() << endl;
 		}
 	}
 }

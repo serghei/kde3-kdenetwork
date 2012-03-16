@@ -1,7 +1,7 @@
 /*
     yahoobuddyiconloader.h - Fetches YahooBuddyIcons
 
-    Copyright (c) 2005 by André Duffeck <andre@duffeck.de>
+    Copyright (c) 2005 by André Duffeck <duffeck@kde.org>
 
     *************************************************************************
     *                                                                       *
@@ -24,7 +24,7 @@
 // KDE Includes
 #include <kurl.h>
 
-class KTempFile;
+class KJob;
 class Client;
 namespace KIO {
 	class Job;
@@ -35,7 +35,7 @@ struct IconLoadJob {
 	KURL url;
 	QString who;
 	int checksum;
-	KTempFile *file;
+	QByteArray icon;
 };
 
 /**
@@ -60,9 +60,9 @@ public:
 signals:
 	/**
 	 * 	The account can connect to this signal and append the icon
-	 * 	stored in 'file' to the apropriate contact
+	 * 	stored in 'file' to the appropriate contact
 	 */
-	void fetchedBuddyIcon( const QString &who, KTempFile *file, int checksum );
+	void fetchedBuddyIcon( const QString &who, const QByteArray &icon, int checksum );
 
 private slots:
 	void slotData( KIO::Job *job, const QByteArray &data );

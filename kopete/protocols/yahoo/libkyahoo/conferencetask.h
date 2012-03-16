@@ -2,7 +2,7 @@
     Kopete Yahoo Protocol
     Handles conferences
 
-    Copyright (c) 2005 André Duffeck <andre.duffeck@kdemail.net>
+    Copyright (c) 2005 André Duffeck <duffeck@kde.org>
 
     *************************************************************************
     *                                                                       *
@@ -30,9 +30,9 @@ class ConferenceTask : public Task
 public:
 	ConferenceTask(Task *parent);
 	~ConferenceTask();
-	
+
 	bool take(Transfer *transfer);
-	bool forMe( Transfer* transfer ) const;
+	bool forMe( const Transfer* transfer ) const;
 
 	void joinConference( const QString &room, const QStringList &members );
 	void declineConference( const QString &room, const QStringList &members, const QString &msg );

@@ -2,7 +2,7 @@
     Kopete Yahoo Protocol
     Request a Picture of a Buddy
 
-    Copyright (c) 2005 André Duffeck <andre.duffeck@kdemail.net>
+    Copyright (c) 2005 André Duffeck <duffeck@kde.org>
 
     *************************************************************************
     *                                                                       *
@@ -29,10 +29,10 @@ class RequestPictureTask : public Task
 Q_OBJECT
 public:
 	RequestPictureTask(Task *parent);
-	~RequestPictureTask();
-	
+	virtual ~RequestPictureTask();
+
 	virtual void onGo();
-	
+
 	void setTarget( const QString &target );
 private:
 	QString m_target;

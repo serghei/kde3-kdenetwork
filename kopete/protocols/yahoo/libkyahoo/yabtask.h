@@ -2,7 +2,7 @@
     Kopete Yahoo Protocol
     yabtask.h - Handles the Yahoo Address Book
 
-    Copyright (c) 2006 André Duffeck <andre.duffeck@kdemail.net>
+    Copyright (c) 2006 André Duffeck <duffeck@kde.org>
     Kopete (c) 2002-2006 by the Kopete developers <kopete-devel@kde.org>
 
     *************************************************************************
@@ -22,12 +22,11 @@
 #include "yabentry.h"
 
 class YMSGTransfer;
-struct KURL;
-namespace KIO	{ 
+
+namespace KIO	{
 	class Job;
-	class TransferJob; 
+	class TransferJob;
 }
-class QDomElement;
 
 /**
 @author André Duffeck
@@ -38,9 +37,8 @@ class YABTask : public Task
 public:
 	YABTask(Task *parent);
 	~YABTask();
-	
+
 	bool take(Transfer *transfer);
-	bool forMe( Transfer* transfer ) const;
 
 	void getAllEntries( long lastMerge, long lastRemoteRevision );
 	void saveEntry( const YABEntry & );
@@ -48,6 +46,7 @@ signals:
 	void gotEntry( YABEntry * );
 	void gotRevision( long rev, bool merged );
 protected:
+	virtual bool forMe( const Transfer* transfer ) const;
 	void parseContactDetails( YMSGTransfer* t );
 private slots:
 	void slotData( KIO::Job*, const QByteArray & );

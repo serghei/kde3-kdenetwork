@@ -3,7 +3,7 @@
 
     Copyright (c) 2004 Duncan Mac-Vicar Prett <duncan@kde.org>
 
-    Copyright (c) 2005 André Duffeck <andre.duffeck@kdemail.net>
+    Copyright (c) 2005 André Duffeck <duffeck@kde.org>
     Kopete (c) 2002-2005 by the Kopete developers <kopete-devel@kde.org>
 
     *************************************************************************
@@ -26,17 +26,17 @@ class YMSGProtocol : public InputProtocolBase
 {
 Q_OBJECT
 public:
-	
+
 
 	YMSGProtocol( QObject *parent = 0, const char *name = 0 );
 	~YMSGProtocol();
-	
-	/** 
-	 * Attempt to parse the supplied data into an @ref YMSGTransfer object.  
-	 * The exact state of the parse attempt can be read using @ref state. 
+
+	/**
+	 * Attempt to parse the supplied data into an @ref YMSGTransfer object.
+	 * The exact state of the parse attempt can be read using @ref state.
 	 * @param rawData The unparsed data.
 	 * @param bytes An integer used to return the number of bytes read.
-	 * @return A pointer to an EventTransfer object if successfull, otherwise 0.  The caller is responsible for deleting this object.
+	 * @return A pointer to an EventTransfer object if successful, otherwise 0.  The caller is responsible for deleting this object.
 	 */
 	Transfer * parse( const QByteArray &, uint & bytes );
 };

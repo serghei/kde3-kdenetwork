@@ -4,7 +4,7 @@
 
     Copyright (c) 2004 Duncan Mac-Vicar P. <duncan@kde.org>
 
-    Copyright (c) 2005 André Duffeck <andre.duffeck@kdemail.net>
+    Copyright (c) 2005 André Duffeck <duffeck@kde.org>
 
     Kopete (c) 2002-2005 by the Kopete developers <kopete-devel@kde.org>
 
@@ -24,12 +24,11 @@
 #include "transfer.h"
 
 #include "yahootypes.h"
-#include <qcstring.h>
+
 #include <qpair.h>
 #include <qvaluelist.h>
 
 class YMSGTransferPrivate;
-class QString;
 
 typedef QPair< int, QCString > Param;
 typedef QValueList< Param > ParamList;
@@ -49,26 +48,29 @@ public:
 	TransferType type();
 
 	//! Get the validity of the transfer object
-	bool isValid();
-	Yahoo::Service service();
+	bool isValid() const;
+	Yahoo::Service service() const;
 	void setService(Yahoo::Service service);
-	Yahoo::Status status();
+	Yahoo::Status status() const;
 	void setStatus(Yahoo::Status status);
-	unsigned int id();
+	unsigned int id() const;
 	void setId(unsigned int id);
+	int packetLength() const;
+	void setPacketLength(int len);
 
-	ParamList paramList();
-	QCString firstParam( int index );
-	QCString nthParam( int index, int occurence );
-	QCString nthParamSeparated( int index, int occurence, int separator );
-	int paramCount( int index );
-	
+
+	ParamList paramList() const;
+	QCString firstParam( int index ) const;
+	QCString nthParam( int index, int occurrence ) const;
+	QCString nthParamSeparated( int index, int occurrence, int separator ) const;
+	int paramCount( int index ) const;
+
 
 	void setParam(int index, const QCString &data);
 	void setParam(int index, int data);
-	QByteArray serialize();
-	
-	int length();
+	QByteArray serialize() const;
+
+	int length() const;
 private:
 	YMSGTransferPrivate* d;
 };

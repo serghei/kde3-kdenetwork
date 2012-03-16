@@ -2,7 +2,7 @@
     Kopete Yahoo Protocol
     modifyyabtask.h - Handles the Yahoo Address Book
 
-    Copyright (c) 2006 André Duffeck <andre.duffeck@kdemail.net>
+    Copyright (c) 2006 André Duffeck <duffeck@kde.org>
     Kopete (c) 2002-2006 by the Kopete developers <kopete-devel@kde.org>
 
     *************************************************************************
@@ -33,7 +33,7 @@
 using namespace KNetwork;
 ModifyYABTask::ModifyYABTask(Task* parent) : Task(parent)
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_RAW_DEBUG) ;
 	m_socket = 0;
 }
 
@@ -44,7 +44,7 @@ ModifyYABTask::~ModifyYABTask()
 
 void ModifyYABTask::onGo()
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_RAW_DEBUG) ;
 	m_socket = new KBufferedSocket( "address.yahoo.com", QString::number(80) );
 	connect( m_socket, SIGNAL( connected( const KResolverEntry& ) ), this, SLOT( connectSucceeded() ) );
 	connect( m_socket, SIGNAL( gotError(int) ), this, SLOT( connectFailed(int) ) );
@@ -66,7 +66,7 @@ void ModifyYABTask::setEntry( const YABEntry &entry )
 	root.setAttribute( "k", client()->userId() );
 	root.setAttribute( "cc", "1" );
 	doc.appendChild( root );
-	
+
 	QDomElement contact = doc.createElement( "ct" );
 	entry.fillQDomElement( contact );
 	switch( m_action )
@@ -90,13 +90,14 @@ void ModifyYABTask::setEntry( const YABEntry &entry )
 void ModifyYABTask::connectFailed( int i)
 {
 	m_socket->close();
-	client()->notifyError( i18n( "An error occured saving the Addressbook entry." ), 
+	client()->notifyError( i18n( "An error occurred while saving the address book entry." ),
 			QString( "%1 - %2").arg(i).arg(static_cast<const KBufferedSocket*>( sender() )->errorString()), Client::Error );
 }
 
 void ModifyYABTask::connectSucceeded()
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_RAW_DEBUG) ;
+	KBufferedSocket* socket = const_cast<KBufferedSocket*>( static_cast<const KBufferedSocket*>( sender() ) );
 
 	QString header = QString::fromLatin1("POST /yab/us?v=XM&prog=ymsgr&.intl=us&sync=1&tags=short&noclear=1& HTTP/1.1\r\n"
 			"Cookie: Y=%1; T=%2; C=%3 ;B=fckeert1kk1nl&b=2\r\n"
@@ -112,38 +113,36 @@ void ModifyYABTask::connectSucceeded()
 	QDataStream stream( buffer, IO_WriteOnly );
 	stream.writeRawBytes( header.local8Bit(), header.length() );
 	stream.writeRawBytes( m_postData.utf8(), m_postData.utf8().size() );
-	
-	if( m_socket->writeBlock( buffer, buffer.size() ) )
-		kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << "Upload Successful. Waiting for confirmation..." << endl;
+
+	if( socket->writeBlock( buffer, buffer.size() ) )
+		kdDebug(YAHOO_RAW_DEBUG) << "Upload Successful. Waiting for confirmation..." << endl;
 	else
 	{
-		client()->notifyError( i18n( "An error occured saving the Addressbook entry." ), m_socket->errorString(), Client::Error );
-		setSuccess( false );
+		client()->notifyError( i18n( "An error occurred while saving the address book entry." ), m_socket->errorString(), Client::Error );
+		setError();
 		return;
 	}
-	
+
 	connect( m_socket, SIGNAL( readyRead() ), this, SLOT( slotRead() ) );
 }
 
 void ModifyYABTask::slotRead()
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
-	QByteArray ar( m_socket->bytesAvailable() );
-	m_socket->readBlock ( ar.data (), ar.size () );
-	QString buf( ar );
-	m_data += buf.right( buf.length() - buf.find("<?xml") );
+	KBufferedSocket* socket = const_cast<KBufferedSocket*>( static_cast<const KBufferedSocket*>( sender() ) );
+	QByteArray ar( socket->bytesAvailable() );
+	socket->readBlock( ar.data (), ar.size () );
+	QString data( ar );
+	data = data.right( data.length() - data.find("<?xml") );
 
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << m_data.find("</ab>") << endl;
 	if( m_data.find("</ab>") < 0 )
 		return;						// Need more data
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << m_data.find("</ab>") << endl;
 
 	m_socket->close();
 	QDomDocument doc;
 	QDomNodeList list;
 	QDomElement e;
-	uint it = 0;
-	
+	int it = 0;
+
 	doc.setContent( m_data );
 
 	list = doc.elementsByTagName( "ab" );			// Get the Addressbook
@@ -151,7 +150,7 @@ void ModifyYABTask::slotRead()
 		if( !list.item( it ).isElement() )
 			continue;
 		e = list.item( it ).toElement();
-		
+
 		if( !e.attribute( "lm" ).isEmpty() )
 			emit gotRevision( e.attribute( "lm" ).toLong(), true );
 
@@ -161,11 +160,11 @@ void ModifyYABTask::slotRead()
 
 	list = doc.elementsByTagName( "ct" );			// Get records
 	for( it = 0; it < list.count(); it++ )	{
-		kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << "Parsing entry..." << endl;
+		kdDebug(YAHOO_RAW_DEBUG) << "Parsing entry..." << endl;
 		if( !list.item( it ).isElement() )
 			continue;
 		e = list.item( it ).toElement();
-		
+
 		YABEntry *entry = new YABEntry;
 		entry->fromQDomElement( e );
 		entry->source = YABEntry::SourceYAB;
@@ -175,31 +174,31 @@ void ModifyYABTask::slotRead()
 		case EditEntry:
 			if( !e.attribute( "es" ).isEmpty() && e.attribute( "es" ) != "0" )		// Check for edit errors
 			{
-				emit error( entry, i18n("The Yahoo Addressbook entry could not be saved:\n%1 - %2").arg( e.attribute("es") ).arg( e.attribute("ee") ) );
+				emit error( entry, i18n("The Yahoo Address Book entry could not be saved:\n%1 - %2").arg( e.attribute("es") ).arg( e.attribute("ee") ) );
 				continue;
 			}
 			break;
 		case AddEntry:
 			if( !e.attribute( "as" ).isEmpty() && e.attribute( "as" ) != "0" )		// Check for add errors
 			{
-				emit error( entry, i18n("The Yahoo Addressbook entry could not be created:\n%1 - %2").arg( e.attribute("as") ).arg( e.attribute("ae") ) );
+				emit error( entry, i18n("The Yahoo Address Book entry could not be created:\n%1 - %2").arg( e.attribute("as") ).arg( e.attribute("ae") ) );
 				continue;
 			}
 			break;
 		case DeleteEntry:
 			if( !e.attribute( "ds" ).isEmpty() && e.attribute( "ds" ) != "0" )		// Check for delete errors
 			{
-				emit error( entry, i18n("The Yahoo Addressbook entry could not be deleted:\n%1 - %2").arg( e.attribute("ds") ).arg( e.attribute("de") ) );
+				emit error( entry, i18n("The Yahoo Address Book entry could not be deleted:\n%1 - %2").arg( e.attribute("ds") ).arg( e.attribute("de") ) );
 				continue;
 			}
 			break;
 		}
 
-		// No errors occured
+		// No errors occurred
 		emit gotEntry( entry );
 	}
 
-	
-	setSuccess( true );
+
+	setSuccess();
 }
 #include "modifyyabtask.moc"

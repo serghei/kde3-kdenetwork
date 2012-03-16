@@ -19,14 +19,15 @@
 #define YAHOOTYPESH
 
 #include <qglobal.h>
+#include <qstring.h>
 
 const int YAHOO_RAW_DEBUG = 14181;
 const int YAHOO_GEN_DEBUG = 14180;
 
 namespace Yahoo
 {
-	enum Service 
-	{ 
+	enum Service
+	{
 		/* these are easier to see in hex */
 		ServiceLogon = 1,
 		ServiceLogoff,
@@ -71,8 +72,8 @@ namespace Yahoo
 		ServiceAuthResp = 0x54,
 		ServiceList = 85,
 		ServiceAuth = 0x57,
-		ServiceAddBuddy = 0x83,
-		ServiceRemBuddy,
+		ServiceBuddyAdd = 0x83,
+		ServiceBuddyRemove = 0x84,
 		ServiceIgnoreContact,	/* > 1, 7, 13 < 1, 66, 13, 0*/
 		ServiceRejectContact,
 		ServiceGroupRename = 0x89, /* > 1, 65(new), 66(0), 67(old) */
@@ -95,15 +96,17 @@ namespace Yahoo
 		ServiceStatus = 0xc6,		/* YMSG13 */
 		ServicePictureStatus = 0xc7,	/* YMSG13, key 213: 0 = none, 1 = avatar, 2 = picture */
 		ServiceContactDetails = 0xd3,	/* YMSG13 */
-		ServiceChatSession = 0xd4,	
+		ServiceChatSession = 0xd4,
 		ServiceAuthorization = 0xd6,	/* YMSG13 */
 		ServiceFileTransfer7 = 0xdc,	/* YMSG13 */
-		ServiceFileTransfer7Info,	/* YMSG13 */
-		ServiceFileTransfer7Accept,	/* YMSG13 */
-		ServiceBuddyChangeGroup = 0xe7	/* YMSG13 */
+		ServiceFileTransfer7Info = 0xdd,	/* YMSG13 */
+		ServiceFileTransfer7Accept = 0xde,	/* YMSG13 */
+		ServiceBuddyChangeGroup = 0xe7,	/* YMSG13 */
+		ServiceBuddyStatus = 0xf0,
+		ServiceBuddyList = 0xf1
 	};
-	
-	enum Status 
+
+	enum Status
 	{
 		StatusConnecting = -2,
 		StatusDisconnected = -1,
@@ -132,13 +135,13 @@ namespace Yahoo
 	};
 
 	enum LoginStatus {
-	LoginOk = 0,
-	LoginUname = 3,
-	LoginPasswd = 13,
-	LoginLock = 14,
-	LoginVerify = 29,	// FIXME: Find the reason for this response
-	LoginDupl = 99,
-	LoginSock = -1
+		LoginOk = 0,
+		LoginUname = 3,
+		LoginPasswd = 13,
+		LoginLock = 14,
+		LoginVerify = 29,	// FIXME: Find the reason for this response
+		LoginDupl = 99,
+		LoginSock = -1
 	};
 
 	enum StealthMode {
@@ -158,9 +161,26 @@ namespace Yahoo
 		ResponseDecline
 	};
 
+	enum PictureStatus {
+		NoPicture = 0,
+		Avatar = 1,
+		Picture = 2
+	};
+
 	typedef Q_UINT8 BYTE;
 	typedef Q_UINT16 WORD;
 	typedef Q_UINT32 DWORD;
+
+	struct ChatRoom {
+		QString name;
+		QString topic;
+		int id;
+	};
+
+	struct ChatCategory {
+		QString name;
+		int id;
+	};
 }
 
 #define yahoo_put16(buf, data) ( \

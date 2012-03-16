@@ -2,7 +2,7 @@
     Kopete Yahoo Protocol
     Notifies about new mails
 
-    Copyright (c) 2005 André Duffeck <andre.duffeck@kdemail.net>
+    Copyright (c) 2005 André Duffeck <duffeck@kde.org>
 
     *************************************************************************
     *                                                                       *
@@ -21,12 +21,11 @@
 #include "ymsgtransfer.h"
 #include "yahootypes.h"
 #include "client.h"
-#include <qstring.h>
 #include <kdebug.h>
 
 MailNotifierTask::MailNotifierTask(Task* parent) : Task(parent)
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_RAW_DEBUG) ;
 }
 
 MailNotifierTask::~MailNotifierTask()
@@ -36,8 +35,6 @@ MailNotifierTask::~MailNotifierTask()
 
 bool MailNotifierTask::take( Transfer* transfer )
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
-	
 	if ( !forMe( transfer ) )
 		return false;
 
@@ -48,11 +45,10 @@ bool MailNotifierTask::take( Transfer* transfer )
 	return true;
 }
 
-bool MailNotifierTask::forMe( Transfer* transfer ) const
+bool MailNotifierTask::forMe( const Transfer* transfer ) const
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
-	YMSGTransfer *t = 0L;
-	t = dynamic_cast<YMSGTransfer*>(transfer);
+	const YMSGTransfer *t = 0L;
+	t = dynamic_cast<const YMSGTransfer*>(transfer);
 	if (!t)
 		return false;
 
@@ -64,7 +60,7 @@ bool MailNotifierTask::forMe( Transfer* transfer ) const
 
 void MailNotifierTask::parseMail( YMSGTransfer *t )
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_RAW_DEBUG) ;
 
 	QString count = t->firstParam( 9 );
 	QString mail = t->firstParam( 42 );
@@ -74,7 +70,7 @@ void MailNotifierTask::parseMail( YMSGTransfer *t )
 	if( !mail.isEmpty() && !from.isEmpty() && !subject.isEmpty() )
 		emit mailNotify( QString::fromLatin1( "%1 <%2>").arg( from, mail ), subject, count.toInt() );
 	else
-		emit mailNotify( QString::null, QString::null, count.toInt());
+		emit mailNotify( QString(), QString(), count.toInt());
 }
 
 #include "mailnotifiertask.moc"

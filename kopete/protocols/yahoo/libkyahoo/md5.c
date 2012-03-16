@@ -37,9 +37,7 @@
   1999-05-03 lpd Original version.
  */
 
-#if HAVE_CONFIG_H
-# include <config.h>
-#endif
+#include "../../../../config.h"
 
 #include "md5.h"
 

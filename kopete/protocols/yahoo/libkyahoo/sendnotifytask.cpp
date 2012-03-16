@@ -2,7 +2,7 @@
     Kopete Yahoo Protocol
     Send a notification
 
-    Copyright (c) 2005 André Duffeck <andre.duffeck@kdemail.net>
+    Copyright (c) 2005-2006 André Duffeck <duffeck@kde.org>
 
     *************************************************************************
     *                                                                       *
@@ -19,12 +19,12 @@
 #include "ymsgtransfer.h"
 #include "yahootypes.h"
 #include "client.h"
-#include <qstring.h>
+
 #include <kdebug.h>
 
 SendNotifyTask::SendNotifyTask(Task* parent) : Task(parent)
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_GEN_DEBUG) << k_funcinfo << endl;
 }
 
 SendNotifyTask::~SendNotifyTask()
@@ -36,29 +36,35 @@ void SendNotifyTask::onGo()
 	YMSGTransfer *t = new YMSGTransfer(Yahoo::ServiceNotify);
 	t->setId( client()->sessionID() );
 	t->setStatus( Yahoo::StatusNotify );
-	t->setParam( 4, client()->userId().local8Bit() );
-	t->setParam( 5, m_target.local8Bit() );
-	t->setParam( 14, " " );	
+
 	switch( m_type )
 	{
 	case NotifyTyping:
+		t->setParam( 4, client()->userId().local8Bit() );
+		t->setParam( 5, m_target.local8Bit() );
 		t->setParam( 13, m_state );
+		t->setParam( 14, " " );
 		t->setParam( 49, "TYPING" );
 	break;
 	case NotifyWebcamInvite:
+
+		kdDebug(YAHOO_RAW_DEBUG) << "send invitation set Param" << endl;
+		t->setParam( 1, client()->userId().local8Bit() );
+		t->setParam( 5, m_target.local8Bit() );
 		t->setParam( 13, 0 );
-		t->setParam( 49, "WEBCAMINVITE" );		
+		t->setParam( 14, " " );
+		t->setParam( 49, "WEBCAMINVITE" );
 	break;
 	case NotifyGame:
 	default:
-		setSuccess( false );
+		setError();
 		delete t;
 		return;
 	break;
 	}
 	send( t );
-	
-	setSuccess( true );
+
+	setSuccess();
 }
 
 void SendNotifyTask::setType( Type type )

@@ -2,7 +2,7 @@
     Kopete Yahoo Protocol
     yabtask.h - Handles the Yahoo Address Book
 
-    Copyright (c) 2006 André Duffeck <andre.duffeck@kdemail.net>
+    Copyright (c) 2006 André Duffeck <duffeck@kde.org>
     Kopete (c) 2002-2006 by the Kopete developers <kopete-devel@kde.org>
 
     *************************************************************************
@@ -29,7 +29,7 @@
 
 YABTask::YABTask(Task* parent) : Task(parent)
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_RAW_DEBUG) ;
 }
 
 YABTask::~YABTask()
@@ -38,29 +38,25 @@ YABTask::~YABTask()
 
 bool YABTask::take( Transfer* transfer )
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
-	
 	if ( !forMe( transfer ) )
 		return false;
 
 	YMSGTransfer *t = static_cast<YMSGTransfer*>(transfer);
-	
+
 	if( t->service() == Yahoo::ServiceContactDetails )
 		parseContactDetails( t );
-	
+
 	return true;
 }
 
-bool YABTask::forMe( Transfer* transfer ) const
+bool YABTask::forMe( const Transfer* transfer ) const
 {
-// 	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
-	
-	YMSGTransfer *t = 0L;
-	t = dynamic_cast<YMSGTransfer*>(transfer);
+	const YMSGTransfer *t = 0L;
+	t = dynamic_cast<const YMSGTransfer*>(transfer);
 	if (!t)
 		return false;
 
-	if ( t->service() == Yahoo::ServiceContactDetails )	
+	if ( t->service() == Yahoo::ServiceContactDetails )
 		return true;
 	else
 		return false;
@@ -68,14 +64,14 @@ bool YABTask::forMe( Transfer* transfer ) const
 
 void YABTask::parseContactDetails( YMSGTransfer* t )
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_RAW_DEBUG) ;
 
 	QString from;		/* key = 7  */
 	int count;
 
 	from = t->firstParam( 4 );
 	count = t->paramCount( 5 );
-	
+
 	for( int i = 0; i < count; i++ )
 	{
 		QString who = t->nthParam( 5, i );
@@ -96,7 +92,7 @@ void YABTask::parseContactDetails( YMSGTransfer* t )
 
 void YABTask::getAllEntries( long lastMerge, long lastRemoteRevision )
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << "LastMerge: " << lastMerge << " LastRemoteRevision: " << lastRemoteRevision << endl;
+	kdDebug(YAHOO_RAW_DEBUG) << "LastMerge: " << lastMerge << " LastRemoteRevision: " << lastRemoteRevision << endl;
 	m_data = QString::null;
 	QString url = QString::fromLatin1("http://address.yahoo.com/yab/us?v=XM&prog=ymsgr&.intl=us&diffs=1&t=%1&tags=short&rt=%2&prog-ver=%3")
 		.arg( lastMerge ).arg( lastRemoteRevision ).arg( YMSG_PROGRAM_VERSION_STRING );
@@ -111,44 +107,47 @@ void YABTask::getAllEntries( long lastMerge, long lastRemoteRevision )
 
 void YABTask::slotData( KIO::Job* /*job*/, const QByteArray &info  )
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_RAW_DEBUG) ;
 	m_data += info;
 }
 
 void YABTask::slotResult( KIO::Job* job )
 {
 	if( job->error () || m_transferJob->isErrorPage () )
-		client()->notifyError( i18n( "Could not retrieve server side addressbook for user info." ), job->errorString(), Client::Info );
-	else 
 	{
-		kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << "Server side addressbook retrieved." << endl;
+		kdDebug(YAHOO_RAW_DEBUG) << "Could not retrieve server side addressbook for user info." << endl;
+		client()->notifyError( i18n( "Could not retrieve server side address book for user info." ), job->errorString(), Client::Info );
+	}
+	else
+	{
+		kdDebug(YAHOO_RAW_DEBUG) << "Server side addressbook retrieved." << endl;
 		QDomDocument doc;
 		QDomNodeList list;
 		QDomElement e;
-		uint it = 0;
+		int it = 0;
 
 		kdDebug(YAHOO_RAW_DEBUG) << m_data << endl;
 		doc.setContent( m_data );
-		
+
 		list = doc.elementsByTagName( "ab" );			// Get the Addressbook
 		for( it = 0; it < list.count(); it++ )	{
 			if( !list.item( it ).isElement() )
 				continue;
 			e = list.item( it ).toElement();
-			
+
 			if( !e.attribute( "lm" ).isEmpty() )
 				emit gotRevision( e.attribute( "lm" ).toLong(), true );
 
 			if( !e.attribute( "rt" ).isEmpty() )
 				emit gotRevision( e.attribute( "rt" ).toLong(), false );
 		}
-		
+
 		list = doc.elementsByTagName( "ct" );			// Get records
 		for( it = 0; it < list.count(); it++ )	{
 			if( !list.item( it ).isElement() )
 				continue;
 			e = list.item( it ).toElement();
-			
+
 			YABEntry *entry = new YABEntry;
 			entry->fromQDomElement( e );
 			entry->source = YABEntry::SourceYAB;

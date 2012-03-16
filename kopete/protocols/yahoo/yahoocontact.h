@@ -68,7 +68,7 @@ public:
 	void receivedWebcamImage( const QPixmap& );
 	void webcamClosed( int );
 	void webcamPaused();
-	
+
 	const YABEntry *yabEntry();
 
 	static QString prepareMessage( const QString &messageText );
@@ -83,7 +83,7 @@ public slots:
 	void requestWebcam();
 	void inviteWebcam();
 	void buzzContact();
-	void setDisplayPicture(KTempFile *f, int checksum);
+	void setDisplayPicture(const QByteArray &data, int checksum);
 	void sendBuddyIconInfo( const QString &url, int checksum );
 	void sendBuddyIconUpdate( int type );
 	void sendBuddyIconChecksum( int checksum );
@@ -117,7 +117,7 @@ private slots:
 	void readYABEntry();
 
 private:
-	QString m_userId; 
+	QString m_userId;
 	QString m_groupName;
 	YABEntry *m_YABEntry;
 	YahooChatSession *m_manager;
@@ -126,12 +126,12 @@ private:
 	bool m_stealthed;
 	bool m_receivingWebcam;
 	bool m_sessionActive;
-	
+
 	KAction* m_stealthAction;
 	KAction* m_profileAction;
 	KAction* m_webcamAction;
 	KAction* m_inviteWebcamAction;
-	KAction* m_buzzAction;	
+	KAction* m_buzzAction;
 	KAction* m_inviteConferenceAction;
 };
 

@@ -1,12 +1,12 @@
 /*
     task.cpp - Kopete Groupwise Protocol
-   
+
     Copyright (c) 2004      SUSE Linux AG	 	 http://www.suse.com
-    
-    Based on Iris, Copyright (C) 2003  Justin Karneges
-    
+
+    Based on Iris, Copyright (C) 2003  Justin Karneges <justin@affinix.com>
+
     Kopete (c) 2002-2004 by the Kopete developers <kopete-devel@kde.org>
- 
+
     *************************************************************************
     *                                                                       *
     * This library is free software; you can redistribute it and/or         *
@@ -16,7 +16,7 @@
     *                                                                       *
     *************************************************************************
 */
-  
+
 #include <qtimer.h>
 
 #include "client.h"
@@ -131,20 +131,19 @@ bool Task::take( Transfer * transfer)
 	// pass along the transfer to our children
 	QObjectListIt it(*p);
 	Task *t;
-	for(; it.current(); ++it) {
+	for(; it.current(); ++it)
+	{
 		QObject *obj = it.current();
 		if(!obj->inherits("Task"))
 			continue;
 
 		t = static_cast<Task*>(obj);
-		
+
 		if(t->take( transfer ))
 		{
 			qDebug( "Transfer ACCEPTED by: %s", t->className() );
 			return true;
 		}
-/*		else
-			qDebug( "Transfer refused by: %s", t->className() );*/
 	}
 
 	return false;
@@ -232,22 +231,22 @@ void Task::clientDisconnected()
 // 	QString str;
 // 	int size = 1024;
 // 	int r;
-// 
+//
 // 	do {
 // 		buf = new char[size];
 // 		va_list ap;
 // 		va_start(ap, fmt);
 // 		r = vsnprintf(buf, size, fmt, ap);
 // 		va_end(ap);
-// 
+//
 // 		if(r != -1)
 // 			str = QString(buf);
-// 
+//
 // 		delete [] buf;
-// 
+//
 // 		size *= 2;
 // 	} while(r == -1);
-// 
+//
 // 	debug(str);
 // }
 

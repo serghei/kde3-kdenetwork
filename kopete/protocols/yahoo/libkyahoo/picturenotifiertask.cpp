@@ -2,7 +2,7 @@
     Kopete Yahoo Protocol
     Notifies about buddy icons
 
-    Copyright (c) 2005 André Duffeck <andre.duffeck@kdemail.net>
+    Copyright (c) 2005 André Duffeck <duffeck@kde.org>
 
     *************************************************************************
     *                                                                       *
@@ -19,15 +19,15 @@
 #include "ymsgtransfer.h"
 #include "yahootypes.h"
 #include "client.h"
-#include <qstring.h>
+
 #include <qstringlist.h>
-#include <kurl.h>
 #include <kdebug.h>
 #include <klocale.h>
 
+
 PictureNotifierTask::PictureNotifierTask(Task* parent) : Task(parent)
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_RAW_DEBUG) ;
 }
 
 PictureNotifierTask::~PictureNotifierTask()
@@ -37,23 +37,23 @@ PictureNotifierTask::~PictureNotifierTask()
 
 bool PictureNotifierTask::take( Transfer* transfer )
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
-	
 	if ( !forMe( transfer ) )
 		return false;
-	
+
 	YMSGTransfer *t = 0L;
 	t = dynamic_cast<YMSGTransfer*>(transfer);
 	if (!t)
 		return false;
 
 	switch( t->service() )
-	{	
+	{
 		case Yahoo::ServicePictureStatus:
 			parsePictureStatus( t );
+			parsePicture( t );
 		break;
 		case Yahoo::ServicePictureChecksum:
 			parsePictureChecksum( t );
+			parsePicture( t );
 		break;
 		case Yahoo::ServicePicture:
 			parsePicture( t );
@@ -63,16 +63,15 @@ bool PictureNotifierTask::take( Transfer* transfer )
 		break;
 		default:
 		break;
-	}	
+	}
 
 	return true;
 }
 
-bool PictureNotifierTask::forMe( Transfer* transfer ) const
+bool PictureNotifierTask::forMe( const Transfer* transfer ) const
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
-	YMSGTransfer *t = 0L;
-	t = dynamic_cast<YMSGTransfer*>(transfer);
+	const YMSGTransfer *t = 0L;
+	t = dynamic_cast<const YMSGTransfer*>(transfer);
 	if (!t)
 		return false;
 
@@ -89,37 +88,37 @@ bool PictureNotifierTask::forMe( Transfer* transfer ) const
 
 void PictureNotifierTask::parsePictureStatus( YMSGTransfer *t )
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_RAW_DEBUG) ;
 
 	QString	nick;		/* key = 4 */
 	int state;		/* key = 213  */
 
 	nick = t->firstParam( 4 );
 	state = t->firstParam( 213 ).toInt();
-	
+
 	emit pictureStatusNotify( nick, state );
 }
 
 void PictureNotifierTask::parsePictureChecksum( YMSGTransfer *t )
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_RAW_DEBUG) ;
 
 	QString	nick;		/* key = 4 */
 	int checksum;		/* key = 192  */
 
 	nick = t->firstParam( 4 );
 	checksum = t->firstParam( 192 ).toInt();
-	
+
 	if( nick != client()->userId() )
 		emit pictureChecksumNotify( nick, checksum );
 }
 
 void PictureNotifierTask::parsePicture( YMSGTransfer *t )
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_RAW_DEBUG) ;
 
 	QString	nick;		/* key = 4 */
-	int type;		/* key = 13: 1 = request, 2 = notification */
+	int type;		/* key = 13: 1 = request, 2 = notification, 0 = Just changed */
 	QString url;		/* key = 20 */
 	int checksum;		/* key = 192  */
 
@@ -127,30 +126,34 @@ void PictureNotifierTask::parsePicture( YMSGTransfer *t )
 	url = t->firstParam( 20 );
 	checksum = t->firstParam( 192 ).toInt();
 	type = t->firstParam( 13 ).toInt();
-	
+
 	if( type == 1 )
 		emit pictureRequest( nick );
+	else if( type == 0 )
+		emit pictureInfoNotify( nick, KURL( url ), checksum );
 	else if( type == 2 )
 		emit pictureInfoNotify( nick, KURL( url ), checksum );
 }
 
 void PictureNotifierTask::parsePictureUploadResponse( YMSGTransfer *t )
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_RAW_DEBUG) ;
 
 	QString url;
 	QString error;
+	int expires;
 
 	url = t->firstParam( 20 );
 	error = t->firstParam( 16 );
-	
+	expires = t->firstParam( 38 ).toInt();
+
 	if( !error.isEmpty() )
 		client()->notifyError(i18n("The picture was not successfully uploaded"), error, Client::Error );
 
 	if( !url.isEmpty() )
 	{
-		kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << "Emitting url: " << url << endl;
-		emit pictureUploaded( url );
+		kdDebug(YAHOO_RAW_DEBUG) << "Emitting url: " << url << " Picture expires: " << expires << endl;
+		emit pictureUploaded( url, expires );
 	}
 }
 

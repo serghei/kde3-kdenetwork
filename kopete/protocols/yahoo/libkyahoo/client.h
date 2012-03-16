@@ -1,14 +1,14 @@
 /*
     Kopete Yahoo Protocol
-    
-    Copyright (c) 2005-2006 André Duffeck <andre.duffeck@kdemail.net>
+
+    Copyright (c) 2005-2006 André Duffeck <duffeck@kde.org>
     Copyright (c) 2004 Duncan Mac-Vicar P. <duncan@kde.org>
     Copyright (c) 2004 Matt Rogers <matt.rogers@kdemail.net>
     Copyright (c) 2004 SuSE Linux AG <http://www.suse.com>
-    Copyright (C) 2003  Justin Karneges
-    
-    Kopete (c) 2002-2004 by the Kopete developers <kopete-devel@kde.org>
- 
+    Copyright (C) 2003  Justin Karneges <justin@affinix.com>
+
+    Kopete (c) 2002-2006 by the Kopete developers <kopete-devel@kde.org>
+
     *************************************************************************
     *                                                                       *
     * This library is free software; you can redistribute it and/or         *
@@ -23,77 +23,80 @@
 #define LIBYAHOO_CLIENT_H
 
 #include <qobject.h>
+#include <kurl.h>
 
 #include "transfer.h"
 #include "yahootypes.h"
 
-#define YMSG_PROGRAM_VERSION_STRING "7,5,0,33"
+#define YMSG_PROGRAM_VERSION_STRING "8.1.0.209"
 
 class QString;
 class QTimer;
+class QPixmap;
+class QDomDocument;
 class ClientStream;
 class KNetworkConnector;
 class Task;
-class KURL;
-class KTempFile;
-class YABEntry;
-class SendFileTask;
+class KTemporaryFile;
+struct YABEntry;
 
 class Client : public QObject
 {
 Q_OBJECT
 
 	public:
-	
+
 		/*************
-		  EXTERNAL API 
+		  EXTERNAL API
 		 *************/
 
-		enum LogLevel { Debug, Info, Notice, Warning, Error, Critical }; 
-		  
+		enum LogLevel { Debug, Info, Notice, Warning, Error, Critical };
+
 		Client(QObject *parent=0);
 		~Client();
+
+		/**
+		 * Set the Yahoo Id of the account
+		 * @param username The Yahoo Id
+		 */
 		void setUserId( const QString& userName );
+
+		/**
+		 * Set the picture checksum
+		 * @param username The checksum
+		 */
+		void setPictureChecksum( int cs );
 
 		/**
 		 * Start a connection to the server using the supplied @ref ClientStream.
 		 * This is only a transport layer connection.
 		 * Needed for protocol action P1.
-		 * @param s initialised client stream to use for the connection.
-		 * @param server the server to connect to - but this is also set on the connector used to construct the clientstream??
-		 * @param auth indicate whether we're connecting to the authorizer or the bos server
+		 * @param host The server to connect to.
+		 * @param port The port to be used. The Yahoo server allows connection on arbitrary ports.
+		 * @param userId The yahoo ID that will be connected.
+		 * @param pass The password.
 		 */
 		void connect( const QString &host, const uint port, const QString &userId, const QString &pass );
 
-		/**
-		 * Cancel active login attemps
-		 */
+		/** Cancel active login attemps	 */
 		void cancelConnect();
 
-		/**
-		 * Logout and disconnect
-		 */
+		/** Logout and disconnect */
 		void close();
 
-		/**
-		 * Returns the errorcode
-		 */
+		/** Returns the errorcode */
 		int error();
 
-		/**
-		 * Returns a description of the error
-		 */
+		/** Returns a description of the error */
 		QString errorString();
 
-		/**
-		 * Returns information about what went wrong
-		 */
+		/** Returns information about what went wrong */
 		QString errorInformation();
 
 		/**
-		 * Specifies the status we connect with. 
+		 * Specifies the status we connect with.
 		 * The Yahoo protocol supports connecting into Online and Invisible state.
-		 * If status is any other status the Client connects into Online state and changes into the specified state after the login. 
+		 * If status is any other status the Client connects into Online state and changes into the specified state after the login.
 		 * @param status the status to connect with
 		 */
 		void setStatusOnConnect( Yahoo::Status status );
@@ -106,22 +109,9 @@ Q_OBJECT
 		 */
 		void setStatusMessageOnConnect( const QString &msg );
 
-		/**
-		 * Accessors needed for login
-		 */
+		/** Accessors needed for login */
 		QString host();
 		int port();
-		
-		/**
-		 * return the pictureFlag describing the status of our buddy icon
-		 * 0 = no icon, 2 = icon, 1 = avatar (?)
-		 */
-		int pictureFlag();
-		
-		/**
-		 * set the pictureFlag describing the status of our buddy icon
-		 */
-		void setPictureFlag( int flag );
 
 		/**
 		 * Send a Typing notification
@@ -129,7 +119,7 @@ Q_OBJECT
 		 * @param typing true if there is typing activity, false if not
 		 */
 		void sendTyping( const QString &to, bool typing );
-		
+
 		/**
 		 * Send a Message
 		 * @param to the buddy that should receive the message
@@ -139,7 +129,7 @@ Q_OBJECT
 
 		/**
 		 * Register / Unregister a chatsession
-		 * @param to the buddy, the chatsession belongs to 
+		 * @param to the buddy, the chatsession belongs to
 		 * @param close if true, the chatsession will be closed, if false, it will be opened
 		 */
 		void setChatSessionState( const QString &to, bool close );
@@ -155,7 +145,7 @@ Q_OBJECT
 		 * @param status the status that will be set
 		 * @param message the status message that will be set
 		 * @param type Yahoo::StatusTypeAvailable means that the user is available, Yahoo::StatusTypeAway means that the user is away from the keyboard
-		 */	
+		 */
 		void changeStatus(Yahoo::Status status, const QString &message, Yahoo::StatusType type);
 
 		/**
@@ -175,200 +165,281 @@ Q_OBJECT
 
 		/**
 		 * Remove a buddy from the contact list
+		 * @param userId the yahoo ID of the buddy that should be removed
+		 * @param group the group where the buddy belongs to
 		 */
 		void removeBuddy( const QString &userId, const QString &group );
 
 		/**
 		 * Move a buddy into another group
+		 * @param userId the yahoo ID of the buddy that should be moved
+		 * @param oldGroup the group where the buddy belongs to
+		 * @param newGroup the group where the buddy will be placed
 		 */
 		void moveBuddy( const QString &userId, const QString &oldGroup, const QString &newGroup );
 
 		/**
 		 * Change the stealth status of a buddy
+		 * @param userId the yahoo ID of the buddy that should be moved
+		 * @param mode defines the Stealth mode that is changed. That can be "Appear Offline", "Appear Online" or "Apper permanently offline"
+		 * @param state the status of the specified Stealth mode. Active, Not Active or Clear
 		 */
 		void stealthContact( QString const &userId, Yahoo::StealthMode mode, Yahoo::StealthStatus state );
 
 		/**
 		 * Request the buddy's picture
+		 * @param userId the yahoo ID of the buddy
 		 */
 		void requestPicture( const QString &userId );
 
 		/**
 		 * Download the buddy's picture
+		 * @param userId the yahoo ID of the buddy
+		 * @param url the url of the picture
+		 * @param checksum the checksum of the picture
 		 */
 		void downloadPicture( const QString &userId, KURL url, int checksum );
 
 		/**
 		 * Send our picture
+		 * @param url the file that should be sent as our buddy picture
 		 */
 		void uploadPicture( KURL url );
 
 		/**
 		 * Send checksum of our picture
+		 * @param userId the yahoo ID of the buddy. Can be a null string if the picture has changed.
+		 * @param checksum the checksum of the picture
 		 */
-		void sendPictureChecksum( int checksum, const QString & );
+		void sendPictureChecksum( const QString &userId, int checksum );
 
 		/**
 		 * Send information about our picture
+		 * @param userId the yahoo ID of the buddy that should be informed
+		 * @param url the url of our picture
+		 * @param checksum the checksum of the picture
 		 */
 		void sendPictureInformation( const QString &userId, const QString &url, int checksum );
 
 		/**
 		 * Notify the buddies about our new status
+		 * @param flag the type of our picture (0=none, 1=avatar, 2=picture)
 		 */
-		void sendPictureStatusUpdate( const QString &userId, int type );
+		void setPictureStatus( Yahoo::PictureStatus flag );
 
 		/**
 		 * Send a response to the webcam invite ( Accept / Decline )
+		 * @param userId the yahoo ID of the sender
 		 */
 		void requestWebcam( const QString &userId );
 
 		/**
 		 * Stop receiving of webcam
+		 * @param userId the yahoo ID of the sender
 		 */
 		void closeWebcam( const QString &userId );
 
 		/**
 		 * Invite the user to view your Webcam
+		 * @param userId the yahoo ID of the receiver
 		 */
 		void sendWebcamInvite( const QString &userId );
 
 		/**
 		 * transmit a new image to the watchers
+		 * @param image the image data
 		 */
 		void sendWebcamImage( const QByteArray &image );
 
-		/**
-		 * Stop transmission
-		 */
+		/** Stop the webcam transmission */
 		void closeOutgoingWebcam();
 
 		/**
 		 * Allow a buddy to watch the cam
+		 * @param userId the yahoo ID of the receiver
 		 */
 		void grantWebcamAccess( const QString &userId );
 
 		/**
 		 * Invite buddies to a conference
+		 * @param room the name of the conference
+		 * @param members a list of members that are invited to the conference
+		 * @param msg the invite message
 		 */
 		void inviteConference( const QString &room, const QStringList &members, const QString &msg );
 
 		/**
 		 * Invite buddies to a already existing conference
+		 * @param room the name of the conference
+		 * @param who a list of members that are additionally invited to the conference
+		 * @param members a list of members that are already in the conference
+		 * @param msg the invite message
 		 */
 		void addInviteConference( const QString &room, const QStringList &who, const QStringList &members, const QString &msg );
 
 		/**
 		 * Join a conference
+		 * @param room the name of the conference
+		 * @param members a list of members that are already in the conference
 		 */
 		void joinConference( const QString &room, const QStringList &members );
 
 		/**
 		 * Decline to join a conference
+		 * @param room the name of the conference
+		 * @param members a list of members that are in the conference
+		 * @param msg the reason why we don't want to join
 		 */
 		void declineConference( const QString &room, const QStringList &members, const QString &msg );
 
 		/**
 		 * Leave the conference
+		 * @param room the name of the conference
+		 * @param members a list of members that are in the conference
 		 */
 		void leaveConference( const QString &room, const QStringList &members );
 
 		/**
 		 * Send a message to the conference
+		 * @param room the name of the conference
+		 * @param members a list of members that are in the conference
+		 * @param msg the message
 		 */
 		void sendConferenceMessage( const QString &room, const QStringList &members, const QString &msg );
 
 		/**
 		 * Send a authorization request response
+		 * @param userId the yahoo ID of the requesting buddy
+		 * @param accept true, if the user is allowed to see our status, false if not
+		 * @param msg the reason for our decision
 		 */
 		void sendAuthReply( const QString &userId, bool accept, const QString &msg );
 
 		/**
 		 * Fetches all entries of the YAB
+		 * @param lastMerge the YAB-Revision that was last merged with the local YAB
+		 * @param lastRemoteRevision the latest known YAB-Revision
 		 */
 		void getYABEntries( long lastMerge, long lastRemoteRevision );
 
 		/**
 		 * Saves a modified YAB entry
+		 * @param entry the YAB entry
 		 */
 		void saveYABEntry( YABEntry &entry );
 
 		/**
 		 * Creates a new YAB entry
+		 * @param entry the YAB entry
 		 */
 		void addYABEntry( YABEntry &entry );
 
 		/**
 		 * Deletes a YAB entry
+		 * @param entry the YAB entry
 		 */
 		void deleteYABEntry( YABEntry &entry );
 
 		/**
 		 * Send a file to a buddy
+		 * @param transferId the unique ID of the transfer
+		 * @param userId yahoo ID of the receiver
+		 * @param msg a description of the file to be sent
+		 * @param url the location of the file to be sent
 		 */
 		void sendFile( unsigned int transferId, const QString &userId, const QString &msg, KURL url );
 
 		/**
 		 * Receive a file from a buddy
+		 * @param transferId the unique ID of the transfer
+		 * @param userId yahoo ID of the sender
+		 * @param remoteURL the url of the file
+		 * @param localURL the location where the file should be stored
 		 */
 		void receiveFile( unsigned int transferId, const QString &userId, KURL remoteURL, KURL localURL );
 
 		/**
 		 * Reject a file offered by a buddy
+		 * @param userId yahoo ID of the sender
+		 * @param remoteURL the url of the file
 		 */
 		void rejectFile( const QString &userId, KURL remoteURL );
 
 		/**
-		 * The user canceled the filetransfer
+		 * Canceled a filetransfer
+		 * @param transferId the unique ID of the transfer
 		 */
-		void cancelFileTransfer( unsigned int transferId );	
+		void cancelFileTransfer( unsigned int transferId );
+
+		/**
+		 * Get the list of yahoo chat categories
+		 */
+		void getYahooChatCategories();
+
+		/**
+		 * Get the list of chatrooms for the given category
+		 */
+		void getYahooChatRooms( const Yahoo::ChatCategory &category );
+
+		/**
+		 * Join a chat room
+		 */
+		void joinYahooChatRoom( const Yahoo::ChatRoom &room );
+
+		/**
+		 * Leave the chat room
+		 */
+		void leaveChat();
+
+		/**
+		 * Send a chat message
+		 */
+		void sendYahooChatMessage( const QString &msg, const QString &handle );
 
 		/*************
-		  INTERNAL (FOR USE BY TASKS) METHODS 
+		  INTERNAL (FOR USE BY TASKS) METHODS
 		 *************/
 		/**
 		 * Send an outgoing request to the server
+		 * @param request the transfer to be sent
 		 */
 		void send( Transfer *request );
-		
+
 		/**
 		 * Print a debug statement
 		 */
 		void debug( const QString &str );
-		
-		/**
-		 * The current user's user ID
-		 */
+
+		/** The current user's user ID */
 		QString userId();
-		
-		/**
-		 * The current user's password
-		 */
+
+		/** The current user's password */
 		QString password();
-		
-		/**
-		 * Host's IP address
-		 */
-		QCString ipAddress();
-		
-		/**
-		 * current Session ID
-		 */
+
+		/** current Session ID */
 		uint sessionID();
 
 		/**
-		 * Get our status
+		 * return the pictureFlag describing the status of our buddy icon
+		 * 0 = no icon, 2 = icon, 1 = avatar (?)
 		 */
+		int pictureFlag();
+
+		/**
+		 * return the picture checksum
+		 */
+		int pictureChecksum();
+
+		/** Get our status */
 		Yahoo::Status status();
 
 		/**
 		 * Set our status
+		 * @param status the new status
 		 */
-		void setStatus( Yahoo::Status );
+		void setStatus( Yahoo::Status status );
 
-		/**
-		 * Access the root Task for this client, so tasks may be added to it.
-		 */
+		/** Access the root Task for this client, so tasks may be added to it. */
 		Task* rootTask();
 
 		/**
@@ -389,11 +460,11 @@ Q_OBJECT
 		 */
 		void loggedIn( int, const QString& );
 
-		/** 
-		 * Notifies that the login process has failed 
+		/**
+		 * Notifies that the login process has failed
 		 */
 		void loginFailed();
-		
+
 		/**
 		 * Notifies tasks and account so they can react properly
 		 */
@@ -413,9 +484,21 @@ Q_OBJECT
 		 */
 		void gotBuddy( const QString &, const QString &, const QString & );
 		/**
+		 * Notifies about adding buddies
+		 */
+		void buddyAddResult( const QString &, const QString &, bool );
+		/**
+		 * Notifies about removing buddies
+		 */
+		void buddyRemoveResult( const QString &, const QString &, bool );
+		/**
+		 * Notifies about buddies changing groups
+		 */
+		void buddyChangeGroupResult( const QString &, const QString &, bool );
+		/**
 		 * Notifies about the status of online buddies
 		 */
-		void statusChanged( const QString&, int, const QString&, int, int );
+		void statusChanged( const QString&, int, const QString&, int, int, int );
 		/**
 		 * Notifies about the stealth status of buddies
 		 */
@@ -459,7 +542,7 @@ Q_OBJECT
 		/**
 		 * The iconLoader has successfully downloaded a picutre
 		 */
-		void pictureDownloaded( const QString &, KTempFile *, int );
+		void pictureDownloaded( const QString &, const QByteArray &, int );
 		/**
 		 * A Buddy asks for our picture
 		 */
@@ -467,7 +550,7 @@ Q_OBJECT
 		/**
 		 * Information about the picture upload
 		 */
-		void pictureUploaded( const QString & );
+		void pictureUploaded( const QString &, int );
 		/**
 		 * We've received a webcam image from a buddy
 		 */
@@ -545,7 +628,7 @@ Q_OBJECT
 		 */
 		void gotYABEntry( YABEntry * );
 		/**
-		 * An error occured while saving a Yahoo Addressbook entry
+		 * An error occurred while saving a Yahoo Addressbook entry
 		 */
 		void modifyYABEntryError( YABEntry *, const QString & );
 		/**
@@ -557,7 +640,7 @@ Q_OBJECT
 		 */
 		void fileTransferComplete( unsigned int );
 		/**
-		 * An error occured during the filetransfer
+		 * An error occurred during the filetransfer
 		 */
 		void fileTransferError( unsigned int, int, const QString & );
 		/**
@@ -568,14 +651,39 @@ Q_OBJECT
 		 * A buddy is trying to send us a file
 		 */
 		void incomingFileTransfer( const QString &, const QString &, long, const QString &,
-			const QString &, unsigned long );
+			const QString &, unsigned long, const QPixmap & );
+		/**
+		 * We have received the list of yahoo chat categories
+		 */
+		void gotYahooChatCategories( const QDomDocument & );
+		/**
+		 * We have received the list of chatrooms for the categories
+		 */
+		void gotYahooChatRooms( const Yahoo::ChatCategory &, const QDomDocument & );
+		/**
+		 * We have joined a chatroom
+		 */
+		void chatRoomJoined( int, int, const QString &, const QString & );
+		/**
+		 * A buddy has joined a chatroom
+		 */
+		void chatBuddyHasJoined( const QString &, const QString &, bool );
+		/**
+		 * A buddy has left a chatroom
+		 */
+		void chatBuddyHasLeft( const QString &, const QString & );
+		/**
+		 * We have received a message in a chatroom
+		 */
+		void chatMessageReceived( const QString &, const QString &, const QString & );
 	protected slots:
 		// INTERNAL, FOR USE BY TASKS' finished() SIGNALS //
 		void lt_loginFinished();
 		void lt_gotSessionID( uint );
 		void cs_connected();
 		void slotGotCookies();
-		
+		void streamDisconnected();
+
 		/**
 		 * Used by tasks to identify a response to a login attempt
 		 */
@@ -585,7 +693,7 @@ Q_OBJECT
 		 * Used by the client stream to notify errors to upper layers.
 		 */
 		void streamError( int error );
-		
+
 		/**
 		 * The client stream has data ready to read.
 		 */
@@ -595,16 +703,22 @@ Q_OBJECT
 		 * Send a Yahoo Ping packet to the server
 		 */
 		void sendPing();
+
+		/**
+		 * Send all queued buddy icon requests
+		 */
+		void processPictureQueue();
+
 	private:
 		void distribute( Transfer *transfer );
-		
+
 		/**
 		 * create static tasks and connect their signals
 		 */
 		void initTasks();
 
 		/**
-		 * remove static tasks and their singal connections
+		 * remove static tasks and their signal connections
 		 */
 		void deleteTasks();
 

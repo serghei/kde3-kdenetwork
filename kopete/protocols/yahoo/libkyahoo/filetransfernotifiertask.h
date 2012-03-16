@@ -2,7 +2,7 @@
     Kopete Yahoo Protocol
     Notifies about incoming filetransfers
 
-    Copyright (c) 2006 André Duffeck <andre.duffeck@kdemail.net>
+    Copyright (c) 2006 André Duffeck <duffeck@kde.org>
 
     *************************************************************************
     *                                                                       *
@@ -22,6 +22,7 @@
 
 class QString;
 class YMSGTransfer;
+class QPixmap;
 
 /**
 @author André Duffeck
@@ -36,10 +37,10 @@ public:
 	bool take(Transfer *transfer);
 
 protected:
-	bool forMe( Transfer *transfer ) const;
+	virtual bool forMe( const Transfer *transfer ) const;
 signals:
 	void incomingFileTransfer( const QString &who, const QString &url, long expires, const QString &msg ,
-	const QString &fname, unsigned long size );
+	const QString &fname, unsigned long size, const QPixmap &preview );
 private:
 	void parseFileTransfer( YMSGTransfer *transfer );
 	void parseFileTransfer7( YMSGTransfer *transfer );

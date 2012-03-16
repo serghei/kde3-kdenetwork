@@ -2,7 +2,7 @@
     Kopete Yahoo Protocol
     Receive a file
 
-    Copyright (c) 2006 André Duffeck <andre.duffeck@kdemail.net>
+    Copyright (c) 2006 André Duffeck <duffeck@kde.org>
 
     *************************************************************************
     *                                                                       *
@@ -18,16 +18,16 @@
 #define RECEIVEFILETASK_H
 
 #include "task.h"
-#include <qfile.h>
 #include <kurl.h>
 
 class QString;
 class QFile;
-namespace KIO { 
+namespace KIO {
 	class Job;
 	class TransferJob;
 	class MimetypeJob;
 }
+
 class YMSGTransfer;
 
 /**
@@ -40,20 +40,20 @@ public:
 	enum Type { FileTransferAccept, FileTransfer7Accept, FileTransfer7Reject };
 	ReceiveFileTask(Task *parent);
 	~ReceiveFileTask();
-	
+
 	virtual void onGo();
-	
+
 	void setRemoteUrl( KURL url );
 	void setLocalUrl( KURL url );
 	void setFileName( const QString &filename );
 	void setTransferId( unsigned int transferId );
 	void setType( Type type );
 	void setUserId( const QString & userId );
-	
+
 	bool take(Transfer *transfer);
 
 protected:
-	bool forMe( Transfer *transfer ) const;
+	virtual bool forMe( const Transfer *transfer ) const;
 
 signals:
 	void bytesProcessed( unsigned int, unsigned int );

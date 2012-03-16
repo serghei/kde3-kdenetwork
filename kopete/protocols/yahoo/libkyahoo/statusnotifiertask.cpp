@@ -2,7 +2,7 @@
     Kopete Yahoo Protocol
     Notifies about status changes of buddies
 
-    Copyright (c) 2005 André Duffeck <andre.duffeck@kdemail.net>
+    Copyright (c) 2005 André Duffeck <duffeck@kde.org>
 
     *************************************************************************
     *                                                                       *
@@ -26,7 +26,7 @@
 
 StatusNotifierTask::StatusNotifierTask(Task* parent) : Task(parent)
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_RAW_DEBUG) ;
 }
 
 StatusNotifierTask::~StatusNotifierTask()
@@ -36,11 +36,9 @@ StatusNotifierTask::~StatusNotifierTask()
 
 bool StatusNotifierTask::take( Transfer* transfer )
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
-	
 	if ( !forMe( transfer ) )
 		return false;
-	
+
 	YMSGTransfer *t = static_cast<YMSGTransfer*>(transfer);
 
 	if( t->service() == Yahoo::ServiceStealthOffline )
@@ -48,16 +46,15 @@ bool StatusNotifierTask::take( Transfer* transfer )
 	else if( t->service() == Yahoo::ServiceAuthorization )
 		parseAuthorization( t );
 	else
-		parseStatus( t );	
+		parseStatus( t );
 
 	return true;
 }
 
-bool StatusNotifierTask::forMe( Transfer* transfer ) const
+bool StatusNotifierTask::forMe( const Transfer* transfer ) const
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
-	YMSGTransfer *t = 0L;
-	t = dynamic_cast<YMSGTransfer*>(transfer);
+	const YMSGTransfer *t = 0L;
+	t = dynamic_cast<const YMSGTransfer*>(transfer);
 	if (!t)
 		return false;
 
@@ -72,7 +69,8 @@ bool StatusNotifierTask::forMe( Transfer* transfer ) const
 		t->service() == Yahoo::ServiceIddeAct ||
 		t->service() == Yahoo::ServiceStatus ||
 		t->service() == Yahoo::ServiceStealthOffline ||
-		t->service() == Yahoo::ServiceAuthorization
+		t->service() == Yahoo::ServiceAuthorization ||
+		t->service() == Yahoo::ServiceBuddyStatus
 	)
 		return true;
 	else
@@ -81,12 +79,12 @@ bool StatusNotifierTask::forMe( Transfer* transfer ) const
 
 void StatusNotifierTask::parseStatus( YMSGTransfer* t )
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_RAW_DEBUG) ;
 
-	if( t->status() == Yahoo::StatusDisconnected && 
+	if( t->status() == Yahoo::StatusDisconnected &&
 		t->service() == Yahoo::ServiceLogoff )
 	{
-		emit loginResponse( Yahoo::LoginDupl, QString::null );
+		emit loginResponse( Yahoo::LoginDupl, QString() );
 	}
 
 	QString	myNick;		/* key = 1 */
@@ -98,14 +96,14 @@ void StatusNotifierTask::parseStatus( YMSGTransfer* t )
 	int away;		/* key = 47  */
 	int idle;		/* key = 137 */
 	bool utf;		/* key = 97 */
-	int checksum;		/* key = 192 */
+	int pictureChecksum;	/* key = 192 */
 
 	customError = t->firstParam( 16 );
 	if( !customError.isEmpty() )
-		client()->notifyError( i18n("An unknown error has occured."), customError, Client::Warning );
+		client()->notifyError( i18n("An unknown error has occurred."), customError, Client::Warning );
 
 	myNick = t->firstParam( 1 );
-	
+
 	for( int i = 0; i < t->paramCount( 7 ); ++i)
 	{
 		nick = t->nthParam( 7, i );
@@ -114,27 +112,24 @@ void StatusNotifierTask::parseStatus( YMSGTransfer* t )
 		away = t->nthParamSeparated( 47, i, 7 ).toInt();
 		idle = t->nthParamSeparated( 137, i, 7 ).toInt();
 		utf = t->nthParamSeparated( 97, i, 7 ).toInt() == 1;
-		checksum = t->nthParamSeparated( 192, i, 7 ).toInt();
+		pictureChecksum = t->nthParamSeparated( 192, i, 7 ).toInt();
 		if( utf )
 			message = QString::fromUtf8( t->nthParamSeparated( 19, i, 7 ) );
 		else
 			message = t->nthParamSeparated( 19, i, 7 );
 
 		if( t->service() == Yahoo::ServiceLogoff || ( state != 0 && flags == 0 ) )
-			emit statusChanged( nick, Yahoo::StatusOffline, QString::null, 0, 0 );
+			emit statusChanged( nick, Yahoo::StatusOffline, QString(), 0, 0, 0 );
 		else
-			emit statusChanged( nick, state, message, away, idle );
-		
-		if( checksum )
-			emit gotPictureChecksum( nick, checksum );
+			emit statusChanged( nick, state, message, away, idle, pictureChecksum );
 	}
 }
 
 void StatusNotifierTask::parseAuthorization( YMSGTransfer* t )
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_RAW_DEBUG) ;
 
-	QString nick;		/* key = 4  */	
+	QString nick;		/* key = 4  */
 	QString msg;		/* key = 14  */
 	int state;		/* key = 13  */
 	bool utf;		/* key = 97 */
@@ -163,14 +158,14 @@ void StatusNotifierTask::parseAuthorization( YMSGTransfer* t )
 		if( !fname.isEmpty() || !lname.isEmpty() )
 			name = QString("%1 %2").arg(fname).arg(lname);
 
-		kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << "Emitting gotAuthorizationRequest( " << nick<< ", " << msg << ", " << name << " )" << endl;
+		kdDebug(YAHOO_RAW_DEBUG) << "Emitting gotAuthorizationRequest( " << nick<< ", " << msg << ", " << name << " )" << endl;
 		emit gotAuthorizationRequest( nick, msg, name );
 	}
 }
 
 void StatusNotifierTask::parseStealthStatus( YMSGTransfer* t )
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_RAW_DEBUG) ;
 
 	QString nick;		/* key = 7  */
 	int state;		/* key = 31  */

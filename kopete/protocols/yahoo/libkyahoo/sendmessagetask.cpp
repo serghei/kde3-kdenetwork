@@ -2,7 +2,7 @@
     Kopete Yahoo Protocol
     Send a message
 
-    Copyright (c) 2005 André Duffeck <andre.duffeck@kdemail.net>
+    Copyright (c) 2005 André Duffeck <duffeck@kde.org>
 
     *************************************************************************
     *                                                                       *
@@ -25,7 +25,7 @@
 
 SendMessageTask::SendMessageTask(Task* parent) : Task(parent)
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_GEN_DEBUG) << k_funcinfo << endl;
 }
 
 SendMessageTask::~SendMessageTask()
@@ -34,15 +34,15 @@ SendMessageTask::~SendMessageTask()
 
 void SendMessageTask::onGo()
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_GEN_DEBUG) << k_funcinfo << endl;
 
 	if( m_text.isEmpty() )
 	{
-		kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << "Text to send is empty." << endl;
-		client()->notifyError( i18n( "An error occured sending the message" ), i18n( "The message is empty." ), Client::Debug );
+		kdDebug(YAHOO_RAW_DEBUG) << "Text to send is empty." << endl;
+		client()->notifyError( i18n( "An error occurred while sending the message" ), i18n( "The message is empty." ), Client::Debug );
 		return;
 	}	
-	uint pos=0;
+	int pos=0;
 	
 	// split messages that are longer than 800 chars. they get dropped otherwise
 	while( pos < m_text.length() )
@@ -61,7 +61,7 @@ void SendMessageTask::onGo()
 		pos += 700;
 	}
 	
-	setSuccess( true );
+	setSuccess();
 }
 
 void SendMessageTask::setTarget( const QString &to )

@@ -2,7 +2,7 @@
     Kopete Yahoo Protocol
     Handles several lists such as buddylist, ignorelist and so on
 
-    Copyright (c) 2005 André Duffeck <andre.duffeck@kdemail.net>
+    Copyright (c) 2005 André Duffeck <duffeck@kde.org>
 
     *************************************************************************
     *                                                                       *
@@ -15,18 +15,17 @@
 */
 
 #include <qstring.h>
+#include <qstringlist.h>
 
 #include "listtask.h"
 #include "transfer.h"
 #include "ymsgtransfer.h"
 #include "client.h"
-#include <qstring.h>
-#include <qstringlist.h>
 #include <kdebug.h>
 
 ListTask::ListTask(Task* parent) : Task(parent)
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_RAW_DEBUG) ;
 }
 
 ListTask::~ListTask()
@@ -36,11 +35,9 @@ ListTask::~ListTask()
 
 bool ListTask::take( Transfer* transfer )
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
-	
 	if ( !forMe( transfer ) )
 		return false;
-	
+
 	YMSGTransfer *t = static_cast<YMSGTransfer *>(transfer);
 
 	parseBuddyList( t );
@@ -49,16 +46,15 @@ bool ListTask::take( Transfer* transfer )
 	return true;
 }
 
-bool ListTask::forMe( Transfer* transfer ) const
+bool ListTask::forMe( const Transfer* transfer ) const
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
-	YMSGTransfer *t = 0L;
-	t = dynamic_cast<YMSGTransfer*>(transfer);
+	const YMSGTransfer *t = 0L;
+	t = dynamic_cast<const YMSGTransfer*>(transfer);
 	if (!t)
 		return false;
 
 
-	if ( t->service() == Yahoo::ServiceList )
+	if ( t->service() == Yahoo::ServiceBuddyList )
 		return true;
 	else
 		return false;
@@ -66,40 +62,49 @@ bool ListTask::forMe( Transfer* transfer ) const
 
 void ListTask::parseBuddyList( YMSGTransfer *t )
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_RAW_DEBUG) ;
 
-	QString raw;
-	m_list.append( t->firstParam( 87 ) );
+	QString group;
+	QString buddy;
+	// We need some low-level parsing here
 
-	if( t->firstParam( 59 ).isEmpty() )
-		return;
+	// FIXME same: need to check
+	//foreach( const Param &p, t->paramList() )
 
-	QStringList groups;
-	groups = QStringList::split( "\n", m_list );
-
-	for ( QStringList::Iterator groupIt = groups.begin(); groupIt != groups.end(); ++groupIt ) 
+	ParamList paramList = t->paramList();
+	ParamList::const_iterator it;
+	for ( it = paramList.begin(); it != paramList.end(); ++it )
 	{
-		QString group = (*groupIt).section(":", 0, 0);
-		QStringList buddies;
-		buddies = QStringList::split( ",", (*groupIt).section(":", 1,1) );
-		for ( QStringList::Iterator buddyIt = buddies.begin(); buddyIt != buddies.end(); ++buddyIt ) 
+		const Param &p = *it;
+
+		kdDebug(YAHOO_RAW_DEBUG) << "1:" << p.first << endl;
+		kdDebug(YAHOO_RAW_DEBUG) << "2:" << p.second << endl;
+		switch( p.first )
 		{
-			kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << "Parsed buddy: " << *buddyIt << " in group " << group << endl;
-			emit gotBuddy( *buddyIt, QString::null, group );
+		case 65:
+			group = p.second;
+			break;
+		case 7:
+			buddy = p.second;
+			break;
+		case 301:
+			if( p.second == "319"){
+				kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << "Parsed buddy: " << buddy << " in group " << group << endl;
+				emit gotBuddy( buddy, QString(), group );
+			}
 		}
 	}
-	m_list.truncate( 0 );
 }
 
 void ListTask::parseStealthList( YMSGTransfer *t )
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_RAW_DEBUG) ;
 
 	QString raw;
 	raw = t->firstParam( 185 );
 
-	QStringList buddies = QStringList::split( ",", raw );
-	for ( QStringList::Iterator it = buddies.begin(); it != buddies.end(); ++it ) 
+	const QStringList buddies = QStringList::split( ',', raw );
+	for ( QStringList::ConstIterator it = buddies.begin(); it != buddies.end(); ++it )
 	{
 		emit stealthStatusChanged( *it, Yahoo::StealthActive );
 	}

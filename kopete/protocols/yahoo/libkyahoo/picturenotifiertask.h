@@ -2,7 +2,7 @@
     Kopete Yahoo Protocol
     Notifies about buddy icons
 
-    Copyright (c) 2005 André Duffeck <andre.duffeck@kdemail.net>
+    Copyright (c) 2005 André Duffeck <duffeck@kde.org>
 
     *************************************************************************
     *                                                                       *
@@ -19,8 +19,9 @@
 
 #include "task.h"
 
+#include <kurl.h>
+
 class QString;
-class KURL;
 class YMSGTransfer;
 /**
 @author André Duffeck
@@ -31,11 +32,11 @@ Q_OBJECT
 public:
 	PictureNotifierTask(Task *parent);
 	~PictureNotifierTask();
-	
+
 	bool take(Transfer *transfer);
 
 protected:
-	bool forMe( Transfer *transfer ) const;
+	virtual bool forMe( const Transfer *transfer ) const;
 	void parsePictureChecksum( YMSGTransfer *transfer );
 	void parsePictureStatus( YMSGTransfer *transfer );
 	void parsePicture( YMSGTransfer *transfer );
@@ -43,9 +44,9 @@ protected:
 signals:
 	void pictureStatusNotify( const QString &, int );
 	void pictureChecksumNotify( const QString &, int );
-	void pictureInfoNotify( const QString &, KURL, int ); 
+	void pictureInfoNotify( const QString &, KURL, int );
 	void pictureRequest( const QString & );
-	void pictureUploaded( const QString & );
+	void pictureUploaded( const QString &, int );
 };
 
 #endif

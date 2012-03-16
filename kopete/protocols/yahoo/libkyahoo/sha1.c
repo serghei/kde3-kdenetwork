@@ -23,7 +23,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * $Id: sha1.c 373471 2004-12-27 03:02:26Z dmacvicar $
+ * $Id: sha1.c 627480 2007-01-26 18:56:02Z dfaure $
  */
 
 /*
@@ -37,14 +37,12 @@
  *   34aa973c d4c4daa4 f61eeb2b dbad2731 6534016f
  */
 
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif /* HAVE_CONFIG_H */
+/* #include <config-kopete.h> */
 
-#if HAVE_INTTYPES_H
+#ifdef HAVE_INTTYPES_H
 # include <inttypes.h>
 #else
-# if HAVE_STDINT_H
+# ifdef HAVE_STDINT_H
 #  include <stdint.h>
 # endif
 #endif
@@ -55,7 +53,7 @@
 
 #ifndef lint
 static const char rcsid[] =
-	"$Id: sha1.c 373471 2004-12-27 03:02:26Z dmacvicar $";
+	"$Id: sha1.c 627480 2007-01-26 18:56:02Z dfaure $";
 #endif /* !lint */
 
 #define ROTL(x, n) (((x) << (n)) | ((x) >> (32 - (n))))

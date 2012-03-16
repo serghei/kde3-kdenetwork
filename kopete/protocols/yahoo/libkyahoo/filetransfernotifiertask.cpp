@@ -2,7 +2,7 @@
     Kopete Yahoo Protocol
     Notifies about incoming filetransfers
 
-    Copyright (c) 2006 André Duffeck <andre.duffeck@kdemail.net>
+    Copyright (c) 2006 André Duffeck <duffeck@kde.org>
 
     *************************************************************************
     *                                                                       *
@@ -19,12 +19,15 @@
 #include "ymsgtransfer.h"
 #include "yahootypes.h"
 #include "client.h"
+
 #include <qstring.h>
+#include <qpixmap.h>
 #include <kdebug.h>
+//#include <kcodecs.h>
 
 FileTransferNotifierTask::FileTransferNotifierTask(Task* parent) : Task(parent)
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_RAW_DEBUG) ;
 }
 
 FileTransferNotifierTask::~FileTransferNotifierTask()
@@ -34,11 +37,9 @@ FileTransferNotifierTask::~FileTransferNotifierTask()
 
 bool FileTransferNotifierTask::take( Transfer* transfer )
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
-	
 	if ( !forMe( transfer ) )
 		return false;
-	
+
 	YMSGTransfer *t = static_cast<YMSGTransfer*>(transfer);
 
 	if( t->service() == Yahoo::ServiceFileTransfer )
@@ -47,24 +48,24 @@ bool FileTransferNotifierTask::take( Transfer* transfer )
 		parseFileTransfer7( t );
 	else if( t->service() == Yahoo::ServicePeerToPeer )
 		acceptFileTransfer( t );
-		
+
 
 	return true;
 }
 
-bool FileTransferNotifierTask::forMe( Transfer *transfer ) const
+bool FileTransferNotifierTask::forMe( const Transfer *transfer ) const
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
-	YMSGTransfer *t = 0L;
-	t = dynamic_cast<YMSGTransfer*>(transfer);
+	const YMSGTransfer *t = 0L;
+	t = dynamic_cast<const YMSGTransfer*>(transfer);
 	if (!t)
 		return false;
 
 
 	if( t->service() == Yahoo::ServiceP2PFileXfer ||
-		t->service() == Yahoo::ServicePeerToPeer ||
-		t->service() == Yahoo::ServiceFileTransfer ||
-		t->service() == Yahoo::ServiceFileTransfer7
+	    t->service() == Yahoo::ServicePeerToPeer ||
+	    t->service() == Yahoo::ServiceFileTransfer ||
+	    (t->service() == Yahoo::ServiceFileTransfer7 &&
+	     t->firstParam(222).toInt() == 1)
 	)
 		return true;
 	else
@@ -73,7 +74,7 @@ bool FileTransferNotifierTask::forMe( Transfer *transfer ) const
 
 void FileTransferNotifierTask::parseFileTransfer( YMSGTransfer *t )
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_RAW_DEBUG) ;
 
 	QString from;		/* key = 4  */
 	QString to;		/* key = 5  */
@@ -97,22 +98,22 @@ void FileTransferNotifierTask::parseFileTransfer( YMSGTransfer *t )
 	{
 		client()->notifyError( "Fileupload result received.", msg, Client::Notice );
 		return;
-	}	
-	
+	}
+
 	if( url.isEmpty() )
 		return;
-	
+
 
 	unsigned int left = url.findRev( '/' ) + 1;
-	unsigned int right = url.findRev( '?' );
+        unsigned int right = url.findRev( '?' );
 	filename = url.mid( left, right - left );
 
-	emit incomingFileTransfer( from, url, expires, msg, filename, size );
+	emit incomingFileTransfer( from, url, expires, msg, filename, size, QPixmap() );
 }
 
 void FileTransferNotifierTask::parseFileTransfer7( YMSGTransfer *t )
-{ 
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+{
+	kdDebug(YAHOO_RAW_DEBUG) ;
 
 	QString from;		/* key = 4  */
 	QString to;		/* key = 5  */
@@ -121,25 +122,35 @@ void FileTransferNotifierTask::parseFileTransfer7( YMSGTransfer *t )
 	QString msg;		/* key = 14  */
 	QString filename;	/* key = 27  */
 	unsigned long size;	/* key = 28  */
-	
+	QByteArray preview;	/* key = 267 */
+	QPixmap previewPixmap;
+
 	if( t->firstParam( 222 ).toInt() == 2 )
 		return;					// user cancelled the file transfer
 
 	from = t->firstParam( 4 );
 	to = t->firstParam( 5 );
 	url = t->firstParam( 265 );
-	expires = t->firstParam( 38 ).toLong();
 	msg = t->firstParam( 14 );
+	expires = t->firstParam( 38 ).toLong();
 	filename = t->firstParam( 27 );
 	size = t->firstParam( 28 ).toULong();
 
-	emit incomingFileTransfer( from, url, expires, msg, filename, size );
+	// FIXME (same)
+	//preview = QByteArray::fromBase64( t->firstParam( 267 ) );
+
+	if( preview.size() > 0 )
+	{
+		previewPixmap.loadFromData( preview );
+	}
+
+	emit incomingFileTransfer( from, url, expires, msg, filename, size, previewPixmap );
 }
 
 void FileTransferNotifierTask::acceptFileTransfer( YMSGTransfer *transfer )
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
-	
+	kdDebug(YAHOO_RAW_DEBUG) ;
+
 	YMSGTransfer *t = new YMSGTransfer(Yahoo::ServicePeerToPeer);
 	t->setId( client()->sessionID() );
 	t->setParam( 4, client()->userId().local8Bit() );

@@ -4,7 +4,7 @@
                              -------------------
     begin                : Wed Jul 7 2004
     copyright            : (C) 2004 by Till Gerken <till@tantalo.net>
- 
+
 			Kopete (C) 2004 Kopete developers <kopete-devel@kde.org>
  ***************************************************************************/
 
@@ -25,10 +25,10 @@
 #include "yahoobytestream.h"
 #include "yahootypes.h"
 
-KNetworkConnector::KNetworkConnector( QObject *parent, const char */*name*/ )
+KNetworkConnector::KNetworkConnector( QObject *parent )
 		: Connector( parent )
 {
-	kdDebug( YAHOO_RAW_DEBUG ) << k_funcinfo << "New KNetwork connector." << endl;
+	kdDebug( YAHOO_RAW_DEBUG ) << "New KNetwork connector." << endl;
 
 	mErrorCode = KNetwork::KSocketBase::NoError;
 
@@ -47,7 +47,7 @@ KNetworkConnector::~KNetworkConnector()
 void KNetworkConnector::connectToServer( const QString &server )
 {
 	Q_UNUSED( server );
-	kdDebug( YAHOO_RAW_DEBUG ) << k_funcinfo << "Initiating connection to " << mHost << endl;
+	kdDebug( YAHOO_RAW_DEBUG ) << "Initiating connection to " << mHost << endl;
 	Q_ASSERT( !mHost.isNull() );
 	Q_ASSERT( mPort );
 
@@ -63,7 +63,7 @@ void KNetworkConnector::connectToServer( const QString &server )
 
 void KNetworkConnector::slotConnected()
 {
-	kdDebug( YAHOO_RAW_DEBUG ) << k_funcinfo << "We are connected." << endl;
+	kdDebug( YAHOO_RAW_DEBUG ) << "We are connected." << endl;
 
 	// FIXME: setPeerAddress() is something different, find out correct usage later
 	//KInetSocketAddress inetAddress = mStreamSocket->address().asInet().makeIPv6 ();
@@ -74,7 +74,7 @@ void KNetworkConnector::slotConnected()
 
 void KNetworkConnector::slotError( int code )
 {
-	kdDebug( YAHOO_RAW_DEBUG ) << k_funcinfo << "Error detected: " << code << endl;
+	kdDebug( YAHOO_RAW_DEBUG ) << "Error detected: " << code << endl;
 
 	mErrorCode = code;
 	emit error ();
@@ -87,19 +87,19 @@ int KNetworkConnector::errorCode()
 
 ByteStream *KNetworkConnector::stream() const
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_RAW_DEBUG) ;
 	return mByteStream;
 }
 
 void KNetworkConnector::done()
 {
-	kdDebug ( YAHOO_RAW_DEBUG ) << k_funcinfo << endl;
+	kdDebug ( YAHOO_RAW_DEBUG ) ;
 	mByteStream->close ();
 }
 
 void KNetworkConnector::setOptHostPort( const QString &host, Q_UINT16 port )
 {
-	kdDebug ( YAHOO_RAW_DEBUG ) << k_funcinfo << "Manually specifying host " << host << " and port " << port << endl;
+	kdDebug ( YAHOO_RAW_DEBUG ) << "Manually specifying host " << host << " and port " << port << endl;
 
 	mHost = host;
 	mPort = port;

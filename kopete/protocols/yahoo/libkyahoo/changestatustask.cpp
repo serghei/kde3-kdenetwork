@@ -2,7 +2,7 @@
     Kopete Yahoo Protocol
     Change our Status
 
-    Copyright (c) 2005 André Duffeck <andre.duffeck@kdemail.net>
+    Copyright (c) 2005-2006 André Duffeck <duffeck@kde.org>
 
     *************************************************************************
     *                                                                       *
@@ -19,12 +19,12 @@
 #include "ymsgtransfer.h"
 #include "yahootypes.h"
 #include "client.h"
-#include <qstring.h>
+
 #include <kdebug.h>
 
 ChangeStatusTask::ChangeStatusTask(Task* parent) : Task(parent)
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_RAW_DEBUG) ;
 }
 
 ChangeStatusTask::~ChangeStatusTask()
@@ -33,7 +33,7 @@ ChangeStatusTask::~ChangeStatusTask()
 
 void ChangeStatusTask::onGo()
 {
-	kdDebug(YAHOO_RAW_DEBUG) << k_funcinfo << endl;
+	kdDebug(YAHOO_RAW_DEBUG) ;
 
 	if( m_status == Yahoo::StatusInvisible )			// status --> Invisible
 	{
@@ -52,13 +52,13 @@ void ChangeStatusTask::onGo()
 		t->setParam( 10, m_status );
 		t->setParam( 47, m_type );
 		t->setParam( 97, 1 );	// it's utf8
-			
+
 		send( t );
 
 		if( client()->status() == Yahoo::StatusInvisible )	// Invisible --> Status
 			sendVisibility( Visible );
 	}
-	setSuccess( true );
+	setSuccess();
 }
 
 void ChangeStatusTask::sendVisibility( Visibility visible )

@@ -2,7 +2,7 @@
     Kopete Yahoo Protocol
     Handles incoming webcam connections
 
-    Copyright (c) 2005 André Duffeck <andre.duffeck@kdemail.net>
+    Copyright (c) 2005 André Duffeck <duffeck@kde.org>
 
     *************************************************************************
     *                                                                       *
@@ -60,15 +60,14 @@ class WebcamTask : public Task
 public:
 	WebcamTask(Task *parent);
 	~WebcamTask();
-	
+
 	bool take(Transfer *transfer);
-	bool forMe( Transfer* transfer ) const;
 
 	bool transmitting() { return transmittingData; }
-	
+
 	void requestWebcam( const QString &who );
 	void closeWebcam( const QString &who );
-	
+
 	void registerWebcam();
 	void sendWebcamImage( const QByteArray &image );
 	void addPendingInvitation( const QString &userId );
@@ -91,13 +90,15 @@ private slots:
 	void slotRead();
 	void sendEmptyWebcamImage();
 	void transmitWebcamImage();
+protected:
+	virtual bool forMe( const Transfer* transfer ) const;
 private:
 	void parseWebcamInformation( YMSGTransfer *transfer );
 	void parseData( QByteArray &data, KStreamSocket *socket );
 
 	void connectStage2( KStreamSocket *socket );
 	void processData( KStreamSocket *socket );
-	void cleanUpConnection( KStreamSocket *socket );	
+	void cleanUpConnection( KStreamSocket *socket );
 
 	QString keyPending;	// the buddy we have requested the webcam from
 	SocketInfoMap socketMap;
