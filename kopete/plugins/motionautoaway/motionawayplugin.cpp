@@ -75,7 +75,12 @@ typedef __signed__ long long __s64;
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,5,50)
 #define _LINUX_TIME_H
 #endif
+
+#ifdef HAVE_V4L
 #include <linux/videodev.h>
+#else
+#include <libv4l1-videodev.h>
+#endif
 
 #define DEF_WIDTH			352
 #define DEF_HEIGHT		288

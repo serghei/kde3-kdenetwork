@@ -52,7 +52,11 @@
 
 #include <linux/fs.h>
 #include <linux/kernel.h>
+#if defined(HAVE_LIBV4L1_VIDEODEV_H)
+#include <libv4l1-videodev.h>
+#else
 #include <linux/videodev.h>
+#endif
 #define VIDEO_MODE_PAL_Nc  3
 #define VIDEO_MODE_PAL_M   4
 #define VIDEO_MODE_PAL_N   5
