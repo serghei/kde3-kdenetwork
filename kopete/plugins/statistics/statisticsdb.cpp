@@ -16,7 +16,7 @@
 
 #include <qfile.h>
 
-#include "sqlite/sqlite3.h"
+#include <sqlite3.h>
 
 #include <kgenericfactory.h>
 #include <kaboutdata.h>
