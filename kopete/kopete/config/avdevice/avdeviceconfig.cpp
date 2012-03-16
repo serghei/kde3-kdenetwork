@@ -227,3 +227,5 @@ void AVDeviceConfig::slotUpdateImage()
 	bitBlt(mPrfsVideoDevice->mVideoImageLabel, 0, 0, &qimage, 0, Qt::CopyROP);
 //	kdDebug() << "kopete (avdeviceconfig_videoconfig): Image updated." << endl;
 }
+
+#include "avdeviceconfig.moc"

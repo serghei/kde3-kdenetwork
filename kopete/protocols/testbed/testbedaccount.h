@@ -59,7 +59,7 @@ public:
 	/**
 	 * 'Connect' to the testbed server.  Only sets myself() online.
 	 */
-	virtual void connect( const Kopete::OnlineStatus& initialStatus = Kopete::OnlineStatus::OnlineStatus() );
+	virtual void connect( const Kopete::OnlineStatus& initialStatus = Kopete::OnlineStatus() );
 	/**
 	 * Disconnect from the server.  Only sets myself() offline.
 	 */

@@ -38,7 +38,7 @@ public:
 KopeteRichTextEditPart::KopeteRichTextEditPart( QWidget *wparent, const char *wname, QObject*, const char*, const QStringList& )
 	: KParts::ReadOnlyPart( wparent, wname ? wname : "rich_text_part" )
 {
-	KopeteRichTextEditPart::KopeteRichTextEditPart( wparent, wname, false );
+	KopeteRichTextEditPart( wparent, wname, false );
 }
 
 KopeteRichTextEditPart::KopeteRichTextEditPart( QWidget *parent, const char *name, int capabilities )
