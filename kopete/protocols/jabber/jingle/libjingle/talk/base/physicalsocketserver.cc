@@ -29,6 +29,7 @@
 #pragma warning(disable:4786)
 #endif
 
+#include <algorithm>
 #include <cassert>
 
 #ifdef POSIX
@@ -37,6 +38,7 @@ extern "C" {
 #include <fcntl.h>
 #include <sys/time.h>
 #include <unistd.h>
+#include <string.h>
 }
 #endif
 

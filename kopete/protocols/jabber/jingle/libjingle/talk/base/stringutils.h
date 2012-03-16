@@ -31,6 +31,7 @@
 #include <cctype>
 #include <cstdarg>
 #include <cstdio>
+#include <cstring>
 #ifdef WIN32
 #include <wchar.h>
 #endif  // WIN32

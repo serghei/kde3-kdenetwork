@@ -30,6 +30,7 @@
 #include "talk/base/byteorder.h"
 #include <algorithm>
 #include <cassert>
+#include <string.h>
 
 #if defined(_MSC_VER) && _MSC_VER < 1300
 namespace std {

@@ -28,7 +28,7 @@
 /* because of a conflict between config.h from oRTP and config.h from linphone:*/
 #undef PACKAGE
 #undef VERSION                                                
-#include <ortp/ortp.h>
+#include <ortp.h>
 
 /*this is the class that implements a copy filter*/
 

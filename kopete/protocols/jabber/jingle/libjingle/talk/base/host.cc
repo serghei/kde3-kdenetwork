@@ -32,6 +32,7 @@
 #include <string>
 #include <iostream>
 #include <cassert>
+#include <cstdlib>
 #include <errno.h>
 
 #if defined(_MSC_VER) && _MSC_VER < 1300

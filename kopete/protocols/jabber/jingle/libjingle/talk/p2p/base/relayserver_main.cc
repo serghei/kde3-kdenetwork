@@ -29,6 +29,7 @@
 #include "talk/base/thread.h"
 #include "talk/p2p/base/relayserver.h"
 #include <iostream>
+#include <cstring>
 #include <assert.h>
 
 #ifdef POSIX

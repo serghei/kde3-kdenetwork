@@ -3,7 +3,7 @@
 
 #include <portaudio.h>
 #include <speex.h>
-#include <ortp/ortp.h>
+#include <ortp.h>
 
 #include "talk/session/phone/mediaengine.h"
 

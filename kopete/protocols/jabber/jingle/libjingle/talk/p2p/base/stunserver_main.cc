@@ -28,6 +28,7 @@
 #include "talk/base/host.h"
 #include "talk/base/thread.h"
 #include "talk/p2p/base/stunserver.h"
+#include <cstring>
 #include <iostream>
 
 #ifdef POSIX

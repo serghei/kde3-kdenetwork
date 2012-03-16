@@ -1,0 +1,9 @@
+#include <config.h>
+
+#define ORTP_MAJOR_VERSION 0
+#define ORTP_MINOR_VERSION 7
+#define ORTP_MICRO_VERSION 1
+#define ORTP_EXTRA_VERSION
+#define ORTP_VERSION "0.7.1"
+
+#define POSIXTIMER_INTERVAL 10000

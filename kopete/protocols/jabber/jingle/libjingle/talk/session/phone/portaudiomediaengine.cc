@@ -1,5 +1,5 @@
 #include <portaudio.h>
-#include <ortp/ortp.h>
+#include <ortp.h>
 #include <speex.h>
 
 // Socket stuff

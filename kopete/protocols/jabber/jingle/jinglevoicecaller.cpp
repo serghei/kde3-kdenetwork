@@ -374,3 +374,5 @@ cricket::Thread* JingleVoiceCaller::thread_ = NULL;
 cricket::NetworkManager* JingleVoiceCaller::network_manager_ = NULL;
 cricket::BasicPortAllocator* JingleVoiceCaller::port_allocator_ = NULL;
 cricket::SocketAddress* JingleVoiceCaller::stun_addr_ = NULL;
+
+#include "jinglevoicecaller.moc"

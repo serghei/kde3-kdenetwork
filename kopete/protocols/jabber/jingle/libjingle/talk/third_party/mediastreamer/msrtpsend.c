@@ -19,7 +19,7 @@
 */
 
 #include "msrtpsend.h"
-#include <ortp/telephonyevents.h>
+#include <telephonyevents.h>
 #include "mssync.h"
 #include "mscodec.h"
 

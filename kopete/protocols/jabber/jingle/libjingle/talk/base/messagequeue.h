@@ -35,6 +35,7 @@
 #include <vector>
 #include <queue>
 #include <algorithm>
+#include <string.h>
 
 namespace cricket {
 

@@ -27,7 +27,7 @@
 
 #undef PACKAGE
 #undef VERSION
-#include <ortp/ortp.h>
+#include <ortp.h>
 
 
 /*this is the class that implements a sending through rtp filter*/

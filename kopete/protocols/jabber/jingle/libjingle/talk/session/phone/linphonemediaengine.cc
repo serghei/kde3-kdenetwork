@@ -27,7 +27,7 @@ extern "C" {
 #include "talk/third_party/mediastreamer/msspeexdec.h"
 #endif
 }
-#include <ortp/ortp.h>
+#include <ortp.h>
 #include <netdb.h>
 #include <unistd.h>
 #include <fcntl.h>
