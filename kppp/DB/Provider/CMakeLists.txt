@@ -1,0 +1,29 @@
+#################################################
+#
+#  (C) 2010-2012 Serghei Amelian
+#  serghei (DOT) amelian (AT) gmail.com
+#
+#  Improvements and feedback are welcome
+#
+#  This file is released under GPL >= 2
+#
+#################################################
+
+add_subdirectory( Austria )
+add_subdirectory( Denmark )
+add_subdirectory( Germany )
+add_subdirectory( Netherlands )
+add_subdirectory( New_Zealand )
+add_subdirectory( Norway )
+add_subdirectory( Portugal )
+add_subdirectory( United_Kingdom )
+add_subdirectory( Taiwan )
+add_subdirectory( Slovenia )
+add_subdirectory( Sweden )
+add_subdirectory( Czech_Republic )
+add_subdirectory( Yugoslavia )
+add_subdirectory( Ukraine )
+add_subdirectory( Switzerland )
+add_subdirectory( Belarus )
+add_subdirectory( France )
+add_subdirectory( Ireland )
