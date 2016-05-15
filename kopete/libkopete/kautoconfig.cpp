@@ -35,7 +35,7 @@
 #include "kdebug.h"
 #define functionCallPreOrderCheck(functionName, returnValue) \
   if(!d->retrievedSettings){ \
-      kdDebug(180) << "KAutoConfig::"functionName"() was called before " \
+      kdDebug(180) << "KAutoConfig::" functionName "() was called before " \
       "KAutoConfig::retrieveSettings().  This should NEVER happen because " \
       "it will do nothing.  Please Fix." << endl; \
     return returnValue; \
@@ -43,7 +43,7 @@
 
 #define functionCallPostOrderCheck(functionName, returnValue) \
   if(d->retrievedSettings){ \
-      kdDebug(180) << "KAutoConfig::"functionName"() was called after " \
+      kdDebug(180) << "KAutoConfig::" functionName "() was called after " \
       "KAutoConfig::retrieveSettings().  This should NEVER happen because " \
       "it will do nothing.  Please Fix." << endl; \
     return returnValue; \
