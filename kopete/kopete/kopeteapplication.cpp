@@ -216,10 +216,10 @@ void KopeteApplication::slotAllPluginsLoaded()
 
 
 	// Handle things like '--autoconnect foo,bar --autoconnect foobar'
-	QCStringList connectArgsC = args->getOptionList( "autoconnect" );
+	KStringList connectArgsC = args->getOptionList( "autoconnect" );
 	QStringList connectArgs;
 
-	for ( QCStringList::ConstIterator it = connectArgsC.begin(); it != connectArgsC.end(); ++it )
+	for ( KStringList::ConstIterator it = connectArgsC.begin(); it != connectArgsC.end(); ++it )
 	{
 		QStringList split = QStringList::split( ',', QString::fromLatin1( *it ) );
 
