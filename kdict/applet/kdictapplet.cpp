@@ -285,8 +285,8 @@ void DictApplet::sendCommand(const QCString &fun, const QString &data)
     QTimer::singleShot(100, this, SLOT(sendDelayedCommand()));
     return;
   } else {
-    QCStringList list = client->remoteObjects("kdict");
-    if (list.findIndex("KDictIface")==-1) {
+    KStringList list = client->remoteObjects("kdict");
+    if (list.find("KDictIface")==list.end()) {
       waiting = 1;
       delayedFunc = fun.copy();
       delayedData = data;
@@ -312,8 +312,8 @@ void DictApplet::sendDelayedCommand()
     QTimer::singleShot(100, this, SLOT(sendDelayedCommand()));
     return;
   } else {
-    QCStringList list = client->remoteObjects("kdict");
-    if (list.findIndex("KDictIface")==-1) {
+    KStringList list = client->remoteObjects("kdict");
+    if (list.find("KDictIface")==list.end()) {
       waiting++;
       QTimer::singleShot(100, this, SLOT(sendDelayedCommand()));
       return;

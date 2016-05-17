@@ -614,8 +614,8 @@ QStringList usedInterfacesList()
 
   // shamelessly stolen from kdelibs/kio/booksmarks/kbookmarkimporter_crash.cc
   QStringList ignoreInterfaces;
-  QCStringList apps = client->registeredApplications();
-  for ( QCStringList::Iterator it = apps.begin(); it != apps.end(); ++it )
+  KStringList apps = client->registeredApplications();
+  for ( KStringList::Iterator it = apps.begin(); it != apps.end(); ++it )
     {
         QCString &clientId = *it;
         if ( qstrncmp(clientId, "kwifimanager", 12) != 0 )
