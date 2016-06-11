@@ -33,7 +33,7 @@
 
 // this structure is used to save
 // accounting rules
-typedef struct RULE {
+struct RULE {
   int type;
   double costs;
   double len;

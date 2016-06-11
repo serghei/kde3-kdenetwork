@@ -23,8 +23,6 @@
 //#include <qtimer.h>
 #include "tlshandler.h"
 
-class QCA::TLS;
-
 class QCATLSHandler : public TLSHandler
 {
 	Q_OBJECT

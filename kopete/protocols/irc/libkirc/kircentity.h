@@ -39,7 +39,7 @@ class Entity
 	Q_OBJECT
 
 public:
-	typedef enum Type
+    enum Type
 	{
 		Unknown,
 		Server,

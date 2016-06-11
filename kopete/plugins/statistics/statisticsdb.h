@@ -17,7 +17,7 @@
 #ifndef _STATISTICSDB_H_H
 #define _STATISTICSDB_H_H 1
 
-typedef struct sqlite3;
+struct sqlite3;
 
 class StatisticsDB
 {

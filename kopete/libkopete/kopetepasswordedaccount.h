@@ -21,8 +21,6 @@
 
 #include "kopete_export.h"
 
-class Kopete::OnlineStatus;
-
 namespace Kopete
 {
 

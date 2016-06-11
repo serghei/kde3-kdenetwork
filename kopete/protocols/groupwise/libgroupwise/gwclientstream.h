@@ -31,7 +31,7 @@ class Connector;
 class Request;
 class TLSHandler;
 
-typedef struct NovellDN
+struct NovellDN
 {
 	QString dn;
 	QString server;
