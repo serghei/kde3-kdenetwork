@@ -215,7 +215,7 @@ namespace sigslot {
 	public:
 		multi_threaded_global()
 		{
-			pthread_mutex_init(get_mutex(), NULL);
+            pthread_mutex_init(get_mutex(), nullptr);
 		}
 
 		multi_threaded_global(const multi_threaded_global&)
@@ -251,12 +251,12 @@ namespace sigslot {
 	public:
 		multi_threaded_local()
 		{
-			pthread_mutex_init(&m_mutex, NULL);
+            pthread_mutex_init(&m_mutex, nullptr);
 		}
 
 		multi_threaded_local(const multi_threaded_local&)
 		{
-			pthread_mutex_init(&m_mutex, NULL);
+            pthread_mutex_init(&m_mutex, nullptr);
 		}
 
 		virtual ~multi_threaded_local()
@@ -1663,8 +1663,8 @@ namespace sigslot {
 	public:
 		_connection0()
 		{
-			m_pobject = NULL;
-			m_pmemfun = NULL;
+            m_pobject = nullptr;
+            m_pmemfun = nullptr;
 		}
 
 		_connection0(dest_type* pobject, void (dest_type::*pmemfun)())
@@ -1704,8 +1704,8 @@ namespace sigslot {
 	public:
 		_connection1()
 		{
-			m_pobject = NULL;
-			m_pmemfun = NULL;
+            m_pobject = nullptr;
+            m_pmemfun = nullptr;
 		}
 
 		_connection1(dest_type* pobject, void (dest_type::*pmemfun)(arg1_type))
@@ -1745,8 +1745,8 @@ namespace sigslot {
 	public:
 		_connection2()
 		{
-			m_pobject = NULL;
-			m_pmemfun = NULL;
+            m_pobject = nullptr;
+            m_pmemfun = nullptr;
 		}
 
 		_connection2(dest_type* pobject, void (dest_type::*pmemfun)(arg1_type,
@@ -1787,8 +1787,8 @@ namespace sigslot {
 	public:
 		_connection3()
 		{
-			m_pobject = NULL;
-			m_pmemfun = NULL;
+            m_pobject = nullptr;
+            m_pmemfun = nullptr;
 		}
 
 		_connection3(dest_type* pobject, void (dest_type::*pmemfun)(arg1_type,
@@ -1831,8 +1831,8 @@ namespace sigslot {
 	public:
 		_connection4()
 		{
-			m_pobject = NULL;
-			m_pmemfun = NULL;
+            m_pobject = nullptr;
+            m_pmemfun = nullptr;
 		}
 
 		_connection4(dest_type* pobject, void (dest_type::*pmemfun)(arg1_type,
@@ -1877,8 +1877,8 @@ namespace sigslot {
 	public:
 		_connection5()
 		{
-			m_pobject = NULL;
-			m_pmemfun = NULL;
+            m_pobject = nullptr;
+            m_pmemfun = nullptr;
 		}
 
 		_connection5(dest_type* pobject, void (dest_type::*pmemfun)(arg1_type,
@@ -1927,8 +1927,8 @@ namespace sigslot {
 	public:
 		_connection6()
 		{
-			m_pobject = NULL;
-			m_pmemfun = NULL;
+            m_pobject = nullptr;
+            m_pmemfun = nullptr;
 		}
 
 		_connection6(dest_type* pobject, void (dest_type::*pmemfun)(arg1_type,
@@ -1977,8 +1977,8 @@ namespace sigslot {
 	public:
 		_connection7()
 		{
-			m_pobject = NULL;
-			m_pmemfun = NULL;
+            m_pobject = nullptr;
+            m_pmemfun = nullptr;
 		}
 
 		_connection7(dest_type* pobject, void (dest_type::*pmemfun)(arg1_type,
@@ -2028,8 +2028,8 @@ namespace sigslot {
 	public:
 		_connection8()
 		{
-			m_pobject = NULL;
-			m_pmemfun = NULL;
+            m_pobject = nullptr;
+            m_pmemfun = nullptr;
 		}
 
 		_connection8(dest_type* pobject, void (dest_type::*pmemfun)(arg1_type,
