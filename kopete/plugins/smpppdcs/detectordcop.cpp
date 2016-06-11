@@ -38,7 +38,7 @@ QCString DetectorDCOP::getKInternetDCOP() const {
     if(m_kinternetApp.isEmpty() && client && client->isAttached()) {
         // get all registered dcop apps and search for kinternet
         KStringList apps = client->registeredApplications();
-        KStringList::iterator iter;
+        KStringList::ConstIterator iter;
         for(iter = apps.begin(); iter != apps.end(); ++iter) {
             if((*iter).left(9) == "kinternet") {
                 return *iter;

@@ -104,7 +104,7 @@ QCString NLNoatun::find() const
 	{
 		// looking for a registered app prefixed with 'app'
 		KStringList allApps = m_client->registeredApplications();
-		KStringList::iterator it;
+        KStringList::ConstIterator it;
 		for ( it = allApps.begin(); it != allApps.end(); it++ )
 		{
 			//kdDebug( 14307 ) << ( *it ) << endl;
