@@ -252,8 +252,8 @@ namespace KPF
         );
     }
 
-    const QFileInfoList * infoList =
-      d.entryInfoList(QDir::DefaultFilter, QDir::Name | QDir::DirsFirst);
+    const QFileInfoList_qt3 * infoList =
+      d.entryInfoList_qt3(QDir::DefaultFilter, QDir::Name | QDir::DirsFirst);
 
     if (0 == infoList)
     {

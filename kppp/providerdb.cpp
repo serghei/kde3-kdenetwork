@@ -213,7 +213,7 @@ PDB_Country::PDB_Country(QWidget *parent) : QWidget(parent) {
   d.setSorting(QDir::Name);
 
   // read the list of files
-  const QFileInfoList *flist = d.entryInfoList();
+  const QFileInfoList_qt3 *flist = d.entryInfoList_qt3();
   if(flist) {
     QFileInfoListIterator it( *flist );
     QFileInfo *fi;
@@ -304,7 +304,7 @@ void PDB_Provider::setDir(const QString &_dir) {
     d.setSorting(QDir::Name);
 
     // read the list of files
-    const QFileInfoList *list = d.entryInfoList();
+    const QFileInfoList_qt3 *list = d.entryInfoList_qt3();
     QFileInfoListIterator it( *list );
     QFileInfo *fi;
 

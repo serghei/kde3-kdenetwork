@@ -43,7 +43,7 @@ int loadLogs() {
   kdDebug(5002) << "logdirname: " << logdirname << endl;
   
   // get log file size
-  const QFileInfoList *list = logdir.entryInfoList();
+  const QFileInfoList_qt3 *list = logdir.entryInfoList_qt3();
   QFileInfoListIterator it( *list );
   QFileInfo *fi;
 
@@ -58,7 +58,7 @@ int loadLogs() {
   dlg->setProgress(0);
 
   // load logs
-  list = logdir.entryInfoList();
+  list = logdir.entryInfoList_qt3();
   QFileInfoListIterator it1( *list );
 
   int retval = 0;

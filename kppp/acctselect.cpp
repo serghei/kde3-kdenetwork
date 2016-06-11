@@ -174,7 +174,7 @@ void AccountingSelector::insertDir(QDir d, QListViewItem *root) {
   d.setSorting(QDir::Name);
 
   // read the list of files
-  const QFileInfoList *list = d.entryInfoList();
+  const QFileInfoList_qt3 *list = d.entryInfoList_qt3();
   QFileInfoListIterator it( *list );
   QFileInfo *fi;
 
@@ -210,7 +210,7 @@ void AccountingSelector::insertDir(QDir d, QListViewItem *root) {
   // set up a filter for the directories
   d.setFilter(QDir::Dirs);
   d.setNameFilter("*");
-  const QFileInfoList *dlist = d.entryInfoList();
+  const QFileInfoList_qt3 *dlist = d.entryInfoList_qt3();
   QFileInfoListIterator dit(*dlist);
 
   while((fi = dit.current())) {

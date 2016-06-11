@@ -87,8 +87,8 @@ namespace KPF
 
     QDir dir(p);
 
-    const QFileInfoList * entryInfoList =
-      dir.entryInfoList(QDir::Dirs | QDir::Readable);
+    const QFileInfoList_qt3 * entryInfoList =
+      dir.entryInfoList_qt3(QDir::Dirs | QDir::Readable);
 
     for (QFileInfoListIterator it(*entryInfoList); it.current(); ++it)
     {

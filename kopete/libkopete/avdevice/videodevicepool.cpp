@@ -623,7 +623,7 @@ int VideoDevicePool::scanDevices()
         videodevice_dir.setSorting( QDir::Name );
 
 	kdDebug(14010) <<  k_funcinfo << "Looking for devices in " << videodevice_dir_path << endl;
-	const QFileInfoList *list = videodevice_dir.entryInfoList();
+    const QFileInfoList_qt3 *list = videodevice_dir.entryInfoList_qt3();
 
 	if (!list)
 	{
@@ -639,7 +639,7 @@ int VideoDevicePool::scanDevices()
         	videodevice_dir.setSorting( QDir::Name );
 
 		kdDebug(14010) <<  k_funcinfo << "Looking for devices in " << videodevice_dir_path << endl;
-		const QFileInfoList *list = videodevice_dir.entryInfoList();
+        const QFileInfoList_qt3 *list = videodevice_dir.entryInfoList_qt3();
 
 		if (!list)
 		{

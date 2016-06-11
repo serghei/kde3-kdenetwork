@@ -49,7 +49,7 @@ void HistoryPlugin::convertOldHistory()
 
 	d.setFilter( QDir::Dirs  );
 
-	const QFileInfoList *list = d.entryInfoList();
+	const QFileInfoList_qt3 *list = d.entryInfoList_qt3();
 	QFileInfoListIterator it( *list );
 	QFileInfo *fi;
 	while ( (fi = it.current()) != 0 )
@@ -106,7 +106,7 @@ void HistoryPlugin::convertOldHistory()
 			QDir d2( fi->absFilePath() );
 			d2.setFilter( QDir::Files  );
 			d2.setNameFilter("*.log");
-			const QFileInfoList *list = d2.entryInfoList();
+			const QFileInfoList_qt3 *list = d2.entryInfoList_qt3();
 			QFileInfoListIterator it2( *list );
 			QFileInfo *fi2;
 
@@ -317,7 +317,7 @@ bool HistoryPlugin::detectOldHistory()
 
 	QDir d2( locateLocal( "data", QString::fromLatin1( "kopete")) );
 	d2.setFilter( QDir::Dirs  );
-	const QFileInfoList *list = d2.entryInfoList();
+	const QFileInfoList_qt3 *list = d2.entryInfoList_qt3();
 	QFileInfoListIterator it( *list );
 	QFileInfo *fi;
 	while ( (fi = it.current()) != 0 )

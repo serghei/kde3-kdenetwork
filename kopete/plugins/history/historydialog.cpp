@@ -266,7 +266,7 @@ void HistoryDialog::init(Kopete::Contact *c)
 	d1.setFilter( QDir::Files | QDir::NoSymLinks );
 	d1.setSorting( QDir::Name );
 
-	const QFileInfoList *list1 = d1.entryInfoList();
+	const QFileInfoList_qt3 *list1 = d1.entryInfoList_qt3();
 	if ( list1 != 0 )
 	{
 		QFileInfoListIterator it1( *list1 );
@@ -295,7 +295,7 @@ void HistoryDialog::init(Kopete::Contact *c)
 	QDir d(logDir);
 	d.setFilter( QDir::Files | QDir::NoSymLinks );
 	d.setSorting( QDir::Name );
-	const QFileInfoList *list = d.entryInfoList();
+	const QFileInfoList_qt3 *list = d.entryInfoList_qt3();
 	if ( list != 0 )
 	{
 		QFileInfoListIterator it( *list );
