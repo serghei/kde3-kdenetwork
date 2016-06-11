@@ -21,7 +21,6 @@
 #include "kget_plug_in.h"
 
 #include <dcopref.h>
-#include <kdatastream.h>
 #include <kdebug.h>
 #include <khtml_part.h>
 #include <kiconloader.h>

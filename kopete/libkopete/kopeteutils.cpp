@@ -25,7 +25,6 @@
 #include <kapplication.h>
 #include <klocale.h>
 #include <dcopclient.h>
-#include <kdatastream.h>
 #include <kdebug.h>
 #include <kiconloader.h>
 

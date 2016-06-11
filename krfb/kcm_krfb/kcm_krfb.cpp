@@ -34,7 +34,6 @@
 #include <kaboutdata.h>
 #include <kconfig.h>
 #include <kgenericfactory.h>
-#include <kdatastream.h>
 #include <kdebug.h>
 #include <dcopclient.h>
 

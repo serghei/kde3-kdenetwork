@@ -14,7 +14,6 @@
 #include <qdatetime.h>
 #include <qstringlist.h>
 #include <qvariant.h>
-#include <kdatastream.h>
 
 class QueryService;
 
